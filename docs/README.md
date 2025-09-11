@@ -1,55 +1,102 @@
 # 📚 Documentation Overview
 
-This documentation is organized into focused directories for easy navigation and maintenance.
+This documentation covers the Next.js + Supabase application with MVP profile page implementation. All documentation is organized by status and functionality for easy navigation.
 
-## 📁 Directory Structure
+## 📁 Current Directory Structure
+
+### 📄 Root Files
+- **[`current.md`](./current.md)** - **Most Important**: Current implementation status, recent fixes, and deployment plan
+- **[`README.md`](./README.md)** - This overview document
 
 ### [`docs/profile/`](./profile/)
-Profile-specific documentation and database schema for the user profile system.
+Profile-specific documentation and database schema.
 
-- **[`profile-plan.md`](./profile/profile-plan.md)** - Detailed implementation plan for the MVP profile page
+- **[`profile-plan.md`](./profile/profile-plan.md)** - Original implementation plan for MVP profile page
 - **[`profile-setup.sql`](./profile/profile-setup.sql)** - Database schema and RLS policies for profiles
-- **[`summary-and-security-analysis.md`](./profile/summary-and-security-analysis.md)** - Comprehensive security analysis and implementation overview
 
-### [`docs/changes/`](./changes/)
-Documentation of all enhancements made to transform the basic template into a production-ready SaaS application.
+### [`docs/deployment/`](./deployment/)
+Deployment-related documentation and checklists.
 
-- **[`deployment-checklist.md`](./changes/deployment-checklist.md)** - Step-by-step deployment verification checklist
-- **[`deployment-enhancements.md`](./changes/deployment-enhancements.md)** - Detailed summary of every file change and deployment benefits
-- **[`setup-instructions.md`](./changes/setup-instructions.md)** - Canonical setup guide for production deployment
+- **[`deployment-checklist.md`](./deployment/deployment-checklist.md)** - Step-by-step deployment verification checklist
 
-## 🚀 Quick Start for New Users
+### [`docs/archive/`](./archive/) *(Obsolete Documentation)*
+Previously useful documentation that has been superseded by current implementation.
 
-1. **Review the Deployment Summary**: Start with [`deployment-enhancements.md`](./changes/deployment-enhancements.md) to understand all the enhancements
-2. **Follow the Setup Guide**: Use [`setup-instructions.md`](./changes/setup-instructions.md) for canonical configuration
-3. **Run the Checklist**: Verify everything with [`deployment-checklist.md`](./changes/deployment-checklist.md)
-4. **Set up the Database**: Execute the SQL in [`profile-setup.sql`](./profile/profile-setup.sql)
-5. **Deploy**: Your production SaaS app is ready!
+- **[`deployment-enhancements.md`](./archive/deployment-enhancements.md)** - Historical summary of enhancements (superseded by current.md)
+- **[`setup-instructions.md`](./archive/setup-instructions.md)** - Historical setup guide (superseded by current.md)
+- **[`summary-and-security-analysis.md`](./archive/summary-and-security-analysis.md)** - Historical security analysis
 
-## 💡 Key Benefits
+## 🚀 Quick Start
 
-- **⏱️ 14-21 Hours Saved**: Pre-built components and configurations eliminate manual setup
-- **🔒 Production Ready**: Security-first implementation with RLS and comprehensive testing
-- **📱 SaaS Complete**: User profiles, authentication, and management system included
-- **🚀 Deploy Ready**: Everything configured for Vercel deployment with minimal setup
+### For Current Users (Post-Fixes)
+1. **Read Current Status**: Start with [`current.md`](./current.md) - contains all recent fixes and current state
+2. **Check Database**: Ensure profiles table exists using [`profile-setup.sql`](./profile/profile-setup.sql)
+3. **Verify Deployment**: Use [`deployment-checklist.md`](./deployment/deployment-checklist.md)
+
+### For New Deployments
+1. **Current Implementation**: Review [`current.md`](./current.md) for complete setup
+2. **Database Setup**: Run the SQL in [`profile-setup.sql`](./profile/profile-setup.sql)
+3. **Deployment Verification**: Follow [`deployment-checklist.md`](./deployment/deployment-checklist.md)
+
+## 📊 Documentation Status
+
+| Document | Status | Purpose | Lines |
+|----------|--------|---------|-------|
+| `current.md` | ✅ **Active** | Current implementation status and fixes | 158 |
+| `profile-plan.md` | ✅ **Active** | Original implementation plan | 211 |
+| `profile-setup.sql` | ✅ **Active** | Database schema and setup | 56 |
+| `deployment-checklist.md` | ✅ **Active** | Deployment verification | 127 |
+| Archive files | ❌ **Obsolete** | Historical documentation | 326+ |
+
+## 🎯 Key Features
+
+### ✅ **Currently Working**
+- **Profile Page**: Full MVP implementation with edit functionality
+- **Authentication Flow**: Login redirects directly to profile page
+- **Database Integration**: Automatic profile creation with RLS security
+- **Responsive Design**: Mobile and desktop support
+- **Security**: Row Level Security properly configured
+
+### 🔧 **Recent Fixes Applied**
+- **Routing Issue**: Login now goes to `/protected/profile` instead of `/protected`
+- **Protected Page**: Automatically redirects to profile page
+- **Documentation**: Reorganized and updated to reflect current state
 
 ## 📖 Reading Order
 
-For new users deploying this enhanced template:
+### For Existing Users
+1. **[`current.md`](./current.md)** - Understand recent fixes and current state
+2. **[`deployment-checklist.md`](./deployment/deployment-checklist.md)** - Verify your setup
+3. **[`profile-plan.md`](./profile/profile-plan.md)** - Review implementation details
 
-1. [`deployment-enhancements.md`](./changes/deployment-enhancements.md) - Understand what's been enhanced
-2. [`setup-instructions.md`](./changes/setup-instructions.md) - Follow the canonical setup process
-3. [`deployment-checklist.md`](./changes/deployment-checklist.md) - Verify your deployment
-4. [`profile-plan.md`](./profile/profile-plan.md) - Learn about the profile system architecture
-5. [`summary-and-security-analysis.md`](./profile/summary-and-security-analysis.md) - Review security implementation
+### For New Users
+1. **[`current.md`](./current.md)** - Complete setup and deployment guide
+2. **[`profile-setup.sql`](./profile/profile-setup.sql)** - Database configuration
+3. **[`deployment-checklist.md`](./deployment/deployment-checklist.md)** - Deployment verification
 
-## 🔧 Maintenance & Development
+## 🔧 Technical Details
 
-- **Profile Features**: All profile-related docs in [`docs/profile/`](./profile/)
-- **Deployment Changes**: All enhancement details in [`docs/changes/`](./changes/)
-- **Database Schema**: Profile table structure in [`docs/profile/profile-setup.sql`](./profile/profile-setup.sql)
-- **Security Analysis**: Comprehensive security review in [`docs/profile/summary-and-security-analysis.md`](./profile/summary-and-security-analysis.md)
+- **Framework**: Next.js 15 with App Router
+- **Database**: Supabase with Row Level Security
+- **Authentication**: Supabase Auth with JWT
+- **UI**: Tailwind CSS + shadcn/ui components
+- **Security**: RLS policies, input validation, XSS protection
+
+## 📞 Support
+
+### Current Issues Resolved
+- ✅ Login routing to profile page (fixed in recent commit)
+- ✅ Protected page showing tutorial content (fixed)
+- ✅ Profile loading errors (database auto-creation implemented)
+- ✅ Documentation accuracy (reorganized and updated)
+
+### Database Setup Required
+If you encounter profile loading issues, ensure the profiles table exists:
+```sql
+-- Run this in Supabase SQL Editor
+-- (see profile-setup.sql for complete script)
+```
 
 ---
 
-**🎯 Result**: From basic template to production SaaS application with comprehensive documentation and minimal setup required.
+**🎯 Current State**: Production-ready MVP profile page with all routing issues resolved and documentation properly organized.
