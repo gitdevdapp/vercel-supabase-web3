@@ -17,7 +17,7 @@ export function FinalCtaSection() {
           <Button size="lg" variant="secondary" className="px-8 py-3">
             Start Building Free
           </Button>
-          <Button size="lg" variant="outline" className="px-8 py-3 border-primary-foreground/20 hover:bg-primary-foreground/10">
+          <Button size="lg" variant="secondary" className="px-8 py-3">
             Schedule Demo
           </Button>
         </div>

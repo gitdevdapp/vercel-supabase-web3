@@ -1,9 +1,30 @@
+"use client";
+
 import { NextLogo } from "./next-logo";
 import { SupabaseLogo } from "./supabase-logo";
 import { Button } from "./ui/button";
 import { Check } from "lucide-react";
+import { useState, useEffect } from "react";
 
 export function Hero() {
+  const incentives = [
+    { name: "Flow Incentives", color: "text-emerald-500 dark:text-emerald-400" },
+    { name: "Apechain Incentives", color: "text-orange-500 dark:text-orange-400" },
+    { name: "Tezos Incentives", color: "text-blue-500 dark:text-blue-400" },
+    { name: "Avalanche Incentives", color: "text-red-500 dark:text-red-400" },
+    { name: "Stacks Incentives", color: "text-purple-500 dark:text-purple-400" }
+  ];
+  
+  const [currentIndex, setCurrentIndex] = useState(0);
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % incentives.length);
+    }, 2000); // Change every 2 seconds
+    
+    return () => clearInterval(interval);
+  }, [incentives.length]);
+
   return (
     <section className="flex flex-col gap-16 items-center py-20">
       <div className="flex gap-8 justify-center items-center">
@@ -27,7 +48,16 @@ export function Hero() {
           Vercel + Supabase + Web3
         </h2>
         <p className="text-lg lg:text-xl mx-auto max-w-2xl text-center text-muted-foreground mb-8">
-          An AI Starter Kit Template for Web3 that uses an Incentived per Blockchain repository to make building Dapps with Vibe Coding as easy as Apps
+          An AI Starter Kit Template for Web3 that uses{" "}
+          <span className="inline-block min-w-[180px]">
+            <span 
+              className={`font-semibold transition-all duration-500 ease-in-out ${incentives[currentIndex].color}`}
+              key={currentIndex}
+            >
+              {incentives[currentIndex].name}
+            </span>
+          </span>
+          {" "}to make building Dapps with Vibe Coding as easy as Apps
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
