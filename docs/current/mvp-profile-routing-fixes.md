@@ -145,7 +145,7 @@ docs/
 ├── profile/
 │   ├── profile-plan.md           # ✅ Working - original plan
 │   └── profile-setup.sql         # ✅ Working - database setup
-└── failed/                       # ✅ Obsolete docs moved here
+└── archive/                      # ✅ Obsolete docs moved here
 ```
 
 ## Next Steps After Deployment

@@ -9,8 +9,52 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata: Metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "Next.js and Supabase Starter Kit",
-  description: "The fastest way to build apps with Next.js and Supabase",
+  title: "DevDapp.Store - Deploy Decentralized Applications Fast",
+  description: "The fastest way to deploy decentralized applications with enterprise-grade security. Build, test, and launch dApps with confidence using modern web technologies.",
+  keywords: ["dapp", "decentralized applications", "web3", "blockchain", "ethereum", "deployment platform"],
+  authors: [{ name: "DevDapp.Store" }],
+  creator: "DevDapp.Store",
+  publisher: "DevDapp.Store",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: defaultUrl,
+    title: "DevDapp.Store - Deploy Decentralized Applications Fast",
+    description: "The fastest way to deploy decentralized applications with enterprise-grade security. Build, test, and launch dApps with confidence using modern web technologies.",
+    siteName: "DevDapp.Store",
+    images: [
+      {
+        url: `${defaultUrl}/opengraph-image.png`,
+        width: 1200,
+        height: 630,
+        alt: "DevDapp.Store - Decentralized Application Platform",
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "DevDapp.Store - Deploy Decentralized Applications Fast",
+    description: "The fastest way to deploy decentralized applications with enterprise-grade security.",
+    images: [`${defaultUrl}/twitter-image.png`],
+    creator: "@devdappstore",
+  },
+  verification: {
+    google: "verification-code-here",
+  },
+  alternates: {
+    canonical: defaultUrl,
+  },
 };
 
 const geistSans = Geist({
