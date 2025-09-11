@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { updateProfile, type Profile, type ProfileUpdate } from "@/lib/profile";
+import { type Profile, type ProfileUpdate } from "@/lib/profile";
 import { createClient } from "@/lib/supabase/client";
 
 interface ProfileFormProps {
@@ -66,12 +66,24 @@ export function ProfileForm({ profile, userEmail }: ProfileFormProps) {
 
       const updates: ProfileUpdate = {
         username: formData.username.trim(),
-        about_me: formData.about_me.trim() || null,
+        about_me: formData.about_me.trim() || undefined,
       };
 
-      const updatedProfile = await updateProfile(user.id, updates);
+      // Update profile using client-side Supabase
+      const { data: updatedProfile, error: updateError } = await supabase
+        .from('profiles')
+        .update({
+          ...updates,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('id', user.id)
+        .select()
+        .single();
       
-      if (updatedProfile) {
+      if (updateError) {
+        console.error('Error updating profile:', updateError);
+        setError('Failed to update profile. Please try again.');
+      } else if (updatedProfile) {
         setSuccess('Profile updated successfully!');
         setIsEditing(false);
         // Refresh the page to show updated data

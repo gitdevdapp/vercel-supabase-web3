@@ -92,8 +92,8 @@ export async function getOrCreateProfile(userId: string, email: string): Promise
     // Try to create profile if it doesn't exist
     profile = await createProfile(userId, {
       username: email,
-      avatar_url: null,
-      about_me: null,
+      avatar_url: undefined,
+      about_me: undefined,
     });
   }
   
