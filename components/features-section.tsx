@@ -6,7 +6,7 @@ export function FeaturesSection() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl lg:text-4xl font-bold mb-6">
-            Everything You Need to Build Web3 DApps
+            Everything You Need to Build Web3 dApps
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             From wallet integration to smart contract deployment, our AI-powered template handles it all.
@@ -70,7 +70,7 @@ export function FeaturesSection() {
             </div>
             <h3 className="text-xl font-semibold mb-3">Multi-Chain Support</h3>
             <p className="text-muted-foreground">
-              Deploy to Ethereum, Polygon, Arbitrum, and more. One codebase, multiple blockchains.
+              Deploy to Ethereum, Polygon, Base, Chainlink, and more. One codebase, multiple blockchains.
             </p>
           </div>
         </div>

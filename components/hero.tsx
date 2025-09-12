@@ -8,11 +8,21 @@ import { useState, useEffect } from "react";
 
 export function Hero() {
   const incentives = [
-    { name: "Flow Incentives", color: "text-emerald-500 dark:text-emerald-400" },
-    { name: "Apechain Incentives", color: "text-orange-500 dark:text-orange-400" },
-    { name: "Tezos Incentives", color: "text-blue-500 dark:text-blue-400" },
-    { name: "Avalanche Incentives", color: "text-red-500 dark:text-red-400" },
-    { name: "Stacks Incentives", color: "text-purple-500 dark:text-purple-400" }
+    // Existing chains
+    { name: "Flow", color: "text-emerald-500 dark:text-emerald-400" },
+    { name: "Apechain", color: "text-orange-500 dark:text-orange-400" },
+    { name: "Tezos", color: "text-blue-500 dark:text-blue-400" },
+    { name: "Avalanche", color: "text-red-500 dark:text-red-400" },
+    { name: "Stacks", color: "text-purple-500 dark:text-purple-400" },
+    // New chains
+    { name: "Polygon", color: "text-violet-500 dark:text-violet-400" },
+    { name: "Soneium", color: "text-cyan-500 dark:text-cyan-400" },
+    { name: "Astar", color: "text-pink-500 dark:text-pink-400" },
+    { name: "Telos", color: "text-yellow-500 dark:text-yellow-400" },
+    { name: "Ethereum", color: "text-indigo-500 dark:text-indigo-400" },
+    { name: "Base", color: "text-green-500 dark:text-green-400" },
+    { name: "Ink", color: "text-slate-500 dark:text-slate-400" },
+    { name: "Chainlink", color: "text-sky-500 dark:text-sky-400" }
   ];
   
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -41,14 +51,14 @@ export function Hero() {
         </a>
       </div>
 
-      <h1 className="sr-only">AI Starter Kit Template for Web3 DApp Development</h1>
+      <h1 className="sr-only">AI Framework for Web3 DApp Development</h1>
 
       <div className="text-center max-w-4xl">
         <h2 className="text-3xl lg:text-4xl !leading-tight mx-auto max-w-xl text-center font-bold mb-6">
           Vercel + Supabase + Web3
         </h2>
         <p className="text-lg lg:text-xl mx-auto max-w-2xl text-center text-muted-foreground mb-8">
-          An AI Starter Kit Template for Web3 that uses{" "}
+          An AI Framework for{" "}
           <span className="inline-block min-w-[180px]">
             <span 
               className={`font-semibold transition-all duration-500 ease-in-out ${incentives[currentIndex].color}`}
@@ -57,12 +67,20 @@ export function Hero() {
               {incentives[currentIndex].name}
             </span>
           </span>
-          {" "}to make building Dapps with Vibe Coding as easy as Apps
+          {" "}that makes building dApps with Vibe Coding as easy as Apps
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-          <Button size="lg" className="px-8 py-3">Start Building Free</Button>
-          <Button size="lg" variant="outline" className="px-8 py-3">View Demo</Button>
+          <Button size="lg" className="px-8 py-3" asChild>
+            <a href="https://github.com/gitdevdapp/vercel-supabase-web3" target="_blank" rel="noreferrer">
+              Start Building
+            </a>
+          </Button>
+          <Button size="lg" variant="outline" className="px-8 py-3" asChild>
+            <a href="https://calendly.com/gitdevdapp" target="_blank" rel="noreferrer">
+              Schedule a Call
+            </a>
+          </Button>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm text-muted-foreground">
