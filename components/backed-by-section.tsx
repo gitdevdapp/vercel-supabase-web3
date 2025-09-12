@@ -1,4 +1,4 @@
-import { investors, accelerators } from "@/lib/investors";
+import { investors } from "@/lib/investors";
 import { InvestorLogo } from "./investor-logo";
 
 export function BackedBySection() {

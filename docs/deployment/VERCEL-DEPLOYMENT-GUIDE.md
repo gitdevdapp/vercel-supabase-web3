@@ -376,7 +376,12 @@ TTL: 300
 4. Test with different browsers
 
 ### Issue 4: Build Failures (ESLint Errors)
-**Cause:** Code quality issues or missing dependencies
+**Cause:** Code quality issues, missing dependencies, or unused imports
+
+**Common ESLint Errors:**
+- `@typescript-eslint/no-unused-vars`: Variables/imports defined but never used
+- `react/no-unescaped-entities`: Unescaped quotes in JSX
+- Missing dependencies or incorrect imports
 
 **Solution:**
 ```bash
@@ -385,15 +390,29 @@ npm run lint
 npm run build
 
 # Fix common issues:
-# - Replace unescaped quotes in JSX with &apos;
-# - Remove unused imports
-# - Fix TypeScript errors
+# 1. Remove unused imports/variables
+#    Example: import { investors, accelerators } from "@/lib/investors"
+#    If 'accelerators' is unused: import { investors } from "@/lib/investors"
+# 2. Replace unescaped quotes in JSX with &apos;
+# 3. Fix TypeScript errors
+# 4. Check for missing dependencies
+
+# Pre-deployment verification (recommended workflow):
+npm run lint --fix  # Auto-fix fixable issues
+npm run build       # Test production build
+npm run test        # Run tests if available
 
 # Then redeploy
 git add .
 git commit -m "Fix build errors"
 git push origin main
 ```
+
+**Prevention Strategy:**
+- Set up IDE ESLint extension for real-time error detection
+- Use `npm run lint --fix` before each commit
+- Configure pre-commit hooks with `husky` and `lint-staged`
+- Test builds locally before pushing to production
 
 ### Issue 5: Database Connection Errors
 **Cause:** Incorrect database credentials or RLS policies
@@ -490,6 +509,34 @@ git push origin main
    - Authentication events
    - API usage
    - Error logs
+
+---
+
+## 🔧 Recent Issue Resolution Log
+
+### September 12, 2025: ESLint Unused Import Error
+**Error:** `'accelerators' is defined but never used. @typescript-eslint/no-unused-vars`
+
+**Location:** `components/backed-by-section.tsx:1:21`
+
+**Root Cause:** During the backed-by section implementation, the `accelerators` import was added but not actually used in the component code. The component only displays static accelerator information in the JSX rather than mapping over the `accelerators` data.
+
+**Fix Applied:**
+```typescript
+// Before (causing error):
+import { investors, accelerators } from "@/lib/investors";
+
+// After (fixed):
+import { investors } from "@/lib/investors";
+```
+
+**Prevention Measures Added:**
+1. Enhanced ESLint error section in troubleshooting guide
+2. Added specific example of this unused import pattern
+3. Recommended pre-deployment verification workflow
+4. Added prevention strategies for similar issues
+
+**Build Status:** ✅ Successful after fix
 
 ---
 
