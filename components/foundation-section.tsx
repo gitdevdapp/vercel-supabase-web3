@@ -1,0 +1,60 @@
+import { Button } from "./ui/button";
+import { Zap, TrendingUp, Heart } from "lucide-react";
+
+export function FoundationSection() {
+  return (
+    <section className="py-20">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl lg:text-4xl font-bold mb-6">
+            Are You a Foundation?
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+            DevDapp is committed to 100% open source and free forever. With 0 cost Vercel + Supabase + Web3 
+            new users can make production Dapps for free to test their ideas in live production. This is the 
+            no. 1 metric to grow your chain and increase your Electric Capital report ranking.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-12">
+          <div className="bg-background rounded-lg p-6 border">
+            <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+              <Zap className="w-6 h-6 text-primary" />
+            </div>
+            <h3 className="text-xl font-semibold mb-3">Zero Cost Infrastructure</h3>
+            <p className="text-muted-foreground">
+              Deploy production-ready DApps with Vercel's global CDN and Supabase's robust database - completely free for foundation testing.
+            </p>
+          </div>
+
+          <div className="bg-background rounded-lg p-6 border">
+            <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+              <TrendingUp className="w-6 h-6 text-primary" />
+            </div>
+            <h3 className="text-xl font-semibold mb-3">Boost Your Chain Ranking</h3>
+            <p className="text-muted-foreground">
+              Active DApp deployments are the #1 metric for Electric Capital reports. Help developers = grow your ecosystem ranking.
+            </p>
+          </div>
+
+          <div className="bg-background rounded-lg p-6 border">
+            <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+              <Heart className="w-6 h-6 text-primary" />
+            </div>
+            <h3 className="text-xl font-semibold mb-3">100% Open Source</h3>
+            <p className="text-muted-foreground">
+              Our commitment to open source means your foundation's investment grows the entire Web3 ecosystem sustainably.
+            </p>
+          </div>
+        </div>
+
+        <div className="text-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Button size="lg">Partner with DevDapp</Button>
+            <Button size="lg" variant="outline">View Foundation Benefits</Button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

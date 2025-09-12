@@ -4,7 +4,7 @@ import { Hero } from "@/components/hero";
 import { FeaturesSection } from "@/components/features-section";
 import { HowItWorksSection } from "@/components/how-it-works-section";
 import { TestimonialsSection } from "@/components/testimonials-section";
-import { PricingSection } from "@/components/pricing-section";
+import { FoundationSection } from "@/components/foundation-section";
 import { FinalCtaSection } from "@/components/final-cta-section";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 // Tutorial components - currently unused but preserved for future development
@@ -56,7 +56,7 @@ export default function Home() {
           <FeaturesSection />
           <HowItWorksSection />
           <TestimonialsSection />
-          <PricingSection />
+          <FoundationSection />
           <FinalCtaSection />
         </div>
 
