@@ -6,7 +6,7 @@ export function FinalCtaSection() {
     <section className="py-20 bg-primary text-primary-foreground">
       <div className="container mx-auto px-4 text-center">
         <h2 className="text-3xl lg:text-4xl font-bold mb-6">
-          Ready to Build Your Web3 dApp?
+          Ready to Build and Scale the Next Web3 Unicorn?
         </h2>
         <p className="text-lg opacity-90 max-w-2xl mx-auto mb-8">
           Join thousands of developers building the decentralized future.
