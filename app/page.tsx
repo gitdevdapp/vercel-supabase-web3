@@ -3,7 +3,7 @@ import { AuthButton } from "@/components/auth-button";
 import { Hero } from "@/components/hero";
 import { FeaturesSection } from "@/components/features-section";
 import { HowItWorksSection } from "@/components/how-it-works-section";
-import { TestimonialsSection } from "@/components/testimonials-section";
+import { BackedBySection } from "@/components/backed-by-section";
 import { FoundationSection } from "@/components/foundation-section";
 import { FinalCtaSection } from "@/components/final-cta-section";
 import { ThemeSwitcher } from "@/components/theme-switcher";
@@ -55,7 +55,7 @@ export default function Home() {
           <Hero />
           <FeaturesSection />
           <HowItWorksSection />
-          <TestimonialsSection />
+          <BackedBySection />
           <FoundationSection />
           <FinalCtaSection />
         </div>
