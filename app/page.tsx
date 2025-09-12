@@ -7,8 +7,9 @@ import { TestimonialsSection } from "@/components/testimonials-section";
 import { PricingSection } from "@/components/pricing-section";
 import { FinalCtaSection } from "@/components/final-cta-section";
 import { ThemeSwitcher } from "@/components/theme-switcher";
-import { ConnectSupabaseSteps } from "@/components/tutorial/connect-supabase-steps";
-import { SignUpUserSteps } from "@/components/tutorial/sign-up-user-steps";
+// Tutorial components - currently unused but preserved for future development
+// import { ConnectSupabaseSteps } from "@/components/tutorial/connect-supabase-steps";
+// import { SignUpUserSteps } from "@/components/tutorial/sign-up-user-steps";
 import { Button } from "@/components/ui/button";
 import { DevDappLogo } from "@/components/ui/images";
 import { hasEnvVars } from "@/lib/utils";
@@ -59,13 +60,15 @@ export default function Home() {
           <FinalCtaSection />
         </div>
 
-        {/* Tutorial Section - Preserved for existing functionality */}
+        {/* Tutorial Section - Hidden from production homepage but preserved for development */}
+        {/* 
         <div className="w-full max-w-5xl p-5">
           <main className="flex flex-col gap-6 px-4">
             <h2 className="font-medium text-xl mb-4">Next steps</h2>
             {hasEnvVars ? <SignUpUserSteps /> : <ConnectSupabaseSteps />}
           </main>
         </div>
+        */}
 
         <footer className="w-full flex items-center justify-center border-t mx-auto text-center text-xs gap-8 py-16">
           <p>
