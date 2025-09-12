@@ -20,7 +20,7 @@ export function FinalCtaSection() {
             </a>
           </Button>
           <Button size="lg" variant="secondary" className="px-8 py-3" asChild>
-            <a href="https://calendly.com/gitdevdapp" target="_blank" rel="noreferrer">
+            <a href="https://calendly.com/git-devdapp" target="_blank" rel="noreferrer">
               Schedule a Call
             </a>
           </Button>

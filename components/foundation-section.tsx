@@ -1,4 +1,3 @@
-import { Button } from "./ui/button";
 import { Zap, TrendingUp, Heart } from "lucide-react";
 
 export function FoundationSection() {
@@ -48,12 +47,6 @@ export function FoundationSection() {
           </div>
         </div>
 
-        <div className="text-center">
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button size="lg">Partner with DevDapp</Button>
-            <Button size="lg" variant="outline">View Foundation Benefits</Button>
-          </div>
-        </div>
       </div>
     </section>
   );

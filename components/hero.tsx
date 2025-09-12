@@ -59,7 +59,7 @@ export function Hero() {
         </h2>
         <p className="text-lg lg:text-xl mx-auto max-w-2xl text-center text-muted-foreground mb-8">
           An AI Framework for{" "}
-          <span className="inline-block min-w-[180px]">
+          <span className="inline-block min-w-[120px]">
             <span 
               className={`font-semibold transition-all duration-500 ease-in-out ${incentives[currentIndex].color}`}
               key={currentIndex}
@@ -77,7 +77,7 @@ export function Hero() {
             </a>
           </Button>
           <Button size="lg" variant="outline" className="px-8 py-3" asChild>
-            <a href="https://calendly.com/gitdevdapp" target="_blank" rel="noreferrer">
+            <a href="https://calendly.com/git-devdapp" target="_blank" rel="noreferrer">
               Schedule a Call
             </a>
           </Button>

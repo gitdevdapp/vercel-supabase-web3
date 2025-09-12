@@ -4,7 +4,7 @@ export function HowItWorksSection() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl lg:text-4xl font-bold mb-6">
-            Build Web3 DApps in 3 Simple Steps
+            Build Web3 dApps in 3 Simple Steps
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Our AI-powered template eliminates complexity. Focus on your vision, not infrastructure.
