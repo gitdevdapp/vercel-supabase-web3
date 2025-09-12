@@ -23,7 +23,7 @@ export function FoundationSection() {
             </div>
             <h3 className="text-xl font-semibold mb-3">Zero Cost Infrastructure</h3>
             <p className="text-muted-foreground">
-              Deploy production-ready DApps with Vercel's global CDN and Supabase's robust database - completely free for foundation testing.
+              Deploy production-ready DApps with Vercel&apos;s global CDN and Supabase&apos;s robust database - completely free for foundation testing.
             </p>
           </div>
 
@@ -43,7 +43,7 @@ export function FoundationSection() {
             </div>
             <h3 className="text-xl font-semibold mb-3">100% Open Source</h3>
             <p className="text-muted-foreground">
-              Our commitment to open source means your foundation's investment grows the entire Web3 ecosystem sustainably.
+              Our commitment to open source means your foundation&apos;s investment grows the entire Web3 ecosystem sustainably.
             </p>
           </div>
         </div>
