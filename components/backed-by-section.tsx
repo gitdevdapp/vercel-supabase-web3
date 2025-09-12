@@ -1,5 +1,6 @@
 import { investors } from "@/lib/investors";
 import { InvestorLogo } from "./investor-logo";
+import { Check } from "lucide-react";
 
 export function BackedBySection() {
   return (
@@ -10,30 +11,27 @@ export function BackedBySection() {
           <h2 className="text-3xl lg:text-4xl font-bold mb-6">
             Backed By
           </h2>
-          <p className="text-lg text-muted-foreground mb-4">
-            DevDapp is a graduate of Astar + Sony accelerator and Denarii Labs accelerators
-          </p>
-          <p className="text-base text-muted-foreground">
-            Backed by leading Web3 funds and foundations
+          <p className="text-lg text-muted-foreground">
+            Leading Web3 Funds and Foundations
           </p>
         </div>
 
         {/* Investor Logos Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-8 items-center justify-items-center mb-16">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-8 items-center justify-items-center mb-12">
           {investors.map((investor) => (
             <InvestorLogo key={investor.id} {...investor} />
           ))}
         </div>
 
-        {/* Accelerator highlights */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-center">
-          <div className="p-6 bg-background rounded-lg border">
-            <h3 className="font-semibold mb-2">Astar + Sony Accelerator</h3>
-            <p className="text-sm text-muted-foreground">Graduate Program 2024</p>
+        {/* Accelerator Credentials */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-muted-foreground">
+          <div className="flex items-center justify-center gap-2">
+            <Check className="w-4 h-4 text-green-500" />
+            <span>Sony + Astar Accelerator (2023)</span>
           </div>
-          <div className="p-6 bg-background rounded-lg border">
-            <h3 className="font-semibold mb-2">Denarii Labs</h3>
-            <p className="text-sm text-muted-foreground">Accelerator Program</p>
+          <div className="flex items-center justify-center gap-2">
+            <Check className="w-4 h-4 text-green-500" />
+            <span>Denarii Labs Accelerator (2024)</span>
           </div>
         </div>
       </div>

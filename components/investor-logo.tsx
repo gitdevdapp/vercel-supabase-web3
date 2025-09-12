@@ -12,10 +12,10 @@ export function InvestorLogo({ name, logoSrc, website, className }: InvestorLogo
   const logoElement = (
     <div className={`
       group cursor-pointer transition-all duration-200 
-      hover:scale-105 hover:opacity-80 
+      hover:scale-105 hover:shadow-lg
       flex items-center justify-center
-      p-4 bg-background rounded-lg border
-      min-h-[100px] w-full
+      p-6 bg-white rounded-lg border shadow-sm
+      min-h-[120px] w-full
       ${className}
     `}>
       <Image
@@ -23,7 +23,7 @@ export function InvestorLogo({ name, logoSrc, website, className }: InvestorLogo
         alt={`${name} logo`}
         width={120}
         height={60}
-        className="max-h-12 w-auto object-contain filter grayscale hover:grayscale-0 transition-all duration-200"
+        className="max-h-16 w-auto object-contain filter grayscale-0 hover:scale-110 transition-all duration-200"
         style={{ maxWidth: '100%', height: 'auto' }}
       />
     </div>
