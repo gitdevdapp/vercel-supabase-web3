@@ -2,6 +2,7 @@
 
 import { Info, Play } from "lucide-react";
 import { useState } from "react";
+import Image from "next/image";
 
 function YouTubeVideo({ videoId, title }: { videoId: string; title: string }) {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -31,10 +32,11 @@ function YouTubeVideo({ videoId, title }: { videoId: string; title: string }) {
         
         {/* YouTube Thumbnail for preview */}
         {!isLoaded && (
-          <img
+          <Image
             src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
             alt={title}
-            className="w-full h-full object-cover"
+            fill
+            className="object-cover"
             onError={(e) => {
               // Fallback to medium resolution thumbnail
               e.currentTarget.src = `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`;
@@ -133,7 +135,7 @@ export function HowItWorksSection() {
                 <span className="text-sm font-semibold text-primary">TLDR</span>
               </div>
               <p className="text-sm text-muted-foreground">
-                Our workflows make sure your AI doesn't do off the rails
+                Our workflows make sure your AI doesn&apos;t do off the rails
               </p>
             </div>
           </div>
