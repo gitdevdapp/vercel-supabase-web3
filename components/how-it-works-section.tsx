@@ -1,3 +1,5 @@
+"use client";
+
 import { Info, Play } from "lucide-react";
 import { useState } from "react";
 
