@@ -1,6 +1,6 @@
 "use client";
 
-import { Info, Play } from "lucide-react";
+import { Play } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 
@@ -237,7 +237,7 @@ export function HowItWorksSection() {
                 title: "Customize",
                 description: "Use AI-powered Rules and Prompt enhancement to transform your dApp into a production-grade custom application."
               }
-            ].map((step, index) => (
+            ].map((step) => (
               <div 
                 key={step.number}
                 className={`text-center relative overflow-hidden rounded-lg p-6 ${
