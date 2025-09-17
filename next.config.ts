@@ -1,6 +1,17 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'img.youtube.com',
+        port: '',
+        pathname: '/**',
+      },
+    ],
+  },
+
   async headers() {
     return [
       {
@@ -26,16 +37,17 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  
-  async rewrites() {
-    return [
-      {
-        source: '/wallet/:path*',
-        destination: '/wallets/:path*',
-      },
-    ];
-  },
-  
+
+  // Removed problematic rewrite rule - /wallet already exists as /app/wallet/page.tsx
+  // async rewrites() {
+  //   return [
+  //     {
+  //       source: '/wallet/:path*',
+  //       destination: '/wallets/:path*',
+  //     },
+  //   ];
+  // },
+
   env: {
     CUSTOM_KEY: process.env.CUSTOM_KEY,
   },
