@@ -5,3 +5,16 @@ NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY=your-anon-key-here
 
 # Optional: Service Role Key (for admin operations - keep secret!)
 # SUPABASE_SERVICE_ROLE_KEY=your-service-role-key-here
+
+# CDP (Coinbase Developer Platform) Configuration
+# Get these from your Coinbase Developer Platform dashboard
+CDP_API_KEY_NAME=your-cdp-api-key-name
+CDP_PRIVATE_KEY=your-cdp-private-key
+NEXT_PUBLIC_WALLET_NETWORK=base-sepolia
+
+# AI Service Configuration
+OPENAI_API_KEY=your-openai-key
+
+# Feature Flags (disabled by default for safety)
+NEXT_PUBLIC_ENABLE_CDP_WALLETS=false
+NEXT_PUBLIC_ENABLE_AI_CHAT=false
