@@ -25,7 +25,7 @@ export function PricingSection() {
             <ul className="space-y-3 mb-8">
               <li className="flex items-center">
                 <Check className="w-5 h-5 text-green-500 mr-3" />
-                <span>5 DApps per month</span>
+                <span>5 Dapps per month</span>
               </li>
               <li className="flex items-center">
                 <Check className="w-5 h-5 text-green-500 mr-3" />
@@ -60,7 +60,7 @@ export function PricingSection() {
             <ul className="space-y-3 mb-8">
               <li className="flex items-center">
                 <Check className="w-5 h-5 text-green-500 mr-3" />
-                <span>Unlimited DApps</span>
+                <span>Unlimited Dapps</span>
               </li>
               <li className="flex items-center">
                 <Check className="w-5 h-5 text-green-500 mr-3" />

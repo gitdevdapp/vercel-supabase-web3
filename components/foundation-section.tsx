@@ -10,7 +10,7 @@ export function FoundationSection() {
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
             DevDapp is committed to 100% open source and free forever. With 0 cost Vercel + Supabase + Web3 
-            new users can make production dApps for free to test their ideas in live production. This is the 
+            new users can make production Dapps for free to test their ideas in live production. This is the 
             no. 1 metric to grow your chain and increase your Electric Capital report ranking.
           </p>
         </div>
@@ -22,7 +22,7 @@ export function FoundationSection() {
             </div>
             <h3 className="text-xl font-semibold mb-3">Zero Cost Infrastructure</h3>
             <p className="text-muted-foreground">
-              Deploy production-ready dApps with Vercel&apos;s global CDN and Supabase&apos;s robust database - completely free for foundation testing.
+              Deploy production-ready Dapps with Vercel&apos;s global CDN and Supabase&apos;s robust database - completely free for foundation testing.
             </p>
           </div>
 

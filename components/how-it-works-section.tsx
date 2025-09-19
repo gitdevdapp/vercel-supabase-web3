@@ -207,7 +207,7 @@ export function HowItWorksSection() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold mb-6">
-              Build dApps in 3 Simple Steps
+              Build Dapps in 3 Simple Steps
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Our AI-powered template eliminates complexity. Focus on your vision, not infrastructure.
@@ -217,7 +217,7 @@ export function HowItWorksSection() {
           {/* YouTube Video Section */}
           <YouTubeVideo 
             videoId="-x-Nxt1J5LI" 
-            title="How to Build dApps with Vercel & Supabase - Clone, Configure, Customize"
+            title="How to Build Dapps with Vercel & Supabase - Clone, Configure, Customize"
           />
 
           <div ref={sectionRef} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -235,7 +235,7 @@ export function HowItWorksSection() {
               {
                 number: 3,
                 title: "Customize",
-                description: "Use AI-powered Rules and Prompt enhancement to transform your dApp into a production-grade custom application."
+                description: "Use AI-powered Rules and Prompt enhancement to transform your Dapp into a production-grade custom application."
               }
             ].map((step) => (
               <div 

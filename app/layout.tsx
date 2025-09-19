@@ -10,8 +10,8 @@ const defaultUrl = process.env.VERCEL_URL
 export const metadata: Metadata = {
   metadataBase: new URL(defaultUrl),
   title: "DevDapp.Store - Deploy Decentralized Applications Fast",
-  description: "The fastest way to deploy decentralized applications with enterprise-grade security. Build, test, and launch dApps with confidence using modern web technologies.",
-  keywords: ["dapp", "decentralized applications", "web3", "blockchain", "ethereum", "deployment platform"],
+  description: "The fastest way to deploy decentralized applications with enterprise-grade security. Build, test, and launch Dapps with confidence using modern web technologies.",
+  keywords: ["Dapp", "decentralized applications", "web3", "blockchain", "ethereum", "deployment platform"],
   authors: [{ name: "DevDapp.Store" }],
   creator: "DevDapp.Store",
   publisher: "DevDapp.Store",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: defaultUrl,
     title: "DevDapp.Store - Deploy Decentralized Applications Fast",
-    description: "The fastest way to deploy decentralized applications with enterprise-grade security. Build, test, and launch dApps with confidence using modern web technologies.",
+    description: "The fastest way to deploy decentralized applications with enterprise-grade security. Build, test, and launch Dapps with confidence using modern web technologies.",
     siteName: "DevDapp.Store",
     images: [
       {

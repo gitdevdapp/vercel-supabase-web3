@@ -51,7 +51,7 @@ export function Hero() {
         </a>
       </div>
 
-      <h1 className="sr-only">AI Framework for Web3 DApp Development</h1>
+      <h1 className="sr-only">AI Framework for Web3 Dapp Development</h1>
 
       <div className="text-center max-w-4xl">
         <h2 className="text-3xl lg:text-4xl !leading-tight mx-auto max-w-xl text-center font-bold mb-6">
@@ -67,7 +67,7 @@ export function Hero() {
               {incentives[currentIndex].name}
             </span>
           </span>
-          {" "}that makes building dApps with Vibe Coding as easy as Apps
+          {" "}that makes building Dapps with Vibe Coding as easy as Apps
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">

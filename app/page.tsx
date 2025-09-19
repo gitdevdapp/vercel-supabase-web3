@@ -1,4 +1,5 @@
 import { Hero } from "@/components/hero";
+import { ProblemExplanationSection } from "@/components/problem-explanation-section";
 import { FeaturesSection } from "@/components/features-section";
 import { HowItWorksSection } from "@/components/how-it-works-section";
 import { BackedBySection } from "@/components/backed-by-section";
@@ -43,6 +44,7 @@ export default async function Home() {
         {/* Homepage Content */}
         <div className="w-full">
           <Hero />
+          <ProblemExplanationSection />
           <FeaturesSection />
           <HowItWorksSection />
           <BackedBySection />
