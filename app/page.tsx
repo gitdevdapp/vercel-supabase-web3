@@ -1,5 +1,3 @@
-import { EnvVarWarning } from "@/components/env-var-warning";
-import { AuthButton } from "@/components/auth-button";
 import { Hero } from "@/components/hero";
 import { FeaturesSection } from "@/components/features-section";
 import { HowItWorksSection } from "@/components/how-it-works-section";
@@ -7,13 +5,13 @@ import { BackedBySection } from "@/components/backed-by-section";
 import { FoundationSection } from "@/components/foundation-section";
 import { FinalCtaSection } from "@/components/final-cta-section";
 import { ThemeSwitcher } from "@/components/theme-switcher";
+import { GlobalNav } from "@/components/navigation/global-nav";
+import { AuthButton } from "@/components/auth-button";
+import { EnvVarWarning } from "@/components/env-var-warning";
+import { hasEnvVars } from "@/lib/utils";
 // Tutorial components - currently unused but preserved for future development
 // import { ConnectSupabaseSteps } from "@/components/tutorial/connect-supabase-steps";
 // import { SignUpUserSteps } from "@/components/tutorial/sign-up-user-steps";
-import { Button } from "@/components/ui/button";
-import { DevDappLogo } from "@/components/ui/images";
-import { hasEnvVars } from "@/lib/utils";
-import Link from "next/link";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -33,23 +31,15 @@ const jsonLd = {
   }
 };
 
-export default function Home() {
+export default async function Home() {
   return (
     <main className="min-h-screen flex flex-col items-center">
       <div className="flex-1 w-full flex flex-col gap-20 items-center">
-        <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
-          <div className="w-full max-w-5xl flex justify-between items-center p-3 px-5 text-sm">
-            <div className="flex gap-5 items-center font-semibold">
-              <Link href={"/"} className="text-xl font-bold">
-                <DevDappLogo priority={true} />
-              </Link>
-              <div className="flex items-center gap-2">
-                <Button size="sm" variant="outline">Deploy</Button>
-              </div>
-            </div>
-            {!hasEnvVars ? <EnvVarWarning /> : <AuthButton />}
-          </div>
-        </nav>
+        <GlobalNav 
+          showAuthButton={true} 
+          showDeployButton={true} 
+          authButtonComponent={!hasEnvVars ? <EnvVarWarning /> : <AuthButton />}
+        />
         {/* Homepage Content */}
         <div className="w-full">
           <Hero />

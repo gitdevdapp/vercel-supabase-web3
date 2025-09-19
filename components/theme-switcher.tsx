@@ -12,7 +12,19 @@ import { Laptop, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
-const ThemeSwitcher = () => {
+interface ThemeSwitcherProps {
+  size?: "sm" | "lg";
+  variant?: "ghost" | "outline";
+  align?: "start" | "center" | "end";
+  className?: string;
+}
+
+const ThemeSwitcher = ({ 
+  size = "sm", 
+  variant = "ghost", 
+  align = "start",
+  className = ""
+}: ThemeSwitcherProps) => {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
 
@@ -30,7 +42,7 @@ const ThemeSwitcher = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size={"sm"}>
+        <Button variant={variant} size={size} className={className}>
           {theme === "light" ? (
             <Sun
               key="light"
@@ -52,7 +64,7 @@ const ThemeSwitcher = () => {
           )}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-content" align="start">
+      <DropdownMenuContent className="w-content" align={align}>
         <DropdownMenuRadioGroup
           value={theme}
           onValueChange={(e) => setTheme(e)}

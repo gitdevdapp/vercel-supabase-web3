@@ -1,8 +1,6 @@
 import { ThemeSwitcher } from "@/components/theme-switcher";
-import { DevDappLogo } from "@/components/ui/images";
-import { Button } from "@/components/ui/button";
+import { GlobalNav } from "@/components/navigation/global-nav";
 import { WalletManager } from "@/components/wallet/WalletManager";
-import Link from "next/link";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -26,23 +24,11 @@ export default function WalletPage() {
   return (
     <main className="min-h-screen flex flex-col items-center">
       <div className="flex-1 w-full flex flex-col gap-20 items-center">
-        <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
-          <div className="w-full max-w-5xl flex justify-between items-center p-3 px-5 text-sm">
-            <div className="flex gap-5 items-center font-semibold">
-              <Link href={"/"} className="text-xl font-bold">
-                <DevDappLogo priority={true} />
-              </Link>
-              <div className="flex items-center gap-2">
-                <Button size="sm" variant="outline">
-                  <Link href="/">Home</Link>
-                </Button>
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <ThemeSwitcher />
-            </div>
-          </div>
-        </nav>
+        <GlobalNav 
+          showAuthButton={false} 
+          showHomeButton={true}
+          customActions={undefined}
+        />
 
         {/* X402 Wallet Manager - REAL FUNCTIONALITY! */}
         <div className="w-full max-w-7xl px-5">
