@@ -77,8 +77,8 @@ export function Hero() {
             </a>
           </Button>
           <Button size="lg" variant="outline" className="px-8 py-3" asChild>
-            <a href="https://calendly.com/git-devdapp" target="_blank" rel="noreferrer">
-              Schedule a Call
+            <a href="https://devdapp.com/wallet" target="_blank" rel="noreferrer">
+              View Demo
             </a>
           </Button>
         </div>
