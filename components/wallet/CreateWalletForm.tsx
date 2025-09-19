@@ -40,12 +40,12 @@ export function CreateWalletForm({ onSubmit, onCancel, isLoading }: CreateWallet
   };
 
   return (
-    <div className="p-4 border rounded-lg bg-gray-50">
-      <h3 className="font-medium mb-4">Create New Wallet</h3>
+    <div className="p-4 border rounded-lg bg-muted">
+      <h3 className="font-medium mb-4 text-foreground">Create New Wallet</h3>
       
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="wallet-name" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="wallet-name" className="block text-sm font-medium text-foreground mb-1">
             Wallet Name
           </label>
           <Input
@@ -60,7 +60,7 @@ export function CreateWalletForm({ onSubmit, onCancel, isLoading }: CreateWallet
         </div>
 
         <div>
-          <label htmlFor="wallet-type" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="wallet-type" className="block text-sm font-medium text-foreground mb-1">
             Wallet Type
           </label>
           <Select value={type} onValueChange={(value: "purchaser" | "seller" | "custom") => setType(value)}>
@@ -71,19 +71,19 @@ export function CreateWalletForm({ onSubmit, onCancel, isLoading }: CreateWallet
               <SelectItem value="purchaser">
                 <div>
                   <div className="font-medium">Purchaser</div>
-                  <div className="text-sm text-gray-500">For making payments and buying services</div>
+                  <div className="text-sm text-muted-foreground">For making payments and buying services</div>
                 </div>
               </SelectItem>
               <SelectItem value="seller">
                 <div>
                   <div className="font-medium">Seller</div>
-                  <div className="text-sm text-gray-500">For receiving payments and providing services</div>
+                  <div className="text-sm text-muted-foreground">For receiving payments and providing services</div>
                 </div>
               </SelectItem>
               <SelectItem value="custom">
                 <div>
                   <div className="font-medium">Custom</div>
-                  <div className="text-sm text-gray-500">General purpose wallet with custom name</div>
+                  <div className="text-sm text-muted-foreground">General purpose wallet with custom name</div>
                 </div>
               </SelectItem>
             </SelectContent>
@@ -115,7 +115,7 @@ export function CreateWalletForm({ onSubmit, onCancel, isLoading }: CreateWallet
         </div>
       </form>
 
-      <div className="mt-4 text-xs text-gray-500">
+      <div className="mt-4 text-xs text-muted-foreground">
         <p><strong>Testnet Safety:</strong> All wallets are created on Base Sepolia testnet with no real money.</p>
         <p><strong>Auto-funding:</strong> Purchaser wallets automatically receive test USDC when balance is low.</p>
       </div>

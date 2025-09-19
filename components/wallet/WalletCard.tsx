@@ -68,15 +68,15 @@ export function WalletCard({ wallet, isSelected, onSelect, onRefreshBalance, onA
       className={cn(
         "p-4 border rounded-lg cursor-pointer transition-all",
         isSelected 
-          ? "border-blue-500 bg-blue-50" 
-          : "border-gray-200 bg-white hover:border-gray-300"
+          ? "border-primary bg-primary/10" 
+          : "border-border bg-card text-card-foreground hover:border-primary/50"
       )}
       onClick={onSelect}
     >
       <div className="flex items-start justify-between">
         <div className="flex-1">
           <div className="flex items-center gap-2 mb-2">
-            <h3 className="font-medium text-gray-900">{wallet.name}</h3>
+            <h3 className="font-medium text-foreground">{wallet.name}</h3>
             {wallet.error && (
               <span className="text-xs bg-red-100 text-red-700 px-2 py-1 rounded">
                 Error
@@ -85,7 +85,7 @@ export function WalletCard({ wallet, isSelected, onSelect, onRefreshBalance, onA
           </div>
           
           <div className="flex items-center gap-2 mb-3">
-            <code className="text-sm text-gray-600 font-mono">
+            <code className="text-sm text-muted-foreground font-mono">
               {formatAddress(wallet.address)}
             </code>
             <Button
@@ -106,20 +106,20 @@ export function WalletCard({ wallet, isSelected, onSelect, onRefreshBalance, onA
 
           <div className="grid grid-cols-2 gap-4 mb-2">
             <div>
-              <div className="text-xs text-gray-500">USDC</div>
-              <div className="font-mono text-sm">
+              <div className="text-xs text-muted-foreground">USDC</div>
+              <div className="font-mono text-sm text-foreground">
                 ${formatBalance(wallet.balances?.usdc)}
               </div>
             </div>
             <div>
-              <div className="text-xs text-gray-500">ETH</div>
-              <div className="font-mono text-sm">
+              <div className="text-xs text-muted-foreground">ETH</div>
+              <div className="font-mono text-sm text-foreground">
                 {formatBalance(wallet.balances?.eth)} ETH
               </div>
             </div>
           </div>
 
-          <div className="text-xs text-gray-400">
+          <div className="text-xs text-muted-foreground/70">
             Updated: {getTimestamp()}
           </div>
         </div>
@@ -160,7 +160,7 @@ export function WalletCard({ wallet, isSelected, onSelect, onRefreshBalance, onA
                 e.stopPropagation();
                 onArchive(wallet.address, wallet.name);
               }}
-              className="px-3 py-2 border-orange-200 text-orange-600 hover:bg-orange-50 hover:border-orange-300 hover:text-orange-700 whitespace-nowrap"
+              className="px-3 py-2 border-orange-200 text-orange-600 hover:bg-orange-50/70 hover:border-orange-300 hover:text-orange-700 whitespace-nowrap"
               title="Archive Wallet"
             >
               <Archive className="h-3 w-3 mr-1" />

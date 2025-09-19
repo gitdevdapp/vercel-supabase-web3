@@ -100,21 +100,21 @@ export function USDCTransferPanel({ fromWallet, availableBalance, onTransferComp
   };
 
   return (
-    <div className="p-6 bg-white rounded-lg border">
+    <div className="p-6 bg-card text-card-foreground rounded-lg border">
       <div className="flex items-center gap-2 mb-4">
-        <Send className="h-5 w-5 text-blue-600" />
+        <Send className="h-5 w-5 text-primary" />
         <h3 className="text-lg font-semibold">Send USDC</h3>
       </div>
       
       <div className="space-y-4">
         {/* From Wallet Info */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">From Wallet</label>
-          <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border">
-            <code className="text-sm font-mono text-gray-800">
+          <label className="block text-sm font-medium text-foreground mb-2">From Wallet</label>
+          <div className="flex items-center justify-between p-3 bg-muted rounded-lg border">
+            <code className="text-sm font-mono text-foreground">
               {formatAddress(fromWallet)}
             </code>
-            <div className="text-sm text-gray-600">
+            <div className="text-sm text-muted-foreground">
               <strong>{availableBalance.toFixed(4)} USDC</strong> available
             </div>
           </div>
@@ -122,7 +122,7 @@ export function USDCTransferPanel({ fromWallet, availableBalance, onTransferComp
 
         {/* To Address Input */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-foreground mb-2">
             Recipient Address
           </label>
           <Input
@@ -147,14 +147,14 @@ export function USDCTransferPanel({ fromWallet, availableBalance, onTransferComp
         {/* Amount Input */}
         <div>
           <div className="flex items-center justify-between mb-2">
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-foreground">
               Amount (USDC)
             </label>
             <Button
               variant="ghost"
               size="sm"
               onClick={handleMaxAmount}
-              className="text-xs h-auto p-1 text-blue-600 hover:text-blue-800"
+              className="text-xs h-auto p-1 text-primary hover:text-primary/80"
             >
               Max
             </Button>
@@ -237,7 +237,7 @@ export function USDCTransferPanel({ fromWallet, availableBalance, onTransferComp
         </Button>
 
         {/* Info */}
-        <div className="text-xs text-gray-500 space-y-1 bg-gray-50 p-3 rounded-lg">
+        <div className="text-xs text-muted-foreground space-y-1 bg-muted p-3 rounded-lg">
           <div className="flex items-center gap-1">
             <AlertCircle className="h-3 w-3" />
             <span><strong>Gas Fees:</strong> Small ETH amount required for transaction</span>

@@ -157,19 +157,19 @@ export function FundingPanel({ walletAddress, onFunded }: FundingPanelProps) {
   };
 
   return (
-    <div className="p-6 bg-white rounded-lg border">
+    <div className="p-6 bg-card text-card-foreground rounded-lg border">
       <h3 className="text-lg font-semibold mb-4">Fund Wallet</h3>
       
       <div className="mb-4">
-        <div className="text-sm text-gray-600 mb-1">Selected Wallet:</div>
-        <code className="text-sm font-mono bg-gray-100 px-2 py-1 rounded">
+        <div className="text-sm text-muted-foreground mb-1">Selected Wallet:</div>
+        <code className="text-sm font-mono bg-muted px-2 py-1 rounded">
           {formatAddress(walletAddress)}
         </code>
       </div>
 
       <div className="space-y-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-foreground mb-2">
             Select Token to Fund
           </label>
           <Select value={selectedToken} onValueChange={(value: "usdc" | "eth") => setSelectedToken(value)}>
@@ -180,13 +180,13 @@ export function FundingPanel({ walletAddress, onFunded }: FundingPanelProps) {
               <SelectItem value="usdc">
                 <div>
                   <div className="font-medium">USDC</div>
-                  <div className="text-sm text-gray-500">USD Coin (for payments)</div>
+                  <div className="text-sm text-muted-foreground">USD Coin (for payments)</div>
                 </div>
               </SelectItem>
               <SelectItem value="eth">
                 <div>
                   <div className="font-medium">ETH</div>
-                  <div className="text-sm text-gray-500">Ethereum (for gas fees)</div>
+                  <div className="text-sm text-muted-foreground">Ethereum (for gas fees)</div>
                 </div>
               </SelectItem>
             </SelectContent>
@@ -261,7 +261,7 @@ export function FundingPanel({ walletAddress, onFunded }: FundingPanelProps) {
           )}
         </Button>
 
-        <div className="text-xs text-gray-500 space-y-1">
+        <div className="text-xs text-muted-foreground space-y-1">
           <p><strong>Testnet Faucet:</strong> Free funds for Base Sepolia testnet only</p>
           <p><strong>Rate Limits:</strong> One request per token per 24 hours per address</p>
           <p><strong>Amounts:</strong> ~$1 USDC or ~0.001 ETH per request</p>
@@ -269,17 +269,17 @@ export function FundingPanel({ walletAddress, onFunded }: FundingPanelProps) {
 
         {recentTransactions.length > 0 && (
           <div className="mt-6">
-            <h4 className="text-sm font-medium text-gray-700 mb-3">Recent Funding Transactions</h4>
+            <h4 className="text-sm font-medium text-foreground mb-3">Recent Funding Transactions</h4>
             <div className="space-y-2">
               {recentTransactions.map((tx) => (
-                <div key={tx.transactionHash} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg text-sm border">
+                <div key={tx.transactionHash} className="flex items-center justify-between p-3 bg-muted rounded-lg text-sm border">
                   <div className="flex items-center gap-3">
                     {getStatusIcon(tx.status)}
                     <div className="flex flex-col">
-                      <span className="font-mono text-xs">
+                      <span className="font-mono text-xs text-foreground">
                         {formatTransactionHash(tx.transactionHash)}
                       </span>
-                      <span className="text-gray-500 text-xs">
+                      <span className="text-muted-foreground text-xs">
                         {tx.amount || tx.token} • {new Date(tx.timestamp).toLocaleTimeString()}
                       </span>
                     </div>
@@ -289,7 +289,7 @@ export function FundingPanel({ walletAddress, onFunded }: FundingPanelProps) {
                       variant="ghost"
                       size="sm"
                       onClick={() => window.open(tx.explorerUrl, '_blank')}
-                      className="p-2 h-auto hover:bg-gray-200"
+                      className="p-2 h-auto hover:bg-muted-foreground/10"
                       title="View on Block Explorer"
                     >
                       <ExternalLink className="h-4 w-4" />
