@@ -40,13 +40,15 @@ export function DevDappLogo({ className = "", priority = false }: DevDappLogoPro
   const mobileSrc = `/images/devdapp-sq${logoSuffix}.png`;
 
   return (
-    <Image
-      src={isMobile ? mobileSrc : desktopSrc}
-      alt="DevDapp.Store"
-      width={isMobile ? 40 : 180}
-      height={isMobile ? 40 : 40}
-      priority={priority}
-      className={`h-auto w-auto max-h-8 transition-all duration-200 ${className}`}
-    />
+    <div className={`${!isDark ? 'bg-black p-2 rounded' : ''} inline-flex items-center justify-center transition-all duration-200`}>
+      <Image
+        src={isMobile ? mobileSrc : desktopSrc}
+        alt="DevDapp.Store"
+        width={isMobile ? 40 : 180}
+        height={isMobile ? 40 : 40}
+        priority={priority}
+        className={`h-auto w-auto max-h-8 transition-all duration-200 ${className}`}
+      />
+    </div>
   );
 }
