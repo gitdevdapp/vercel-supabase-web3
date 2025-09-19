@@ -1,16 +1,23 @@
 import { NextRequest, NextResponse } from "next/server";
 import { CdpClient } from "@coinbase/cdp-sdk";
-import { env } from "@/lib/env";
 import { createPublicClient, http } from "viem";
-import { chain } from "@/lib/accounts";
+import { getChainSafe } from "@/lib/accounts";
 import { z } from "zod";
+import { isCDPConfigured, getNetworkSafe, FEATURE_ERRORS } from "@/lib/features";
 
-const cdp = new CdpClient();
+function getCdpClient(): CdpClient {
+  if (!isCDPConfigured()) {
+    throw new Error(FEATURE_ERRORS.CDP_NOT_CONFIGURED);
+  }
+  return new CdpClient();
+}
 
-const publicClient = createPublicClient({
-  chain,
-  transport: http(),
-});
+function getPublicClient() {
+  return createPublicClient({
+    chain: getChainSafe(),
+    transport: http(),
+  });
+}
 
 const fundWalletSchema = z.object({
   address: z.string().regex(/^0x[a-fA-F0-9]{40}$/, "Invalid Ethereum address format"),
@@ -21,6 +28,14 @@ const fundWalletSchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
+    // Check if CDP is configured
+    if (!isCDPConfigured()) {
+      return NextResponse.json(
+        { error: FEATURE_ERRORS.CDP_NOT_CONFIGURED },
+        { status: 503 }
+      );
+    }
+
     const body = await request.json();
     const validation = fundWalletSchema.safeParse(body);
 
@@ -32,19 +47,23 @@ export async function POST(request: NextRequest) {
     }
 
     const { address, token } = validation.data;
+    const network = getNetworkSafe();
 
     // Only allow funding on testnet
-    if (env.NETWORK !== "base-sepolia") {
+    if (network !== "base-sepolia") {
       return NextResponse.json(
         { error: "Funding only available on testnet (base-sepolia)" },
         { status: 403 }
       );
     }
 
+    const cdp = getCdpClient();
+    const publicClient = getPublicClient();
+
     // Request funds from faucet
     const { transactionHash } = await cdp.evm.requestFaucet({
       address,
-      network: env.NETWORK,
+      network,
       token: token.toLowerCase() as "usdc" | "eth",
     });
 

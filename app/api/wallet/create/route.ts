@@ -2,8 +2,14 @@ import { NextRequest, NextResponse } from "next/server";
 import { getOrCreatePurchaserAccount, getOrCreateSellerAccount } from "@/lib/accounts";
 import { CdpClient } from "@coinbase/cdp-sdk";
 import { z } from "zod";
+import { isCDPConfigured, FEATURE_ERRORS } from "@/lib/features";
 
-const cdp = new CdpClient();
+function getCdpClient(): CdpClient {
+  if (!isCDPConfigured()) {
+    throw new Error(FEATURE_ERRORS.CDP_NOT_CONFIGURED);
+  }
+  return new CdpClient();
+}
 
 const createWalletSchema = z.object({
   name: z.string().min(1, "Wallet name is required").max(50, "Wallet name too long"),
@@ -14,6 +20,14 @@ const createWalletSchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
+    // Check if CDP is configured
+    if (!isCDPConfigured()) {
+      return NextResponse.json(
+        { error: FEATURE_ERRORS.CDP_NOT_CONFIGURED },
+        { status: 503 }
+      );
+    }
+
     const body = await request.json();
     const validation = createWalletSchema.safeParse(body);
 
@@ -37,6 +51,7 @@ export async function POST(request: NextRequest) {
         break;
       case "custom":
         // Create custom named account
+        const cdp = getCdpClient();
         account = await cdp.evm.getOrCreateAccount({ name });
         break;
       default:

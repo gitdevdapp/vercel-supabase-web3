@@ -1,10 +1,15 @@
 import { NextResponse } from "next/server";
 import { CdpClient } from "@coinbase/cdp-sdk";
-import { env } from "@/lib/env";
 import { createPublicClient, http } from "viem";
-import { chain } from "@/lib/accounts";
+import { getChainSafe } from "@/lib/accounts";
+import { isCDPConfigured, getNetworkSafe, FEATURE_ERRORS } from "@/lib/features";
 
-const cdp = new CdpClient();
+function getCdpClient(): CdpClient {
+  if (!isCDPConfigured()) {
+    throw new Error(FEATURE_ERRORS.CDP_NOT_CONFIGURED);
+  }
+  return new CdpClient();
+}
 
 // USDC contract details for Base Sepolia
 const USDC_CONTRACT_ADDRESS = "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238";
@@ -13,13 +18,28 @@ const USDC_ABI = [
   "function decimals() view returns (uint8)"
 ] as const;
 
-const publicClient = createPublicClient({
-  chain,
-  transport: http(),
-});
+function getPublicClient() {
+  return createPublicClient({
+    chain: getChainSafe(),
+    transport: http(),
+  });
+}
 
 export async function GET() {
   try {
+    // Check if CDP is configured
+    if (!isCDPConfigured()) {
+      return NextResponse.json({
+        error: FEATURE_ERRORS.CDP_NOT_CONFIGURED,
+        wallets: [],
+        count: 0,
+        lastUpdated: new Date().toISOString()
+      }, { status: 503 });
+    }
+
+    const cdp = getCdpClient();
+    const publicClient = getPublicClient();
+    
     // Get all accounts from CDP
     const accountsResponse = await cdp.evm.listAccounts();
     
@@ -45,8 +65,9 @@ export async function GET() {
 
           let usdcAmount = 0;
           let ethAmount = 0;
+          const network = getNetworkSafe();
 
-          if (env.NETWORK === "base-sepolia") {
+          if (network === "base-sepolia") {
             try {
               // Get USDC balance from contract
               const contractBalance = await publicClient.readContract({

@@ -22,9 +22,9 @@ export const env = createEnv({
   },
 
   client: {
-    // Public environment variables - required for runtime, use SKIP_ENV_VALIDATION for build flexibility
-    NEXT_PUBLIC_SUPABASE_URL: z.string().url(),
-    NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY: z.string(),
+    // Public environment variables - optional during build, validated at runtime
+    NEXT_PUBLIC_SUPABASE_URL: z.string().url().optional(),
+    NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY: z.string().optional(),
     NEXT_PUBLIC_WALLET_NETWORK: z.enum(["base-sepolia", "base"]).default("base-sepolia"),
     NEXT_PUBLIC_ENABLE_CDP_WALLETS: z.string().default("false"),
     NEXT_PUBLIC_ENABLE_AI_CHAT: z.string().default("false"),
@@ -77,5 +77,5 @@ export const env = createEnv({
    * Makes it so that empty strings are treated as undefined.
    * `SOME_VAR: z.string()` and `SOME_VAR=''` will throw an error.
    */
-  skipValidation: !!process.env.SKIP_ENV_VALIDATION,
+  skipValidation: !!process.env.SKIP_ENV_VALIDATION || process.env.NODE_ENV === 'production',
 });

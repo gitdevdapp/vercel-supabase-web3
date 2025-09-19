@@ -2,28 +2,46 @@ import { Account, toAccount } from "viem/accounts";
 import { CdpClient } from "@coinbase/cdp-sdk";
 import { base, baseSepolia } from "viem/chains";
 import { createPublicClient, http } from "viem";
-import { env } from "./env";
-
-const cdp = new CdpClient();
+import { isCDPConfigured, getNetworkSafe, FEATURE_ERRORS } from "./features";
 
 const chainMap = {
   "base-sepolia": baseSepolia,
   base: base,
 } as const;
 
-export const chain = chainMap[env.NETWORK];
+// Lazy initialization functions to avoid build-time failures
+function getCdpClient(): CdpClient {
+  if (!isCDPConfigured()) {
+    throw new Error(FEATURE_ERRORS.CDP_NOT_CONFIGURED);
+  }
+  return new CdpClient();
+}
 
-const publicClient = createPublicClient({
-  chain,
-  transport: http(),
-});
+function getChain() {
+  const network = getNetworkSafe() as keyof typeof chainMap;
+  return chainMap[network];
+}
+
+function getPublicClient() {
+  return createPublicClient({
+    chain: getChain(),
+    transport: http(),
+  });
+}
+
+// Export the chain getter instead of static chain
+export const getChainSafe = getChain;
 
 export async function getOrCreatePurchaserAccount(): Promise<Account> {
+  const cdp = getCdpClient();
+  const publicClient = getPublicClient();
+  const network = getNetworkSafe();
+  
   const account = await cdp.evm.getOrCreateAccount({
     name: "Purchaser",
   });
   const balances = await account.listTokenBalances({
-    network: env.NETWORK,
+    network: network as "base-sepolia" | "base",
   });
 
   const usdcBalance = balances.balances.find(
@@ -32,12 +50,12 @@ export async function getOrCreatePurchaserAccount(): Promise<Account> {
 
   // if under $0.50 while on testnet, request more
   if (
-    env.NETWORK === "base-sepolia" &&
+    network === "base-sepolia" &&
     (!usdcBalance || Number(usdcBalance.amount) < 500000)
   ) {
     const { transactionHash } = await cdp.evm.requestFaucet({
       address: account.address,
-      network: env.NETWORK,
+      network,
       token: "usdc",
     });
     const tx = await publicClient.waitForTransactionReceipt({
@@ -52,6 +70,8 @@ export async function getOrCreatePurchaserAccount(): Promise<Account> {
 }
 
 export async function getOrCreateSellerAccount(): Promise<Account> {
+  const cdp = getCdpClient();
+  
   const account = await cdp.evm.getOrCreateAccount({
     name: "Seller",
   });

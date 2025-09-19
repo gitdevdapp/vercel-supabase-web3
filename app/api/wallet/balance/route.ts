@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { env } from "@/lib/env";
 import { z } from "zod";
 import { createPublicClient, http } from "viem";
-import { chain } from "@/lib/accounts";
+import { getChainSafe } from "@/lib/accounts";
+import { getNetworkSafe } from "@/lib/features";
 
 // USDC contract details for Base Sepolia
 const USDC_CONTRACT_ADDRESS = "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238";
@@ -11,10 +11,12 @@ const USDC_ABI = [
   "function decimals() view returns (uint8)"
 ] as const;
 
-const publicClient = createPublicClient({
-  chain,
-  transport: http(),
-});
+function getPublicClient() {
+  return createPublicClient({
+    chain: getChainSafe(),
+    transport: http(),
+  });
+}
 
 const balanceQuerySchema = z.object({
   address: z.string().regex(/^0x[a-fA-F0-9]{40}$/, "Invalid Ethereum address format")
@@ -40,8 +42,11 @@ export async function GET(request: NextRequest) {
     let usdcAmount = 0;
     let ethAmount = 0;
     const balanceSource = 'blockchain';
+    const network = getNetworkSafe();
 
-    if (env.NETWORK === "base-sepolia") {
+    if (network === "base-sepolia") {
+      const publicClient = getPublicClient();
+      
       try {
         // Get USDC balance from contract
         const contractBalance = await publicClient.readContract({
@@ -80,7 +85,7 @@ export async function GET(request: NextRequest) {
       debug: {
         usdcAmount,
         ethAmount,
-        network: env.NETWORK
+        network
       }
     });
 

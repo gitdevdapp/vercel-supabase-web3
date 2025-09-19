@@ -1,9 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { CdpClient } from "@coinbase/cdp-sdk";
-import { env } from "@/lib/env";
 import { z } from "zod";
+import { isCDPConfigured, getNetworkSafe, FEATURE_ERRORS } from "@/lib/features";
 
-const cdp = new CdpClient();
+function getCdpClient(): CdpClient {
+  if (!isCDPConfigured()) {
+    throw new Error(FEATURE_ERRORS.CDP_NOT_CONFIGURED);
+  }
+  return new CdpClient();
+}
 
 // USDC contract details for Base Sepolia
 const USDC_CONTRACT_ADDRESS = "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238";
@@ -17,6 +22,14 @@ const transferSchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
+    // Check if CDP is configured
+    if (!isCDPConfigured()) {
+      return NextResponse.json(
+        { error: FEATURE_ERRORS.CDP_NOT_CONFIGURED },
+        { status: 503 }
+      );
+    }
+
     const body = await request.json();
     const validation = transferSchema.safeParse(body);
 
@@ -28,15 +41,18 @@ export async function POST(request: NextRequest) {
     }
 
     const { fromAddress, toAddress, amount, token } = validation.data;
+    const network = getNetworkSafe();
 
     // Only allow transfers on testnet
-    if (env.NETWORK !== "base-sepolia") {
+    if (network !== "base-sepolia") {
       return NextResponse.json(
         { error: "Transfers only available on testnet (base-sepolia)" },
         { status: 403 }
       );
     }
 
+    const cdp = getCdpClient();
+    
     // Get sender account from CDP
     const accounts = await cdp.evm.listAccounts();
     const accountsArray = Array.isArray(accounts) ? accounts : accounts.accounts || [];
@@ -55,7 +71,7 @@ export async function POST(request: NextRequest) {
     // Check sender balance first
     try {
       const balances = await senderAccount.listTokenBalances({
-        network: env.NETWORK,
+        network,
       });
 
       const usdcBalance = balances?.balances?.find(
@@ -90,7 +106,7 @@ export async function POST(request: NextRequest) {
         value: "0", // No ETH value
         data: `0xa9059cbb${toAddress.slice(2).padStart(64, '0')}${BigInt(transferAmountMicro).toString(16).padStart(64, '0')}`,
         contractAddress: USDC_CONTRACT_ADDRESS,
-        network: env.NETWORK
+        network
       });
 
       const result = await transaction.submit();
@@ -120,7 +136,7 @@ export async function POST(request: NextRequest) {
           to: USDC_CONTRACT_ADDRESS,
           value: "0",
           data: transferData,
-          network: env.NETWORK
+          network
         });
 
         const result = await transaction.submit();
