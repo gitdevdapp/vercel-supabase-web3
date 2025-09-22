@@ -35,20 +35,6 @@ export function Hero() {
 
   return (
     <section className="flex flex-col gap-16 items-center py-20">
-
-      {/* DevDapp Logo */}
-      <div className="flex justify-center items-center">
-        <a href="https://devdapp.com" target="_blank" rel="noreferrer">
-          <Image 
-            src="/images/devdapp-4.png" 
-            alt="DevDapp Logo"
-            width={128}
-            height={64}
-            className="h-16 w-auto hover:scale-105 transition-transform duration-200"
-          />
-        </a>
-      </div>
-
       <h2 className="sr-only">Vercel + Supabase + Web3 Stack</h2>
 
       <div className="text-center max-w-4xl">

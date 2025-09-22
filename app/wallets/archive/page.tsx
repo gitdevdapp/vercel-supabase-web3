@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -34,16 +34,6 @@ export default function WalletArchivePage() {
   const [showSettings, setShowSettings] = useState(false);
   const [settings, setSettings] = useState<ArchiveSettings>({});
   const [stats, setStats] = useState({ totalArchived: 0, archivedThisWeek: 0, archivedThisMonth: 0 });
-
-  useEffect(() => {
-    loadArchivedWallets();
-    loadStats();
-    loadSettings();
-  }, []);
-
-  useEffect(() => {
-    filterAndSortWallets();
-  }, [filterAndSortWallets]);
 
   const loadArchivedWallets = () => {
     const archived = getArchivedWallets();
@@ -84,6 +74,16 @@ export default function WalletArchivePage() {
 
     setFilteredWallets(filtered);
   }, [archivedWallets, searchTerm, sortBy]);
+
+  useEffect(() => {
+    loadArchivedWallets();
+    loadStats();
+    loadSettings();
+  }, []);
+
+  useEffect(() => {
+    filterAndSortWallets();
+  }, [filterAndSortWallets]);
 
   const handleRestoreWallet = (address: string) => {
     restoreWallet(address);
