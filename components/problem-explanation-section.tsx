@@ -6,17 +6,17 @@ export function ProblemExplanationSection() {
       <div className="container mx-auto px-4 max-w-5xl">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-bold text-center mb-8 bg-gradient-to-r from-green-500 to-amber-500 bg-clip-text text-transparent leading-tight">
-            Vibe coding apps is easy.<br />
-            <span className="text-muted-foreground bg-gradient-to-r from-muted-foreground to-muted-foreground bg-clip-text">Vibe coding Dapps is hard.</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center mb-8 leading-tight">
+            Vibe coding <span className="bg-gradient-to-r from-green-500 to-emerald-500 bg-clip-text text-transparent font-bold">apps</span> is <span className="bg-gradient-to-r from-green-500 to-emerald-500 bg-clip-text text-transparent font-bold">easy</span>.<br />
+            <span className="text-muted-foreground">Vibe coding <span className="bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent font-bold text-foreground">dApps</span> is <span className="bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent font-bold text-foreground">hard</span>.</span>
           </h2>
           <div className="w-32 h-1.5 bg-gradient-to-r from-green-500 to-amber-500 mx-auto rounded-full"></div>
         </div>
         
         {/* Comparison Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
           {/* Web2 Card - Positive */}
-          <div className="bg-background rounded-lg p-8 border border-green-200 dark:border-green-800 relative overflow-hidden">
+          <div className="bg-background rounded-lg p-6 lg:p-8 border border-green-200 dark:border-green-800 relative overflow-hidden flex flex-col h-full">
             <div className="absolute top-0 right-0 w-20 h-20 bg-green-500/10 rounded-full -translate-y-10 translate-x-10"></div>
             <div className="absolute bottom-0 left-0 w-16 h-16 bg-green-500/5 rounded-full translate-y-8 -translate-x-8"></div>
             
@@ -46,16 +46,16 @@ export function ProblemExplanationSection() {
                 </div>
               </div>
               
-              <div className="mt-6 p-4 bg-green-50 dark:bg-green-950/20 rounded-lg border border-green-200 dark:border-green-800">
+              <div className="mt-auto p-4 bg-green-50 dark:bg-green-950/20 rounded-lg border border-green-200 dark:border-green-800">
                 <p className="text-sm text-green-700 dark:text-green-300 font-medium text-center">
-                  ✨ Ship fast, iterate quickly, scale seamlessly
+                  ✨ <span className="font-bold">Ship fast</span>, iterate quickly, scale seamlessly
                 </p>
               </div>
             </div>
           </div>
 
           {/* Web3 Card - Warning */}
-          <div className="bg-background rounded-lg p-8 border border-amber-200 dark:border-amber-800 relative overflow-hidden">
+          <div className="bg-background rounded-lg p-6 lg:p-8 border border-amber-200 dark:border-amber-800 relative overflow-hidden flex flex-col h-full">
             <div className="absolute top-0 right-0 w-20 h-20 bg-amber-500/10 rounded-full -translate-y-10 translate-x-10"></div>
             <div className="absolute bottom-0 left-0 w-16 h-16 bg-amber-500/5 rounded-full translate-y-8 -translate-x-8"></div>
             
@@ -85,9 +85,9 @@ export function ProblemExplanationSection() {
                 </div>
               </div>
               
-              <div className="mt-6 p-4 bg-amber-50 dark:bg-amber-950/20 rounded-lg border border-amber-200 dark:border-amber-800">
+              <div className="mt-auto p-4 bg-amber-50 dark:bg-amber-950/20 rounded-lg border border-amber-200 dark:border-amber-800">
                 <p className="text-sm text-amber-700 dark:text-amber-300 font-medium text-center">
-                  ⚠️ Steep learning curve, hidden costs, expert dependency
+                  ⚠️ <span className="font-bold">Steep learning curve</span>, hidden costs, expert dependency
                 </p>
               </div>
             </div>
