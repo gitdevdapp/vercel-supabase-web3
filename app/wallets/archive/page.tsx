@@ -43,7 +43,7 @@ export default function WalletArchivePage() {
 
   useEffect(() => {
     filterAndSortWallets();
-  }, [archivedWallets, searchTerm, sortBy]);
+  }, [filterAndSortWallets]);
 
   const loadArchivedWallets = () => {
     const archived = getArchivedWallets();
@@ -60,7 +60,7 @@ export default function WalletArchivePage() {
     setSettings(archiveSettings);
   };
 
-  const filterAndSortWallets = () => {
+  const filterAndSortWallets = useCallback(() => {
     let filtered = archivedWallets;
 
     // Filter by search term
@@ -83,7 +83,7 @@ export default function WalletArchivePage() {
     });
 
     setFilteredWallets(filtered);
-  };
+  }, [archivedWallets, searchTerm, sortBy]);
 
   const handleRestoreWallet = (address: string) => {
     restoreWallet(address);

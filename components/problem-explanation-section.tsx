@@ -20,13 +20,14 @@ export function ProblemExplanationSection() {
       }
     );
 
-    if (bridgeRef.current) {
-      observer.observe(bridgeRef.current);
+    const currentRef = bridgeRef.current;
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     return () => {
-      if (bridgeRef.current) {
-        observer.unobserve(bridgeRef.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
   }, []);
