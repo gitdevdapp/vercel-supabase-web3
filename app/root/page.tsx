@@ -23,12 +23,12 @@ const jsonLd = {
   },
   "creator": {
     "@type": "Organization",
-    "name": "DevDapp.Store"
+    "name": "DevDapp"
   }
 };
 
 export const metadata: Metadata = {
-  title: "ROOT Network Starter Kit | DevDapp.Store",
+  title: "ROOT Network Starter Kit | DevDapp",
   description: "Production-ready Web3 development stack for ROOT network. Build and deploy ROOT blockchain apps in minutes with Vercel, Supabase, and native ROOT network integration.",
   keywords: ["ROOT network", "blockchain development", "Web3 starter kit", "ROOT blockchain", "smart contracts", "dApp template", "ROOT ecosystem"],
   openGraph: {

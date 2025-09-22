@@ -17,7 +17,7 @@ import { hasEnvVars } from "@/lib/utils";
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "name": "DevDapp.Store",
+  "name": "DevDapp",
   "description": "Platform for deploying decentralized applications with enterprise-grade security",
   "applicationCategory": "DeveloperApplication",
   "operatingSystem": "Web",
@@ -28,7 +28,7 @@ const jsonLd = {
   },
   "publisher": {
     "@type": "Organization",
-    "name": "DevDapp.Store"
+    "name": "DevDapp"
   }
 };
 

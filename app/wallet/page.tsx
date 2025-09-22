@@ -16,7 +16,7 @@ const jsonLd = {
   },
   "publisher": {
     "@type": "Organization",
-    "name": "DevDapp.Store"
+    "name": "DevDapp"
   }
 };
 

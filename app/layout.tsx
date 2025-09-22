@@ -9,12 +9,12 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata: Metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "DevDapp.Store - Deploy Decentralized Applications Fast",
+  title: "DevDapp - Deploy Decentralized Applications Fast",
   description: "The fastest way to deploy decentralized applications with enterprise-grade security. Build, test, and launch Dapps with confidence using modern web technologies.",
   keywords: ["Dapp", "decentralized applications", "web3", "blockchain", "ethereum", "deployment platform"],
-  authors: [{ name: "DevDapp.Store" }],
-  creator: "DevDapp.Store",
-  publisher: "DevDapp.Store",
+  authors: [{ name: "DevDapp" }],
+  creator: "DevDapp",
+  publisher: "DevDapp",
   robots: {
     index: true,
     follow: true,
@@ -39,21 +39,21 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: defaultUrl,
-    title: "DevDapp.Store - Deploy Decentralized Applications Fast",
+    title: "DevDapp - Deploy Decentralized Applications Fast",
     description: "The fastest way to deploy decentralized applications with enterprise-grade security. Build, test, and launch Dapps with confidence using modern web technologies.",
-    siteName: "DevDapp.Store",
+    siteName: "DevDapp",
     images: [
       {
         url: `${defaultUrl}/opengraph-image.png`,
         width: 1200,
         height: 630,
-        alt: "DevDapp.Store - Decentralized Application Platform",
+        alt: "DevDapp - Decentralized Application Platform",
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: "DevDapp.Store - Deploy Decentralized Applications Fast",
+    title: "DevDapp - Deploy Decentralized Applications Fast",
     description: "The fastest way to deploy decentralized applications with enterprise-grade security.",
     images: [`${defaultUrl}/twitter-image.png`],
     creator: "@devdappstore",
