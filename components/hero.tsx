@@ -1,8 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { NextLogo } from "./next-logo";
-import { SupabaseLogo } from "./supabase-logo";
 import { Button } from "./ui/button";
 import { Check } from "lucide-react";
 import { useState, useEffect } from "react";
@@ -38,19 +36,6 @@ export function Hero() {
 
   return (
     <section className="flex flex-col gap-16 items-center py-20">
-      <div className="flex gap-8 justify-center items-center">
-        <a
-          href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <SupabaseLogo />
-        </a>
-        <span className="border-l rotate-45 h-6" />
-        <a href="https://nextjs.org/" target="_blank" rel="noreferrer">
-          <NextLogo />
-        </a>
-      </div>
 
       {/* DevDapp Logo */}
       <div className="flex justify-center items-center">
@@ -65,13 +50,10 @@ export function Hero() {
         </a>
       </div>
 
-      <h1 className="sr-only">AI Framework for Web3 Dapp Development</h1>
+      <h2 className="sr-only">Vercel + Supabase + Web3 Stack</h2>
 
       <div className="text-center max-w-4xl">
-        <h2 className="text-3xl lg:text-4xl !leading-tight mx-auto max-w-xl text-center font-bold mb-6">
-          Vercel + Supabase + Web3
-        </h2>
-        <p className="text-lg lg:text-xl mx-auto max-w-2xl text-center text-muted-foreground mb-8">
+        <h1 className="text-3xl lg:text-4xl !leading-tight mx-auto max-w-3xl text-center font-bold mb-4">
           An AI Framework for{" "}
           <span className="inline-block min-w-[120px]">
             <span 
@@ -82,6 +64,9 @@ export function Hero() {
             </span>
           </span>
           {" "}that makes building Dapps with Vibe Coding as easy as Apps
+        </h1>
+        <p className="text-lg lg:text-xl mx-auto max-w-xl text-center text-muted-foreground mb-8 font-medium">
+          vercel + supabase + web3
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
