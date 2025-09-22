@@ -45,8 +45,8 @@ export default async function Home() {
         <div className="w-full">
           <Hero />
           <ProblemExplanationSection />
-          <FeaturesSection />
           <HowItWorksSection />
+          <FeaturesSection />
           <BackedBySection />
           <FoundationSection />
           <FinalCtaSection />

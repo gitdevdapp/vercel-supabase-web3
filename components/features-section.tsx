@@ -1,17 +1,9 @@
-import { Wallet, Code, Shield, Zap, Database, Globe } from "lucide-react";
+import { Wallet, Code, Shield, Zap, Coins, Globe } from "lucide-react";
 
 export function FeaturesSection() {
   return (
     <section className="py-20 bg-muted/30">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl lg:text-4xl font-bold mb-6">
-            Everything You Need to Build Dapps
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            From wallet integration to smart contract deployment, our AI-powered template handles it all.
-          </p>
-        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <div className="bg-background rounded-lg p-6 border">
@@ -54,13 +46,18 @@ export function FeaturesSection() {
             </p>
           </div>
 
-          <div className="bg-background rounded-lg p-6 border">
-            <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-              <Database className="w-6 h-6 text-primary" />
+          <div className="bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-950/30 dark:to-red-950/30 rounded-lg p-6 border-2 border-orange-200 dark:border-orange-800 relative overflow-hidden">
+            {/* Coming Soon Badge */}
+            <div className="absolute top-3 right-3 bg-orange-500 text-white text-xs font-semibold px-2 py-1 rounded-full">
+              Coming Soon
             </div>
-            <h3 className="text-xl font-semibold mb-3">Decentralized Database</h3>
-            <p className="text-muted-foreground">
-              Store user data securely with blockchain-verified transactions. Full Web3 data management.
+            
+            <div className="w-12 h-12 bg-orange-500/20 rounded-lg flex items-center justify-center mb-4">
+              <Coins className="w-6 h-6 text-orange-600 dark:text-orange-400" />
+            </div>
+            <h3 className="text-xl font-semibold mb-3 text-orange-900 dark:text-orange-100">Onchain Incentives</h3>
+            <p className="text-orange-700 dark:text-orange-300">
+              Earn rewards for making AI Starter Kits better.
             </p>
           </div>
 
