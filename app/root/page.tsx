@@ -1,4 +1,3 @@
-import { Hero } from "@/components/hero";
 import { GlobalNav } from "@/components/navigation/global-nav";
 import { AuthButton } from "@/components/auth-button";
 import { EnvVarWarning } from "@/components/env-var-warning";
