@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { NextLogo } from "./next-logo";
 import { SupabaseLogo } from "./supabase-logo";
 import { Button } from "./ui/button";
@@ -48,6 +49,19 @@ export function Hero() {
         <span className="border-l rotate-45 h-6" />
         <a href="https://nextjs.org/" target="_blank" rel="noreferrer">
           <NextLogo />
+        </a>
+      </div>
+
+      {/* DevDapp Logo */}
+      <div className="flex justify-center items-center">
+        <a href="https://devdapp.com" target="_blank" rel="noreferrer">
+          <Image 
+            src="/images/devdapp-4.png" 
+            alt="DevDapp Logo"
+            width={128}
+            height={64}
+            className="h-16 w-auto hover:scale-105 transition-transform duration-200"
+          />
         </a>
       </div>
 
