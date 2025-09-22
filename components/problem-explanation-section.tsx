@@ -1,6 +1,36 @@
+"use client";
+
 import { CheckCircle, Clock, DollarSign, AlertTriangle, Users, HelpCircle } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
 
 export function ProblemExplanationSection() {
+  const [isVisible, setIsVisible] = useState(false);
+  const bridgeRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      {
+        threshold: 0.5,
+        rootMargin: '0px 0px -10% 0px'
+      }
+    );
+
+    if (bridgeRef.current) {
+      observer.observe(bridgeRef.current);
+    }
+
+    return () => {
+      if (bridgeRef.current) {
+        observer.unobserve(bridgeRef.current);
+      }
+    };
+  }, []);
+
   return (
     <section className="py-20 bg-muted/20">
       <div className="container mx-auto px-4 max-w-5xl">
@@ -46,11 +76,6 @@ export function ProblemExplanationSection() {
                 </div>
               </div>
               
-              <div className="mt-auto p-4 bg-green-50 dark:bg-green-950/20 rounded-lg border border-green-200 dark:border-green-800">
-                <p className="text-sm text-green-700 dark:text-green-300 font-medium text-center">
-                  ✨ <span className="font-bold">Ship fast</span>, iterate quickly, scale seamlessly
-                </p>
-              </div>
             </div>
           </div>
 
@@ -85,20 +110,21 @@ export function ProblemExplanationSection() {
                 </div>
               </div>
               
-              <div className="mt-auto p-4 bg-amber-50 dark:bg-amber-950/20 rounded-lg border border-amber-200 dark:border-amber-800">
-                <p className="text-sm text-amber-700 dark:text-amber-300 font-medium text-center">
-                  ⚠️ <span className="font-bold">Steep learning curve</span>, hidden costs, expert dependency
-                </p>
-              </div>
             </div>
           </div>
         </div>
 
         {/* Bridge to Solution */}
-        <div className="text-center mt-12">
-          <div className="inline-flex items-center gap-2 px-6 py-3 bg-primary/10 rounded-full">
-            <span className="text-lg font-semibold text-primary">
-              DevDapp makes Web3 development as easy as Web2
+        <div ref={bridgeRef} className="text-center mt-12">
+          <div className={`inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-green-500/10 to-blue-500/10 rounded-full border-2 border-gradient-to-r border-green-500/20 transition-all duration-700 ease-out ${
+            isVisible 
+              ? 'transform scale-110 shadow-2xl shadow-green-500/20' 
+              : 'transform scale-100'
+          }`}>
+            <span className={`text-xl lg:text-2xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent transition-all duration-700 ${
+              isVisible ? 'animate-pulse' : ''
+            }`}>
+              Until Now, Only DevDapp makes Web3 development as easy as Web2
             </span>
           </div>
         </div>
