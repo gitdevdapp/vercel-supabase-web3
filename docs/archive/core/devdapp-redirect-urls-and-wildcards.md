@@ -341,8 +341,8 @@ curl -I https://devdapp.com/protected/profile
 ```
 
 ### Supabase Configuration URLs
-- **Dashboard**: https://supabase.com/dashboard/project/tydttpgytuhwoecbogvd/auth/settings
-- **API Settings**: https://supabase.com/dashboard/project/tydttpgytuhwoecbogvd/settings/api
+- **Dashboard**: https://supabase.com/dashboard/project/[REDACTED-PROJECT-ID]/auth/settings
+- **API Settings**: https://supabase.com/dashboard/project/[REDACTED-PROJECT-ID]/settings/api
 
 ---
 

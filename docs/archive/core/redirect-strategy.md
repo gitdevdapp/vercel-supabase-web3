@@ -96,7 +96,7 @@ NEXT_PUBLIC_SITE_URL=https://devdapp.com
 VERCEL_URL=devdapp.com
 
 # Existing Supabase variables (keep these)
-NEXT_PUBLIC_SUPABASE_URL=https://tydttpgytuhwoecbogvd.supabase.co
+NEXT_PUBLIC_SUPABASE_URL=https://[REDACTED-PROJECT-ID].supabase.co
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY=your-anon-key-here
 ```
 

@@ -15,7 +15,10 @@
     "test:auth-live": "node scripts/test-auth-live.js",
     "test:auth-integration": "jest --testPathPattern=auth-live.integration.test.ts --verbose",
     "test:production": "node scripts/test-production-auth.js",
-    "test:production-quick": "jest __tests__/production/live-production-auth.test.ts --testNamePattern='Production Environment Validation' --testTimeout=30000"
+    "test:production-quick": "jest __tests__/production/live-production-auth.test.ts --testNamePattern='Production Environment Validation' --testTimeout=30000",
+    "verify-env": "node scripts/verify-env.js",
+    "migrate:verify": "node scripts/verify-env.js && echo '✅ Environment verification passed!'",
+    "migrate:test": "npm run verify-env && npm run test:production"
   },
   "dependencies": {
     "@coinbase/cdp-sdk": "^1.38.0",

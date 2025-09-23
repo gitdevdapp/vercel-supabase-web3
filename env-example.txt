@@ -1,6 +1,6 @@
-# Supabase Configuration
-# Get these values from your Supabase dashboard under Settings > API
-NEXT_PUBLIC_SUPABASE_URL=https://your-project-id.supabase.co
+# Supabase Configuration (CANONICAL MJR PROJECT)
+# Get these values from: https://supabase.com/dashboard/project/[REDACTED-PROJECT-ID]/settings/api
+NEXT_PUBLIC_SUPABASE_URL=https://[REDACTED-PROJECT-ID].supabase.co
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY=your-anon-key-here
 
 # Optional: Service Role Key (for admin operations - keep secret!)
