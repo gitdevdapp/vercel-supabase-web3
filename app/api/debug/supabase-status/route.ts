@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
-import { createClient as createClientBrowser } from '@/lib/supabase/client';
 
 interface DiagnosticResult {
   success: boolean;
@@ -122,7 +121,7 @@ export async function GET() {
       result.connectivity.serverClient.canCreate = true;
 
       try {
-        const { data, error } = await supabase.auth.getSession();
+        const { error } = await supabase.auth.getSession();
         result.connectivity.serverClient.canGetSession = !error;
         if (error) {
           result.connectivity.serverClient.error = error.message;
