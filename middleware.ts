@@ -17,6 +17,6 @@ export const config = {
      * - root (public ROOT network page)
      * Feel free to modify this pattern to include more paths.
      */
-    "/((?!_next/static|_next/image|favicon.ico|api/|wallet|root|tezos|apechain|avalanche|stacks|flow|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    "/((?!_next/static|_next/image|favicon.ico|api/|wallet|root|tezos|apechain|avalanche|stacks|flow|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)"
   ],
 };

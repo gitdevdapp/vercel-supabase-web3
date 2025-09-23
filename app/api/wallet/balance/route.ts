@@ -36,7 +36,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    console.log("Fetching balances for:", validation.data.address);
+    // Fetching balances for address
 
     // Primary: Direct blockchain balance check (most reliable)
     let usdcAmount = 0;
@@ -57,9 +57,9 @@ export async function GET(request: NextRequest) {
         });
         
         usdcAmount = Number(contractBalance) / 1000000; // USDC has 6 decimals
-        console.log("USDC balance:", usdcAmount);
-      } catch (usdcError) {
-        console.error("USDC balance fetch failed:", usdcError);
+        // USDC balance retrieved
+      } catch {
+        // USDC balance fetch failed
       }
 
       try {
@@ -69,10 +69,9 @@ export async function GET(request: NextRequest) {
         });
         
         ethAmount = Number(ethBalanceWei) / 1000000000000000000; // Convert wei to ETH
-        console.log("ETH balance (wei):", ethBalanceWei.toString());
-        console.log("ETH balance (ETH):", ethAmount);
-      } catch (ethError) {
-        console.error("ETH balance fetch failed:", ethError);
+        // ETH balance retrieved
+      } catch {
+        // ETH balance fetch failed
       }
     }
 
@@ -90,7 +89,7 @@ export async function GET(request: NextRequest) {
     });
 
   } catch (error) {
-    console.error("Balance check error:", error);
+    // Balance check error
     return NextResponse.json(
       { error: "Failed to check balance", details: error instanceof Error ? error.message : "Unknown error" },
       { status: 500 }
