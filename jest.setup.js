@@ -20,6 +20,13 @@ jest.mock('next/navigation', () => ({
   },
 }))
 
+// Add global fetch polyfill for Node.js environment
+import { fetch, Headers, Request, Response } from 'whatwg-fetch'
+global.fetch = fetch
+global.Headers = Headers
+global.Request = Request
+global.Response = Response
+
 // Load environment variables from .env.local for integration tests
 require('dotenv').config({ path: '.env.local' })
 
