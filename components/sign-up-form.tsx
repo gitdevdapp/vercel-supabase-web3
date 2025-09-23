@@ -45,7 +45,7 @@ export function SignUpForm({
         email,
         password,
         options: {
-          emailRedirectTo: getAuthRedirectURL('/protected/profile'),
+          emailRedirectTo: `${getAuthRedirectURL('/auth/confirm')}?next=${encodeURIComponent('/protected/profile')}`,
         },
       });
       if (error) throw error;
