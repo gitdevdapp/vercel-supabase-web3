@@ -89,6 +89,7 @@ export function AvalancheTechStackSection() {
             <CardContent>
               <ul className="text-sm text-red-700 dark:text-red-300 space-y-2">
                 <li>• Avalanche CLI for subnet deployment</li>
+                <li>• Custom subnet templates included</li>
                 <li>• Core Wallet integration</li>
                 <li>• C-Chain EVM compatibility</li>
                 <li>• Sub-second transaction finality</li>

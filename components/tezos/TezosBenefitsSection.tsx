@@ -47,6 +47,10 @@ export function TezosBenefitsSection() {
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle className="h-4 w-4" />
+                  Ethlink L2 scaling integration
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="h-4 w-4" />
                   One-click Vercel deployment
                 </li>
               </ul>
@@ -79,6 +83,10 @@ export function TezosBenefitsSection() {
                   <CheckCircle className="h-4 w-4" />
                   Mathematical proof of correctness
                 </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="h-4 w-4" />
+                  Ethlink L2 scaling integration
+                </li>
               </ul>
             </CardContent>
           </Card>
@@ -108,6 +116,10 @@ export function TezosBenefitsSection() {
                 <li className="flex items-center gap-2">
                   <CheckCircle className="h-4 w-4" />
                   On-chain governance tools
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="h-4 w-4" />
+                  Justz DeFi infrastructure ready
                 </li>
               </ul>
             </CardContent>
