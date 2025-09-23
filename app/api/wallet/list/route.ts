@@ -61,7 +61,7 @@ export async function GET() {
     const walletsWithBalances = await Promise.all(
       accounts.map(async (account) => {
         try {
-          console.log(`Fetching balances for ${account.name} (${account.address})`);
+          // Fetching balances for account
 
           let usdcAmount = 0;
           let ethAmount = 0;
@@ -78,8 +78,8 @@ export async function GET() {
               });
               
               usdcAmount = Number(contractBalance) / 1000000; // USDC has 6 decimals
-            } catch (usdcError) {
-              console.warn(`USDC balance fetch failed for ${account.address}:`, usdcError);
+            } catch {
+              // USDC balance fetch failed
             }
 
             try {
@@ -89,8 +89,8 @@ export async function GET() {
               });
               
               ethAmount = Number(ethBalanceWei) / 1000000000000000000; // Convert wei to ETH
-            } catch (ethError) {
-              console.warn(`ETH balance fetch failed for ${account.address}:`, ethError);
+            } catch {
+              // ETH balance fetch failed
             }
           }
 
@@ -103,8 +103,8 @@ export async function GET() {
             },
             lastUpdated: new Date().toISOString()
           };
-        } catch (error) {
-          console.error(`Error getting balances for ${account.address}:`, error);
+        } catch {
+          // Error getting balances for account
           return {
             name: account.name || "Unnamed Wallet",
             address: account.address,
@@ -126,7 +126,7 @@ export async function GET() {
     });
 
   } catch (error) {
-    console.error("List wallets error:", error);
+    // List wallets error
     return NextResponse.json(
       { error: "Failed to list wallets", details: error instanceof Error ? error.message : "Unknown error" },
       { status: 500 }

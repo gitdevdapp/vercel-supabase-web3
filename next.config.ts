@@ -30,7 +30,7 @@ const nextConfig: NextConfig = {
               "form-action 'self'",
               "frame-ancestors 'none'",
               "frame-src 'self' https://www.youtube-nocookie.com https://www.youtube.com",
-              "connect-src 'self' https://api.developer.coinbase.com https://api.openai.com wss:",
+              "connect-src 'self' https://*.supabase.co https://api.developer.coinbase.com https://api.openai.com wss:",
             ].join("; "),
           },
         ],

@@ -12,7 +12,7 @@ import { createClient as createServerClient } from '@/lib/supabase/server';
 
 // Test configuration
 const TEST_EMAIL_PREFIX = 'test-auth-integration';
-const TEST_EMAIL_DOMAIN = '@example.com';
+const TEST_EMAIL_DOMAIN = '@mailinator.com';
 const TEST_PASSWORD = 'TestPassword123!';
 const TEST_TIMEOUT = 30000; // 30 seconds for network operations
 
