@@ -268,7 +268,8 @@ async function main() {
 }
 
 // Export for programmatic use
-export { EmailTemplateTestRunner, TestRunOptions, TestResult };
+export { EmailTemplateTestRunner };
+export type { TestRunOptions, TestResult };
 
 // Run if called directly
 if (require.main === module) {
