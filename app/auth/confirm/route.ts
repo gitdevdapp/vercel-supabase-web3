@@ -24,14 +24,25 @@ export async function GET(request: NextRequest) {
     try {
       // Handle PKCE flow vs regular OTP flow
       if (token_hash.startsWith('pkce_')) {
-        // PKCE flow - exchange code for session
-        const { data, error } = await supabase.auth.exchangeCodeForSession(token_hash);
+        // PKCE flow - exchange code for session (strip pkce_ prefix)
+        const code = token_hash.substring(5); // Remove 'pkce_' prefix
+        console.log("PKCE flow detected, exchanging code:", {
+          originalToken: `${token_hash.substring(0, 10)}...`,
+          strippedCode: `${code.substring(0, 10)}...`,
+          type
+        });
+        
+        const { data, error } = await supabase.auth.exchangeCodeForSession(code);
         
         if (!error && data.session) {
           console.log("PKCE verification successful, redirecting to:", next);
           redirect(next);
         } else {
-          console.error("PKCE verification failed:", error);
+          console.error("PKCE verification failed:", {
+            error: error?.message,
+            status: error?.status,
+            details: error
+          });
           redirect(`/auth/error?error=${encodeURIComponent(error?.message || 'PKCE verification failed')}`);
         }
       } else {
