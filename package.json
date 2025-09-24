@@ -18,7 +18,13 @@
     "test:production-quick": "jest __tests__/production/live-production-auth.test.ts --testNamePattern='Production Environment Validation' --testTimeout=30000",
     "verify-env": "node scripts/verify-env.js",
     "migrate:verify": "node scripts/verify-env.js && echo '✅ Environment verification passed!'",
-    "migrate:test": "npm run verify-env && npm run test:production"
+    "migrate:test": "npm run verify-env && npm run test:production",
+    "test:email-templates": "jest __tests__/email-templates/ --testTimeout=60000 --verbose",
+    "test:email-templates:quick": "jest __tests__/email-templates/live-email-link-validation.test.ts --testTimeout=60000",
+    "test:email-templates:security": "jest __tests__/email-templates/email-token-expiration.test.ts --testTimeout=60000",
+    "test:email-templates:comprehensive": "npm run test:email-templates && echo '🎉 All email template tests completed!'",
+    "test:email-templates:live": "node scripts/test-email-templates.js",
+    "test:email-templates:live-export": "EXPORT_RESULTS=true node scripts/test-email-templates.js"
   },
   "dependencies": {
     "@coinbase/cdp-sdk": "^1.38.0",
