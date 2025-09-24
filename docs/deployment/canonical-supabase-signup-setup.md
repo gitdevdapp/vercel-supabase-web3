@@ -3,10 +3,12 @@
 ## 📋 EXECUTIVE SUMMARY
 
 **ISSUE**: Email confirmation links point to Supabase verification page instead of app's auto-login endpoint  
-**SOLUTION**: Configure Supabase dashboard to send users to your app domain with correct parameters  
+**ERROR MESSAGE**: "Authentication verification failed" when clicking email confirmation links  
+**ROOT CAUSE**: Supabase email templates configured to use `{{ .ConfirmationURL }}` instead of app domain URLs  
+**SOLUTION**: Update all 6 Supabase email templates to point to app's `/auth/confirm` endpoint  
 **TIME**: 15 minutes to implement + 10 minutes to test  
 **IMPACT**: ✅ Users automatically logged in after email confirmation  
-**RISK LEVEL**: Low (configuration only, no code changes)
+**RISK LEVEL**: Low (configuration only, application code is already working correctly)
 
 This guide provides **step-by-step instructions** to configure your Supabase project so that email confirmation and password reset flows work correctly with automatic login, ensuring a seamless user onboarding experience.
 
