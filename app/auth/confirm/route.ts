@@ -16,7 +16,10 @@ export async function GET(request: NextRequest) {
     type,
     next,
     url: request.url,
-    fullUrl: request.url
+    fullUrl: request.url,
+    timestamp: new Date().toISOString(),
+    userAgent: request.headers.get('user-agent'),
+    referer: request.headers.get('referer')
   });
 
   if (token_hash && type) {
@@ -52,17 +55,29 @@ export async function GET(request: NextRequest) {
         const { data, error } = await supabase.auth.exchangeCodeForSession(code);
         
         if (!error && data.session) {
-          console.log("PKCE verification successful, redirecting to:", next);
+          console.log("PKCE verification successful:", {
+            userId: data.user?.id,
+            email: data.user?.email,
+            sessionId: data.session?.access_token?.substring(0, 10) + '...',
+            redirectTo: next
+          });
           redirect(next);
         } else {
-          console.error("PKCE verification failed:", {
+          console.error("PKCE verification failed - DETAILED:", {
             error: error?.message,
-            status: error?.status,
+            errorCode: error?.status,
+            errorName: error?.name,
             codeLength: code.length,
-            details: error
+            codePreview: `${code.substring(0, 10)}...${code.substring(-10)}`,
+            fullCode: code, // Temporary for debugging
+            supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL,
+            timestamp: new Date().toISOString(),
+            details: error,
+            userExists: data?.user ? 'yes' : 'no',
+            sessionExists: data?.session ? 'yes' : 'no'
           });
           redirect(`/auth/error?error=${encodeURIComponent(
-            error?.message || `PKCE verification failed - code length: ${code.length}`
+            `${error?.message || 'PKCE verification failed'} (Code: ${error?.status || 'unknown'}, Length: ${code.length})`
           )}`);
         }
       } else {
