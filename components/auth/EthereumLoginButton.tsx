@@ -1,28 +1,32 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+// TODO: Uncomment when Web3 auth is implemented
+// import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { EthereumIcon } from './icons/ChainIcons';
-import { createClient } from '@/lib/supabase/client';
+// import { createClient } from '@/lib/supabase/client';
 
 interface EthereumLoginButtonProps {
   className?: string;
   size?: 'sm' | 'default' | 'lg';
   variant?: 'default' | 'outline' | 'secondary' | 'ghost';
-  redirectTo?: string;
+  // TODO: Uncomment when Web3 auth is implemented
+  // redirectTo?: string;
 }
 
 export function EthereumLoginButton({ 
   className,
   size = 'default',
-  variant = 'outline',
-  redirectTo = '/protected/profile'
+  variant = 'outline'
+  // TODO: Uncomment when Web3 auth is implemented
+  // redirectTo = '/protected/profile'
 }: EthereumLoginButtonProps) {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
-  const supabase = createClient();
+  const [, setError] = useState<string | null>(null);
+  // TODO: These will be used when Web3 auth is properly implemented
+  // const router = useRouter();
+  // const supabase = createClient();
 
   const handleEthereumLogin = async () => {
     setIsLoading(true);
@@ -37,18 +41,11 @@ export function EthereumLoginButton({
       // Request account access if needed
       await window.ethereum.request({ method: 'eth_requestAccounts' });
 
-      // Sign in with Web3 using Supabase
-      const { data, error } = await supabase.auth.signInWithWeb3({
-        chain: 'ethereum',
-        statement: 'I accept the Terms of Service and Privacy Policy for this application.',
-      });
+      // TODO: Implement Web3 authentication with proper Supabase integration
+      // The signInWithWeb3 method doesn't exist in current Supabase version
+      throw new Error('Web3 authentication not yet implemented. Please use email/password or GitHub sign-in.');
 
-      if (error) throw error;
-
-      if (data) {
-        // Successful authentication - redirect to profile
-        router.push(redirectTo);
-      }
+      // Note: Future implementation will handle successful authentication and redirect
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Ethereum authentication failed';
       setError(errorMessage);
@@ -87,7 +84,7 @@ declare global {
     ethereum?: {
       isMetaMask?: boolean;
       isCoinbaseWallet?: boolean;
-      request: (args: { method: string; params?: any[] }) => Promise<any>;
+      request: (args: { method: string; params?: unknown[] }) => Promise<unknown>;
       isConnected?: () => boolean;
       selectedAddress?: string;
     };
