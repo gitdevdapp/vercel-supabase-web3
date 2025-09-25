@@ -6,9 +6,11 @@ export function createClient() {
     process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY!,
     {
       auth: {
-        // TEMPORARY: Use OTP flow for email confirmations until dashboard is fixed
-        // Change back to 'pkce' after fixing Supabase dashboard settings
-        flowType: 'otp'
+        // Updated to PKCE flow for better security and Web3 compatibility
+        flowType: 'pkce',
+        autoRefreshToken: true,
+        persistSession: true,
+        detectSessionInUrl: true,
       }
     }
   );
