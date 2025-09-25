@@ -16,6 +16,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { GitHubLoginButton } from "./GitHubLoginButton";
+import { Web3LoginButtons } from "./Web3LoginButtons";
+import { isWeb3AuthEnabled } from "@/lib/utils/feature-flags";
 
 interface ImprovedUnifiedLoginFormProps {
   className?: string;
@@ -63,6 +65,8 @@ export function ImprovedUnifiedLoginForm({
   const Web3OptionsSection = () => {
     if (!isClientMounted) return null;
 
+    const web3Enabled = isWeb3AuthEnabled();
+
     return (
       <div className="space-y-3">
         <div className="text-sm font-medium text-muted-foreground">
@@ -74,6 +78,13 @@ export function ImprovedUnifiedLoginForm({
             redirectTo={redirectTo}
             className="w-full"
           />
+          {web3Enabled && (
+            <Web3LoginButtons 
+              layout="stack" 
+              className="w-full"
+              redirectTo={redirectTo}
+            />
+          )}
         </div>
       </div>
     );
