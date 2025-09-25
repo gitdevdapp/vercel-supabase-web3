@@ -1,28 +1,32 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+// TODO: Uncomment when Web3 auth is implemented
+// import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { BaseIcon } from './icons/ChainIcons';
-import { createClient } from '@/lib/supabase/client';
+// import { createClient } from '@/lib/supabase/client';
 
 interface BaseLoginButtonProps {
   className?: string;
   size?: 'sm' | 'default' | 'lg';
   variant?: 'default' | 'outline' | 'secondary' | 'ghost';
-  redirectTo?: string;
+  // TODO: Uncomment when Web3 auth is implemented
+  // redirectTo?: string;
 }
 
 export function BaseLoginButton({ 
   className,
   size = 'default',
-  variant = 'outline',
-  redirectTo = '/protected/profile'
+  variant = 'outline'
+  // TODO: Uncomment when Web3 auth is implemented
+  // redirectTo = '/protected/profile'
 }: BaseLoginButtonProps) {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
-  const supabase = createClient();
+  const [, setError] = useState<string | null>(null);
+  // TODO: These will be used when Web3 auth is properly implemented
+  // const router = useRouter();
+  // const supabase = createClient();
 
   const handleBaseLogin = async () => {
     setIsLoading(true);
@@ -43,9 +47,9 @@ export function BaseLoginButton({
           method: 'wallet_switchEthereumChain',
           params: [{ chainId: '0x2105' }], // Base mainnet chain ID
         });
-      } catch (switchError: any) {
+      } catch (switchError: unknown) {
         // If the chain doesn't exist, add it
-        if (switchError.code === 4902) {
+        if ((switchError as { code?: number })?.code === 4902) {
           await window.ethereum.request({
             method: 'wallet_addEthereumChain',
             params: [{
@@ -65,18 +69,11 @@ export function BaseLoginButton({
         }
       }
 
-      // Sign in with Web3 using Supabase (using ethereum as Base is EVM-compatible)
-      const { data, error } = await supabase.auth.signInWithWeb3({
-        chain: 'ethereum', // Base uses Ethereum-compatible signing
-        statement: 'I accept the Terms of Service and Privacy Policy for this application.',
-      });
+      // TODO: Implement Web3 authentication with proper Supabase integration
+      // The signInWithWeb3 method doesn't exist in current Supabase version
+      throw new Error('Web3 authentication not yet implemented. Please use email/password or GitHub sign-in.');
 
-      if (error) throw error;
-
-      if (data) {
-        // Successful authentication - redirect to profile
-        router.push(redirectTo);
-      }
+      // Note: Future implementation will handle successful authentication and redirect
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Base authentication failed';
       setError(errorMessage);
@@ -115,7 +112,7 @@ declare global {
     ethereum?: {
       isMetaMask?: boolean;
       isCoinbaseWallet?: boolean;
-      request: (args: { method: string; params?: any[] }) => Promise<any>;
+      request: (args: { method: string; params?: unknown[] }) => Promise<unknown>;
       isConnected?: () => boolean;
       selectedAddress?: string;
     };

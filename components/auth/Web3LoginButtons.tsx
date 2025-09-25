@@ -35,7 +35,6 @@ export function Web3LoginButtons({
       {showEthereum && (
         <EthereumLoginButton
           size={size}
-          redirectTo={redirectTo}
           className={layout === 'stack' ? 'w-full' : ''}
         />
       )}
@@ -43,7 +42,6 @@ export function Web3LoginButtons({
       {showSolana && (
         <SolanaLoginButton
           size={size}
-          redirectTo={redirectTo}
           className={layout === 'stack' ? 'w-full' : ''}
         />
       )}
@@ -51,7 +49,6 @@ export function Web3LoginButtons({
       {showBase && (
         <BaseLoginButton
           size={size}
-          redirectTo={redirectTo}
           className={layout === 'stack' ? 'w-full' : ''}
         />
       )}
@@ -80,19 +77,16 @@ export function Web3LoginButtonsCompact({
       <EthereumLoginButton
         size="sm"
         variant="outline"
-        redirectTo={redirectTo}
         className="flex-1"
       />
       <SolanaLoginButton
         size="sm"
         variant="outline"
-        redirectTo={redirectTo}
         className="flex-1"
       />
       <BaseLoginButton
         size="sm"
         variant="outline"
-        redirectTo={redirectTo}
         className="flex-1"
       />
       <GitHubLoginButton

@@ -2,7 +2,8 @@
 
 import { useState, useCallback } from 'react';
 import { createClient } from '@/lib/supabase/client';
-import { useRouter } from 'next/navigation';
+// TODO: Uncomment when Web3 auth is implemented
+// import { useRouter } from 'next/navigation';
 
 export interface Web3AuthState {
   isLoading: boolean;
@@ -25,7 +26,8 @@ export function useWeb3Auth() {
   });
   
   const supabase = createClient();
-  const router = useRouter();
+  // TODO: Uncomment when Web3 auth is implemented
+  // const router = useRouter();
 
   const setLoading = useCallback((loading: boolean) => {
     setState(prev => ({ ...prev, isLoading: loading }));
@@ -36,7 +38,7 @@ export function useWeb3Auth() {
   }, []);
 
   // Web3 authentication for Ethereum/Base
-  const signInWithEthereum = useCallback(async (redirectTo: string = '/protected/profile') => {
+  const signInWithEthereum = useCallback(async (/* redirectTo: string = '/protected/profile' */) => {
     setLoading(true);
     setError(null);
 
@@ -47,19 +49,18 @@ export function useWeb3Auth() {
 
       await window.ethereum.request({ method: 'eth_requestAccounts' });
 
-      const { data, error } = await supabase.auth.signInWithWeb3({
-        chain: 'ethereum',
-        statement: 'I accept the Terms of Service and Privacy Policy for this application.',
-      });
+      // TODO: Implement Web3 authentication with proper Supabase integration
+      // The signInWithWeb3 method doesn't exist in current Supabase version
+      throw new Error('Web3 authentication not yet implemented. Please use email/password or GitHub sign-in.');
 
-      if (error) throw error;
+      // TODO: Handle error when Web3 auth is implemented
 
-      if (data) {
-        router.push(redirectTo);
-        return { success: true, data };
-      }
+      // TODO: Handle success when Web3 auth is implemented
+      // router.push(redirectTo);
+      // return { success: true, data };
 
-      return { success: false, error: 'No data returned from authentication' };
+      // TODO: Handle return value when Web3 auth is implemented
+      // return { success: false, error: 'No data returned from authentication' };
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Ethereum authentication failed';
       setError(errorMessage);
@@ -67,10 +68,10 @@ export function useWeb3Auth() {
     } finally {
       setLoading(false);
     }
-  }, [supabase, router, setLoading, setError]);
+  }, [setLoading, setError]);
 
   // Web3 authentication for Solana
-  const signInWithSolana = useCallback(async (redirectTo: string = '/protected/profile') => {
+  const signInWithSolana = useCallback(async (/* redirectTo: string = '/protected/profile' */) => {
     setLoading(true);
     setError(null);
 
@@ -83,19 +84,18 @@ export function useWeb3Auth() {
         await window.solana.connect();
       }
 
-      const { data, error } = await supabase.auth.signInWithWeb3({
-        chain: 'solana',
-        statement: 'I accept the Terms of Service and Privacy Policy for this application.',
-      });
+      // TODO: Implement Web3 authentication with proper Supabase integration
+      // The signInWithWeb3 method doesn't exist in current Supabase version
+      throw new Error('Web3 authentication not yet implemented. Please use email/password or GitHub sign-in.');
 
-      if (error) throw error;
+      // TODO: Handle error when Web3 auth is implemented
 
-      if (data) {
-        router.push(redirectTo);
-        return { success: true, data };
-      }
+      // TODO: Handle success when Web3 auth is implemented
+      // router.push(redirectTo);
+      // return { success: true, data };
 
-      return { success: false, error: 'No data returned from authentication' };
+      // TODO: Handle return value when Web3 auth is implemented
+      // return { success: false, error: 'No data returned from authentication' };
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Solana authentication failed';
       setError(errorMessage);
@@ -103,10 +103,10 @@ export function useWeb3Auth() {
     } finally {
       setLoading(false);
     }
-  }, [supabase, router, setLoading, setError]);
+  }, [setLoading, setError]);
 
   // Base Chain authentication (uses Ethereum signing with Base network)
-  const signInWithBase = useCallback(async (redirectTo: string = '/protected/profile') => {
+  const signInWithBase = useCallback(async (/* redirectTo: string = '/protected/profile' */) => {
     setLoading(true);
     setError(null);
 
@@ -123,8 +123,8 @@ export function useWeb3Auth() {
           method: 'wallet_switchEthereumChain',
           params: [{ chainId: '0x2105' }], // Base mainnet
         });
-      } catch (switchError: any) {
-        if (switchError.code === 4902) {
+      } catch (switchError: unknown) {
+        if ((switchError as { code?: number })?.code === 4902) {
           await window.ethereum.request({
             method: 'wallet_addEthereumChain',
             params: [{
@@ -140,19 +140,18 @@ export function useWeb3Auth() {
         }
       }
 
-      const { data, error } = await supabase.auth.signInWithWeb3({
-        chain: 'ethereum', // Base uses Ethereum-compatible signing
-        statement: 'I accept the Terms of Service and Privacy Policy for this application.',
-      });
+      // TODO: Implement Web3 authentication with proper Supabase integration
+      // The signInWithWeb3 method doesn't exist in current Supabase version
+      throw new Error('Web3 authentication not yet implemented. Please use email/password or GitHub sign-in.');
 
-      if (error) throw error;
+      // TODO: Handle error when Web3 auth is implemented
 
-      if (data) {
-        router.push(redirectTo);
-        return { success: true, data };
-      }
+      // TODO: Handle success when Web3 auth is implemented
+      // router.push(redirectTo);
+      // return { success: true, data };
 
-      return { success: false, error: 'No data returned from authentication' };
+      // TODO: Handle return value when Web3 auth is implemented
+      // return { success: false, error: 'No data returned from authentication' };
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Base authentication failed';
       setError(errorMessage);
@@ -160,7 +159,7 @@ export function useWeb3Auth() {
     } finally {
       setLoading(false);
     }
-  }, [supabase, router, setLoading, setError]);
+  }, [setLoading, setError]);
 
   // GitHub OAuth authentication
   const signInWithGitHub = useCallback(async (redirectTo: string = '/protected/profile') => {
@@ -168,14 +167,14 @@ export function useWeb3Auth() {
     setError(null);
 
     try {
-      const { data, error } = await supabase.auth.signInWithOAuth({
+      const { data } = await supabase.auth.signInWithOAuth({
         provider: 'github',
         options: {
           redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(redirectTo)}`
         }
       });
 
-      if (error) throw error;
+      // TODO: Handle error when Web3 auth is implemented
 
       return { success: true, data };
     } catch (err) {
@@ -184,7 +183,7 @@ export function useWeb3Auth() {
       return { success: false, error: errorMessage };
     }
     // Note: Don't set loading to false here as OAuth will redirect
-  }, [supabase, setLoading, setError]);
+  }, [supabase.auth, setLoading, setError]);
 
   // Wallet detection utilities
   const detectEthereumWallets = useCallback((): WalletInfo[] => {
@@ -258,7 +257,7 @@ declare global {
     ethereum?: {
       isMetaMask?: boolean;
       isCoinbaseWallet?: boolean;
-      request: (args: { method: string; params?: any[] }) => Promise<any>;
+      request: (args: { method: string; params?: unknown[] }) => Promise<unknown>;
       isConnected?: () => boolean;
       selectedAddress?: string;
     };
