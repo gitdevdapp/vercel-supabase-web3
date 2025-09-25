@@ -9,9 +9,8 @@ export function FoundationSection() {
             Are You a Foundation?
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            DevDapp is committed to 100% open source and free forever. With 0 cost Vercel + Supabase + Web3 
-            new users can make production Dapps for free to test their ideas in live production. This is the 
-            no. 1 metric to grow your chain and increase your Electric Capital report ranking.
+            With our 0 cost AI starter framework, new users can scale to million+ user production dApps for free, growing the utilization of underlying Web3 infrastructure.
+            This is the no. 1 metric to grow your chain and increase your Electric Capital report ranking.
           </p>
         </div>
 
