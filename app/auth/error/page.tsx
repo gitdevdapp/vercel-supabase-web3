@@ -19,9 +19,20 @@ export default async function Page({
             </CardHeader>
             <CardContent>
               {params?.error ? (
-                <p className="text-sm text-muted-foreground">
-                  Code error: {params.error}
-                </p>
+                <div className="space-y-4">
+                  <p className="text-sm text-muted-foreground">
+                    Code error: {params.error}
+                  </p>
+                  <div className="text-xs text-muted-foreground bg-muted p-3 rounded">
+                    <p className="font-medium mb-2">🔍 Debug Information:</p>
+                    <p>• Time: {new Date().toLocaleString()}</p>
+                    <p>• This error has been logged for investigation</p>
+                    <p>• Check console for additional details</p>
+                  </div>
+                  <div className="text-xs text-blue-600">
+                    <p>💡 Check Vercel logs for detailed error information</p>
+                  </div>
+                </div>
               ) : (
                 <p className="text-sm text-muted-foreground">
                   An unspecified error occurred.
