@@ -6,8 +6,9 @@ export function createClient() {
     process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY!,
     {
       auth: {
-        // Use PKCE flow for enhanced security
-        flowType: 'pkce'
+        // TEMPORARY: Use OTP flow for email confirmations until dashboard is fixed
+        // Change back to 'pkce' after fixing Supabase dashboard settings
+        flowType: 'otp'
       }
     }
   );
