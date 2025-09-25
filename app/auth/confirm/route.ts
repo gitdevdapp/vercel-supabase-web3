@@ -7,7 +7,7 @@ export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   
   // Support both old and new parameter formats
-  const token_hash = searchParams.get("token_hash") || searchParams.get("token");
+  const token_hash = searchParams.get("token_hash") || searchParams.get("token") || searchParams.get("code");
   const type = searchParams.get("type") as EmailOtpType | null;
   const next = searchParams.get("next") || searchParams.get("redirect_to") || "/protected/profile";
 
@@ -22,11 +22,11 @@ export async function GET(request: NextRequest) {
     referer: request.headers.get('referer')
   });
 
-  if (token_hash && type) {
+  if (token_hash) {
     const supabase = await createClient();
 
     try {
-      // Handle PKCE flow vs regular OTP flow
+      // Determine flow type based on token format and type parameter
       if (token_hash.startsWith('pkce_')) {
         // PKCE flow - exchange code for session (strip pkce_ prefix)
         const code = token_hash.substring(5); // Remove 'pkce_' prefix
@@ -80,8 +80,8 @@ export async function GET(request: NextRequest) {
             `${error?.message || 'PKCE verification failed'} (Code: ${error?.status || 'unknown'}, Length: ${code.length})`
           )}`);
         }
-      } else {
-        // Standard OTP flow
+      } else if (type) {
+        // Standard OTP flow with type parameter
         const { error } = await supabase.auth.verifyOtp({
           type,
           token_hash,
@@ -94,6 +94,44 @@ export async function GET(request: NextRequest) {
           console.error("OTP verification failed:", error);
           redirect(`/auth/error?error=${encodeURIComponent(error.message)}`);
         }
+      } else if (token_hash.length <= 10 && /^\d+$/.test(token_hash)) {
+        // Short numeric code without type - likely signup confirmation OTP
+        console.log("Attempting signup confirmation with numeric OTP:", {
+          tokenLength: token_hash.length,
+          tokenValue: token_hash
+        });
+        
+        const { error } = await supabase.auth.verifyOtp({
+          type: 'signup',
+          token_hash,
+        });
+        
+        if (!error) {
+          console.log("Signup OTP verification successful, redirecting to:", next);
+          redirect(next);
+        } else {
+          console.error("Signup OTP verification failed:", error);
+          redirect(`/auth/error?error=${encodeURIComponent(error.message)}`);
+        }
+      } else {
+        // Unknown token format - try PKCE exchange as fallback
+        console.log("Unknown token format, attempting PKCE exchange:", {
+          tokenLength: token_hash.length,
+          tokenStart: token_hash.substring(0, 10),
+          hasType: !!type
+        });
+        
+        const { data, error } = await supabase.auth.exchangeCodeForSession(token_hash);
+        
+        if (!error && data.session) {
+          console.log("PKCE exchange successful, redirecting to:", next);
+          redirect(next);
+        } else {
+          console.error("PKCE exchange failed:", error);
+          redirect(`/auth/error?error=${encodeURIComponent(
+            `Token verification failed: ${error?.message || 'Unknown error'}`
+          )}`);
+        }
       }
     } catch (error) {
       console.error("Unexpected auth error:", error);
@@ -101,7 +139,11 @@ export async function GET(request: NextRequest) {
     }
   }
 
-  // Missing required parameters
-  console.error("Missing auth parameters:", { token_hash, type });
-  redirect(`/auth/error?error=${encodeURIComponent('Invalid verification link - missing parameters')}`);
+  // Missing required token parameter
+  console.error("Missing auth token:", { 
+    token_hash, 
+    type, 
+    available_params: Object.fromEntries(searchParams.entries()) 
+  });
+  redirect(`/auth/error?error=${encodeURIComponent('Invalid verification link - missing token parameter')}`);
 }
