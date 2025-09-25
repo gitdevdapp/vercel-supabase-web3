@@ -95,23 +95,22 @@ export async function GET(request: NextRequest) {
           redirect(`/auth/error?error=${encodeURIComponent(error.message)}`);
         }
       } else if (token_hash.length <= 10 && /^\d+$/.test(token_hash)) {
-        // Short numeric code without type - likely signup confirmation OTP
-        console.log("Attempting signup confirmation with numeric OTP:", {
+        // Short numeric code without type - likely authorization code for session exchange
+        console.log("Attempting session exchange with authorization code:", {
           tokenLength: token_hash.length,
           tokenValue: token_hash
         });
         
-        const { error } = await supabase.auth.verifyOtp({
-          type: 'signup',
-          token_hash,
-        });
+        const { data, error } = await supabase.auth.exchangeCodeForSession(token_hash);
         
-        if (!error) {
-          console.log("Signup OTP verification successful, redirecting to:", next);
+        if (!error && data.session) {
+          console.log("Authorization code exchange successful, redirecting to:", next);
           redirect(next);
         } else {
-          console.error("Signup OTP verification failed:", error);
-          redirect(`/auth/error?error=${encodeURIComponent(error.message)}`);
+          console.error("Authorization code exchange failed:", error);
+          redirect(`/auth/error?error=${encodeURIComponent(
+            error?.message || 'Authorization code verification failed'
+          )}`);
         }
       } else {
         // Unknown token format - try PKCE exchange as fallback
