@@ -1,3 +1,31 @@
+# 🔧 **URGENT: Email Template Configuration Fix**
+
+## 🚨 **CURRENT ISSUE**
+
+**Error**: `Invalid verification link - missing parameters`
+**Root Cause**: Supabase email templates are sending `?code=XXXXXX` instead of `?token_hash=XXXXXX&type=signup`
+
+### ❌ **Current Broken Format in Production**
+```
+https://devdapp.com/auth/confirm?code=865986&next=/protected/profile
+```
+
+**Problems**:
+1. Uses `code` parameter instead of `token_hash`  
+2. Missing `type` parameter entirely
+3. Short numeric code instead of proper token hash
+
+---
+
+## ✅ **IMMEDIATE FIX APPLIED**
+
+The auth route has been updated to handle all these formats:
+- `?token_hash=...&type=signup` (preferred)
+- `?code=...&type=signup` (compatible)  
+- `?code=XXXXXX` (fallback for current broken emails)
+
+---
+
 # 🔧 **Why Trust the New URL Format**
 
 ## 🚨 **Your Error Analysis**
@@ -364,11 +392,39 @@ https://devdapp.com/auth/update-password
 
 ---
 
+## 🚨 **CRITICAL: Update Supabase Email Templates NOW**
+
+### **Step 1: Access Supabase Dashboard**
+1. Go to: https://supabase.com/dashboard/project/mjrnzgunexmopvnamggw/auth/templates
+2. Login with your Supabase account
+
+### **Step 2: Update "Confirm signup" Template**
+**Replace the current template** with the one from line 60 above that uses:
+```
+{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=signup&next=/protected/profile
+```
+
+### **Step 3: Update All Other Templates**
+Use the templates from sections 2-6 above, all using the `token_hash` format.
+
+---
+
 ## 🚨 **After Updating Templates**
 
 1. **Wait 5-10 minutes** for Supabase to cache new templates
 2. **Test with fresh email** (not previously used)
-3. **Check Vercel logs** - should see successful PKCE verification
+3. **Check Vercel logs** - should see successful verification
 4. **User should auto-login** and redirect to profile
 
-**🎯 Result**: Email confirmation will now work perfectly with PKCE flow!
+**🎯 Result**: Email confirmation will now work perfectly with both current and future formats!
+
+---
+
+## 🛡️ **Backup Solution**
+
+**The auth route now handles ALL formats:**
+- ✅ `?token_hash={{ .TokenHash }}&type=signup` (correct)
+- ✅ `?code={{ .TokenHash }}&type=signup` (compatible)  
+- ✅ `?code=865986` (current broken format - fallback)
+
+**This means email confirmation should work immediately, even before updating templates!**
