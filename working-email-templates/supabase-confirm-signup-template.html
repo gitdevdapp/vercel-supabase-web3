@@ -1,0 +1,41 @@
+<h2>🎉 Welcome to DevDapp!</h2>
+<p>Thanks for signing up! Click the button below to confirm your email address and automatically log into your account:</p>
+
+<div style="text-align: center; margin: 30px 0;">
+  <a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=signup&next=/protected/profile"
+     style="display: inline-block; padding: 15px 30px; background: linear-gradient(135deg, #0070f3 0%, #0051cc 100%); color: white; text-decoration: none; border-radius: 8px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-weight: 600; font-size: 16px; box-shadow: 0 4px 12px rgba(0, 112, 243, 0.3);">
+    ✅ Confirm Email & Start Using DevDapp
+  </a>
+</div>
+
+<div style="background: #f0f9ff; padding: 20px; border-radius: 8px; border-left: 4px solid #0ea5e9; margin: 25px 0;">
+  <h3 style="margin: 0 0 10px 0; color: #0c4a6e; font-size: 16px;">🚀 What you'll get access to:</h3>
+  <ul style="margin: 0; padding-left: 20px; color: #0c4a6e;">
+    <li>🏦 Create and manage crypto wallets</li>
+    <li>💰 Send and receive USDC transfers</li>
+    <li>🔗 Connect to multiple blockchain networks</li>
+    <li>📊 Track your portfolio and transactions</li>
+    <li>🛡️ Enterprise-grade security</li>
+  </ul>
+</div>
+
+<p style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e0e0e0;">
+  <strong>Backup Link:</strong> If the button doesn't work, copy and paste this link into your browser:
+</p>
+<p style="word-break: break-all; background: #f8f9fa; padding: 10px; border-radius: 4px; font-family: monospace; font-size: 12px;">
+  <a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=signup&next=/protected/profile">{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=signup&next=/protected/profile</a>
+</p>
+
+<div style="margin-top: 30px; padding: 15px; background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 4px;">
+  <p style="margin: 0; font-size: 14px;">
+    <strong>⏰ Important:</strong> This link will expire in 24 hours for security reasons.
+  </p>
+</div>
+
+<p style="margin-top: 20px; font-size: 13px; color: #666;">
+  If you didn't create an account with DevDapp, you can safely ignore this email.
+</p>
+
+<div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #e0e0e0; text-align: center; font-size: 12px; color: #888;">
+  <p>This email was sent by DevDapp • <a href="https://devdapp.com" style="color: #0070f3;">devdapp.com</a></p>
+</div>
