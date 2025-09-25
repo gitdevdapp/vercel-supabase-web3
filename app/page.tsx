@@ -47,9 +47,9 @@ export default async function Home() {
           <ProblemExplanationSection />
           <HowItWorksSection />
           <FeaturesSection />
-          <BackedBySection />
           <FoundationSection />
           <FinalCtaSection />
+          <BackedBySection />
         </div>
 
         {/* Tutorial Section - Hidden from production homepage but preserved for development */}
