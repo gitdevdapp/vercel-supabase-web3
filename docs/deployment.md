@@ -1,5 +1,15 @@
 # 🚀 The Ultimate Vercel Deployment Guide - 99%+ Success Rate
 
+## 🚨 CRITICAL AUTHENTICATION FIX REQUIRED
+
+**⚠️ BEFORE DEPLOYING**: If you're experiencing email confirmation failures with "invalid flow state" errors, you MUST fix the Supabase PKCE vs OTP configuration first.
+
+**➡️ [IMMEDIATE FIX: PKCE vs OTP Authentication Configuration](./deployment/CRITICAL-PKCE-VS-OTP-AUTHENTICATION-FIX.md)**
+
+This takes 5 minutes and fixes 90% of authentication problems. **DO THIS FIRST** before following the deployment guide below.
+
+---
+
 ## 📋 Overview
 
 This is the **definitive, single-source guide** for deploying this Next.js + Supabase application to Vercel with **guaranteed success**. All essential deployment information is consolidated here.
