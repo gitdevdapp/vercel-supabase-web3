@@ -24,33 +24,40 @@ export async function GET(request: NextRequest) {
 
     try {
       if (code.startsWith('pkce_')) {
-        // PKCE flow - handle long authorization codes
-        const authCode = code.substring(5); // Remove 'pkce_' prefix
+        // PKCE flow - enhanced security for email confirmations
+        console.log("PKCE flow - exchanging authorization code for session");
         
-        console.log("PKCE flow - exchanging authorization code");
-        const { data, error } = await supabase.auth.exchangeCodeForSession(authCode);
+        // For PKCE tokens, use the full token (including pkce_ prefix)
+        // Supabase handles the code verifier/challenge automatically
+        const { data, error } = await supabase.auth.exchangeCodeForSession(code);
         
         if (!error && data.session) {
-          console.log("PKCE verification successful");
+          console.log("PKCE verification successful - user authenticated");
           redirect(next);
         } else {
           console.error("PKCE verification failed:", error?.message);
+          // Log more details for debugging
+          console.error("PKCE error details:", {
+            error,
+            code: code.substring(0, 15) + '...',
+            timestamp: new Date().toISOString()
+          });
           redirect(`/auth/error?error=${encodeURIComponent(error?.message || 'PKCE verification failed')}`);
         }
       } else {
-        // OTP flow - the winning solution for email confirmation
+        // OTP flow - fallback for older tokens or manual testing
         console.log("OTP flow - verifying email confirmation token");
         
         const { error } = await supabase.auth.verifyOtp({
           type,
-          token_hash: code  // Use token_hash parameter (the standard approach)
+          token_hash: code
         });
         
         if (!error) {
-          console.log("Email confirmation successful, auto-login complete");
+          console.log("OTP verification successful - user authenticated");
           redirect(next);
         } else {
-          console.error("Email confirmation failed:", error?.message);
+          console.error("OTP verification failed:", error?.message);
           redirect(`/auth/error?error=${encodeURIComponent(error.message)}`);
         }
       }
