@@ -18,3 +18,8 @@ OPENAI_API_KEY=your-openai-key
 # Feature Flags (disabled by default for safety)
 NEXT_PUBLIC_ENABLE_CDP_WALLETS=false
 NEXT_PUBLIC_ENABLE_AI_CHAT=false
+NEXT_PUBLIC_ENABLE_WEB3_AUTH=false
+
+# Web3 Authentication Configuration
+WEB3_AUTH_SECRET=your-signing-secret-here
+WALLET_CONNECT_PROJECT_ID=your-wallet-connect-project-id-optional
