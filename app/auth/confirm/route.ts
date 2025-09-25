@@ -23,42 +23,54 @@ export async function GET(request: NextRequest) {
     const supabase = await createClient();
 
     try {
+      // TEMPORARY WORKAROUND: Force OTP flow until Supabase dashboard is fixed
+      // Remove this block once PKCE is disabled in Supabase dashboard
       if (code.startsWith('pkce_')) {
-        // PKCE flow - enhanced security for email confirmations
+        console.log("WORKAROUND: Converting PKCE token to OTP flow");
+        // For now, strip the pkce_ prefix and treat as OTP token
+        const otpToken = code.replace('pkce_', '');
+        console.log("Converted token for OTP verification:", otpToken.substring(0, 10) + '...');
+
+        const { error } = await supabase.auth.verifyOtp({
+          type,
+          token_hash: otpToken
+        });
+
+        if (!error) {
+          console.log("OTP workaround successful - user authenticated");
+          redirect(next);
+          return;
+        } else {
+          console.error("OTP workaround failed, trying PKCE as fallback:", error?.message);
+        }
+      }
+
+      // Try OTP flow first (this should be the primary method for email confirmations)
+      console.log("OTP flow - verifying email confirmation token");
+
+      const { error } = await supabase.auth.verifyOtp({
+        type,
+        token_hash: code
+      });
+
+      if (!error) {
+        console.log("OTP verification successful - user authenticated");
+        redirect(next);
+      } else {
+        // If OTP fails, try PKCE as fallback
+        console.log("OTP failed, trying PKCE flow as fallback");
         console.log("PKCE flow - exchanging authorization code for session");
-        
-        // For PKCE tokens, use the full token (including pkce_ prefix)
-        // Supabase handles the code verifier/challenge automatically
-        const { data, error } = await supabase.auth.exchangeCodeForSession(code);
-        
-        if (!error && data.session) {
+
+        const { data, pkceError } = await supabase.auth.exchangeCodeForSession(code);
+
+        if (!pkceError && data.session) {
           console.log("PKCE verification successful - user authenticated");
           redirect(next);
         } else {
-          console.error("PKCE verification failed:", error?.message);
-          // Log more details for debugging
-          console.error("PKCE error details:", {
-            error,
-            code: code.substring(0, 15) + '...',
-            timestamp: new Date().toISOString()
-          });
-          redirect(`/auth/error?error=${encodeURIComponent(error?.message || 'PKCE verification failed')}`);
-        }
-      } else {
-        // OTP flow - fallback for older tokens or manual testing
-        console.log("OTP flow - verifying email confirmation token");
-        
-        const { error } = await supabase.auth.verifyOtp({
-          type,
-          token_hash: code
-        });
-        
-        if (!error) {
-          console.log("OTP verification successful - user authenticated");
-          redirect(next);
-        } else {
-          console.error("OTP verification failed:", error?.message);
-          redirect(`/auth/error?error=${encodeURIComponent(error.message)}`);
+          console.error("Both OTP and PKCE verification failed");
+          console.error("OTP error:", error?.message);
+          console.error("PKCE error:", pkceError?.message);
+          redirect(`/auth/error?error=${encodeURIComponent('Email verification failed - please try again or contact support')}`);
         }
       }
     } catch (error) {
