@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { type Profile, type ProfileUpdate } from "@/lib/profile";
 import { createClient } from "@/lib/supabase/client";
@@ -18,12 +19,16 @@ export function ProfileForm({ profile, userEmail }: ProfileFormProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     username: profile.username || '',
+    full_name: profile.full_name || '',
+    bio: profile.bio || '',
     about_me: profile.about_me || '',
+    profile_picture: profile.profile_picture || '',
+    is_public: profile.is_public || false,
   });
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
-  const handleInputChange = (field: keyof typeof formData, value: string) => {
+  const handleInputChange = (field: keyof typeof formData, value: string | boolean) => {
     setFormData(prev => ({ ...prev, [field]: value }));
     setError(null);
     setSuccess(null);
@@ -42,15 +47,36 @@ export function ProfileForm({ profile, userEmail }: ProfileFormProps) {
         return;
       }
 
-      if (formData.username.length < 3 || formData.username.length > 50) {
-        setError('Username must be between 3 and 50 characters');
+      if (formData.username.length < 3 || formData.username.length > 30) {
+        setError('Username must be between 3 and 30 characters');
+        setIsLoading(false);
+        return;
+      }
+
+      // Validate username format (alphanumeric, hyphens, underscores only)
+      if (!/^[a-zA-Z0-9_-]+$/.test(formData.username)) {
+        setError('Username can only contain letters, numbers, hyphens, and underscores');
+        setIsLoading(false);
+        return;
+      }
+
+      // Validate full name
+      if (formData.full_name && formData.full_name.length > 100) {
+        setError('Full name must be less than 100 characters');
+        setIsLoading(false);
+        return;
+      }
+
+      // Validate bio
+      if (formData.bio && formData.bio.length > 160) {
+        setError('Bio must be less than 160 characters');
         setIsLoading(false);
         return;
       }
 
       // Validate about me
-      if (formData.about_me.length > 500) {
-        setError('About me must be less than 500 characters');
+      if (formData.about_me && formData.about_me.length > 1000) {
+        setError('About me must be less than 1000 characters');
         setIsLoading(false);
         return;
       }
@@ -66,7 +92,11 @@ export function ProfileForm({ profile, userEmail }: ProfileFormProps) {
 
       const updates: ProfileUpdate = {
         username: formData.username.trim(),
+        full_name: formData.full_name.trim() || undefined,
+        bio: formData.bio.trim() || undefined,
         about_me: formData.about_me.trim() || undefined,
+        profile_picture: formData.profile_picture.trim() || undefined,
+        is_public: formData.is_public,
       };
 
       // Update profile using client-side Supabase
@@ -102,7 +132,11 @@ export function ProfileForm({ profile, userEmail }: ProfileFormProps) {
   const handleCancel = () => {
     setFormData({
       username: profile.username || '',
+      full_name: profile.full_name || '',
+      bio: profile.bio || '',
       about_me: profile.about_me || '',
+      profile_picture: profile.profile_picture || '',
+      is_public: profile.is_public || false,
     });
     setIsEditing(false);
     setError(null);
@@ -151,7 +185,7 @@ export function ProfileForm({ profile, userEmail }: ProfileFormProps) {
                   value={formData.username}
                   onChange={(e) => handleInputChange('username', e.target.value)}
                   placeholder="Enter your username"
-                  maxLength={50}
+                  maxLength={30}
                 />
               ) : (
                 <Input
@@ -162,7 +196,74 @@ export function ProfileForm({ profile, userEmail }: ProfileFormProps) {
                 />
               )}
             </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="full_name">Full Name</Label>
+              {isEditing ? (
+                <Input
+                  id="full_name"
+                  value={formData.full_name}
+                  onChange={(e) => handleInputChange('full_name', e.target.value)}
+                  placeholder="Enter your full name"
+                  maxLength={100}
+                />
+              ) : (
+                <Input
+                  id="full_name"
+                  value={profile.full_name || 'Not set'}
+                  disabled
+                  className="bg-muted"
+                />
+              )}
+            </div>
           </div>
+        </div>
+
+        {/* Profile picture section */}
+        <div className="space-y-2">
+          <Label htmlFor="profile_picture">Profile Picture URL</Label>
+          {isEditing ? (
+            <Input
+              id="profile_picture"
+              value={formData.profile_picture}
+              onChange={(e) => handleInputChange('profile_picture', e.target.value)}
+              placeholder="https://example.com/your-photo.jpg"
+              type="url"
+            />
+          ) : (
+            <Input
+              id="profile_picture"
+              value={profile.profile_picture || 'No custom picture set'}
+              disabled
+              className="bg-muted"
+            />
+          )}
+        </div>
+
+        {/* Bio section */}
+        <div className="space-y-2">
+          <Label htmlFor="bio">Bio</Label>
+          {isEditing ? (
+            <Input
+              id="bio"
+              value={formData.bio}
+              onChange={(e) => handleInputChange('bio', e.target.value)}
+              placeholder="A short bio about yourself..."
+              maxLength={160}
+            />
+          ) : (
+            <Input
+              id="bio"
+              value={profile.bio || 'No bio added yet'}
+              disabled
+              className="bg-muted"
+            />
+          )}
+          {isEditing && (
+            <p className="text-xs text-muted-foreground">
+              {formData.bio.length}/160 characters
+            </p>
+          )}
         </div>
 
         {/* About me section */}
@@ -174,8 +275,8 @@ export function ProfileForm({ profile, userEmail }: ProfileFormProps) {
               value={formData.about_me}
               onChange={(e) => handleInputChange('about_me', e.target.value)}
               placeholder="Tell us about yourself..."
-              maxLength={500}
-              rows={4}
+              maxLength={1000}
+              rows={6}
               className="flex w-full rounded-md border border-input bg-transparent px-3 py-2 text-base shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm resize-none"
             />
           ) : (
@@ -185,8 +286,29 @@ export function ProfileForm({ profile, userEmail }: ProfileFormProps) {
           )}
           {isEditing && (
             <p className="text-xs text-muted-foreground">
-              {formData.about_me.length}/500 characters
+              {formData.about_me.length}/1000 characters
             </p>
+          )}
+        </div>
+
+        {/* Public profile toggle */}
+        <div className="flex items-center justify-between p-4 border rounded-md">
+          <div className="space-y-1">
+            <Label htmlFor="is_public" className="text-base">Public Profile</Label>
+            <p className="text-sm text-muted-foreground">
+              Allow others to view your profile information
+            </p>
+          </div>
+          {isEditing ? (
+            <Checkbox
+              id="is_public"
+              checked={formData.is_public}
+              onCheckedChange={(checked) => handleInputChange('is_public', checked || false)}
+            />
+          ) : (
+            <div className="text-sm font-medium">
+              {profile.is_public ? 'Public' : 'Private'}
+            </div>
           )}
         </div>
 
