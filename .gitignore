@@ -43,6 +43,8 @@ yarn-error.log*
 .env.example.local
 .env.staging
 .env.preview
+.env.production.setup
+.env.service
 *.key
 *.pem
 *.p12

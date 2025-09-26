@@ -24,7 +24,10 @@
     "test:email-templates:security": "jest __tests__/email-templates/email-token-expiration.test.ts --testTimeout=60000",
     "test:email-templates:comprehensive": "npm run test:email-templates && echo '🎉 All email template tests completed!'",
     "test:email-templates:live": "node scripts/test-email-templates.js",
-    "test:email-templates:live-export": "EXPORT_RESULTS=true node scripts/test-email-templates.js"
+    "test:email-templates:live-export": "EXPORT_RESULTS=true node scripts/test-email-templates.js",
+    "setup:production": "node scripts/setup-production-database.js",
+    "setup:production-direct": "node scripts/setup-production-direct.js",
+    "verify:production": "node scripts/verify-production-setup.js"
   },
   "dependencies": {
     "@coinbase/cdp-sdk": "^1.38.0",
@@ -65,7 +68,7 @@
     "@testing-library/jest-dom": "^6.8.0",
     "@testing-library/react": "^16.3.0",
     "@types/jest": "^30.0.0",
-    "@types/node": "^20",
+    "@types/node": "^20.19.17",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "autoprefixer": "^10.4.20",
@@ -74,6 +77,7 @@
     "eslint-config-next": "15.3.1",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
+    "pg": "^8.16.3",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "tailwindcss-animate": "^1.0.7",
