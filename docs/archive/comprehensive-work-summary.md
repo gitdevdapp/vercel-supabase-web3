@@ -115,7 +115,7 @@ require('dotenv').config({ path: '.env.local' })  // ✅ Load real environment
 
 #### **🚨 Critical Issue Identified & Fixed:**
 - **Problem**: Users received email confirmation links but were not automatically logged in
-- **Example URL**: `https://mjrnzgunexmopvnamggw.supabase.co/auth/v1/verify?token=pkce_...&type=signup&redirect_to=https://devdapp.com`
+- **Example URL**: `https://[REDACTED-PROJECT-ID].supabase.co/auth/v1/verify?token=pkce_...&type=signup&redirect_to=https://devdapp.com`
 - **Root Causes**: URL structure mismatch, parameter format issues, PKCE flow not handled
 
 #### **Comprehensive Fix Applied:**

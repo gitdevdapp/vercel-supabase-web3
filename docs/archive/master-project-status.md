@@ -206,12 +206,12 @@ node scripts/test-user-creation.js
 #### **Required Environment Variables**
 ```bash
 # Current Production Configuration
-NEXT_PUBLIC_SUPABASE_URL=https://mjrnzgunexmopvnamggw.supabase.co
+NEXT_PUBLIC_SUPABASE_URL=https://[REDACTED-PROJECT-ID].supabase.co
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY=[208-character JWT token]
 ```
 
 #### **Connectivity Status**
-- ✅ **DNS Resolution**: `mjrnzgunexmopvnamggw.supabase.co` resolves correctly
+- ✅ **DNS Resolution**: `[REDACTED-PROJECT-ID].supabase.co` resolves correctly
 - ✅ **HTTP Connectivity**: Supabase REST API responds with HTTP 200
 - ✅ **Client Creation**: Browser and server clients initialize successfully
 - ✅ **Authentication**: Sign-up and login endpoints operational

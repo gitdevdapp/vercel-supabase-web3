@@ -1,11 +1,11 @@
 # 🚀 CANONICAL SUPABASE + VERCEL SETUP GUIDE
 
 ## 📋 OVERVIEW
-This guide provides the **exact, sequential steps** to properly configure your production Supabase + Next.js + Vercel setup with the canonical database ID `mjrnzgunexmopvnamggw`.
+This guide provides the **exact, sequential steps** to properly configure your production Supabase + Next.js + Vercel setup with the canonical database ID `[REDACTED-PROJECT-ID]`.
 
 **⚠️ CRITICAL**: Only use these exact credentials:
-- **URL**: `https://mjrnzgunexmopvnamggw.supabase.co`
-- **Project ID**: `mjrnzgunexmopvnamggw`
+- **URL**: `https://[REDACTED-PROJECT-ID].supabase.co`
+- **Project ID**: `[REDACTED-PROJECT-ID]`
 - **Anon Key**: `[GET FROM SUPABASE DASHBOARD]`
 
 ---
@@ -15,14 +15,14 @@ This guide provides the **exact, sequential steps** to properly configure your p
 ### Step 1: Environment Configuration
 **YOU MUST DO THIS** - Get your credentials from the Supabase dashboard.
 
-1. **Go to Supabase Dashboard**: https://supabase.com/dashboard/project/mjrnzgunexmopvnamggw/settings/api
+1. **Go to Supabase Dashboard**: https://supabase.com/dashboard/project/[REDACTED-PROJECT-ID]/settings/api
 2. **Copy the Anon Key** (under "Project API keys")
 3. **Copy the Service Role Key** (under "Project API keys") 
 4. **Create `.env.local`** in your project root:
 
 ```bash
-# Canonical MJR Supabase Project: mjrnzgunexmopvnamggw
-NEXT_PUBLIC_SUPABASE_URL=https://mjrnzgunexmopvnamggw.supabase.co
+# Canonical MJR Supabase Project: [REDACTED-PROJECT-ID]
+NEXT_PUBLIC_SUPABASE_URL=https://[REDACTED-PROJECT-ID].supabase.co
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY=YOUR_ANON_KEY_FROM_SUPABASE_DASHBOARD
 SUPABASE_SERVICE_ROLE_KEY=YOUR_SERVICE_ROLE_KEY_HERE
 ```
@@ -34,7 +34,7 @@ SUPABASE_SERVICE_ROLE_KEY=YOUR_SERVICE_ROLE_KEY_HERE
 ### PHASE 1: SUPABASE AUTH SETUP (USER REQUIRED)
 
 #### 1.1 Configure Authentication Redirect URLs
-**YOU MUST DO THIS** - Go to: https://supabase.com/dashboard/project/mjrnzgunexmopvnamggw/auth/settings
+**YOU MUST DO THIS** - Go to: https://supabase.com/dashboard/project/[REDACTED-PROJECT-ID]/auth/settings
 
 **Add these redirect URLs** (replace `devdapp.com` with your actual domain):
 
@@ -82,7 +82,7 @@ https://vercel-supabase-web3-*.vercel.app/
 Add these **exact** variables for **Production** environment:
 
 ```
-NEXT_PUBLIC_SUPABASE_URL=https://mjrnzgunexmopvnamggw.supabase.co
+NEXT_PUBLIC_SUPABASE_URL=https://[REDACTED-PROJECT-ID].supabase.co
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY=YOUR_ANON_KEY_FROM_SUPABASE_DASHBOARD
 SUPABASE_SERVICE_ROLE_KEY=YOUR_SERVICE_ROLE_KEY_HERE
 ```
@@ -103,8 +103,8 @@ npm install
 Create `.env.local` with the exact content:
 
 ```bash
-# Canonical MJR Supabase Project: mjrnzgunexmopvnamggw
-NEXT_PUBLIC_SUPABASE_URL=https://mjrnzgunexmopvnamggw.supabase.co
+# Canonical MJR Supabase Project: [REDACTED-PROJECT-ID]
+NEXT_PUBLIC_SUPABASE_URL=https://[REDACTED-PROJECT-ID].supabase.co
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY=YOUR_ANON_KEY_FROM_SUPABASE_DASHBOARD
 SUPABASE_SERVICE_ROLE_KEY=YOUR_SERVICE_ROLE_KEY_HERE
 
@@ -208,7 +208,7 @@ npm run migrate:test
 
 #### 2. Database Connection Issues
 - ✅ **Check**: Service role key is correct (not anon key)
-- ✅ **Check**: URL is exactly `https://mjrnzgunexmopvnamggw.supabase.co`
+- ✅ **Check**: URL is exactly `https://[REDACTED-PROJECT-ID].supabase.co`
 - ✅ **Check**: Environment variables are loaded
 
 #### 3. Environment Variables Not Loading
@@ -237,7 +237,7 @@ npm run migrate:test
 ## 🔐 SECURITY NOTES
 
 1. **Never commit** `.env.local` or any environment files with real keys
-2. **Only use** the canonical database ID `mjrnzgunexmopvnamggw`
+2. **Only use** the canonical database ID `[REDACTED-PROJECT-ID]`
 3. **Keep service role key** secure and never expose in client-side code
 4. **Rotate keys** periodically for security
 
@@ -264,12 +264,12 @@ npm run migrate:test
 - `docs/future/MJR-MIGRATION-SUMMARY.md` - Executive summary
 
 ### Supabase Links
-- **Dashboard**: https://supabase.com/dashboard/project/mjrnzgunexmopvnamggw
-- **Auth Settings**: https://supabase.com/dashboard/project/mjrnzgunexmopvnamggw/auth/settings
-- **API Keys**: https://supabase.com/dashboard/project/mjrnzgunexmopvnamggw/settings/api
+- **Dashboard**: https://supabase.com/dashboard/project/[REDACTED-PROJECT-ID]
+- **Auth Settings**: https://supabase.com/dashboard/project/[REDACTED-PROJECT-ID]/auth/settings
+- **API Keys**: https://supabase.com/dashboard/project/[REDACTED-PROJECT-ID]/settings/api
 
 ---
 
 *Last Updated: September 23, 2025*  
-*Canonical Database ID: mjrnzgunexmopvnamggw*  
+*Canonical Database ID: [REDACTED-PROJECT-ID]*  
 *Production URL: https://devdapp.com*

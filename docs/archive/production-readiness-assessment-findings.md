@@ -153,7 +153,7 @@ export async function getOrCreateProfile(userId: string, email: string)
 
 ### Environment Variables (SUFFICIENT):
 ```bash
-NEXT_PUBLIC_SUPABASE_URL=https://mjrnzgunexmopvnamggw.supabase.co
+NEXT_PUBLIC_SUPABASE_URL=https://[REDACTED-PROJECT-ID].supabase.co
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY=your-anon-key-here
 ```
 

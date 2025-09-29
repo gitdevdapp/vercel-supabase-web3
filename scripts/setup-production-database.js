@@ -24,7 +24,7 @@ const path = require('path');
 const readline = require('readline');
 
 // Supabase configuration
-const SUPABASE_URL = 'https://mjrnzgunexmopvnamggw.supabase.co';
+const SUPABASE_URL = '[REDACTED - SUPABASE URL REMOVED FOR SECURITY]';
 const SQL_FILE_PATH = path.join(__dirname, 'enhanced-database-setup.sql');
 
 /**

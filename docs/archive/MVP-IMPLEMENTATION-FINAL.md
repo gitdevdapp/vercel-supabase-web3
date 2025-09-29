@@ -117,7 +117,7 @@ Minimal changes to existing profile page to use `SimpleProfileForm` instead of f
 ## 🔧 Implementation Steps
 
 ### Step 1: Database Setup (5 minutes)
-1. Open Supabase SQL Editor: https://supabase.com/dashboard/project/mjrnzgunexmopvnamggw/sql
+1. Open Supabase SQL Editor: [REDACTED - SUPABASE SQL EDITOR URL REMOVED]
 2. Copy the ENTIRE SQL command above
 3. Paste and click "Run" 
 4. Verify success message appears

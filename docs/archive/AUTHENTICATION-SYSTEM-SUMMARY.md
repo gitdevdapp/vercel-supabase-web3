@@ -94,7 +94,7 @@ CREATE TRIGGER on_auth_user_created
 
 ### Required Environment Variables
 ```bash
-NEXT_PUBLIC_SUPABASE_URL=https://mjrnzgunexmopvnamggw.supabase.co
+NEXT_PUBLIC_SUPABASE_URL=https://[REDACTED-PROJECT-ID].supabase.co
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY=your-anon-key
 # Optional for enhanced features:
 SUPABASE_SERVICE_ROLE_KEY=your-service-key

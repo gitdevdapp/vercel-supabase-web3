@@ -21,7 +21,7 @@
 - ✅ **Middleware configuration** - Auth routes properly excluded
 
 ### Environment Variables: 100% CONSISTENT ✅
-- ✅ **Project ID consistency** - All documentation uses `mjrnzgunexmopvnamggw`
+- ✅ **Project ID consistency** - All documentation uses `[REDACTED-PROJECT-ID]`
 - ✅ **No legacy references** - No traces of old `tydttpgytuhwoecbogvd` project ID
 - ✅ **Configuration files** - env-example.txt shows correct project ID
 - ✅ **Documentation alignment** - All docs reference correct Supabase project
@@ -41,7 +41,7 @@
 
 **Current Email URL** (from user report):
 ```
-https://mjrnzgunexmopvnamggw.supabase.co/auth/v1/verify?token=pkce_...&type=signup&redirect_to=https://devdapp.com
+https://[REDACTED-PROJECT-ID].supabase.co/auth/v1/verify?token=pkce_...&type=signup&redirect_to=https://devdapp.com
 ```
 
 **Should Be**:
@@ -57,7 +57,7 @@ https://devdapp.com/auth/confirm?token_hash=pkce_...&type=signup&next=/protected
 
 ### UPDATE SUPABASE EMAIL TEMPLATES
 
-**Location**: [Supabase Dashboard](https://supabase.com/dashboard/project/mjrnzgunexmopvnamggw/auth/templates) → Authentication → Email Templates
+**Location**: [Supabase Dashboard](https://supabase.com/dashboard/project/[REDACTED-PROJECT-ID]/auth/templates) → Authentication → Email Templates
 
 #### 1. Confirm Signup Template
 **Replace with**:

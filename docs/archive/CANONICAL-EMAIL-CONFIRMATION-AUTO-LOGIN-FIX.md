@@ -14,11 +14,11 @@
 
 ### Current Failing Email URL (from user report)
 ```
-https://mjrnzgunexmopvnamggw.supabase.co/auth/v1/verify?token=pkce_afe068d84d04166782fbe23882cbd454cb148927e6b71621dadeeb9b&type=signup&redirect_to=https://devdapp.com
+https://[REDACTED-PROJECT-ID].supabase.co/auth/v1/verify?token=pkce_afe068d84d04166782fbe23882cbd454cb148927e6b71621dadeeb9b&type=signup&redirect_to=https://devdapp.com
 ```
 
 ### The Issue
-- **Wrong Domain**: Email points to `mjrnzgunexmopvnamggw.supabase.co/auth/v1/verify` (Supabase's endpoint)
+- **Wrong Domain**: Email points to `[REDACTED-PROJECT-ID].supabase.co/auth/v1/verify` (Supabase's endpoint)
 - **Should Point To**: `https://devdapp.com/auth/confirm` (app's endpoint)
 - **Result**: User gets redirected to Supabase's verification page instead of app's auto-login flow
 
@@ -40,7 +40,7 @@ The primary issue is that **Supabase email templates are configured to use Supab
 
 ### CRITICAL ACTION: Update Supabase Email Templates
 
-**Location**: [Supabase Dashboard](https://supabase.com/dashboard/project/mjrnzgunexmopvnamggw/auth/templates) → Authentication → Email Templates
+**Location**: [Supabase Dashboard](https://supabase.com/dashboard/project/[REDACTED-PROJECT-ID]/auth/templates) → Authentication → Email Templates
 
 #### 1. **Confirm Signup Template**
 
@@ -109,12 +109,12 @@ The primary issue is that **Supabase email templates are configured to use Supab
 ## 🛠️ SUPABASE CONFIGURATION CHECKLIST
 
 ### 1. Verify Site URL Configuration
-**Location**: [Supabase Dashboard](https://supabase.com/dashboard/project/mjrnzgunexmopvnamggw/auth/settings) → Authentication → Settings
+**Location**: [Supabase Dashboard](https://supabase.com/dashboard/project/[REDACTED-PROJECT-ID]/auth/settings) → Authentication → Settings
 
 **Site URL must be**: `https://devdapp.com`
 
 ### 2. Verify Redirect URLs Configuration
-**Location**: [Supabase Dashboard](https://supabase.com/dashboard/project/mjrnzgunexmopvnamggw/auth/settings) → Authentication → URL Configuration
+**Location**: [Supabase Dashboard](https://supabase.com/dashboard/project/[REDACTED-PROJECT-ID]/auth/settings) → Authentication → URL Configuration
 
 **Ensure ALL these URLs are listed**:
 ```
@@ -144,7 +144,7 @@ https://vercel-supabase-web3-*.vercel.app/
 ```
 
 ### 3. Verify Authentication Settings
-**Location**: [Supabase Dashboard](https://supabase.com/dashboard/project/mjrnzgunexmopvnamggw/auth/settings) → Authentication → Settings
+**Location**: [Supabase Dashboard](https://supabase.com/dashboard/project/[REDACTED-PROJECT-ID]/auth/settings) → Authentication → Settings
 
 **Required Settings**:
 - ✅ **Enable email confirmations**: true
@@ -176,7 +176,7 @@ https://vercel-supabase-web3-*.vercel.app/
 
 ### Expected Results ✅
 - **Email URLs point to**: `https://devdapp.com/auth/confirm?token_hash=...&type=...`
-- **NOT**: `https://mjrnzgunexmopvnamggw.supabase.co/auth/v1/verify?token=...`
+- **NOT**: `https://[REDACTED-PROJECT-ID].supabase.co/auth/v1/verify?token=...`
 - **User automatically logged in** after clicking email link
 - **Smooth redirect** to intended page (profile or password update)
 - **No manual login required**
@@ -247,7 +247,7 @@ If issues occur after template changes:
 ## 📋 PROJECT CONSISTENCY CHECK
 
 ### Environment Variables Verification
-**Ensure all environments use the correct project ID**: `mjrnzgunexmopvnamggw`
+**Ensure all environments use the correct project ID**: `[REDACTED-PROJECT-ID]`
 
 **Check these locations**:
 - Local `.env.local` file
@@ -257,7 +257,7 @@ If issues occur after template changes:
 
 **Expected values**:
 ```bash
-NEXT_PUBLIC_SUPABASE_URL=https://mjrnzgunexmopvnamggw.supabase.co
+NEXT_PUBLIC_SUPABASE_URL=https://[REDACTED-PROJECT-ID].supabase.co
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY=[key from Supabase dashboard]
 ```
 

@@ -11,7 +11,7 @@
 ## 📋 **Step-by-Step Instructions**
 
 ### **Step 1: Open Supabase SQL Editor**
-Go to: **https://supabase.com/dashboard/project/mjrnzgunexmopvnamggw/sql**
+Go to: **[REDACTED - SUPABASE SQL EDITOR URL REMOVED]**
 
 ### **Step 2: Copy the SQL Script Below**
 

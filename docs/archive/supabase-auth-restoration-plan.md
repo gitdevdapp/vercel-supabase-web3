@@ -4,7 +4,7 @@
 
 **Date**: September 23, 2025  
 **Status**: ❌ **CRITICAL - Authentication System Completely Non-Functional**  
-**Root Cause**: Supabase project `mjrnzgunexmopvnamggw.supabase.co` no longer exists  
+**Root Cause**: Supabase project `[REDACTED-PROJECT-ID].supabase.co` no longer exists  
 **Impact**: Zero user registration/login capability  
 **Required Action**: Create new Supabase project and update credentials
 
@@ -21,7 +21,7 @@
 - **Diagnostic Tools**: Comprehensive testing infrastructure exists
 
 #### ❌ What's Broken
-- **Supabase Project**: URL `mjrnzgunexmopvnamggw.supabase.co` returns NXDOMAIN
+- **Supabase Project**: URL `[REDACTED-PROJECT-ID].supabase.co` returns NXDOMAIN
 - **Sign-up Page**: Returns 500 Internal Server Error
 - **User Registration**: Completely non-functional
 - **User Login**: Completely non-functional
@@ -33,15 +33,15 @@
 ```bash
 $ npm run test:auth-live
 ✅ All required environment variables are present
-✅ Supabase URL format is valid: https://mjrnzgunexmopvnamggw.supabase.co
+✅ Supabase URL format is valid: https://[REDACTED-PROJECT-ID].supabase.co
 ✅ Supabase key format appears valid (208 chars)
 ❌ Network connectivity failed: fetch failed
 ```
 
 #### DNS Resolution Test
 ```bash
-$ nslookup mjrnzgunexmopvnamggw.supabase.co
-** server can't find mjrnzgunexmopvnamggw.supabase.co: NXDOMAIN
+$ nslookup [REDACTED-PROJECT-ID].supabase.co
+** server can't find [REDACTED-PROJECT-ID].supabase.co: NXDOMAIN
 ```
 
 #### Application Runtime Test
@@ -52,7 +52,7 @@ HTTP/1.1 500 Internal Server Error
 
 ### Current Environment Configuration
 Based on environment variables detected:
-- **URL**: `https://mjrnzgunexmopvnamggw.supabase.co` (non-existent)
+- **URL**: `https://[REDACTED-PROJECT-ID].supabase.co` (non-existent)
 - **Key Format**: Valid structure (208 characters)
 - **Configuration**: Proper format but pointing to dead project
 
@@ -76,7 +76,7 @@ Based on environment variables detected:
    - Anon/Public Key: From Settings > API
 
 #### Option B: Restore Existing Project (If Available)
-1. **Check Supabase Dashboard** for project `mjrnzgunexmopvnamggw`
+1. **Check Supabase Dashboard** for project `[REDACTED-PROJECT-ID]`
 2. **If Found**: Check if paused/inactive and restart
 3. **If Moved**: Get new URL and credentials
 4. **If Not Found**: Proceed with Option A

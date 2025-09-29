@@ -2,7 +2,7 @@
 
 **Date**: September 29, 2025  
 **Status**: ✅ **FULLY VERIFIED & OPERATIONAL**  
-**Database**: Supabase Project `mjrnzgunexmopvnamggw`  
+**Database**: Supabase Project `[REDACTED-PROJECT-ID]`  
 **Users**: 17 confirmed working users  
 **Last Verified**: 2025-09-29 15:48:12 UTC  
 
@@ -123,10 +123,10 @@ https://devdapp.com/auth/confirm?token_hash=pkce_a1b2c3d4e5f6789&type=signup&nex
 
 ### **Anon (Publishable) Key**
 
-**Key**: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1qcm56Z3VuZXhtb3B2bmFtZ2d3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc2ODg4MjcsImV4cCI6MjA3MzI2NDgyN30.7Hwn5kaExgI7HJKc7HmaTqJSybcGwX1izB1EdkNbcu8`
+**Key**: `[REDACTED - KEYS REMOVED FOR SECURITY]`
 
 **Role**: `anon`  
-**Project**: `mjrnzgunexmopvnamggw`  
+**Project**: `[REDACTED - PROJECT ID REMOVED]`  
 **Environment Variable**: `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY`  
 
 **Usage**:
@@ -139,10 +139,10 @@ https://devdapp.com/auth/confirm?token_hash=pkce_a1b2c3d4e5f6789&type=signup&nex
 
 ### **Service Role Key**
 
-**Key**: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1qcm56Z3VuZXhtb3B2bmFtZ2d3Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1NzY4ODgyNywiZXhwIjoyMDczMjY0ODI3fQ.jYseGYwWnhXwEf_Yqs3O8AdTTNWVBMH94LE2qVi1DrA`
+**Key**: `[REDACTED - NEVER COMMIT SERVICE ROLE KEY]`
 
 **Role**: `service_role`  
-**Project**: `mjrnzgunexmopvnamggw`  
+**Project**: `[REDACTED - NEVER COMMIT PROJECT ID]`  
 **Environment Variable**: `SUPABASE_SERVICE_ROLE_KEY`  
 
 **Usage**:
@@ -271,13 +271,13 @@ npm run verify-env
 
 **Essential Environment Variables**:
 ```bash
-NEXT_PUBLIC_SUPABASE_URL=https://mjrnzgunexmopvnamggw.supabase.co
+NEXT_PUBLIC_SUPABASE_URL=https://[REDACTED-PROJECT-ID].supabase.co
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY=eyJhbGciOiJIUzI1NiIs...
 SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIs...
 ```
 
 **Key URLs**:
-- Supabase Dashboard: https://supabase.com/dashboard/project/mjrnzgunexmopvnamggw
+- Supabase Dashboard: https://supabase.com/dashboard/project/[REDACTED-PROJECT-ID]
 - Production App: https://devdapp.com
 - Test Emails: Check mailinator.com for confirmation links
 

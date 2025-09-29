@@ -134,7 +134,7 @@ Successfully delivered a **complete, production-ready authentication system** wi
 ### Production Configuration ✅
 ```bash
 # Core Requirements
-NEXT_PUBLIC_SUPABASE_URL=https://mjrnzgunexmopvnamggw.supabase.co
+NEXT_PUBLIC_SUPABASE_URL=https://[REDACTED-PROJECT-ID].supabase.co
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY=your-anon-key
 
 # Optional Enhancements

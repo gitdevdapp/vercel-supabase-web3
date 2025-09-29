@@ -14,7 +14,7 @@ import { createClient } from '@supabase/supabase-js';
 import fetch from 'node-fetch';
 
 // Production configuration
-const SUPABASE_URL = 'https://mjrnzgunexmopvnamggw.supabase.co';
+const SUPABASE_URL = 'https://[REDACTED-PROJECT-ID].supabase.co';
 const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY;
 const PRODUCTION_URL = 'https://devdapp.com';
 

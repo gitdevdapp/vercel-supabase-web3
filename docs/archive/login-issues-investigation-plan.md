@@ -16,12 +16,12 @@
 
 #### 1. **URL Format Mismatch**
 - **Expected Format**: `/auth/confirm?token_hash=X&type=Y`
-- **Actual URL**: `https://mjrnzgunexmopvnamggw.supabase.co/auth/v1/verify?token=X&type=recovery&redirect_to=https://devdapp.com`
+- **Actual URL**: `https://[REDACTED-PROJECT-ID].supabase.co/auth/v1/verify?token=X&type=recovery&redirect_to=https://devdapp.com`
 - **Issue**: Different Supabase project ID and incompatible URL parameters
 
 #### 2. **Supabase Project Inconsistency**
 - **Codebase Configuration**: `tydttpgytuhwoecbogvd.supabase.co`
-- **User's Email URL**: `mjrnzgunexmopvnamggw.supabase.co`
+- **User's Email URL**: `[REDACTED-PROJECT-ID].supabase.co`
 - **Issue**: Different Supabase projects being used
 
 #### 3. **Auth Route Parameter Mismatch**
@@ -55,7 +55,7 @@ const type = searchParams.get("type") as EmailOtpType | null;
 4. Document any project ID discrepancies
 
 **Expected Findings**:
-- Identify if `mjrnzgunexmopvnamggw` or `tydttpgytuhwoecbogvd` is the correct project
+- Identify if `[REDACTED-PROJECT-ID]` or `tydttpgytuhwoecbogvd` is the correct project
 - Determine if project has been changed/migrated recently
 
 #### 1.2 Auth URL Configuration Audit

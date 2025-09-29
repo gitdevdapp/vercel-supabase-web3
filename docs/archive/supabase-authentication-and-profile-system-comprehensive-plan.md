@@ -268,7 +268,7 @@ const nextConfig: NextConfig = {
 #### **Environment Variables** (Required for Vercel)
 ```bash
 # ✅ MINIMAL REQUIRED VARIABLES
-NEXT_PUBLIC_SUPABASE_URL=https://mjrnzgunexmopvnamggw.supabase.co
+NEXT_PUBLIC_SUPABASE_URL=https://[REDACTED-PROJECT-ID].supabase.co
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY=your-anon-key-here
 
 # ✅ OPTIONAL FOR ADVANCED FEATURES
@@ -359,7 +359,7 @@ SUPABASE_SERVICE_ROLE_KEY=your-service-role-key-here
 2. **Vercel Environment Variables** (if not already set)
    ```bash
    # In Vercel Dashboard → Settings → Environment Variables:
-   NEXT_PUBLIC_SUPABASE_URL=https://mjrnzgunexmopvnamggw.supabase.co
+   NEXT_PUBLIC_SUPABASE_URL=https://[REDACTED-PROJECT-ID].supabase.co
    NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY=your-anon-key-here
    ```
 

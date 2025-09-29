@@ -39,7 +39,7 @@
 
 ### Step 1: Execute Database Setup
 
-1. **Go to your Supabase Dashboard**: https://supabase.com/dashboard/project/mjrnzgunexmopvnamggw
+1. **Go to your Supabase Dashboard**: https://supabase.com/dashboard/project/[REDACTED-PROJECT-ID]
 2. **Navigate to**: SQL Editor
 3. **Copy and paste** the entire contents of `scripts/enhanced-database-setup.sql`
 4. **Click "Run"** to execute the script

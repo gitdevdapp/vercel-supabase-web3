@@ -3,7 +3,7 @@
 ## 📋 OVERVIEW
 **Created**: September 23, 2025  
 **Issue**: Login failures due to Supabase project ID mismatch  
-**Solution**: Complete migration to canonical `mjrnzgunexmopvnamggw` project  
+**Solution**: Complete migration to canonical `[REDACTED-PROJECT-ID]` project  
 **Status**: 🟡 **READY FOR IMPLEMENTATION**  
 
 ---
@@ -14,7 +14,7 @@
 After thorough git history analysis, the issue is **NOT** a code problem but a **configuration mismatch**:
 
 1. **Current Setup**: Some environments may use `tydttpgytuhwoecbogvd.supabase.co`
-2. **User's Email**: Come from `mjrnzgunexmopvnamggw.supabase.co` (confirmed correct)
+2. **User's Email**: Come from `[REDACTED-PROJECT-ID].supabase.co` (confirmed correct)
 3. **Result**: Email verification tokens fail because they're from different Supabase projects
 
 ### Git History Confirms
@@ -27,7 +27,7 @@ After thorough git history analysis, the issue is **NOT** a code problem but a *
 ## 🎯 THE SOLUTION
 
 ### Single Action Required
-**Ensure ALL environments use**: `mjrnzgunexmopvnamggw.supabase.co`
+**Ensure ALL environments use**: `[REDACTED-PROJECT-ID].supabase.co`
 
 ### Migration Resources Created
 1. **📘 Main Guide**: `docs/future/canonical-mjr-supabase-migration-guide.md`
@@ -47,18 +47,18 @@ npm run verify-env
 ### Step 2: Update Local Environment
 ```bash
 # Edit .env.local
-NEXT_PUBLIC_SUPABASE_URL=https://mjrnzgunexmopvnamggw.supabase.co
+NEXT_PUBLIC_SUPABASE_URL=https://[REDACTED-PROJECT-ID].supabase.co
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY=[get from dashboard]
 SUPABASE_SERVICE_ROLE_KEY=[get from dashboard]
 ```
 
 ### Step 3: Update Vercel Environment
 1. Go to Vercel Dashboard → Environment Variables
-2. Set Production environment to use `mjrnzgunexmopvnamggw`
+2. Set Production environment to use `[REDACTED-PROJECT-ID]`
 3. Redeploy
 
 ### Step 4: Configure Supabase Dashboard
-1. Go to https://supabase.com/dashboard/project/mjrnzgunexmopvnamggw/auth/settings
+1. Go to https://supabase.com/dashboard/project/[REDACTED-PROJECT-ID]/auth/settings
 2. Set Site URL: `https://devdapp.com`
 3. Add all redirect URLs for auth endpoints
 
@@ -111,13 +111,13 @@ npm run migrate:test
 ## 🚨 CRITICAL SUCCESS FACTORS
 
 ### Must Have Consistency
-1. **Local `.env.local`** → `mjrnzgunexmopvnamggw`
-2. **Vercel Production** → `mjrnzgunexmopvnamggw`
-3. **Vercel Preview** → `mjrnzgunexmopvnamggw`
-4. **Supabase Dashboard** → Configured for `mjrnzgunexmopvnamggw`
+1. **Local `.env.local`** → `[REDACTED-PROJECT-ID]`
+2. **Vercel Production** → `[REDACTED-PROJECT-ID]`
+3. **Vercel Preview** → `[REDACTED-PROJECT-ID]`
+4. **Supabase Dashboard** → Configured for `[REDACTED-PROJECT-ID]`
 
 ### Email Verification Test
-**Final validation**: Sign up with real email, receive verification from `mjrnzgunexmopvnamggw.supabase.co`, click link, access profile successfully.
+**Final validation**: Sign up with real email, receive verification from `[REDACTED-PROJECT-ID].supabase.co`, click link, access profile successfully.
 
 ---
 

@@ -4,9 +4,9 @@
 
 **Date**: September 23, 2025  
 **Status**: 🟡 **CRITICAL MIGRATION REQUIRED**  
-**Objective**: Establish `mjrnzgunexmopvnamggw` as the canonical Supabase project ID across ALL environments  
+**Objective**: Establish `[REDACTED-PROJECT-ID]` as the canonical Supabase project ID across ALL environments  
 **Current Issue**: Project uses incorrect `tydttpgytuhwoecbogvd` project ID causing login failures  
-**Solution**: Complete migration to correct `mjrnzgunexmopvnamggw` project ID  
+**Solution**: Complete migration to correct `[REDACTED-PROJECT-ID]` project ID  
 
 ---
 
@@ -15,12 +15,12 @@
 ### The Root Cause
 - **Current Documentation**: Points to `tydttpgytuhwoecbogvd.supabase.co` 
 - **Current Environment**: May be using `tydttpgytuhwoecbogvd.supabase.co`
-- **Correct Project**: `mjrnzgunexmopvnamggw.supabase.co` (confirmed by user)
-- **Email Verification URLs**: Come from `mjrnzgunexmopvnamggw.supabase.co` but app expects different project
+- **Correct Project**: `[REDACTED-PROJECT-ID].supabase.co` (confirmed by user)
+- **Email Verification URLs**: Come from `[REDACTED-PROJECT-ID].supabase.co` but app expects different project
 
 ### Why This Breaks Authentication
 ```typescript
-// User receives email from: mjrnzgunexmopvnamggw.supabase.co/auth/v1/verify?token_hash=X
+// User receives email from: [REDACTED-PROJECT-ID].supabase.co/auth/v1/verify?token_hash=X
 // But app is configured for: tydttpgytuhwoecbogvd.supabase.co
 // Result: Token verification fails because projects don't match
 ```
@@ -30,7 +30,7 @@
 ## 🎯 MIGRATION OBJECTIVES
 
 ### Primary Goals
-1. **Consistency**: All environments use `mjrnzgunexmopvnamggw` project ID
+1. **Consistency**: All environments use `[REDACTED-PROJECT-ID]` project ID
 2. **Functionality**: Email verification links work correctly
 3. **Documentation**: All docs reflect correct project ID
 4. **Security**: Proper environment variable management
@@ -51,17 +51,17 @@
 ### 1.1 Verify Project Access
 **YOU MUST DO THIS FIRST**
 
-1. **Access Supabase Dashboard**: https://supabase.com/dashboard/project/mjrnzgunexmopvnamggw
+1. **Access Supabase Dashboard**: https://supabase.com/dashboard/project/[REDACTED-PROJECT-ID]
 2. **Verify Access**: Ensure you can access the project settings
 3. **Document Current State**: Take screenshots of current configuration
 
 ### 1.2 Get Canonical Environment Values
-**Navigate to**: https://supabase.com/dashboard/project/mjrnzgunexmopvnamggw/settings/api
+**Navigate to**: https://supabase.com/dashboard/project/[REDACTED-PROJECT-ID]/settings/api
 
 **Copy These Exact Values**:
 ```bash
 # Project URL (should be exactly this)
-NEXT_PUBLIC_SUPABASE_URL=https://mjrnzgunexmopvnamggw.supabase.co
+NEXT_PUBLIC_SUPABASE_URL=https://[REDACTED-PROJECT-ID].supabase.co
 
 # Anon/Public Key (copy from dashboard)
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY=[YOUR_ANON_KEY_FROM_DASHBOARD]
@@ -71,7 +71,7 @@ SUPABASE_SERVICE_ROLE_KEY=[YOUR_SERVICE_ROLE_KEY_FROM_DASHBOARD]
 ```
 
 ### 1.3 Configure Authentication Settings
-**Navigate to**: https://supabase.com/dashboard/project/mjrnzgunexmopvnamggw/auth/settings
+**Navigate to**: https://supabase.com/dashboard/project/[REDACTED-PROJECT-ID]/auth/settings
 
 #### Site URL Configuration
 ```
@@ -125,12 +125,12 @@ https://vercel-supabase-web3-*.vercel.app/
 ```bash
 # =============================================================================
 # CANONICAL MJR SUPABASE PROJECT CONFIGURATION
-# Project ID: mjrnzgunexmopvnamggw
+# Project ID: [REDACTED-PROJECT-ID]
 # Last Updated: September 23, 2025
 # =============================================================================
 
 # Supabase Configuration (CANONICAL)
-NEXT_PUBLIC_SUPABASE_URL=https://mjrnzgunexmopvnamggw.supabase.co
+NEXT_PUBLIC_SUPABASE_URL=https://[REDACTED-PROJECT-ID].supabase.co
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY=[YOUR_ANON_KEY_FROM_DASHBOARD]
 SUPABASE_SERVICE_ROLE_KEY=[YOUR_SERVICE_ROLE_KEY_FROM_DASHBOARD]
 
@@ -163,12 +163,12 @@ const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY;
 const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 console.log('Supabase URL:', supabaseUrl);
-console.log('Supabase URL Correct:', supabaseUrl === 'https://mjrnzgunexmopvnamggw.supabase.co' ? '✅' : '❌');
+console.log('Supabase URL Correct:', supabaseUrl === 'https://[REDACTED-PROJECT-ID].supabase.co' ? '✅' : '❌');
 console.log('Anon Key Present:', supabaseKey ? '✅' : '❌');
 console.log('Service Key Present:', serviceKey ? '✅' : '❌');
 
-if (supabaseUrl !== 'https://mjrnzgunexmopvnamggw.supabase.co') {
-  console.error('❌ WRONG SUPABASE URL! Expected: https://mjrnzgunexmopvnamggw.supabase.co');
+if (supabaseUrl !== 'https://[REDACTED-PROJECT-ID].supabase.co') {
+  console.error('❌ WRONG SUPABASE URL! Expected: https://[REDACTED-PROJECT-ID].supabase.co');
   process.exit(1);
 }
 
@@ -194,7 +194,7 @@ node scripts/verify-env.js
 **Environment**: Production
 
 ```
-NEXT_PUBLIC_SUPABASE_URL=https://mjrnzgunexmopvnamggw.supabase.co
+NEXT_PUBLIC_SUPABASE_URL=https://[REDACTED-PROJECT-ID].supabase.co
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY=[YOUR_ANON_KEY_FROM_DASHBOARD]
 SUPABASE_SERVICE_ROLE_KEY=[YOUR_SERVICE_ROLE_KEY_FROM_DASHBOARD]
 ```
@@ -229,12 +229,12 @@ After updating environment variables:
 ### 4.1 Update Primary Setup Guide
 **File**: `CANONICAL_SETUP.md`
 
-**Replace all instances** of `tydttpgytuhwoecbogvd` with `mjrnzgunexmopvnamggw`:
+**Replace all instances** of `tydttpgytuhwoecbogvd` with `[REDACTED-PROJECT-ID]`:
 
 ```bash
 # Find and replace in CANONICAL_SETUP.md
 # OLD: https://tydttpgytuhwoecbogvd.supabase.co
-# NEW: https://mjrnzgunexmopvnamggw.supabase.co
+# NEW: https://[REDACTED-PROJECT-ID].supabase.co
 ```
 
 ### 4.2 Update Environment Example
@@ -242,8 +242,8 @@ After updating environment variables:
 
 ```bash
 # Supabase Configuration (CANONICAL)
-# Get these values from: https://supabase.com/dashboard/project/mjrnzgunexmopvnamggw/settings/api
-NEXT_PUBLIC_SUPABASE_URL=https://mjrnzgunexmopvnamggw.supabase.co
+# Get these values from: https://supabase.com/dashboard/project/[REDACTED-PROJECT-ID]/settings/api
+NEXT_PUBLIC_SUPABASE_URL=https://[REDACTED-PROJECT-ID].supabase.co
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY=your-anon-key-here
 SUPABASE_SERVICE_ROLE_KEY=your-service-role-key-here
 ```
@@ -270,7 +270,7 @@ grep -r "tydttpgytuhwoecbogvd" . --exclude-dir=node_modules --exclude-dir=.git
 **Search for hardcoded references**:
 ```bash
 grep -r "tydttpgytuhwoecbogvd" app/ lib/ components/ --include="*.ts" --include="*.tsx"
-grep -r "mjrnzgunexmopvnamggw" app/ lib/ components/ --include="*.ts" --include="*.tsx"
+grep -r "[REDACTED-PROJECT-ID]" app/ lib/ components/ --include="*.ts" --include="*.tsx"
 ```
 
 **Expected Result**: No hardcoded project IDs in code (should use environment variables)
@@ -306,7 +306,7 @@ npm run dev
 1. **Sign Up Flow**:
    - Create account with test email
    - Check email inbox
-   - Verify email URL contains `mjrnzgunexmopvnamggw`
+   - Verify email URL contains `[REDACTED-PROJECT-ID]`
    - Click verification link
    - Confirm redirect to profile
 
@@ -354,7 +354,7 @@ testAuthEndpoints();
 ### 6.3 Email Verification Testing
 **Critical Test**:
 1. Sign up with **real email** (use mailinator.com for testing)
-2. **Check email source** - should come from `mjrnzgunexmopvnamggw.supabase.co`
+2. **Check email source** - should come from `[REDACTED-PROJECT-ID].supabase.co`
 3. **Click verification link** - should work without errors
 4. **Verify redirect** - should go to profile page
 5. **Test session** - should persist across page reloads
@@ -418,9 +418,9 @@ If migration causes critical issues:
 ## 📊 VERIFICATION CHECKLIST
 
 ### Environment Configuration
-- [ ] Local `.env.local` uses `mjrnzgunexmopvnamggw`
-- [ ] Vercel Production env uses `mjrnzgunexmopvnamggw`  
-- [ ] Vercel Preview env uses `mjrnzgunexmopvnamggw`
+- [ ] Local `.env.local` uses `[REDACTED-PROJECT-ID]`
+- [ ] Vercel Production env uses `[REDACTED-PROJECT-ID]`  
+- [ ] Vercel Preview env uses `[REDACTED-PROJECT-ID]`
 - [ ] No hardcoded project IDs in code
 
 ### Supabase Dashboard Configuration  
@@ -489,7 +489,7 @@ If migration causes critical issues:
 ## 🎉 SUCCESS CONFIRMATION
 
 ### Migration Complete When:
-1. ✅ **Email Test**: Sign up with new email, receive verification from `mjrnzgunexmopvnamggw`, click link, access profile
+1. ✅ **Email Test**: Sign up with new email, receive verification from `[REDACTED-PROJECT-ID]`, click link, access profile
 2. ✅ **Environment Consistency**: All environments use same project ID  
 3. ✅ **Documentation Alignment**: All docs reference correct project
 4. ✅ **Zero Auth Errors**: No authentication failures in logs
@@ -508,5 +508,5 @@ echo "✅ Migration verification complete!"
 
 **Document Prepared By**: AI Assistant  
 **Migration Target**: Complete within 4 hours  
-**Critical Success Factor**: `mjrnzgunexmopvnamggw` project ID used consistently everywhere  
+**Critical Success Factor**: `[REDACTED-PROJECT-ID]` project ID used consistently everywhere  
 **Next Review**: 24 hours post-migration for stability confirmation

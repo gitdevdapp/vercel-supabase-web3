@@ -14,13 +14,13 @@
 
 ### Current Issue - Example URL That Failed
 ```
-https://mjrnzgunexmopvnamggw.supabase.co/auth/v1/verify?token=pkce_dfc8bcb27634a0b390a395504309bd53f580814990a12526529394ce&type=signup&redirect_to=https://devdapp.com
+https://[REDACTED-PROJECT-ID].supabase.co/auth/v1/verify?token=pkce_dfc8bcb27634a0b390a395504309bd53f580814990a12526529394ce&type=signup&redirect_to=https://devdapp.com
 ```
 
 ### Problems Identified
 
 #### 1. **URL Structure Mismatch**
-- **Current Issue**: Email links point to `mjrnzgunexmopvnamggw.supabase.co/auth/v1/verify`
+- **Current Issue**: Email links point to `[REDACTED-PROJECT-ID].supabase.co/auth/v1/verify`
 - **Expected**: Should point to `https://devdapp.com/auth/confirm`
 - **Root Cause**: Supabase email template configuration issue
 

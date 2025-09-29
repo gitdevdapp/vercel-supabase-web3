@@ -37,15 +37,15 @@
 ### 1.2 Locate Your Project
 1. **Look for your project** in the dashboard:
    - **Project name**: Should be "DevDapp" or similar
-   - **Project ID**: `mjrnzgunexmopvnamggw`
+   - **Project ID**: `[REDACTED-PROJECT-ID]`
    - **Status**: Should show as "Active" with a green dot
 
 2. **Click on your project** to open it
    - If you don't see it, use the search or ensure you're logged into the correct account
 
 ### 1.3 Verify You're in the Right Project
-- **Project URL** should be: `https://mjrnzgunexmopvnamggw.supabase.co`
-- **Project ID** in URL should be: `mjrnzgunexmopvnamggw`
+- **Project URL** should be: `https://[REDACTED-PROJECT-ID].supabase.co`
+- **Project ID** in URL should be: `[REDACTED-PROJECT-ID]`
 
 **❌ If you can't access the project**: Contact the project owner or check if the project still exists.
 
@@ -228,7 +228,7 @@ Flow Type for OAuth Providers:     PKCE        ← This should stay PKCE
 
 1. **Contact Supabase Support**:
    - Go to: https://supabase.com/support
-   - Explain: "Need to disable PKCE for email confirmations in project mjrnzgunexmopvnamggw"
+   - Explain: "Need to disable PKCE for email confirmations in project [REDACTED-PROJECT-ID]"
 
 2. **Alternative Fix** - Force OTP in email templates:
    ```html
@@ -267,10 +267,10 @@ Flow Type for OAuth Providers:     PKCE        ← This should stay PKCE
 4. **Attack Protection** ← **UNLIKELY**
 
 ### Exact URLs to Bookmark
-- **Dashboard**: https://supabase.com/dashboard/project/mjrnzgunexmopvnamggw
-- **Sign In / Providers**: https://supabase.com/dashboard/project/mjrnzgunexmopvnamggw/auth/signin-providers
-- **Advanced**: https://supabase.com/dashboard/project/mjrnzgunexmopvnamggw/auth/advanced
-- **Email Templates**: https://supabase.com/dashboard/project/mjrnzgunexmopvnamggw/auth/emails
+- **Dashboard**: https://supabase.com/dashboard/project/[REDACTED-PROJECT-ID]
+- **Sign In / Providers**: https://supabase.com/dashboard/project/[REDACTED-PROJECT-ID]/auth/signin-providers
+- **Advanced**: https://supabase.com/dashboard/project/[REDACTED-PROJECT-ID]/auth/advanced
+- **Email Templates**: https://supabase.com/dashboard/project/[REDACTED-PROJECT-ID]/auth/emails
 
 ### What to Change
 - **From**: PKCE flow for email confirmations

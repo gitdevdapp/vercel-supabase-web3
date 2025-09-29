@@ -79,7 +79,7 @@ PKCE verification failed - DETAILED: {
 ### **2.1 Access Supabase Dashboard**
 1. **Navigate to**: https://supabase.com/dashboard
 2. **Login** with your Supabase account
-3. **Select project**: Click on your project (mjrnzgunexmopvnamggw)
+3. **Select project**: Click on your project ([REDACTED-PROJECT-ID])
 
 ### **2.2 Check Project Status**
 1. **Project Overview** → Verify project is **ACTIVE** and **HEALTHY**
@@ -93,7 +93,7 @@ PKCE verification failed - DETAILED: {
 2. **Click "API"** in settings menu
 
 #### **Check API Keys**
-1. **Project URL**: Should be `https://mjrnzgunexmopvnamggw.supabase.co`
+1. **Project URL**: Should be `https://[REDACTED-PROJECT-ID].supabase.co`
 2. **Anon (public) key**: Copy and compare with your `.env.local`
 3. **Service role key**: Copy and compare with your `.env.local`
 
@@ -104,7 +104,7 @@ PKCE verification failed - DETAILED: {
 3. **Update your environment variables**:
    ```bash
    # Update .env.local
-   NEXT_PUBLIC_SUPABASE_URL=https://mjrnzgunexmopvnamggw.supabase.co
+   NEXT_PUBLIC_SUPABASE_URL=https://[REDACTED-PROJECT-ID].supabase.co
    NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY=[NEW_ANON_KEY]
    SUPABASE_SERVICE_ROLE_KEY=[NEW_SERVICE_KEY]
    ```
@@ -241,11 +241,11 @@ WHERE u.id IS NULL;
 ```bash
 # Test DNS resolution
 nslookup devdapp.com
-nslookup mjrnzgunexmopvnamggw.supabase.co
+nslookup [REDACTED-PROJECT-ID].supabase.co
 
 # Test connectivity
 curl -I https://devdapp.com/auth/confirm
-curl -I https://mjrnzgunexmopvnamggw.supabase.co
+curl -I https://[REDACTED-PROJECT-ID].supabase.co
 ```
 
 ---
@@ -347,7 +347,7 @@ curl -I https://mjrnzgunexmopvnamggw.supabase.co
 ```markdown
 Subject: PKCE Authentication Verification Failed - Valid Configuration
 
-Project ID: mjrnzgunexmopvnamggw
+Project ID: [REDACTED-PROJECT-ID]
 Issue: Email confirmation always fails with "Authentication verification failed"
 Duration: [X days]
 

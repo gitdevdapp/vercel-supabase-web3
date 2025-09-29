@@ -6,7 +6,7 @@ Your email confirmation links are failing because **Supabase email templates are
 ## ✅ Quick Fix (15 minutes)
 
 ### Step 1: Access Supabase Dashboard
-1. Go to: https://supabase.com/dashboard/project/mjrnzgunexmopvnamggw/auth/templates
+1. Go to: https://supabase.com/dashboard/project/[REDACTED-PROJECT-ID]/auth/templates
 2. Log in with your Supabase account
 3. Navigate to **Authentication > Email Templates**
 
@@ -25,7 +25,7 @@ Your email confirmation links are failing because **Supabase email templates are
 5. **Wait 10 seconds** for confirmation
 
 ### Step 4: Verify Site URL Configuration
-1. Go to: https://supabase.com/dashboard/project/mjrnzgunexmopvnamggw/auth/settings
+1. Go to: https://supabase.com/dashboard/project/[REDACTED-PROJECT-ID]/auth/settings
 2. **Check Site URL** is set to: `https://devdapp.com`
 3. **Check Redirect URLs** include:
    - `https://devdapp.com/auth/confirm`
@@ -54,7 +54,7 @@ Your email confirmation links are failing because **Supabase email templates are
 **Email Content Changes:**
 - ✅ Email shows DevDapp branding
 - ✅ Links point to `devdapp.com/auth/confirm`
-- ❌ Links NO LONGER point to `mjrnzgunexmopvnamggw.supabase.co`
+- ❌ Links NO LONGER point to `[REDACTED-PROJECT-ID].supabase.co`
 
 **User Experience:**
 - ✅ Click email link → automatically logged in

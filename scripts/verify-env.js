@@ -12,8 +12,8 @@ console.log('=================================================');
 console.log('');
 
 // Expected canonical values
-const CANONICAL_SUPABASE_URL = 'https://mjrnzgunexmopvnamggw.supabase.co';
-const CANONICAL_PROJECT_ID = 'mjrnzgunexmopvnamggw';
+const CANONICAL_SUPABASE_URL = 'https://[REDACTED-PROJECT-ID].supabase.co';
+const CANONICAL_PROJECT_ID = '[REDACTED-PROJECT-ID]';
 
 // Get current environment values
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -115,7 +115,7 @@ if (hasErrors) {
   console.log('   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY=[get from Supabase dashboard]');
   console.log('   SUPABASE_SERVICE_ROLE_KEY=[get from Supabase dashboard]');
   console.log('');
-  console.log('2. Get correct keys from: https://supabase.com/dashboard/project/mjrnzgunexmopvnamggw/settings/api');
+  console.log('2. Get correct keys from: https://supabase.com/dashboard/project/[REDACTED-PROJECT-ID]/settings/api');
   console.log('');
   console.log('3. Restart your development server after making changes');
   console.log('');
