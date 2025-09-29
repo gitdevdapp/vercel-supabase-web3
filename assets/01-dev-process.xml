@@ -7,86 +7,86 @@
         <mxCell id="1" parent="0" />
         
         <!-- Title -->
-        <mxCell id="title" value="🚀 Developer Process - Deploy in 60 Minutes" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24;fontStyle=1;fontColor=#0a0a0a;" vertex="1" parent="1">
+        <mxCell id="title" value="🚀 Deploy Production dApp in 60 Minutes" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24;fontStyle=1;fontColor=#210f75;" vertex="1" parent="1">
           <mxGeometry x="300" y="40" width="600" height="40" as="geometry" />
         </mxCell>
         
-        <!-- Step 1: Clone Repository -->
-        <mxCell id="step1" value="📂 Clone Repository&lt;br&gt;git clone github.com/your-repo" style="rounded=1;whiteSpace=wrap;html=1;fillColor=hsl(0,0%,96%);strokeColor=hsl(0,0%,45%);strokeWidth=2;fontSize=14;align=center;verticalAlign=middle;fontColor=#0a0a0a;" vertex="1" parent="1">
-          <mxGeometry x="50" y="150" width="200" height="100" as="geometry" />
+        <!-- Step 1: Setup Repository -->
+        <mxCell id="step1" value="📁 Setup Repository&lt;br&gt;Clone starter template&lt;br&gt;Install dependencies" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c6c2da;strokeColor=#848483;strokeWidth=2;fontSize=14;align=center;verticalAlign=middle;fontColor=#444444;" vertex="1" parent="1">
+          <mxGeometry x="80" y="150" width="200" height="100" as="geometry" />
         </mxCell>
 
-        <!-- Step 2: Supabase Config -->
-        <mxCell id="step2" value="🗄️ Supabase Setup&lt;br&gt;Get project URL &amp; API keys" style="rounded=1;whiteSpace=wrap;html=1;fillColor=hsl(173,58%,85%);strokeColor=hsl(173,58%,39%);strokeWidth=2;fontSize=14;align=center;verticalAlign=middle;fontColor=#0a0a0a;" vertex="1" parent="1">
+        <!-- Step 2: Database Setup -->
+        <mxCell id="step2" value="🗄️ Database Setup&lt;br&gt;Create Supabase project&lt;br&gt;Run SQL schema script" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#beb2f5;strokeColor=#401de1;strokeWidth=2;fontSize=14;align=center;verticalAlign=middle;fontColor=#ffffff;" vertex="1" parent="1">
           <mxGeometry x="320" y="150" width="200" height="100" as="geometry" />
         </mxCell>
 
-        <!-- Step 3: CDP Config -->
-        <mxCell id="step3" value="⛓️ Coinbase CDP&lt;br&gt;Configure API credentials" style="rounded=1;whiteSpace=wrap;html=1;fillColor=hsl(197,37%,70%);strokeColor=hsl(197,37%,24%);strokeWidth=2;fontSize=14;align=center;verticalAlign=middle;fontColor=#ffffff;" vertex="1" parent="1">
-          <mxGeometry x="590" y="150" width="200" height="100" as="geometry" />
+        <!-- Step 3: Web3 Integration -->
+        <mxCell id="step3" value="⛓️ Web3 Integration&lt;br&gt;Configure wallet APIs&lt;br&gt;Test blockchain connections" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#beb2f5;strokeColor=#401de1;strokeWidth=2;fontSize=14;align=center;verticalAlign=middle;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="560" y="150" width="200" height="100" as="geometry" />
         </mxCell>
 
-        <!-- Step 4: Vercel Deploy -->
-        <mxCell id="step4" value="🚀 Deploy to Vercel&lt;br&gt;Connect GitHub &amp; go live" style="rounded=1;whiteSpace=wrap;html=1;fillColor=hsl(0,0%,9%);strokeColor=hsl(0,0%,3%);strokeWidth=2;fontSize=14;align=center;verticalAlign=middle;fontColor=#ffffff;" vertex="1" parent="1">
-          <mxGeometry x="860" y="150" width="200" height="100" as="geometry" />
+        <!-- Step 4: Deploy Live -->
+        <mxCell id="step4" value="🚀 Deploy Live&lt;br&gt;Connect to Vercel&lt;br&gt;Go live in production" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#401de1;strokeColor=#210f75;strokeWidth=2;fontSize=14;align=center;verticalAlign=middle;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="800" y="150" width="200" height="100" as="geometry" />
         </mxCell>
 
         <!-- Result -->
-        <mxCell id="result" value="🌟 Production DApp Ready&lt;br&gt;Multi-chain Web3 application live" style="rounded=1;whiteSpace=wrap;html=1;fillColor=hsl(12,76%,61%);strokeColor=hsl(12,76%,45%);strokeWidth=3;fontSize=16;align=center;verticalAlign=middle;fontColor=#ffffff;" vertex="1" parent="1">
-          <mxGeometry x="455" y="350" width="290" height="100" as="geometry" />
+        <mxCell id="result" value="🌟 Multi-Chain dApp Live&lt;br&gt;Production-ready Web3 application&lt;br&gt;Supporting 6+ blockchain networks" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#401de1;strokeColor=#210f75;strokeWidth=3;fontSize=16;align=center;verticalAlign=middle;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="440" y="350" width="320" height="100" as="geometry" />
         </mxCell>
 
         <!-- Time indicators -->
-        <mxCell id="time1" value="5 min" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=hsl(0,0%,45%);" vertex="1" parent="1">
-          <mxGeometry x="125" y="260" width="50" height="20" as="geometry" />
+        <mxCell id="time1" value="5 min" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#401de1;" vertex="1" parent="1">
+          <mxGeometry x="150" y="265" width="60" height="20" as="geometry" />
         </mxCell>
 
-        <mxCell id="time2" value="10 min" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=hsl(0,0%,45%);" vertex="1" parent="1">
-          <mxGeometry x="395" y="260" width="50" height="20" as="geometry" />
+        <mxCell id="time2" value="15 min" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#210f75;" vertex="1" parent="1">
+          <mxGeometry x="390" y="265" width="60" height="20" as="geometry" />
         </mxCell>
 
-        <mxCell id="time3" value="10 min" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=hsl(0,0%,45%);" vertex="1" parent="1">
-          <mxGeometry x="665" y="260" width="50" height="20" as="geometry" />
+        <mxCell id="time3" value="20 min" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#210f75;" vertex="1" parent="1">
+          <mxGeometry x="630" y="265" width="60" height="20" as="geometry" />
         </mxCell>
 
-        <mxCell id="time4" value="15 min" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=hsl(0,0%,45%);" vertex="1" parent="1">
-          <mxGeometry x="935" y="260" width="50" height="20" as="geometry" />
+        <mxCell id="time4" value="20 min" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#401de1;" vertex="1" parent="1">
+          <mxGeometry x="870" y="265" width="60" height="20" as="geometry" />
         </mxCell>
 
         <!-- Process arrows -->
-        <mxCell id="arrow1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;strokeColor=hsl(0,0%,45%);endArrow=classic;endSize=8;" edge="1" parent="1" source="step1" target="step2">
+        <mxCell id="arrow1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;strokeColor=#444444;endArrow=classic;endSize=8;" edge="1" parent="1" source="step1" target="step2">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
 
-        <mxCell id="arrow2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;strokeColor=hsl(0,0%,45%);endArrow=classic;endSize=8;" edge="1" parent="1" source="step2" target="step3">
+        <mxCell id="arrow2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;strokeColor=#444444;endArrow=classic;endSize=8;" edge="1" parent="1" source="step2" target="step3">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
 
-        <mxCell id="arrow3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;strokeColor=hsl(0,0%,45%);endArrow=classic;endSize=8;" edge="1" parent="1" source="step3" target="step4">
+        <mxCell id="arrow3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;strokeColor=#444444;endArrow=classic;endSize=8;" edge="1" parent="1" source="step3" target="step4">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
 
         <!-- Converging arrows to result -->
-        <mxCell id="arrow4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;strokeColor=hsl(12,76%,45%);endArrow=classic;endSize=8;" edge="1" parent="1" source="step2" target="result">
+        <mxCell id="arrow4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#401de1;endArrow=classic;endSize=8;" edge="1" parent="1" source="step2" target="result">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="420" y="300" />
-              <mxPoint x="550" y="300" />
+              <mxPoint x="520" y="300" />
             </Array>
           </mxGeometry>
         </mxCell>
 
-        <mxCell id="arrow5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;strokeColor=hsl(12,76%,45%);endArrow=classic;endSize=8;" edge="1" parent="1" source="step4" target="result">
+        <mxCell id="arrow5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#401de1;endArrow=classic;endSize=8;" edge="1" parent="1" source="step4" target="result">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="960" y="300" />
-              <mxPoint x="650" y="300" />
+              <mxPoint x="900" y="300" />
+              <mxPoint x="680" y="300" />
             </Array>
           </mxGeometry>
         </mxCell>
 
         <!-- Total time -->
-        <mxCell id="total-time" value="⏱️ Total: 60 minutes to production" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=hsl(12,76%,45%);" vertex="1" parent="1">
+        <mxCell id="total-time" value="⏱️ Total: 60 minutes from clone to production" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#401de1;" vertex="1" parent="1">
           <mxGeometry x="400" y="480" width="400" height="30" as="geometry" />
         </mxCell>
 
