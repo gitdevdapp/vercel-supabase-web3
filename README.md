@@ -199,13 +199,69 @@ In your Supabase dashboard:
    http://localhost:3000/protected/profile
    ```
 
-### 5. Deploy to Production (15 minutes)
+### 5. Authentication Flow Configuration (IMPORTANT)
+
+This application uses **implicit flow** for email-based authentication (configured in `lib/supabase/client.ts` and `lib/supabase/server.ts`):
+
+```typescript
+{
+  auth: {
+    flowType: 'implicit',  // ✅ Recommended for email confirmations
+    autoRefreshToken: true,
+    persistSession: true,
+    detectSessionInUrl: true,
+  }
+}
+```
+
+#### Current Email Confirmation URL Format (Implicit Flow):
+```html
+<a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=signup&next=/protected/profile">
+  ✅ Confirm Email & Start Using DevDapp
+</a>
+```
+
+#### Alternative: PKCE Flow Email Confirmation URLs
+
+If you need to use PKCE flow instead, you must update both the Supabase configuration AND the email template:
+
+**1. Change Configuration (in both client.ts and server.ts):**
+```typescript
+{
+  auth: {
+    flowType: 'pkce',  // ⚠️ Requires special email URL format
+    autoRefreshToken: true,
+    persistSession: true,
+    detectSessionInUrl: true,
+  }
+}
+```
+
+**2. Update Email Template in Supabase:**
+```html
+<!-- PKCE-Compatible Email Confirmation URL -->
+<a href="{{ .SiteURL }}/auth/confirm?code={{ .Token }}&next=/protected/profile">
+  ✅ Confirm Email & Start Using DevDapp
+</a>
+```
+
+**Key Differences:**
+- **Implicit Flow**: Uses `token_hash={{ .TokenHash }}&type=signup`
+- **PKCE Flow**: Uses `code={{ .Token }}` (no type parameter)
+
+**⚠️ Important Notes:**
+- PKCE flow requires the authorization `code` parameter instead of `token_hash`
+- The confirmation route (`app/auth/confirm/route.ts`) works with both flows
+- **Implicit flow is recommended** for email-based authentication
+- PKCE flow is designed for OAuth redirects, not email confirmations
+
+### 6. Deploy to Production (15 minutes)
 
 1. **Push to GitHub** and connect to Vercel
 2. **Add environment variables** in Vercel dashboard
 3. **Deploy** - your multi-chain DApp is live!
 
-### 6. Test Your Setup (5 minutes)
+### 7. Test Your Setup (5 minutes)
 
 - ✅ Visit your deployed app
 - ✅ Test user registration and email confirmation
@@ -234,7 +290,7 @@ In your Supabase dashboard:
 - **Frontend**: Next.js 15 with React 19 and TypeScript
 - **Styling**: Tailwind CSS with dark/light mode support
 - **Database**: Supabase PostgreSQL with Row Level Security
-- **Authentication**: Supabase Auth with PKCE flow
+- **Authentication**: Supabase Auth with implicit flow
 - **Deployment**: Vercel with automatic CI/CD
 - **Web3 Libraries**: Ethers.js, Coinbase CDP SDK, Solana Web3.js
 
@@ -283,7 +339,7 @@ npm run setup-db
 - **Secure Functions** - SECURITY DEFINER functions with proper access control
 
 ### Authentication Security
-- **PKCE Flow** - Secure OAuth2 flow for email confirmations
+- **Implicit Flow** - Optimized for email-based authentication workflows
 - **Email Verification** - Required email confirmation for account activation
 - **Session Management** - Secure JWT tokens with automatic refresh
 - **Protected Routes** - Middleware-enforced authentication
