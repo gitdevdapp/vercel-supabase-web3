@@ -123,10 +123,10 @@ https://devdapp.com/auth/confirm?token_hash=pkce_a1b2c3d4e5f6789&type=signup&nex
 
 ### **Anon (Publishable) Key**
 
-**Key**: `[REDACTED-SUPABASE-ANON-KEY]`
+**Key**: `[REDACTED - KEYS REMOVED FOR SECURITY]`
 
 **Role**: `anon`  
-**Project**: `[REDACTED-PROJECT-ID]`  
+**Project**: `[REDACTED - PROJECT ID REMOVED]`  
 **Environment Variable**: `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY`  
 
 **Usage**:
@@ -139,10 +139,10 @@ https://devdapp.com/auth/confirm?token_hash=pkce_a1b2c3d4e5f6789&type=signup&nex
 
 ### **Service Role Key**
 
-**Key**: `[REDACTED-SUPABASE-SERVICE-KEY]`
+**Key**: `[REDACTED - NEVER COMMIT SERVICE ROLE KEY]`
 
 **Role**: `service_role`  
-**Project**: `[REDACTED-PROJECT-ID]`  
+**Project**: `[REDACTED - NEVER COMMIT PROJECT ID]`  
 **Environment Variable**: `SUPABASE_SERVICE_ROLE_KEY`  
 
 **Usage**:

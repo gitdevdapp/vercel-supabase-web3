@@ -28,7 +28,7 @@ if (!supabaseUrl || !supabaseAnonKey) {
   console.error('Required: NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY');
   console.error('');
   console.error('Create .env.local with:');
-  console.error('NEXT_PUBLIC_SUPABASE_URL=https://[REDACTED-PROJECT-ID].supabase.co');
+  console.error('NEXT_PUBLIC_SUPABASE_URL=[REDACTED - SUPABASE URL REMOVED]');
   console.error('NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY=your-anon-key');
   console.error('SUPABASE_SERVICE_ROLE_KEY=your-service-key (optional for full testing)');
   process.exit(1);

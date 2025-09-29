@@ -15,7 +15,7 @@
 const readline = require('readline');
 
 // Configuration
-const SUPABASE_URL = 'https://[REDACTED-PROJECT-ID].supabase.co';
+const SUPABASE_URL = '[REDACTED - SUPABASE URL REMOVED FOR SECURITY]';
 
 // You'll need to provide the anon key for verification
 const ANON_KEY = 'your-anon-key-here'; // Replace with actual anon key

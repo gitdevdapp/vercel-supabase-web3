@@ -59,7 +59,7 @@ SUPABASE_SERVICE_ROLE_KEY=your-service-role-key-here
 ### Configuration Required
 ```bash
 # CORRECT - Actual project credentials
-NEXT_PUBLIC_SUPABASE_URL=https://[REDACTED-PROJECT-ID].supabase.co
+NEXT_PUBLIC_SUPABASE_URL=[REDACTED - PROJECT URL REMOVED]
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY=[ACTUAL_ANON_KEY]
 SUPABASE_SERVICE_ROLE_KEY=[ACTUAL_SERVICE_ROLE_KEY]
 ```
@@ -130,7 +130,7 @@ SUPABASE_SERVICE_ROLE_KEY=[ACTUAL_SERVICE_ROLE_KEY]
 
 - [Complete User Flow Testing Guide](../current/TESTING-COMPLETE-USER-FLOW.md)
 - [Environment Configuration Guide](../../CANONICAL_SETUP.md)
-- [Supabase Dashboard](https://supabase.com/dashboard/project/[REDACTED-PROJECT-ID])
+- [Supabase Dashboard]([REDACTED - DASHBOARD URL REMOVED])
 
 ---
 

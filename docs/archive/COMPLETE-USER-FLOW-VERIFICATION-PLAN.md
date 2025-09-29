@@ -530,7 +530,7 @@ node scripts/verify-complete-user-flow.js
 
 #### **4.1 Supabase Dashboard Verification**
 
-**Access**: https://supabase.com/dashboard/project/[REDACTED-PROJECT-ID]
+**Access**: [REDACTED - SUPABASE DASHBOARD URL REMOVED]
 
 ```
 □ Navigate to Table Editor > profiles

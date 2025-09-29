@@ -128,7 +128,7 @@ After setup, test the flow:
 
 If scripts fail, use Supabase Dashboard:
 
-1. Go to: https://supabase.com/dashboard/project/[REDACTED-PROJECT-ID]/sql
+1. Go to: [REDACTED - SUPABASE SQL EDITOR URL REMOVED]
 2. Copy contents of: `scripts/enhanced-database-setup.sql`
 3. Paste into SQL Editor
 4. Click "Run"

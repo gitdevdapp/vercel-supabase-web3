@@ -28,7 +28,7 @@ The DevDapp authentication system is **functionally operational** with 6 verifie
 ## 🔍 **CURRENT PRODUCTION STATUS**
 
 ### **Database State (Verified Working)**
-- **Supabase Project**: `[REDACTED-PROJECT-ID].supabase.co`
+- **Supabase Project**: `[REDACTED - PROJECT URL REMOVED]`
 - **auth.users table**: 6 confirmed users
 - **profiles table**: 6 corresponding profiles (perfect 1:1 mapping)
 - **Database triggers**: ✅ Working (confirmed by successful profile creation)
@@ -155,7 +155,7 @@ Email confirmation attempt: {
 ### **Environment Configuration**
 ```bash
 # Production (Vercel)
-NEXT_PUBLIC_SUPABASE_URL=https://[REDACTED-PROJECT-ID].supabase.co
+NEXT_PUBLIC_SUPABASE_URL=[REDACTED - PROJECT URL REMOVED]
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY=[CONFIGURED]
 
 # Build Safety

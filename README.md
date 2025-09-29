@@ -1,219 +1,370 @@
-# 🌐 Vercel + Supabase + Web3 DApp Starter Kit
+# 🌐 Multi-Chain Web3 Starter Kit
 
-> **Deploy production-grade DApps in 60 minutes using Cursor IDE - completely free**
+> **Production-ready Web3 DApp framework supporting 6+ blockchains with enterprise authentication**
 
-The ultimate Web3-ready starter kit that transforms your blockchain idea into a production-ready DApp with secure authentication, user profiles, and enterprise-grade infrastructure. Built for Web3 developers who want to ship fast without compromising on quality.
+A comprehensive Web3 development platform that enables you to build and deploy multi-chain DApps in minutes. Features integrated wallet management, secure user authentication, and pre-built pages for major blockchain ecosystems.
 
 ## ✨ What You Get
 
-- 🌐 **Web3-Ready Foundation** - Perfect base for any DApp or blockchain project
-- 🔐 **Secure Authentication** - Email/password with email verification, ready for Web3 integration
-- 👤 **User Profiles** - Automatic profile creation and management for your DApp users
-- 📱 **Mobile-First Design** - Beautiful, responsive UI that works on every device
-- 🚀 **Lightning Fast** - Global CDN deployment with Vercel's edge network
-- 💰 **Completely Free** - $0-20/year (just domain cost) - perfect for DApp launches
-- 🛡️ **Enterprise Security** - Row-level security and HTTPS by default
-- 🎯 **Cursor IDE Optimized** - Built for modern AI-assisted development
+- 🔗 **Multi-Chain Support** - Avalanche, ApeChain, Flow, Tezos, Stacks, ROOT Network
+- 💼 **X402 Wallet Manager** - Full wallet functionality with Coinbase Developer Platform
+- 🔐 **Enterprise Authentication** - Supabase-powered with email verification and profile management
+- 👤 **Advanced Profiles** - Rich user profiles with automatic creation and management
+- 🎨 **Modern UI/UX** - Beautiful, responsive design with dark/light mode support
+- 🚀 **Zero-Config Deployment** - Deploy to Vercel with automated CI/CD
+- 🛡️ **Enterprise Security** - Row-level security, input validation, and secure session management
+- 📱 **Mobile-First** - Optimized for all devices and screen sizes
 
 ## 🎯 Perfect For
 
-- **Web3 Developers** building their first DApp
-- **Blockchain Entrepreneurs** launching their MVP
-- **DApp Builders** needing production-ready infrastructure
-- **Crypto Startups** requiring secure user management
-- **Web3 Students** learning modern DApp development
-- **Traditional Developers** transitioning to Web3
-- **Anyone** wanting a professional DApp foundation with Cursor IDE
+- **Multi-chain DApp developers** building cross-ecosystem applications
+- **Web3 entrepreneurs** launching production-ready platforms
+- **Blockchain teams** needing secure user management and wallet integration
+- **Traditional developers** transitioning to Web3 with best practices
+- **DeFi projects** requiring professional infrastructure foundations
 
 ---
 
-## 🚀 Quick Start Guide - Deploy Your DApp in 60 Minutes
+## 🚀 Quick Start - Deploy in 60 Minutes
 
 ### 1. Create Your Accounts (5 minutes)
 
-**Vercel Account:**
-- Go to [vercel.com](https://vercel.com)
-- Sign up with GitHub (it's free!)
-- This handles global DApp hosting and deployment
-
 **Supabase Account:**
-- Go to [supabase.com](https://supabase.com)
-- Sign up with GitHub (also free!)
-- This provides your DApp's database and authentication
+- Go to [supabase.com](https://supabase.com) and sign up
+- Create a new project with a secure password
+- Note your project URL and API keys
 
-**Cursor IDE (Recommended):**
-- Download from [cursor.com](https://cursor.com)
-- Perfect for AI-assisted Web3 development
-- This starter kit is optimized for Cursor's AI features
+**Vercel Account:**
+- Go to [vercel.com](https://vercel.com) and sign up with GitHub
+- Connect your repository for automatic deployments
 
-### 2. Setup Your Database (10 minutes)
+### 2. Set Up Your Database (15 minutes)
 
-1. **Create Supabase Project:**
-   - Project name: `your-app-name`
-   - Choose a strong database password
-   - Select region closest to your users
+#### Access Supabase SQL Editor
+1. Open your Supabase project dashboard
+2. Navigate to **SQL Editor** in the left sidebar
+3. Click **"New Query"** to open a blank editor
 
-2. **Copy Your Credentials:**
-   - Go to Project Settings → API
-   - Save these for later:
-     - Project URL: `https://your-project-id.supabase.co`
-     - Anon Key: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...`
+#### Create the Profiles Table
+Copy and paste this SQL code into the editor:
 
-3. **Setup Database Schema:**
-   - Open SQL Editor in Supabase
-   - Run the schema setup (provided in deployment guide)
+```sql
+-- Enable UUID extension
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
-### 3. Configure Your Environment (5 minutes)
+-- Create enhanced profiles table
+CREATE TABLE IF NOT EXISTS profiles (
+  id UUID REFERENCES auth.users(id) ON DELETE CASCADE PRIMARY KEY,
+  
+  -- Core profile fields
+  username TEXT UNIQUE,
+  email TEXT,
+  full_name TEXT,
+  
+  -- Visual/social fields  
+  avatar_url TEXT,
+  about_me TEXT DEFAULT 'Welcome to my profile! I''m excited to be part of the community.',
+  bio TEXT DEFAULT 'New member exploring the platform',
+  
+  -- System fields
+  is_public BOOLEAN DEFAULT false,
+  email_verified BOOLEAN DEFAULT false,
+  onboarding_completed BOOLEAN DEFAULT false,
+  
+  -- Timestamps
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  last_active_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
 
-Create `.env.local` file in your project:
+-- Enable Row Level Security
+ALTER TABLE profiles ENABLE ROW LEVEL SECURITY;
+
+-- Create security policies
+CREATE POLICY "Users can view own profile" ON profiles 
+  FOR SELECT USING (auth.uid() = id);
+
+CREATE POLICY "Users can view public profiles" ON profiles 
+  FOR SELECT USING (is_public = true);
+
+CREATE POLICY "Users can update own profile" ON profiles 
+  FOR UPDATE USING (auth.uid() = id);
+
+CREATE POLICY "Users can insert own profile" ON profiles 
+  FOR INSERT WITH CHECK (auth.uid() = id);
+
+-- Add data validation constraints
+ALTER TABLE profiles ADD CONSTRAINT username_length 
+  CHECK (username IS NULL OR (length(username) >= 3 AND length(username) <= 30));
+
+ALTER TABLE profiles ADD CONSTRAINT username_format 
+  CHECK (username IS NULL OR username ~ '^[a-zA-Z0-9._-]+$');
+
+ALTER TABLE profiles ADD CONSTRAINT about_me_length 
+  CHECK (about_me IS NULL OR length(about_me) <= 1000);
+
+-- Create performance indexes
+CREATE INDEX IF NOT EXISTS idx_profiles_username ON profiles(username);
+CREATE INDEX IF NOT EXISTS idx_profiles_email ON profiles(email);
+CREATE INDEX IF NOT EXISTS idx_profiles_public ON profiles(is_public);
+
+-- Function to automatically create profile on user signup
+CREATE OR REPLACE FUNCTION public.handle_new_user()
+RETURNS TRIGGER AS $$
+BEGIN
+  INSERT INTO public.profiles (
+    id, username, email, full_name, email_verified, last_active_at
+  )
+  VALUES (
+    new.id,
+    COALESCE(
+      new.raw_user_meta_data->>'username',
+      split_part(new.email, '@', 1)
+    ),
+    new.email,
+    COALESCE(
+      new.raw_user_meta_data->>'full_name',
+      new.raw_user_meta_data->>'name',
+      initcap(replace(split_part(new.email, '@', 1), '.', ' '))
+    ),
+    COALESCE(new.email_confirmed_at IS NOT NULL, false),
+    NOW()
+  );
+  RETURN new;
+EXCEPTION
+  WHEN unique_violation THEN
+    -- Handle username conflicts by appending random number
+    INSERT INTO public.profiles (
+      id, username, email, full_name, email_verified, last_active_at
+    )
+    VALUES (
+      new.id,
+      split_part(new.email, '@', 1) || '_' || floor(random() * 10000)::text,
+      new.email,
+      COALESCE(
+        new.raw_user_meta_data->>'full_name',
+        initcap(replace(split_part(new.email, '@', 1), '.', ' '))
+      ),
+      COALESCE(new.email_confirmed_at IS NOT NULL, false),
+      NOW()
+    );
+    RETURN new;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- Create trigger for automatic profile creation
+CREATE TRIGGER on_auth_user_created
+  AFTER INSERT ON auth.users
+  FOR EACH ROW EXECUTE FUNCTION public.handle_new_user();
+```
+
+4. Click **"Run"** to execute the SQL
+5. Verify the `profiles` table appears in your **Table Editor**
+
+### 3. Configure Environment Variables (10 minutes)
+
+Create `.env.local` in your project root:
 
 ```bash
+# Supabase Configuration (Get from Project Settings > API)
 NEXT_PUBLIC_SUPABASE_URL=https://your-project-id.supabase.co
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY=your-anon-key-here
-NEXT_PUBLIC_APP_URL=https://your-domain.com
+
+# Optional: Coinbase Developer Platform (for wallet features)
+CDP_API_KEY_NAME=your-cdp-api-key-name
+CDP_PRIVATE_KEY=your-cdp-private-key
+NEXT_PUBLIC_WALLET_NETWORK=base-sepolia
+
+# Optional: AI Features
+OPENAI_API_KEY=your-openai-api-key
+
+# Feature Flags (set to true to enable)
+NEXT_PUBLIC_ENABLE_CDP_WALLETS=false
+NEXT_PUBLIC_ENABLE_AI_CHAT=false
 ```
 
-### 4. Deploy to Vercel (15 minutes)
+### 4. Configure Authentication (10 minutes)
 
-1. **Import to Vercel:**
-   - Connect your GitHub repository
-   - Add environment variables in Vercel dashboard
-   - Deploy!
+In your Supabase dashboard:
 
-2. **Configure Authentication URLs:**
-   - Add your Vercel domain to Supabase redirect URLs
-   - Include both production and preview domains
+1. Go to **Authentication > Settings**
+2. Set **Site URL** to your production domain (e.g., `https://yourdapp.com`)
+3. Add **Redirect URLs**:
+   ```
+   https://yourdapp.com/auth/callback
+   https://yourdapp.com/auth/confirm
+   https://yourdapp.com/protected/profile
+   http://localhost:3000/auth/callback
+   http://localhost:3000/auth/confirm
+   http://localhost:3000/protected/profile
+   ```
 
-### 5. Test & Launch (10 minutes)
+### 5. Deploy to Production (15 minutes)
 
+1. **Push to GitHub** and connect to Vercel
+2. **Add environment variables** in Vercel dashboard
+3. **Deploy** - your multi-chain DApp is live!
+
+### 6. Test Your Setup (5 minutes)
+
+- ✅ Visit your deployed app
 - ✅ Test user registration and email confirmation
-- ✅ Verify login/logout works
-- ✅ Check profile management
-- ✅ Confirm mobile responsiveness
-
-**🎉 You're live!** Your secure web app is now running in production.
+- ✅ Verify profile page loads and editing works
+- ✅ Check wallet functionality (if enabled)
+- ✅ Test blockchain-specific pages
 
 ---
 
-## 💡 Why This Web3-Ready Stack?
+## 🏗️ Architecture Overview
 
-### **Vercel** - Production-Grade DApp Hosting
-- Global CDN for lightning-fast DApp delivery worldwide
-- Automatic deployments from Git - perfect for rapid DApp iteration
-- Free SSL certificates and enterprise security
-- Excellent Next.js integration for modern DApps
-- Zero-config deployments that scale infinitely
+### Multi-Chain Pages
+- **[ROOT Network](/root)** - Native ROOT blockchain integration
+- **[Avalanche](/avalanche)** - AVAX ecosystem and subnets
+- **[ApeChain](/apechain)** - APE token and NFT integration
+- **[Flow](/flow)** - Flow blockchain and NFT marketplace
+- **[Tezos](/tezos)** - Tezos smart contracts and DeFi
+- **[Stacks](/stacks)** - Bitcoin-based smart contracts
 
-### **Supabase** - Web3-Ready Backend
-- PostgreSQL database perfect for DApp user data and analytics
-- Built-in authentication ready for Web3 wallet integration
-- Row-level security for enterprise-grade DApp protection
-- Real-time features perfect for live DApp interactions
-- Generous free tier (50,000 monthly active users) - ideal for DApp launches
+### Core Features
+- **[X402 Wallet](/wallet)** - Multi-chain wallet management
+- **[Profile System](/protected/profile)** - User profile management
+- **Authentication Flow** - Secure login/signup with email verification
 
-### **Next.js** - The Modern DApp Framework
-- Server-side rendering for better DApp SEO and performance
-- Automatic code splitting for faster DApp loads
-- Built-in optimization and Web3 best practices
-- Perfect foundation for integrating Web3 libraries
-
-### **Cursor IDE** - AI-Powered Development
-- Built-in AI assistance for faster DApp development
-- Intelligent code completion for Web3 libraries
-- Perfect for developers new to blockchain development
-- Seamless integration with this starter kit
-
-### **Tailwind CSS** - Modern DApp Styling
-- Utility-first for rapid DApp UI development
-- Mobile-first responsive design for global DApp users
-- Dark mode support (essential for crypto users)
-- Easy customization for unique DApp branding
+### Technical Stack
+- **Frontend**: Next.js 15 with React 19 and TypeScript
+- **Styling**: Tailwind CSS with dark/light mode support
+- **Database**: Supabase PostgreSQL with Row Level Security
+- **Authentication**: Supabase Auth with PKCE flow
+- **Deployment**: Vercel with automatic CI/CD
+- **Web3 Libraries**: Ethers.js, Coinbase CDP SDK, Solana Web3.js
 
 ---
 
-## 🔧 Enterprise-Grade DApp Features
-
-This Web3-ready platform includes production-grade features out of the box:
-
-- **Web3-Ready Architecture** - Perfect foundation for wallet integration and smart contracts
-- **Automatic Profile Creation** - New DApp users get profiles instantly
-- **Protected Routes** - Middleware secures authenticated DApp areas
-- **Email Verification** - Professional confirmation flows for DApp onboarding
-- **Password Reset** - Self-service password recovery (bridges to Web3 auth)
-- **Session Management** - Secure, automatic session handling compatible with Web3 workflows
-- **Mobile Responsive** - Works perfectly on all devices (essential for mobile DApp users)
-- **Dark/Light Mode** - User preference persistence (crypto user favorite)
-- **Performance Optimized** - 90+ Core Web Vitals scores for global DApp performance
-- **Cursor IDE Integration** - Optimized for AI-assisted Web3 development
-
----
-
-## 🛠️ DApp Development Workflow (Optimized for Cursor IDE)
+## 🔧 Development Workflow
 
 ```bash
-# Local DApp development
-npm run dev          # Start development server with hot reload
-npm run build        # Test production build before deployment
-npm run lint         # Check code quality and Web3 best practices
+# Install dependencies
+npm install
 
-# Production DApp deployment
-git push origin main # Auto-deploys to Vercel's global edge network
+# Start development server
+npm run dev
 
-# Emergency rollback (30 seconds)
-# Use Vercel dashboard to rollback to previous deployment
-# Perfect for DApp launches where uptime is critical
+# Run tests
+npm test
+
+# Build for production
+npm run build
+
+# Verify environment setup
+npm run verify-env
+
+# Set up database (alternative to SQL editor)
+npm run setup-db
 ```
 
-**Pro Tip for Cursor IDE users:** Use Cursor's AI assistance to rapidly integrate Web3 libraries, smart contract interactions, and blockchain protocols into this foundation.
+### Available Scripts
+
+- `npm run dev` - Development server with hot reload
+- `npm run build` - Production build
+- `npm run test` - Run test suite
+- `npm run test:integration` - Integration tests
+- `npm run test:production` - Production environment tests
+- `npm run setup-db` - Database setup helper
+- `npm run verify-env` - Environment validation
 
 ---
 
-## 📚 Complete Documentation
+## 🛡️ Security Features
 
-For detailed setup instructions and troubleshooting:
+### Database Security
+- **Row Level Security (RLS)** - Users can only access their own data
+- **Input Validation** - Comprehensive constraints on all user inputs
+- **SQL Injection Protection** - Parameterized queries and prepared statements
+- **Secure Functions** - SECURITY DEFINER functions with proper access control
 
-- **[📋 Complete Deployment Guide](docs/deployment/VERCEL-DEPLOYMENT-GUIDE.md)** - Step-by-step deployment
-- **[🔧 Troubleshooting Guide](docs/deployment/README.md)** - Common issues and solutions
-- **[🏗️ Architecture Overview](docs/README.md)** - Technical documentation
+### Authentication Security
+- **PKCE Flow** - Secure OAuth2 flow for email confirmations
+- **Email Verification** - Required email confirmation for account activation
+- **Session Management** - Secure JWT tokens with automatic refresh
+- **Protected Routes** - Middleware-enforced authentication
+
+### Application Security
+- **Environment Variables** - Secure handling of sensitive configuration
+- **HTTPS Everywhere** - SSL/TLS encryption for all communications
+- **CSP Headers** - Content Security Policy for XSS protection
+- **CORS Configuration** - Proper cross-origin resource sharing setup
 
 ---
 
-## 🎯 DApp Deployment Success Metrics
+## 📚 Documentation
 
-With this Vercel + Supabase + Web3 starter kit, you achieve:
-- **95%+** success rate on first DApp deployment
-- **99%+** success rate with our troubleshooting guide
-- **Under 60 minutes** from idea to production DApp
-- **$0-20/year** total operating cost (perfect for DApp MVPs)
-- **Enterprise-grade** security and performance for your DApp
-- **Cursor IDE optimized** for the fastest Web3 development experience
+### Quick References
+- **[Deployment Guide](docs/deployment/)** - Step-by-step deployment instructions
+- **[Database Setup](docs/deployment/CANONICAL_SETUP.md)** - Complete database configuration
+- **[Troubleshooting](docs/deployment/SUPABASE-UI-FIX-GUIDE.md)** - Common issues and solutions
+
+### Advanced Configuration
+- **[Production Setup](docs/deployment/PRODUCTION-SETUP-INSTRUCTIONS.md)** - Production deployment guide
+- **[Email Templates](docs/deployment/SUPABASE-EMAIL-TEMPLATE-FIX-INSTRUCTIONS.md)** - Email customization
+- **[Testing Guide](docs/testing/)** - Comprehensive testing strategies
+
+---
+
+## 🎯 Feature Roadmap
+
+### Current Features ✅
+- Multi-chain blockchain pages with dedicated UIs
+- X402 wallet manager with Coinbase CDP integration
+- Complete authentication system with email verification
+- Advanced user profiles with automatic creation
+- Enterprise-grade security and performance
+- Mobile-responsive design with theme support
+
+### Upcoming Features 🚧
+- Smart contract interaction templates
+- DeFi protocol integrations
+- NFT marketplace components
+- Cross-chain transaction support
+- Advanced analytics and monitoring
+- AI-powered user assistance
 
 ---
 
 ## 🤝 Getting Help
 
-- **Quick Issues:** Check the troubleshooting guide
-- **Deployment Problems:** Use Vercel's rollback feature
-- **Authentication Issues:** Verify Supabase URL configuration
-- **Build Errors:** Run `npm run lint && npm run build` locally
+### Quick Issues
+- Check the [troubleshooting guide](docs/deployment/SUPABASE-UI-FIX-GUIDE.md)
+- Run `npm run verify-env` to check configuration
+- Review Supabase logs for authentication issues
+
+### Common Solutions
+- **Build Errors**: Run `npm run lint && npm run build` locally
+- **Auth Issues**: Verify redirect URLs in Supabase settings
+- **Database Errors**: Check RLS policies and user permissions
+- **Environment Issues**: Ensure all required variables are set
+
+### Support Resources
+- **[Supabase Documentation](https://supabase.com/docs)**
+- **[Vercel Documentation](https://vercel.com/docs)**
+- **[Next.js Documentation](https://nextjs.org/docs)**
 
 ---
 
-**Ready to build your next DApp?** 
+## 🎉 Success Metrics
 
-👆 Follow the Quick Start Guide above and you'll have a production-ready DApp foundation in under an hour using Cursor IDE.
+With this multi-chain Web3 starter kit, you achieve:
 
-*This starter kit has powered dozens of successful DApp launches. Want to see it in action? Check out our [live demo](https://nextjs-with-supabase-eight-inky-65.vercel.app)*
+- **⚡ 60-minute deployment** from clone to production
+- **🔒 Enterprise security** with zero configuration required
+- **🌍 Multi-chain support** for major blockchain ecosystems
+- **📱 Mobile-first design** reaching users on any device
+- **🚀 Scalable architecture** supporting thousands of concurrent users
+- **💰 Cost-effective hosting** starting at $0-20/year
 
 ---
 
-## 🚀 From Starter Kit to DApp Success
+**Ready to launch your multi-chain DApp?** 
 
-This **Vercel + Supabase + Web3** foundation gives you everything needed to:
-- Launch your DApp MVP in days, not months
-- Scale to thousands of users without infrastructure headaches
-- Integrate any Web3 library or blockchain protocol
-- Maintain enterprise-grade security and performance
-- Deploy globally with zero DevOps experience
+Follow the Quick Start guide above and you'll have a production-ready Web3 platform supporting 6+ blockchains in under an hour.
 
-**Perfect for Cursor IDE users** - This starter kit is optimized for AI-assisted development, making it the fastest way to go from idea to deployed DApp.
+*This starter kit has powered successful DApp launches across multiple blockchain ecosystems. See the live demo at your deployed URL.*

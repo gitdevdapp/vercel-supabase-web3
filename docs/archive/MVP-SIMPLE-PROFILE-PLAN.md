@@ -67,7 +67,7 @@ The existing system is already very close to MVP requirements. Only simplificati
 **Process**:
 
 1. **Open Supabase SQL Editor**:
-   - Go to: https://supabase.com/dashboard/project/[REDACTED-PROJECT-ID]/sql
+   - Go to: [REDACTED - SUPABASE SQL EDITOR URL REMOVED]
 
 2. **Execute Database Script**:
    ```sql
@@ -559,7 +559,7 @@ const { data, error } = await supabase
 2. **Environment Configuration**:
    ```bash
    # Required environment variables in Vercel
-   NEXT_PUBLIC_SUPABASE_URL=https://[REDACTED-PROJECT-ID].supabase.co
+   NEXT_PUBLIC_SUPABASE_URL=[REDACTED - PROJECT URL REMOVED]
    NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY=your-anon-key
    ```
 
