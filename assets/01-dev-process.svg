@@ -79,20 +79,11 @@
   <rect x="870" y="265" width="60" height="20" rx="10" fill="#401de1" stroke="none"/>
   <text x="900" y="277" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" fill="white">20 min</text>
 
-  <!-- Process arrows with better positioning -->
-  <line x1="280" y1="200" x2="320" y2="200" stroke="#444444" stroke-width="3" marker-end="url(#arrow)"/>
-  <line x1="520" y1="200" x2="560" y2="200" stroke="#444444" stroke-width="3" marker-end="url(#arrow)"/>
-  <line x1="760" y1="200" x2="800" y2="200" stroke="#444444" stroke-width="3" marker-end="url(#arrow)"/>
-
   <!-- Result box -->
   <rect x="440" y="350" width="320" height="100" rx="12" fill="url(#accentGradient)" stroke="#210f75" stroke-width="3" filter="url(#dropShadow)"/>
   <text x="600" y="385" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="20" font-weight="700" fill="white">🌟 Multi-Chain dApp Live</text>
   <text x="600" y="405" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="15" fill="#beb2f5">Production-ready Web3 application</text>
   <text x="600" y="425" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="15" fill="#beb2f5">Supporting 6+ blockchain networks</text>
-
-  <!-- Converging arrows to result -->
-  <path d="M 420 260 Q 420 310 520 340" stroke="#401de1" stroke-width="2" fill="none" marker-end="url(#accentArrow)"/>
-  <path d="M 900 260 Q 900 310 680 340" stroke="#401de1" stroke-width="2" fill="none" marker-end="url(#accentArrow)"/>
 
   <!-- Total time highlight -->
   <text x="600" y="520" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="600" fill="#401de1">

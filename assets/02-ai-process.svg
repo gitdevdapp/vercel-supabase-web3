@@ -56,7 +56,7 @@
   <!-- Step 2: Quality Analysis -->
   <rect x="310" y="150" width="180" height="100" rx="12" fill="url(#primaryGradient)" stroke="#401de1" stroke-width="2" filter="url(#dropShadow)"/>
   <text x="400" y="180" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" fill="white">🧠 AI Analysis</text>
-  <text x="400" y="200" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="white">Quality, impact & innovation scoring</text>
+  <text x="400" y="200" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="white">Quality, impact &amp; innovation scoring</text>
   <text x="400" y="215" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="white">Instant evaluation</text>
   
   <!-- Process badge for Step 2 -->
@@ -76,30 +76,18 @@
   <!-- Step 4: Framework Evolution -->
   <rect x="770" y="150" width="180" height="100" rx="12" fill="url(#secondaryGradient)" stroke="#848483" stroke-width="2" filter="url(#dropShadow)"/>
   <text x="860" y="180" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" fill="#444444">🧬 Framework Evolution</text>
-  <text x="860" y="200" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#444444">Learn patterns & improve templates</text>
+  <text x="860" y="200" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#444444">Learn patterns &amp; improve templates</text>
   <text x="860" y="215" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#444444">Self-evolving framework</text>
   
   <!-- Process badge for Step 4 -->
   <rect x="830" y="265" width="60" height="20" rx="10" fill="#401de1" stroke="none"/>
   <text x="860" y="277" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="600" fill="white">Learning</text>
 
-  <!-- Process arrows with better positioning -->
-  <line x1="260" y1="200" x2="310" y2="200" stroke="#444444" stroke-width="3" marker-end="url(#arrow)"/>
-  <line x1="490" y1="200" x2="540" y2="200" stroke="#444444" stroke-width="3" marker-end="url(#arrow)"/>
-  <line x1="720" y1="200" x2="770" y2="200" stroke="#444444" stroke-width="3" marker-end="url(#arrow)"/>
-
   <!-- Central learning system -->
   <rect x="400" y="350" width="320" height="100" rx="12" fill="url(#accentGradient)" stroke="#210f75" stroke-width="3" filter="url(#dropShadow)"/>
   <text x="560" y="385" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="20" font-weight="700" fill="white">🔄 Continuous Learning</text>
   <text x="560" y="405" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="15" fill="#beb2f5">Pattern recognition makes framework faster</text>
   <text x="560" y="425" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="15" fill="#beb2f5">Self-improving development process</text>
-
-  <!-- Convergence arrows to center -->
-  <path d="M 400 260 Q 400 310 480 340" stroke="#401de1" stroke-width="2" fill="none" marker-end="url(#accentArrow)"/>
-  <path d="M 860 260 Q 860 310 640 340" stroke="#401de1" stroke-width="2" fill="none" marker-end="url(#accentArrow)"/>
-
-  <!-- Feedback loop -->
-  <path d="M 440 450 Q 200 500 170 330 Q 170 280 170 260" stroke="#848483" stroke-width="2" stroke-dasharray="6,3" fill="none" marker-end="url(#feedbackArrow)"/>
 
   <!-- Result statement -->
   <text x="560" y="520" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="600" fill="#401de1">
