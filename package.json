@@ -25,6 +25,10 @@
     "test:email-templates:comprehensive": "npm run test:email-templates && echo '🎉 All email template tests completed!'",
     "test:email-templates:live": "node scripts/test-email-templates.js",
     "test:email-templates:live-export": "EXPORT_RESULTS=true node scripts/test-email-templates.js",
+    "test:complete-flow": "jest __tests__/integration/complete-user-flow.integration.test.ts --testTimeout=120000 --verbose",
+    "test:complete-flow:script": "node scripts/test-complete-user-flow.js",
+    "test:email-confirmation": "node scripts/test-real-email-confirmation.js",
+    "test:user-flow:all": "npm run test:complete-flow && npm run test:complete-flow:script",
     "setup:production": "node scripts/setup-production-database.js",
     "setup:production-direct": "node scripts/setup-production-direct.js",
     "verify:production": "node scripts/verify-production-setup.js"

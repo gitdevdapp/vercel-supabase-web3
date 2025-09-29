@@ -37,7 +37,7 @@ export default async function ProfilePage() {
       <div className="w-full">
         <div className="bg-accent text-sm p-3 px-5 rounded-md text-foreground flex gap-3 items-center">
           <InfoIcon size="16" strokeWidth={2} />
-          This is your personal profile page. You can update your "About Me" section below.
+          This is your personal profile page. You can update your &quot;About Me&quot; section below.
         </div>
       </div>
       
