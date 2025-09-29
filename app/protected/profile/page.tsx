@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getOrCreateProfile } from "@/lib/profile";
-import { ProfileForm } from "@/components/profile-form";
+import { SimpleProfileForm } from "@/components/simple-profile-form";
 import { InfoIcon } from "lucide-react";
 
 export default async function ProfilePage() {
@@ -37,19 +37,19 @@ export default async function ProfilePage() {
       <div className="w-full">
         <div className="bg-accent text-sm p-3 px-5 rounded-md text-foreground flex gap-3 items-center">
           <InfoIcon size="16" strokeWidth={2} />
-          Manage your profile information below. Changes will be saved to your account.
+          This is your personal profile page. You can update your "About Me" section below.
         </div>
       </div>
       
       <div className="flex flex-col gap-8 items-center">
         <div className="w-full">
-          <h1 className="font-bold text-3xl mb-2">My Profile</h1>
+          <h1 className="font-bold text-3xl mb-2">Welcome, {profile.username || 'User'}!</h1>
           <p className="text-muted-foreground">
-            Update your profile information and preferences.
+            Update your profile information to tell others about yourself.
           </p>
         </div>
         
-        <ProfileForm profile={profile} userEmail={userEmail} />
+        <SimpleProfileForm profile={profile} userEmail={userEmail} />
       </div>
     </div>
   );
