@@ -199,14 +199,17 @@ In your Supabase dashboard:
    http://localhost:3000/protected/profile
    ```
 
-### 5. Authentication Flow Configuration (IMPORTANT)
+### 5. Email Confirmation Setup Guide
 
-This application uses **implicit flow** for email-based authentication (configured in `lib/supabase/client.ts` and `lib/supabase/server.ts`):
+#### **Current Configuration Status** ✅
 
+This application is currently configured with **implicit flow** for optimal email-based authentication:
+
+**Current Config** (`lib/supabase/client.ts` and `lib/supabase/server.ts`):
 ```typescript
 {
   auth: {
-    flowType: 'implicit',  // ✅ Recommended for email confirmations
+    flowType: 'implicit',  // ✅ Currently active - optimized for email auth
     autoRefreshToken: true,
     persistSession: true,
     detectSessionInUrl: true,
@@ -214,22 +217,43 @@ This application uses **implicit flow** for email-based authentication (configur
 }
 ```
 
-#### Current Email Confirmation URL Format (Implicit Flow):
+#### **Email Template Configuration (Supabase Dashboard)**
+
+**Step 1: Access Email Templates**
+1. Go to your Supabase project dashboard
+2. Navigate to **Authentication → Email Templates**
+3. Select **Confirm signup** template
+
+**Step 2: Current Working Email Template**
+Use this exact template (currently working in production):
+
 ```html
-<a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=signup&next=/protected/profile">
-  ✅ Confirm Email & Start Using DevDapp
-</a>
+<h2>🎉 Welcome to DevDapp!</h2>
+<p>Thanks for signing up! Click the button below to confirm your email address:</p>
+
+<div style="text-align: center; margin: 30px 0;">
+  <a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=signup&next=/protected/profile"
+     style="display: inline-block; padding: 15px 30px; background: linear-gradient(135deg, #0070f3 0%, #0051cc 100%); color: white; text-decoration: none; border-radius: 8px; font-weight: 600;">
+    ✅ Confirm Email & Start Using DevDapp
+  </a>
+</div>
 ```
 
-#### Alternative: PKCE Flow Email Confirmation URLs
+**Step 3: Verify Template Variables**
+- `{{ .SiteURL }}` → Your site URL (auto-populated)
+- `{{ .TokenHash }}` → Secure confirmation token (auto-populated)
+- `/auth/confirm` → Your app's confirmation route
 
-If you need to use PKCE flow instead, you must update both the Supabase configuration AND the email template:
+#### **Alternative: PKCE Flow Setup** 
 
-**1. Change Configuration (in both client.ts and server.ts):**
+If you need PKCE flow instead, follow these steps:
+
+**1. Update Application Configuration:**
 ```typescript
+// In both lib/supabase/client.ts and lib/supabase/server.ts
 {
   auth: {
-    flowType: 'pkce',  // ⚠️ Requires special email URL format
+    flowType: 'pkce',  // Change from 'implicit' to 'pkce'
     autoRefreshToken: true,
     persistSession: true,
     detectSessionInUrl: true,
@@ -237,29 +261,57 @@ If you need to use PKCE flow instead, you must update both the Supabase configur
 }
 ```
 
-**2. Update Email Template in Supabase:**
+**2. Update Email Template for PKCE:**
 ```html
 <!-- PKCE-Compatible Email Confirmation URL -->
-<a href="{{ .SiteURL }}/auth/confirm?code={{ .Token }}&next=/protected/profile">
+<a href="{{ .SiteURL }}/auth/confirm?code={{ .TokenHash }}&next=/protected/profile">
   ✅ Confirm Email & Start Using DevDapp
 </a>
 ```
 
-**Key Differences:**
-- **Implicit Flow**: Uses `token_hash={{ .TokenHash }}&type=signup`
-- **PKCE Flow**: Uses `code={{ .Token }}` (no type parameter)
+#### **Flow Comparison Chart**
 
-**⚠️ Important Notes:**
-- PKCE flow requires the authorization `code` parameter instead of `token_hash`
-- The confirmation route (`app/auth/confirm/route.ts`) works with both flows
-- **Implicit flow is recommended** for email-based authentication
-- PKCE flow is designed for OAuth redirects, not email confirmations
+| Flow Type | URL Parameter | Template Variable | Use Case |
+|-----------|---------------|-------------------|----------|
+| **Implicit** ✅ | `token_hash={{ .TokenHash }}&type=signup` | `{{ .TokenHash }}` | Email-based auth (recommended) |
+| **PKCE** | `code={{ .TokenHash }}` | `{{ .TokenHash }}` | OAuth redirects |
+
+#### **Important Notes**
+
+✅ **Your confirmation route is already compatible** with both flows:
+```typescript
+// app/auth/confirm/route.ts supports both automatically
+const code = searchParams.get("code") || searchParams.get("token_hash");
+```
+
+✅ **Database compatibility**: Both flows work with `auth.users` and `profiles` tables
+
+✅ **No additional setup required**: Your database triggers and RLS policies work with both flows
+
+#### **Troubleshooting Email Confirmation**
+
+**Common Issues & Solutions:**
+
+| Issue | Solution |
+|-------|----------|
+| ❌ "flow_state_not_found" error | Switch from PKCE to implicit flow (see configuration above) |
+| ❌ Email link doesn't work | Verify redirect URLs in Supabase Auth settings |
+| ❌ "Missing authorization code" | Check email template uses correct `{{ .TokenHash }}` variable |
+| ❌ Redirect after confirmation fails | Verify `next` parameter points to valid route |
+
+**Test Your Email Setup:**
+1. Sign up with a test email
+2. Check email arrives with working confirmation link
+3. Click link - should redirect to `/protected/profile`
+4. Verify user appears in Supabase `auth.users` table
+5. Confirm profile created in `profiles` table
 
 ### 6. Deploy to Production (15 minutes)
 
 1. **Push to GitHub** and connect to Vercel
-2. **Add environment variables** in Vercel dashboard
+2. **Add environment variables** in Vercel dashboard  
 3. **Deploy** - your multi-chain DApp is live!
+4. **Test email confirmation** in production environment
 
 ### 7. Test Your Setup (5 minutes)
 
@@ -410,8 +462,9 @@ npm run setup-db
 
 With this multi-chain Web3 starter kit, you achieve:
 
-- **⚡ 60-minute deployment** from clone to production
+- **⚡ 60-minute deployment** from clone to production  
 - **🔒 Enterprise security** with zero configuration required
+- **✅ Working email authentication** with bulletproof confirmation flow
 - **🌍 Multi-chain support** for major blockchain ecosystems
 - **📱 Mobile-first design** reaching users on any device
 - **🚀 Scalable architecture** supporting thousands of concurrent users
