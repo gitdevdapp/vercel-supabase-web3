@@ -1,0 +1,115 @@
+<svg width="1200" height="600" viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Clean gradients matching website aesthetics -->
+    <linearGradient id="orangeGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:hsl(12,76%,88%);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:hsl(12,76%,82%);stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="tealGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:hsl(173,58%,88%);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:hsl(173,58%,82%);stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="yellowGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:hsl(43,74%,88%);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:hsl(43,74%,82%);stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="blueGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:hsl(197,37%,88%);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:hsl(197,37%,82%);stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="warmGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:hsl(27,87%,88%);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:hsl(27,87%,82%);stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="grayGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:hsl(0,0%,92%);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:hsl(0,0%,88%);stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="darkTealGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:hsl(173,58%,78%);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:hsl(173,58%,72%);stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="darkGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:hsl(0,0%,15%);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:hsl(0,0%,9%);stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Subtle drop shadow -->
+    <filter id="subtleShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="2" dy="2" stdDeviation="2" flood-opacity="0.1"/>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="600" fill="hsl(0,0%,100%)"/>
+  
+  <!-- Title -->
+  <text x="600" y="60" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="24" font-weight="700" fill="hsl(0,0%,9%)">
+    🎯 Key Benefits - Why Choose DevDapp AI Starter Kit
+  </text>
+  
+  <!-- Top Row Benefits -->
+  
+  <!-- Speed -->
+  <rect x="80" y="130" width="200" height="100" rx="8" fill="url(#orangeGradient)" stroke="hsl(12,76%,50%)" stroke-width="2" filter="url(#subtleShadow)"/>
+  <text x="180" y="160" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="600" fill="hsl(0,0%,15%)">⚡ 60-Minute Deployment</text>
+  <text x="180" y="180" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="12" fill="hsl(0,0%,35%)">Clone to production ready</text>
+  <text x="180" y="245" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="11" fill="hsl(12,76%,50%)">60 min</text>
+
+  <!-- Security -->
+  <rect x="320" y="130" width="200" height="100" rx="8" fill="url(#tealGradient)" stroke="hsl(173,58%,50%)" stroke-width="2" filter="url(#subtleShadow)"/>
+  <text x="420" y="160" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="600" fill="hsl(0,0%,15%)">🔒 Enterprise Security</text>
+  <text x="420" y="180" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="12" fill="hsl(0,0%,35%)">Zero-config protection</text>
+  <text x="420" y="245" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="11" fill="hsl(173,58%,50%)">0-config</text>
+
+  <!-- Multi-chain -->
+  <rect x="560" y="130" width="200" height="100" rx="8" fill="url(#yellowGradient)" stroke="hsl(43,74%,50%)" stroke-width="2" filter="url(#subtleShadow)"/>
+  <text x="660" y="160" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="600" fill="hsl(0,0%,15%)">🌍 Multi-Chain Ready</text>
+  <text x="660" y="180" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="12" fill="hsl(0,0%,35%)">6+ blockchain ecosystems</text>
+  <text x="660" y="245" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="11" fill="hsl(43,74%,50%)">6+ chains</text>
+
+  <!-- AI -->
+  <rect x="800" y="130" width="200" height="100" rx="8" fill="url(#blueGradient)" stroke="hsl(197,37%,50%)" stroke-width="2" filter="url(#subtleShadow)"/>
+  <text x="900" y="160" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="600" fill="hsl(0,0%,15%)">🤖 AI-Powered Evolution</text>
+  <text x="900" y="180" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="12" fill="hsl(0,0%,35%)">Continuous improvement</text>
+  <text x="900" y="245" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="11" fill="hsl(197,37%,50%)">AI-driven</text>
+
+  <!-- Bottom Row Benefits -->
+  
+  <!-- Rewards -->
+  <rect x="200" y="280" width="200" height="100" rx="8" fill="url(#warmGradient)" stroke="hsl(27,87%,50%)" stroke-width="2" filter="url(#subtleShadow)"/>
+  <text x="300" y="310" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="600" fill="hsl(0,0%,15%)">💰 Token Incentives</text>
+  <text x="300" y="330" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="12" fill="hsl(0,0%,35%)">Native blockchain rewards</text>
+
+  <!-- Mobile -->
+  <rect x="440" y="280" width="200" height="100" rx="8" fill="url(#grayGradient)" stroke="hsl(0,0%,60%)" stroke-width="2" filter="url(#subtleShadow)"/>
+  <text x="540" y="310" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="600" fill="hsl(0,0%,15%)">📱 Mobile-First Design</text>
+  <text x="540" y="330" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="12" fill="hsl(0,0%,35%)">Perfect responsiveness</text>
+
+  <!-- Ecosystem -->
+  <rect x="680" y="280" width="200" height="100" rx="8" fill="url(#darkTealGradient)" stroke="hsl(173,58%,39%)" stroke-width="2" filter="url(#subtleShadow)"/>
+  <text x="780" y="310" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="600" fill="white">🌱 Growing Ecosystem</text>
+  <text x="780" y="330" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="12" fill="white">Community-driven development</text>
+
+  <!-- Central Value Proposition -->
+  <rect x="350" y="450" width="400" height="100" rx="8" fill="url(#darkGradient)" stroke="hsl(0,0%,3%)" stroke-width="3" filter="url(#subtleShadow)"/>
+  <text x="550" y="485" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="18" font-weight="700" fill="white">🌟 Result: 10x Faster Web3 Development</text>
+  <text x="550" y="510" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" fill="hsl(0,0%,85%)">Enterprise-grade DApps in minutes, not months</text>
+
+  <!-- Connecting lines to central value -->
+  <path d="M 180 230 Q 180 380 450 440" stroke="hsl(0,0%,70%)" stroke-width="2" fill="none"/>
+  <path d="M 420 230 Q 420 380 500 440" stroke="hsl(0,0%,70%)" stroke-width="2" fill="none"/>
+  <path d="M 660 230 Q 660 380 600 440" stroke="hsl(0,0%,70%)" stroke-width="2" fill="none"/>
+  <path d="M 900 230 Q 900 380 650 440" stroke="hsl(0,0%,70%)" stroke-width="2" fill="none"/>
+  
+  <line x1="300" y1="380" x2="450" y2="450" stroke="hsl(0,0%,70%)" stroke-width="2"/>
+  <line x1="540" y1="380" x2="550" y2="450" stroke="hsl(0,0%,70%)" stroke-width="2"/>
+  <line x1="780" y1="380" x2="650" y2="450" stroke="hsl(0,0%,70%)" stroke-width="2"/>
+</svg>

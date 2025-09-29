@@ -6,29 +6,37 @@ A comprehensive Web3 development platform that enables you to build and deploy m
 
 ## 🏗️ How It Works - AI-Powered Development Framework
 
+### 🚀 **Developer Process - 60 Minutes to Production**
+
 <div align="center">
-  <img src="assets/devdapp-architecture-flowchart.svg" alt="DevDapp AI Starter Kit Architecture - Multi-Chain DApp Development Framework" width="100%" />
+  <img src="assets/01-dev-process.svg" alt="DevDapp Developer Process - Deploy in 60 Minutes" width="100%" />
 </div>
 
-### 🚀 **10x Faster Development with AI-Powered Automation**
+**Simple 4-step process**: Clone repository → Configure Supabase → Setup Coinbase CDP → Deploy to Vercel
 
-Our revolutionary AI system transforms Web3 development by:
+### 🤖 **AI Enhancement Process - Self-Evolving Framework**
 
-- **⚡ Instant Setup**: Clone → Deploy → Production in 60 minutes
-- **🤖 AI Contribution Assessment**: GitHub Actions automatically evaluate and reward valuable contributions
-- **💰 Native Token Rewards**: Contributors earn AVAX, APE, FLOW, XTZ, STX, ROOT tokens based on their blockchain focus
-- **🧬 Self-Evolving Framework**: AI learns from successful patterns to continuously improve templates
-- **🎯 Blockchain-Specific Optimization**: Framework evolves to become faster and more robust for each supported chain
+<div align="center">
+  <img src="assets/02-ai-process.svg" alt="DevDapp AI Enhancement Process - Self-Evolving Framework" width="100%" />
+</div>
 
-### 🔄 **DevDapp AI Contributor Rewards System**
+**Intelligent automation**: GitHub Actions monitor → AI analyzes → Smart contracts distribute → Framework evolves
 
-Our intelligent automation framework creates a thriving ecosystem where:
+### 💰 **Native Token Reward Flow - Blockchain-Specific Incentives**
 
-1. **GitHub Actions Monitor** every contribution automatically
-2. **AI Analyzes** code quality, impact, and innovation level
-3. **Smart Contracts Distribute** native blockchain tokens as rewards
-4. **Framework Evolves** based on successful contribution patterns
-5. **Development Speed Increases** as the system learns and improves
+<div align="center">
+  <img src="assets/03-reward-flow.svg" alt="DevDapp Native Token Reward Flow - Blockchain-Specific Incentives" width="100%" />
+</div>
+
+**Contributors earn native tokens**: AVAX, APE, FLOW, XTZ, STX, ROOT based on blockchain focus
+
+### 🎯 **Key Benefits - Why Choose DevDapp**
+
+<div align="center">
+  <img src="assets/04-key-benefits.svg" alt="DevDapp Key Benefits - Why Choose DevDapp AI Starter Kit" width="100%" />
+</div>
+
+**10x faster development** with enterprise security, multi-chain support, and AI-powered evolution
 
 [**📖 Read the Complete AI System Implementation Plan →**](docs/future/devdapp-ai-contributor-rewards-system.md)
 
