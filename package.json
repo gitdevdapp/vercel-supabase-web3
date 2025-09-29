@@ -31,7 +31,9 @@
     "test:user-flow:all": "npm run test:complete-flow && npm run test:complete-flow:script",
     "setup:production": "node scripts/setup-production-database.js",
     "setup:production-direct": "node scripts/setup-production-direct.js",
-    "verify:production": "node scripts/verify-production-setup.js"
+    "verify:production": "node scripts/verify-production-setup.js",
+    "test:auth-flow": "node scripts/test-production-auth-flow.js",
+    "test:auth-flow:quick": "QUICK_MODE=true node scripts/test-production-auth-flow.js"
   },
   "dependencies": {
     "@coinbase/cdp-sdk": "^1.38.0",
