@@ -27,299 +27,62 @@ A comprehensive Web3 development platform that enables you to build and deploy m
 
 ## 🚀 Quick Start - Deploy in 60 Minutes
 
-### 1. Create Your Accounts (5 minutes)
+**🎯 Get your production-ready multi-chain Web3 DApp live in under an hour!**
 
-**Supabase Account:**
-- Go to [supabase.com](https://supabase.com) and sign up
-- Create a new project with a secure password
-- Note your project URL and API keys
+### Three Simple Steps:
 
-**Vercel Account:**
-- Go to [vercel.com](https://vercel.com) and sign up with GitHub
-- Connect your repository for automatic deployments
+1. **Create Accounts** (5 min) - Get free Supabase and Vercel accounts
+2. **Set Up Database** (15 min) - Run one SQL script to create your user system  
+3. **Deploy to Production** (15 min) - Push to GitHub, connect Vercel, go live!
 
-### 2. Set Up Your Database (15 minutes)
+### 📖 Complete Setup Guide
 
-#### Access Supabase SQL Editor
-1. Open your Supabase project dashboard
-2. Navigate to **SQL Editor** in the left sidebar
-3. Click **"New Query"** to open a blank editor
+**👉 [Follow the Complete Deployment Guide](docs/deployment/README.md) 👈**
 
-#### Create the Profiles Table
-Copy and paste this SQL code into the editor:
+The deployment guide includes:
+- ✅ **SQL Editor Setup** - Complete database schema with user profiles
+- ✅ **PKCE Authentication** - Working email confirmation flow
+- ✅ **Email Templates** - Professional branded confirmation emails  
+- ✅ **Environment Configuration** - All required variables and settings
+- ✅ **Production Deployment** - Vercel deployment with custom domains
+- ✅ **Troubleshooting** - Solutions for common setup issues
 
-```sql
--- Enable UUID extension
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+### Quick Environment Setup
 
--- Create enhanced profiles table
-CREATE TABLE IF NOT EXISTS profiles (
-  id UUID REFERENCES auth.users(id) ON DELETE CASCADE PRIMARY KEY,
-  
-  -- Core profile fields
-  username TEXT UNIQUE,
-  email TEXT,
-  full_name TEXT,
-  
-  -- Visual/social fields  
-  avatar_url TEXT,
-  about_me TEXT DEFAULT 'Welcome to my profile! I''m excited to be part of the community.',
-  bio TEXT DEFAULT 'New member exploring the platform',
-  
-  -- System fields
-  is_public BOOLEAN DEFAULT false,
-  email_verified BOOLEAN DEFAULT false,
-  onboarding_completed BOOLEAN DEFAULT false,
-  
-  -- Timestamps
-  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  last_active_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
-
--- Enable Row Level Security
-ALTER TABLE profiles ENABLE ROW LEVEL SECURITY;
-
--- Create security policies
-CREATE POLICY "Users can view own profile" ON profiles 
-  FOR SELECT USING (auth.uid() = id);
-
-CREATE POLICY "Users can view public profiles" ON profiles 
-  FOR SELECT USING (is_public = true);
-
-CREATE POLICY "Users can update own profile" ON profiles 
-  FOR UPDATE USING (auth.uid() = id);
-
-CREATE POLICY "Users can insert own profile" ON profiles 
-  FOR INSERT WITH CHECK (auth.uid() = id);
-
--- Add data validation constraints
-ALTER TABLE profiles ADD CONSTRAINT username_length 
-  CHECK (username IS NULL OR (length(username) >= 3 AND length(username) <= 30));
-
-ALTER TABLE profiles ADD CONSTRAINT username_format 
-  CHECK (username IS NULL OR username ~ '^[a-zA-Z0-9._-]+$');
-
-ALTER TABLE profiles ADD CONSTRAINT about_me_length 
-  CHECK (about_me IS NULL OR length(about_me) <= 1000);
-
--- Create performance indexes
-CREATE INDEX IF NOT EXISTS idx_profiles_username ON profiles(username);
-CREATE INDEX IF NOT EXISTS idx_profiles_email ON profiles(email);
-CREATE INDEX IF NOT EXISTS idx_profiles_public ON profiles(is_public);
-
--- Function to automatically create profile on user signup
-CREATE OR REPLACE FUNCTION public.handle_new_user()
-RETURNS TRIGGER AS $$
-BEGIN
-  INSERT INTO public.profiles (
-    id, username, email, full_name, email_verified, last_active_at
-  )
-  VALUES (
-    new.id,
-    COALESCE(
-      new.raw_user_meta_data->>'username',
-      split_part(new.email, '@', 1)
-    ),
-    new.email,
-    COALESCE(
-      new.raw_user_meta_data->>'full_name',
-      new.raw_user_meta_data->>'name',
-      initcap(replace(split_part(new.email, '@', 1), '.', ' '))
-    ),
-    COALESCE(new.email_confirmed_at IS NOT NULL, false),
-    NOW()
-  );
-  RETURN new;
-EXCEPTION
-  WHEN unique_violation THEN
-    -- Handle username conflicts by appending random number
-    INSERT INTO public.profiles (
-      id, username, email, full_name, email_verified, last_active_at
-    )
-    VALUES (
-      new.id,
-      split_part(new.email, '@', 1) || '_' || floor(random() * 10000)::text,
-      new.email,
-      COALESCE(
-        new.raw_user_meta_data->>'full_name',
-        initcap(replace(split_part(new.email, '@', 1), '.', ' '))
-      ),
-      COALESCE(new.email_confirmed_at IS NOT NULL, false),
-      NOW()
-    );
-    RETURN new;
-END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
-
--- Create trigger for automatic profile creation
-CREATE TRIGGER on_auth_user_created
-  AFTER INSERT ON auth.users
-  FOR EACH ROW EXECUTE FUNCTION public.handle_new_user();
-```
-
-4. Click **"Run"** to execute the SQL
-5. Verify the `profiles` table appears in your **Table Editor**
-
-### 3. Configure Environment Variables (10 minutes)
-
-Create `.env.local` in your project root:
+While following the guide, you'll need these environment variables:
 
 ```bash
-# Supabase Configuration (Get from Project Settings > API)
+# Get these from your Supabase project dashboard
 NEXT_PUBLIC_SUPABASE_URL=https://your-project-id.supabase.co
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY=your-anon-key-here
 
-# Optional: Coinbase Developer Platform (for wallet features)
+# Optional: Enable Web3 wallet features
 CDP_API_KEY_NAME=your-cdp-api-key-name
 CDP_PRIVATE_KEY=your-cdp-private-key
-NEXT_PUBLIC_WALLET_NETWORK=base-sepolia
-
-# Optional: AI Features
-OPENAI_API_KEY=your-openai-api-key
-
-# Feature Flags (set to true to enable)
 NEXT_PUBLIC_ENABLE_CDP_WALLETS=false
-NEXT_PUBLIC_ENABLE_AI_CHAT=false
 ```
 
-### 4. Configure Authentication (10 minutes)
+### What You Get After Setup
 
-In your Supabase dashboard:
+- 🔐 **Complete Authentication** - Email signup/login with confirmation
+- 👤 **Automatic Profiles** - Rich user profiles created automatically  
+- 🛡️ **Enterprise Security** - Row-level security protecting user data
+- 🌐 **Multi-Chain Pages** - Pre-built pages for 6+ blockchains
+- 📱 **Mobile Responsive** - Works perfectly on all devices
+- 🚀 **Production Ready** - Scalable infrastructure on Vercel
 
-1. Go to **Authentication > Settings**
-2. Set **Site URL** to your production domain (e.g., `https://yourdapp.com`)
-3. Add **Redirect URLs**:
-   ```
-   https://yourdapp.com/auth/callback
-   https://yourdapp.com/auth/confirm
-   https://yourdapp.com/protected/profile
-   http://localhost:3000/auth/callback
-   http://localhost:3000/auth/confirm
-   http://localhost:3000/protected/profile
-   ```
+### Test Your Deployment
 
-### 5. Email Confirmation Setup Guide
+After following the guide:
 
-#### **Current Configuration Status** ✅
+1. Visit your deployed app
+2. Sign up with a test email 
+3. Check email for confirmation link
+4. Click link → Should redirect to your profile page
+5. Edit your profile → Changes should save automatically
+6. Test blockchain pages → All should load correctly
 
-This application is currently configured with **implicit flow** for optimal email-based authentication:
-
-**Current Config** (`lib/supabase/client.ts` and `lib/supabase/server.ts`):
-```typescript
-{
-  auth: {
-    flowType: 'implicit',  // ✅ Currently active - optimized for email auth
-    autoRefreshToken: true,
-    persistSession: true,
-    detectSessionInUrl: true,
-  }
-}
-```
-
-#### **Email Template Configuration (Supabase Dashboard)**
-
-**Step 1: Access Email Templates**
-1. Go to your Supabase project dashboard
-2. Navigate to **Authentication → Email Templates**
-3. Select **Confirm signup** template
-
-**Step 2: Current Working Email Template**
-Use this exact template (currently working in production):
-
-```html
-<h2>🎉 Welcome to DevDapp!</h2>
-<p>Thanks for signing up! Click the button below to confirm your email address:</p>
-
-<div style="text-align: center; margin: 30px 0;">
-  <a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=signup&next=/protected/profile"
-     style="display: inline-block; padding: 15px 30px; background: linear-gradient(135deg, #0070f3 0%, #0051cc 100%); color: white; text-decoration: none; border-radius: 8px; font-weight: 600;">
-    ✅ Confirm Email & Start Using DevDapp
-  </a>
-</div>
-```
-
-**Step 3: Verify Template Variables**
-- `{{ .SiteURL }}` → Your site URL (auto-populated)
-- `{{ .TokenHash }}` → Secure confirmation token (auto-populated)
-- `/auth/confirm` → Your app's confirmation route
-
-#### **Alternative: PKCE Flow Setup** 
-
-If you need PKCE flow instead, follow these steps:
-
-**1. Update Application Configuration:**
-```typescript
-// In both lib/supabase/client.ts and lib/supabase/server.ts
-{
-  auth: {
-    flowType: 'pkce',  // Change from 'implicit' to 'pkce'
-    autoRefreshToken: true,
-    persistSession: true,
-    detectSessionInUrl: true,
-  }
-}
-```
-
-**2. Update Email Template for PKCE:**
-```html
-<!-- PKCE-Compatible Email Confirmation URL -->
-<a href="{{ .SiteURL }}/auth/confirm?code={{ .TokenHash }}&next=/protected/profile">
-  ✅ Confirm Email & Start Using DevDapp
-</a>
-```
-
-#### **Flow Comparison Chart**
-
-| Flow Type | URL Parameter | Template Variable | Use Case |
-|-----------|---------------|-------------------|----------|
-| **Implicit** ✅ | `token_hash={{ .TokenHash }}&type=signup` | `{{ .TokenHash }}` | Email-based auth (recommended) |
-| **PKCE** | `code={{ .TokenHash }}` | `{{ .TokenHash }}` | OAuth redirects |
-
-#### **Important Notes**
-
-✅ **Your confirmation route is already compatible** with both flows:
-```typescript
-// app/auth/confirm/route.ts supports both automatically
-const code = searchParams.get("code") || searchParams.get("token_hash");
-```
-
-✅ **Database compatibility**: Both flows work with `auth.users` and `profiles` tables
-
-✅ **No additional setup required**: Your database triggers and RLS policies work with both flows
-
-#### **Troubleshooting Email Confirmation**
-
-**Common Issues & Solutions:**
-
-| Issue | Solution |
-|-------|----------|
-| ❌ "flow_state_not_found" error | Switch from PKCE to implicit flow (see configuration above) |
-| ❌ Email link doesn't work | Verify redirect URLs in Supabase Auth settings |
-| ❌ "Missing authorization code" | Check email template uses correct `{{ .TokenHash }}` variable |
-| ❌ Redirect after confirmation fails | Verify `next` parameter points to valid route |
-
-**Test Your Email Setup:**
-1. Sign up with a test email
-2. Check email arrives with working confirmation link
-3. Click link - should redirect to `/protected/profile`
-4. Verify user appears in Supabase `auth.users` table
-5. Confirm profile created in `profiles` table
-
-### 6. Deploy to Production (15 minutes)
-
-1. **Push to GitHub** and connect to Vercel
-2. **Add environment variables** in Vercel dashboard  
-3. **Deploy** - your multi-chain DApp is live!
-4. **Test email confirmation** in production environment
-
-### 7. Test Your Setup (5 minutes)
-
-- ✅ Visit your deployed app
-- ✅ Test user registration and email confirmation
-- ✅ Verify profile page loads and editing works
-- ✅ Check wallet functionality (if enabled)
-- ✅ Test blockchain-specific pages
+**Need help?** The [deployment guide](docs/deployment/README.md) includes comprehensive troubleshooting and success verification steps.
 
 ---
 
