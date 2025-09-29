@@ -1,44 +1,19 @@
 <svg width="1200" height="600" viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <!-- Unified design system with high contrast and readability -->
-    <linearGradient id="speedGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#fed7aa;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#fdba74;stop-opacity:1" />
+    <!-- DevDapp unified color scheme -->
+    <linearGradient id="primaryGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#beb2f5;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#401de1;stop-opacity:1" />
     </linearGradient>
     
-    <linearGradient id="securityGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#a7f3d0;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#6ee7b7;stop-opacity:1" />
+    <linearGradient id="secondaryGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#c6c2da;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#848483;stop-opacity:1" />
     </linearGradient>
     
-    <linearGradient id="multichainGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#fde68a;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#fcd34d;stop-opacity:1" />
-    </linearGradient>
-    
-    <linearGradient id="smartGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#bfdbfe;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#93c5fd;stop-opacity:1" />
-    </linearGradient>
-    
-    <linearGradient id="rewardsGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#fed7aa;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#fdba74;stop-opacity:1" />
-    </linearGradient>
-    
-    <linearGradient id="mobileGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#e5e7eb;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#d1d5db;stop-opacity:1" />
-    </linearGradient>
-    
-    <linearGradient id="ecosystemGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#22d3ee;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#0891b2;stop-opacity:1" />
-    </linearGradient>
-    
-    <linearGradient id="centralGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#1f2937;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#111827;stop-opacity:1" />
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#401de1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#210f75;stop-opacity:1" />
     </linearGradient>
     
     <!-- High-contrast shadows for readability -->
@@ -51,85 +26,85 @@
   <rect width="1200" height="600" fill="#ffffff"/>
   
   <!-- Title with better typography -->
-  <text x="600" y="60" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="28" font-weight="700" fill="#111827">
+  <text x="600" y="60" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="26" font-weight="700" fill="#210f75">
     🎯 Why Choose This Web3 Starter Kit
   </text>
   
   <!-- Top Row Benefits -->
   
   <!-- Speed -->
-  <rect x="80" y="120" width="220" height="120" rx="12" fill="url(#speedGradient)" stroke="#f97316" stroke-width="2" filter="url(#dropShadow)"/>
-  <text x="190" y="155" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="600" fill="#111827">⚡ 60-Minute Deploy</text>
-  <text x="190" y="180" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="14" fill="#374151">Clone to production ready</text>
-  <text x="190" y="200" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="14" fill="#374151">No complex configuration</text>
+  <rect x="100" y="130" width="200" height="100" rx="12" fill="url(#primaryGradient)" stroke="#401de1" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="200" y="165" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" fill="white">⚡ 60-Minute Deploy</text>
+  <text x="200" y="185" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="white">Clone to production ready</text>
+  <text x="200" y="200" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="white">No complex configuration</text>
   
   <!-- Speed metric -->
-  <rect x="150" y="255" width="80" height="24" rx="12" fill="#065f46" stroke="none"/>
-  <text x="190" y="271" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="600" fill="white">60 minutes</text>
+  <rect x="170" y="245" width="60" height="18" rx="9" fill="#210f75" stroke="none"/>
+  <text x="200" y="255" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11" font-weight="600" fill="white">60 minutes</text>
 
   <!-- Security -->
-  <rect x="330" y="120" width="220" height="120" rx="12" fill="url(#securityGradient)" stroke="#059669" stroke-width="2" filter="url(#dropShadow)"/>
-  <text x="440" y="155" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="600" fill="#111827">🔒 Enterprise Security</text>
-  <text x="440" y="180" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="14" fill="#374151">Built-in authentication</text>
-  <text x="440" y="200" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="14" fill="#374151">Row-level data protection</text>
+  <rect x="330" y="130" width="200" height="100" rx="12" fill="url(#secondaryGradient)" stroke="#848483" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="430" y="165" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" fill="#444444">🔒 Enterprise Security</text>
+  <text x="430" y="185" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#444444">Built-in authentication</text>
+  <text x="430" y="200" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#444444">Row-level data protection</text>
   
   <!-- Security metric -->
-  <rect x="400" y="255" width="80" height="24" rx="12" fill="#065f46" stroke="none"/>
-  <text x="440" y="271" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="600" fill="white">Zero config</text>
+  <rect x="400" y="245" width="60" height="18" rx="9" fill="#401de1" stroke="none"/>
+  <text x="430" y="255" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11" font-weight="600" fill="white">Zero config</text>
 
   <!-- Multi-chain -->
-  <rect x="580" y="120" width="220" height="120" rx="12" fill="url(#multichainGradient)" stroke="#eab308" stroke-width="2" filter="url(#dropShadow)"/>
-  <text x="690" y="155" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="600" fill="#111827">🌍 Multi-Chain Ready</text>
-  <text x="690" y="180" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="14" fill="#374151">6+ blockchain networks</text>
-  <text x="690" y="200" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="14" fill="#374151">Pre-built integrations</text>
+  <rect x="560" y="130" width="200" height="100" rx="12" fill="url(#primaryGradient)" stroke="#401de1" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="660" y="165" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" fill="white">🌍 Multi-Chain Ready</text>
+  <text x="660" y="185" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="white">6+ blockchain networks</text>
+  <text x="660" y="200" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="white">Pre-built integrations</text>
   
   <!-- Multi-chain metric -->
-  <rect x="650" y="255" width="80" height="24" rx="12" fill="#065f46" stroke="none"/>
-  <text x="690" y="271" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="600" fill="white">6+ chains</text>
+  <rect x="630" y="245" width="60" height="18" rx="9" fill="#210f75" stroke="none"/>
+  <text x="660" y="255" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11" font-weight="600" fill="white">6+ chains</text>
 
   <!-- Smart Features -->
-  <rect x="830" y="120" width="220" height="120" rx="12" fill="url(#smartGradient)" stroke="#2563eb" stroke-width="2" filter="url(#dropShadow)"/>
-  <text x="940" y="155" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="600" fill="#111827">🔧 Smart Features</text>
-  <text x="940" y="180" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="14" fill="#374151">Auto code improvements</text>
-  <text x="940" y="200" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="14" fill="#374151">Quality tracking</text>
+  <rect x="790" y="130" width="200" height="100" rx="12" fill="url(#secondaryGradient)" stroke="#848483" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="890" y="165" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" fill="#444444">🔧 Smart Features</text>
+  <text x="890" y="185" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#444444">Auto code improvements</text>
+  <text x="890" y="200" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#444444">Quality tracking</text>
   
   <!-- Smart metric -->
-  <rect x="900" y="255" width="80" height="24" rx="12" fill="#065f46" stroke="none"/>
-  <text x="940" y="271" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="14" font-weight="600" fill="white">Automated</text>
+  <rect x="860" y="245" width="60" height="18" rx="9" fill="#401de1" stroke="none"/>
+  <text x="890" y="255" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="11" font-weight="600" fill="white">Automated</text>
 
   <!-- Bottom Row Benefits -->
   
   <!-- Token Rewards -->
-  <rect x="180" y="310" width="220" height="120" rx="12" fill="url(#rewardsGradient)" stroke="#f97316" stroke-width="2" filter="url(#dropShadow)"/>
-  <text x="290" y="345" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="600" fill="#111827">💰 Token Rewards</text>
-  <text x="290" y="370" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="14" fill="#374151">Earn crypto for contributions</text>
-  <text x="290" y="390" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="14" fill="#374151">Native blockchain payments</text>
+  <rect x="200" y="300" width="200" height="100" rx="12" fill="url(#primaryGradient)" stroke="#401de1" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="300" y="335" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" fill="white">💰 Token Rewards</text>
+  <text x="300" y="355" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="white">Earn crypto for contributions</text>
+  <text x="300" y="370" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="white">Native blockchain payments</text>
 
   <!-- Mobile Design -->
-  <rect x="430" y="310" width="220" height="120" rx="12" fill="url(#mobileGradient)" stroke="#6b7280" stroke-width="2" filter="url(#dropShadow)"/>
-  <text x="540" y="345" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="600" fill="#111827">📱 Mobile Optimized</text>
-  <text x="540" y="370" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="14" fill="#374151">Responsive design</text>
-  <text x="540" y="390" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="14" fill="#374151">Works on all devices</text>
+  <rect x="430" y="300" width="200" height="100" rx="12" fill="url(#secondaryGradient)" stroke="#848483" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="530" y="335" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" fill="#444444">📱 Mobile Optimized</text>
+  <text x="530" y="355" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#444444">Responsive design</text>
+  <text x="530" y="370" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="#444444">Works on all devices</text>
 
   <!-- Growing Ecosystem -->
-  <rect x="680" y="310" width="220" height="120" rx="12" fill="url(#ecosystemGradient)" stroke="#0891b2" stroke-width="2" filter="url(#dropShadow)"/>
-  <text x="790" y="345" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="600" fill="white">🌱 Growing Community</text>
-  <text x="790" y="370" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="14" fill="white">Active developer network</text>
-  <text x="790" y="390" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="14" fill="white">Continuous improvements</text>
+  <rect x="660" y="300" width="200" height="100" rx="12" fill="url(#primaryGradient)" stroke="#401de1" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="760" y="335" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" fill="white">🌱 Growing Community</text>
+  <text x="760" y="355" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="white">Active developer network</text>
+  <text x="760" y="370" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="13" fill="white">Continuous improvements</text>
 
   <!-- Central Value Proposition -->
-  <rect x="350" y="470" width="400" height="100" rx="12" fill="url(#centralGradient)" stroke="#111827" stroke-width="3" filter="url(#dropShadow)"/>
-  <text x="550" y="505" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="22" font-weight="700" fill="white">🚀 Result: 10x Faster Web3 Development</text>
-  <text x="550" y="530" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="16" fill="#d1d5db">Build production dApps in hours, not months</text>
-  <text x="550" y="550" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="16" fill="#d1d5db">Enterprise-grade security included</text>
+  <rect x="375" y="450" width="350" height="90" rx="12" fill="url(#accentGradient)" stroke="#210f75" stroke-width="3" filter="url(#dropShadow)"/>
+  <text x="550" y="485" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="20" font-weight="700" fill="white">🚀 Result: 10x Faster Web3 Development</text>
+  <text x="550" y="505" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="15" fill="#beb2f5">Build production dApps in hours, not months</text>
+  <text x="550" y="520" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="15" fill="#beb2f5">Enterprise-grade security included</text>
 
   <!-- Connecting lines to central value -->
-  <path d="M 190 240 Q 190 400 450 460" stroke="#9ca3af" stroke-width="2" fill="none"/>
-  <path d="M 440 240 Q 440 400 500 460" stroke="#9ca3af" stroke-width="2" fill="none"/>
-  <path d="M 690 240 Q 690 400 600 460" stroke="#9ca3af" stroke-width="2" fill="none"/>
-  <path d="M 940 240 Q 940 400 650 460" stroke="#9ca3af" stroke-width="2" fill="none"/>
+  <path d="M 200 240 Q 200 380 450 440" stroke="#848483" stroke-width="2" fill="none"/>
+  <path d="M 430 240 Q 430 380 500 440" stroke="#848483" stroke-width="2" fill="none"/>
+  <path d="M 660 240 Q 660 380 600 440" stroke="#848483" stroke-width="2" fill="none"/>
+  <path d="M 890 240 Q 890 380 650 440" stroke="#848483" stroke-width="2" fill="none"/>
   
-  <line x1="290" y1="430" x2="450" y2="470" stroke="#9ca3af" stroke-width="2"/>
-  <line x1="540" y1="430" x2="550" y2="470" stroke="#9ca3af" stroke-width="2"/>
-  <line x1="790" y1="430" x2="650" y2="470" stroke="#9ca3af" stroke-width="2"/>
+  <line x1="300" y1="400" x2="475" y2="440" stroke="#848483" stroke-width="2"/>
+  <line x1="530" y1="400" x2="550" y2="440" stroke="#848483" stroke-width="2"/>
+  <line x1="760" y1="400" x2="625" y2="440" stroke="#848483" stroke-width="2"/>
 </svg>

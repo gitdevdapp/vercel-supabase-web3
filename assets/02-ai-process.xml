@@ -7,72 +7,72 @@
         <mxCell id="1" parent="0" />
         
         <!-- Title -->
-        <mxCell id="title" value="🤖 AI Enhancement Process - Self-Evolving Framework" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24;fontStyle=1;fontColor=#0a0a0a;" vertex="1" parent="1">
+        <mxCell id="title" value="🤖 AI Enhancement Process - Self-Evolving Framework" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24;fontStyle=1;fontColor=#210f75;" vertex="1" parent="1">
           <mxGeometry x="200" y="40" width="800" height="40" as="geometry" />
         </mxCell>
         
         <!-- GitHub Actions Monitor -->
-        <mxCell id="monitor" value="⚙️ GitHub Actions&lt;br&gt;Monitor every contribution" style="rounded=1;whiteSpace=wrap;html=1;fillColor=hsl(0,0%,14%);strokeColor=hsl(0,0%,9%);strokeWidth=2;fontSize=14;align=center;verticalAlign=middle;fontColor=#ffffff;" vertex="1" parent="1">
+        <mxCell id="monitor" value="⚙️ GitHub Actions&lt;br&gt;Monitor every contribution&lt;br&gt;Real-time tracking" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c6c2da;strokeColor=#848483;strokeWidth=2;fontSize=14;align=center;verticalAlign=middle;fontColor=#444444;" vertex="1" parent="1">
           <mxGeometry x="80" y="150" width="180" height="100" as="geometry" />
         </mxCell>
 
         <!-- AI Analysis -->
-        <mxCell id="analysis" value="🧠 AI Analysis&lt;br&gt;Quality, impact &amp; innovation scoring" style="rounded=1;whiteSpace=wrap;html=1;fillColor=hsl(197,37%,55%);strokeColor=hsl(197,37%,24%);strokeWidth=2;fontSize=14;align=center;verticalAlign=middle;fontColor=#ffffff;" vertex="1" parent="1">
-          <mxGeometry x="320" y="150" width="180" height="100" as="geometry" />
+        <mxCell id="analysis" value="🧠 AI Analysis&lt;br&gt;Quality, impact &amp; innovation scoring&lt;br&gt;Instant evaluation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#beb2f5;strokeColor=#401de1;strokeWidth=2;fontSize=14;align=center;verticalAlign=middle;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="310" y="150" width="180" height="100" as="geometry" />
         </mxCell>
 
         <!-- Smart Contracts -->
-        <mxCell id="contracts" value="📜 Smart Contracts&lt;br&gt;Automated token distribution" style="rounded=1;whiteSpace=wrap;html=1;fillColor=hsl(173,58%,50%);strokeColor=hsl(173,58%,39%);strokeWidth=2;fontSize=14;align=center;verticalAlign=middle;fontColor=#ffffff;" vertex="1" parent="1">
-          <mxGeometry x="560" y="150" width="180" height="100" as="geometry" />
+        <mxCell id="contracts" value="📋 Smart Contracts&lt;br&gt;Automated token distribution&lt;br&gt;Instant blockchain rewards" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#beb2f5;strokeColor=#401de1;strokeWidth=2;fontSize=14;align=center;verticalAlign=middle;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="540" y="150" width="180" height="100" as="geometry" />
         </mxCell>
 
         <!-- Framework Evolution -->
-        <mxCell id="evolution" value="🧬 Framework Evolution&lt;br&gt;Learn patterns &amp; improve templates" style="rounded=1;whiteSpace=wrap;html=1;fillColor=hsl(43,74%,60%);strokeColor=hsl(43,74%,45%);strokeWidth=2;fontSize=14;align=center;verticalAlign=middle;fontColor=#0a0a0a;" vertex="1" parent="1">
-          <mxGeometry x="800" y="150" width="180" height="100" as="geometry" />
+        <mxCell id="evolution" value="🧬 Framework Evolution&lt;br&gt;Learn patterns &amp; improve templates&lt;br&gt;Self-evolving framework" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c6c2da;strokeColor=#848483;strokeWidth=2;fontSize=14;align=center;verticalAlign=middle;fontColor=#444444;" vertex="1" parent="1">
+          <mxGeometry x="770" y="150" width="180" height="100" as="geometry" />
         </mxCell>
 
         <!-- AI Learning Cycle -->
-        <mxCell id="learning" value="🔄 Continuous Learning&lt;br&gt;Pattern recognition makes framework faster" style="rounded=1;whiteSpace=wrap;html=1;fillColor=hsl(27,87%,65%);strokeColor=hsl(27,87%,50%);strokeWidth=3;fontSize=16;align=center;verticalAlign=middle;fontColor=#ffffff;" vertex="1" parent="1">
+        <mxCell id="learning" value="🔄 Continuous Learning&lt;br&gt;Pattern recognition makes framework faster&lt;br&gt;Self-improving development process" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#401de1;strokeColor=#210f75;strokeWidth=3;fontSize=16;align=center;verticalAlign=middle;fontColor=#ffffff;" vertex="1" parent="1">
           <mxGeometry x="400" y="350" width="320" height="100" as="geometry" />
         </mxCell>
 
         <!-- Process arrows -->
-        <mxCell id="arrow1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;strokeColor=hsl(0,0%,45%);endArrow=classic;endSize=8;" edge="1" parent="1" source="monitor" target="analysis">
+        <mxCell id="arrow1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;strokeColor=#444444;endArrow=classic;endSize=8;" edge="1" parent="1" source="monitor" target="analysis">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
 
-        <mxCell id="arrow2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;strokeColor=hsl(0,0%,45%);endArrow=classic;endSize=8;" edge="1" parent="1" source="analysis" target="contracts">
+        <mxCell id="arrow2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;strokeColor=#444444;endArrow=classic;endSize=8;" edge="1" parent="1" source="analysis" target="contracts">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
 
-        <mxCell id="arrow3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;strokeColor=hsl(0,0%,45%);endArrow=classic;endSize=8;" edge="1" parent="1" source="contracts" target="evolution">
+        <mxCell id="arrow3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;strokeColor=#444444;endArrow=classic;endSize=8;" edge="1" parent="1" source="contracts" target="evolution">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
 
         <!-- Convergence to learning -->
-        <mxCell id="arrow4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;strokeColor=hsl(27,87%,50%);endArrow=classic;endSize=8;" edge="1" parent="1" source="analysis" target="learning">
+        <mxCell id="arrow4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#401de1;endArrow=classic;endSize=8;" edge="1" parent="1" source="analysis" target="learning">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="410" y="300" />
-              <mxPoint x="500" y="300" />
+              <mxPoint x="400" y="300" />
+              <mxPoint x="480" y="300" />
             </Array>
           </mxGeometry>
         </mxCell>
 
-        <mxCell id="arrow5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;strokeColor=hsl(27,87%,50%);endArrow=classic;endSize=8;" edge="1" parent="1" source="evolution" target="learning">
+        <mxCell id="arrow5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#401de1;endArrow=classic;endSize=8;" edge="1" parent="1" source="evolution" target="learning">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="890" y="300" />
-              <mxPoint x="620" y="300" />
+              <mxPoint x="860" y="300" />
+              <mxPoint x="640" y="300" />
             </Array>
           </mxGeometry>
         </mxCell>
 
         <!-- Feedback loop -->
-        <mxCell id="feedback" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=hsl(43,74%,45%);endArrow=classic;endSize=6;dashed=1;" edge="1" parent="1" source="learning" target="monitor">
+        <mxCell id="feedback" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#848483;endArrow=classic;endSize=6;dashed=1;" edge="1" parent="1" source="learning" target="monitor">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="450" y="500" />
+              <mxPoint x="440" y="500" />
               <mxPoint x="170" y="500" />
               <mxPoint x="170" y="280" />
             </Array>
@@ -80,20 +80,24 @@
         </mxCell>
 
         <!-- Labels -->
-        <mxCell id="label1" value="Real-time" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=hsl(0,0%,45%);" vertex="1" parent="1">
-          <mxGeometry x="280" y="170" width="60" height="20" as="geometry" />
+        <mxCell id="label1" value="Real-time" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#401de1;" vertex="1" parent="1">
+          <mxGeometry x="140" y="265" width="60" height="20" as="geometry" />
         </mxCell>
 
-        <mxCell id="label2" value="Instant" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=hsl(0,0%,45%);" vertex="1" parent="1">
-          <mxGeometry x="520" y="170" width="60" height="20" as="geometry" />
+        <mxCell id="label2" value="Instant" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#210f75;" vertex="1" parent="1">
+          <mxGeometry x="370" y="265" width="60" height="20" as="geometry" />
         </mxCell>
 
-        <mxCell id="label3" value="Evolving" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=hsl(0,0%,45%);" vertex="1" parent="1">
-          <mxGeometry x="760" y="170" width="60" height="20" as="geometry" />
+        <mxCell id="label3" value="Evolving" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#210f75;" vertex="1" parent="1">
+          <mxGeometry x="600" y="265" width="60" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="label4" value="Learning" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#401de1;" vertex="1" parent="1">
+          <mxGeometry x="830" y="265" width="60" height="20" as="geometry" />
         </mxCell>
 
         <!-- Outcome -->
-        <mxCell id="outcome" value="🎯 Result: Framework becomes 10x faster with each cycle" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=hsl(27,87%,50%);" vertex="1" parent="1">
+        <mxCell id="outcome" value="🎯 Result: Framework becomes 10x faster with each cycle" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#401de1;" vertex="1" parent="1">
           <mxGeometry x="300" y="520" width="600" height="30" as="geometry" />
         </mxCell>
 

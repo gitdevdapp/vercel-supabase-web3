@@ -7,109 +7,109 @@
         <mxCell id="1" parent="0" />
         
         <!-- Title -->
-        <mxCell id="title" value="🎯 Key Benefits - Why Choose DevDapp AI Starter Kit" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24;fontStyle=1;fontColor=#0a0a0a;" vertex="1" parent="1">
+        <mxCell id="title" value="🎯 Why Choose This Web3 Starter Kit" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24;fontStyle=1;fontColor=#210f75;" vertex="1" parent="1">
           <mxGeometry x="200" y="40" width="800" height="40" as="geometry" />
         </mxCell>
         
         <!-- Top Row Benefits -->
-        <mxCell id="speed" value="⚡ 60-Minute Deployment&lt;br&gt;Clone to production ready" style="rounded=1;whiteSpace=wrap;html=1;fillColor=hsl(12,76%,85%);strokeColor=hsl(12,76%,50%);strokeWidth=2;fontSize=14;align=center;verticalAlign=middle;fontColor=#0a0a0a;" vertex="1" parent="1">
-          <mxGeometry x="80" y="130" width="200" height="100" as="geometry" />
+        <mxCell id="speed" value="⚡ 60-Minute Deploy&lt;br&gt;Clone to production ready&lt;br&gt;No complex configuration" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#beb2f5;strokeColor=#401de1;strokeWidth=2;fontSize=14;align=center;verticalAlign=middle;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="100" y="130" width="200" height="100" as="geometry" />
         </mxCell>
 
-        <mxCell id="security" value="🔒 Enterprise Security&lt;br&gt;Zero-config protection" style="rounded=1;whiteSpace=wrap;html=1;fillColor=hsl(173,58%,85%);strokeColor=hsl(173,58%,50%);strokeWidth=2;fontSize=14;align=center;verticalAlign=middle;fontColor=#0a0a0a;" vertex="1" parent="1">
-          <mxGeometry x="320" y="130" width="200" height="100" as="geometry" />
+        <mxCell id="security" value="🔒 Enterprise Security&lt;br&gt;Built-in authentication&lt;br&gt;Row-level data protection" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c6c2da;strokeColor=#848483;strokeWidth=2;fontSize=14;align=center;verticalAlign=middle;fontColor=#444444;" vertex="1" parent="1">
+          <mxGeometry x="330" y="130" width="200" height="100" as="geometry" />
         </mxCell>
 
-        <mxCell id="multichain" value="🌍 Multi-Chain Ready&lt;br&gt;6+ blockchain ecosystems" style="rounded=1;whiteSpace=wrap;html=1;fillColor=hsl(43,74%,85%);strokeColor=hsl(43,74%,50%);strokeWidth=2;fontSize=14;align=center;verticalAlign=middle;fontColor=#0a0a0a;" vertex="1" parent="1">
+        <mxCell id="multichain" value="🌍 Multi-Chain Ready&lt;br&gt;6+ blockchain networks&lt;br&gt;Pre-built integrations" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#beb2f5;strokeColor=#401de1;strokeWidth=2;fontSize=14;align=center;verticalAlign=middle;fontColor=#ffffff;" vertex="1" parent="1">
           <mxGeometry x="560" y="130" width="200" height="100" as="geometry" />
         </mxCell>
 
-        <mxCell id="ai" value="🤖 AI-Powered Evolution&lt;br&gt;Continuous improvement" style="rounded=1;whiteSpace=wrap;html=1;fillColor=hsl(197,37%,85%);strokeColor=hsl(197,37%,50%);strokeWidth=2;fontSize=14;align=center;verticalAlign=middle;fontColor=#0a0a0a;" vertex="1" parent="1">
-          <mxGeometry x="800" y="130" width="200" height="100" as="geometry" />
+        <mxCell id="ai" value="🔧 Smart Features&lt;br&gt;Auto code improvements&lt;br&gt;Quality tracking" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c6c2da;strokeColor=#848483;strokeWidth=2;fontSize=14;align=center;verticalAlign=middle;fontColor=#444444;" vertex="1" parent="1">
+          <mxGeometry x="790" y="130" width="200" height="100" as="geometry" />
         </mxCell>
 
         <!-- Bottom Row Benefits -->
-        <mxCell id="rewards" value="💰 Token Incentives&lt;br&gt;Native blockchain rewards" style="rounded=1;whiteSpace=wrap;html=1;fillColor=hsl(27,87%,85%);strokeColor=hsl(27,87%,50%);strokeWidth=2;fontSize=14;align=center;verticalAlign=middle;fontColor=#0a0a0a;" vertex="1" parent="1">
-          <mxGeometry x="200" y="280" width="200" height="100" as="geometry" />
+        <mxCell id="rewards" value="💰 Token Rewards&lt;br&gt;Earn crypto for contributions&lt;br&gt;Native blockchain payments" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#beb2f5;strokeColor=#401de1;strokeWidth=2;fontSize=14;align=center;verticalAlign=middle;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="200" y="300" width="200" height="100" as="geometry" />
         </mxCell>
 
-        <mxCell id="mobile" value="📱 Mobile-First Design&lt;br&gt;Perfect responsiveness" style="rounded=1;whiteSpace=wrap;html=1;fillColor=hsl(0,0%,90%);strokeColor=hsl(0,0%,60%);strokeWidth=2;fontSize=14;align=center;verticalAlign=middle;fontColor=#0a0a0a;" vertex="1" parent="1">
-          <mxGeometry x="440" y="280" width="200" height="100" as="geometry" />
+        <mxCell id="mobile" value="📱 Mobile Optimized&lt;br&gt;Responsive design&lt;br&gt;Works on all devices" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c6c2da;strokeColor=#848483;strokeWidth=2;fontSize=14;align=center;verticalAlign=middle;fontColor=#444444;" vertex="1" parent="1">
+          <mxGeometry x="430" y="300" width="200" height="100" as="geometry" />
         </mxCell>
 
-        <mxCell id="ecosystem" value="🌱 Growing Ecosystem&lt;br&gt;Community-driven development" style="rounded=1;whiteSpace=wrap;html=1;fillColor=hsl(173,58%,75%);strokeColor=hsl(173,58%,39%);strokeWidth=2;fontSize=14;align=center;verticalAlign=middle;fontColor=#ffffff;" vertex="1" parent="1">
-          <mxGeometry x="680" y="280" width="200" height="100" as="geometry" />
+        <mxCell id="ecosystem" value="🌱 Growing Community&lt;br&gt;Active developer network&lt;br&gt;Continuous improvements" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#beb2f5;strokeColor=#401de1;strokeWidth=2;fontSize=14;align=center;verticalAlign=middle;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="660" y="300" width="200" height="100" as="geometry" />
         </mxCell>
 
         <!-- Central Value Proposition -->
-        <mxCell id="value" value="🌟 Result: 10x Faster Web3 Development&lt;br&gt;Enterprise-grade DApps in minutes, not months" style="rounded=1;whiteSpace=wrap;html=1;fillColor=hsl(0,0%,9%);strokeColor=hsl(0,0%,3%);strokeWidth=3;fontSize=16;align=center;verticalAlign=middle;fontColor=#ffffff;" vertex="1" parent="1">
-          <mxGeometry x="350" y="450" width="400" height="100" as="geometry" />
+        <mxCell id="value" value="🚀 Result: 10x Faster Web3 Development&lt;br&gt;Build production dApps in hours, not months&lt;br&gt;Enterprise-grade security included" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#401de1;strokeColor=#210f75;strokeWidth=3;fontSize=16;align=center;verticalAlign=middle;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="375" y="450" width="350" height="90" as="geometry" />
         </mxCell>
 
         <!-- Connecting lines to central value -->
-        <mxCell id="line1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=hsl(0,0%,70%);endArrow=none;" edge="1" parent="1" source="speed" target="value">
+        <mxCell id="line1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#848483;endArrow=none;" edge="1" parent="1" source="speed" target="value">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="180" y="420" />
-              <mxPoint x="450" y="420" />
+              <mxPoint x="200" y="380" />
+              <mxPoint x="450" y="380" />
             </Array>
           </mxGeometry>
         </mxCell>
 
-        <mxCell id="line2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=hsl(0,0%,70%);endArrow=none;" edge="1" parent="1" source="security" target="value">
+        <mxCell id="line2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#848483;endArrow=none;" edge="1" parent="1" source="security" target="value">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="420" y="420" />
-              <mxPoint x="500" y="420" />
+              <mxPoint x="430" y="380" />
+              <mxPoint x="500" y="380" />
             </Array>
           </mxGeometry>
         </mxCell>
 
-        <mxCell id="line3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=hsl(0,0%,70%);endArrow=none;" edge="1" parent="1" source="multichain" target="value">
+        <mxCell id="line3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#848483;endArrow=none;" edge="1" parent="1" source="multichain" target="value">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="660" y="420" />
-              <mxPoint x="600" y="420" />
+              <mxPoint x="660" y="380" />
+              <mxPoint x="600" y="380" />
             </Array>
           </mxGeometry>
         </mxCell>
 
-        <mxCell id="line4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=hsl(0,0%,70%);endArrow=none;" edge="1" parent="1" source="ai" target="value">
+        <mxCell id="line4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#848483;endArrow=none;" edge="1" parent="1" source="ai" target="value">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="900" y="420" />
-              <mxPoint x="650" y="420" />
+              <mxPoint x="890" y="380" />
+              <mxPoint x="650" y="380" />
             </Array>
           </mxGeometry>
         </mxCell>
 
-        <mxCell id="line5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=hsl(0,0%,70%);endArrow=none;" edge="1" parent="1" source="rewards" target="value">
+        <mxCell id="line5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#848483;endArrow=none;" edge="1" parent="1" source="rewards" target="value">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
 
-        <mxCell id="line6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=hsl(0,0%,70%);endArrow=none;" edge="1" parent="1" source="mobile" target="value">
+        <mxCell id="line6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#848483;endArrow=none;" edge="1" parent="1" source="mobile" target="value">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
 
-        <mxCell id="line7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=hsl(0,0%,70%);endArrow=none;" edge="1" parent="1" source="ecosystem" target="value">
+        <mxCell id="line7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#848483;endArrow=none;" edge="1" parent="1" source="ecosystem" target="value">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
 
         <!-- Metrics -->
-        <mxCell id="metric1" value="60 min" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=hsl(12,76%,50%);" vertex="1" parent="1">
-          <mxGeometry x="155" y="240" width="50" height="20" as="geometry" />
+        <mxCell id="metric1" value="60 minutes" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#210f75;" vertex="1" parent="1">
+          <mxGeometry x="170" y="245" width="60" height="18" as="geometry" />
         </mxCell>
 
-        <mxCell id="metric2" value="0-config" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=hsl(173,58%,50%);" vertex="1" parent="1">
-          <mxGeometry x="395" y="240" width="50" height="20" as="geometry" />
+        <mxCell id="metric2" value="Zero config" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#401de1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="245" width="60" height="18" as="geometry" />
         </mxCell>
 
-        <mxCell id="metric3" value="6+ chains" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=hsl(43,74%,50%);" vertex="1" parent="1">
-          <mxGeometry x="635" y="240" width="50" height="20" as="geometry" />
+        <mxCell id="metric3" value="6+ chains" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#210f75;" vertex="1" parent="1">
+          <mxGeometry x="630" y="245" width="60" height="18" as="geometry" />
         </mxCell>
 
-        <mxCell id="metric4" value="AI-driven" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=hsl(197,37%,50%);" vertex="1" parent="1">
-          <mxGeometry x="875" y="240" width="50" height="20" as="geometry" />
+        <mxCell id="metric4" value="Automated" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#401de1;" vertex="1" parent="1">
+          <mxGeometry x="860" y="245" width="60" height="18" as="geometry" />
         </mxCell>
 
       </root>
