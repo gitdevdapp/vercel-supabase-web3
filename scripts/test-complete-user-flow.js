@@ -355,7 +355,7 @@ async function runHealthChecks() {
   try {
     const { error } = await supabaseClient
       .from('profiles')
-      .select('id, username, email, about_me, bio, email_verified, onboarding_completed, created_at, updated_at')
+      .select('id, username, email, about_me, created_at, updated_at')
       .limit(1);
 
     if (error) {
