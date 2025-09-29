@@ -98,13 +98,4 @@
   <text x="550" y="505" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="15" fill="#beb2f5">Build production dApps in hours, not months</text>
   <text x="550" y="520" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif" font-size="15" fill="#beb2f5">Enterprise-grade security included</text>
 
-  <!-- Connecting lines to central value -->
-  <path d="M 200 240 Q 200 380 450 440" stroke="#848483" stroke-width="2" fill="none"/>
-  <path d="M 430 240 Q 430 380 500 440" stroke="#848483" stroke-width="2" fill="none"/>
-  <path d="M 660 240 Q 660 380 600 440" stroke="#848483" stroke-width="2" fill="none"/>
-  <path d="M 890 240 Q 890 380 650 440" stroke="#848483" stroke-width="2" fill="none"/>
-  
-  <line x1="300" y1="400" x2="475" y2="440" stroke="#848483" stroke-width="2"/>
-  <line x1="530" y1="400" x2="550" y2="440" stroke="#848483" stroke-width="2"/>
-  <line x1="760" y1="400" x2="625" y2="440" stroke="#848483" stroke-width="2"/>
 </svg>
