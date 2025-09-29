@@ -115,7 +115,7 @@ CREATE TABLE profiles (
 
   -- Data validation constraints
   CONSTRAINT username_length CHECK (username IS NULL OR (length(username) >= 3 AND length(username) <= 30)),
-  CONSTRAINT username_format CHECK (username IS NULL OR username ~ '^[a-zA-Z0-9_-]+$'),
+  CONSTRAINT username_format CHECK (username IS NULL OR username ~ '^[a-zA-Z0-9._-]+$'),
   CONSTRAINT bio_length CHECK (bio IS NULL OR length(bio) <= 160),
   CONSTRAINT about_me_length CHECK (about_me IS NULL OR length(about_me) <= 1000)
 );

@@ -130,7 +130,7 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 ```sql
 -- Add helpful constraints and indexes
 ALTER TABLE profiles ADD CONSTRAINT username_length CHECK (length(username) >= 3 AND length(username) <= 30);
-ALTER TABLE profiles ADD CONSTRAINT username_format CHECK (username ~ '^[a-zA-Z0-9_-]+$');
+ALTER TABLE profiles ADD CONSTRAINT username_format CHECK (username ~ '^[a-zA-Z0-9._-]+$');
 ALTER TABLE profiles ADD CONSTRAINT bio_length CHECK (length(bio) <= 160);
 ALTER TABLE profiles ADD CONSTRAINT about_me_length CHECK (length(about_me) <= 1000);
 
