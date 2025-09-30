@@ -2,19 +2,36 @@ import { ProgressNav } from '@/components/guide/ProgressNav'
 import { StepSection } from '@/components/guide/StepSection'
 import { CursorPrompt } from '@/components/guide/CursorPrompt'
 import { GlobalNav } from '@/components/navigation/global-nav'
+import { GuideLockedView } from '@/components/guide/GuideLockedView'
+import { createClient } from '@/lib/supabase/server'
 
 export const metadata = {
   title: 'Complete Setup Guide | DevDapp Web3 Starter',
   description: 'Deploy a complete multi-chain Web3 dApp in under 60 minutes using Cursor AI. Copy-paste prompts, no coding required.',
 }
 
-export default function GuidePage() {
+export default async function GuidePage() {
+  const supabase = await createClient()
+  const { data } = await supabase.auth.getClaims()
+  const isAuthenticated = !!data?.claims
+
+  // Show locked view for non-authenticated users
+  if (!isAuthenticated) {
+    return (
+      <>
+        <GlobalNav showHomeButton={true} showAuthButton={true} />
+        <GuideLockedView />
+      </>
+    )
+  }
+
+  // Show full guide for authenticated users
   return (
     <div className="min-h-screen bg-background">
       <GlobalNav showHomeButton={true} showAuthButton={false} />
       <ProgressNav />
       
-      <main className="lg:ml-80 pt-16">
+      <main className="lg:ml-80 pt-28 lg:pt-16">
         {/* Welcome Section */}
         <StepSection id="welcome" title="Welcome" emoji="👋" estimatedTime="2 min">
           <div className="space-y-6">
@@ -289,13 +306,26 @@ export default function GuidePage() {
             </ol>
           </div>
 
+          <div className="my-6 p-4 border border-primary/30 bg-primary/5 rounded-lg">
+            <p className="font-semibold text-foreground mb-2">💡 Pro Tip: Create Local .env File</p>
+            <p className="text-sm text-muted-foreground mb-2">
+              Instead of manually entering each variable in Vercel, create a local <code>.env.local</code> file first, then upload it to Vercel. This ensures you don&apos;t miss anything when copy-pasting and makes it easier to update later.
+            </p>
+          </div>
+
           <CursorPrompt 
-            prompt='Add environment variables to my Vercel project for Supabase integration. Set NEXT_PUBLIC_SUPABASE_URL to "YOUR_SUPABASE_URL" and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY to "YOUR_ANON_KEY". Apply to all environments (production, preview, development), then redeploy the app to production.'
+            prompt='Help me set up environment variables for Supabase. First, create a .env.local file in my project root with NEXT_PUBLIC_SUPABASE_URL="YOUR_SUPABASE_URL" and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY="YOUR_ANON_KEY". Then, guide me through uploading this .env.local file to Vercel using the Vercel CLI, applying it to all environments (production, preview, development). Finally, redeploy the app to production.'
           />
 
           <div className="my-4 p-4 bg-muted border border-border rounded-lg">
             <p className="text-sm text-muted-foreground">
               <strong>Important:</strong> Replace the placeholder values with your actual Supabase URL and anon key before copying!
+            </p>
+          </div>
+
+          <div className="mt-4 p-4 border border-border bg-card rounded-lg">
+            <p className="text-sm text-muted-foreground">
+              <strong>Alternative:</strong> You can also manually add environment variables in the Vercel dashboard under <strong>Project Settings → Environment Variables</strong>, but using the CLI with a local file is faster and less error-prone.
             </p>
           </div>
 
@@ -307,26 +337,43 @@ export default function GuidePage() {
             Now let&apos;s create the database schema for user authentication, profiles, and file storage.
           </p>
 
-          <CursorPrompt 
-            prompt='Read the complete SQL setup script from docs/profile/SETUP.md in this project. Then give me clear step-by-step instructions on how to execute it in my Supabase SQL Editor, including the exact steps to open the editor and run the script. Show me the actual SQL I need to copy.'
-          />
-
-          <div className="mt-6 space-y-2 text-muted-foreground">
-            <p><strong>After Cursor provides the SQL:</strong></p>
-            <ol className="list-decimal list-inside space-y-1 ml-4">
-              <li>Open your Supabase dashboard</li>
-              <li>Click <strong>&quot;SQL Editor&quot;</strong> in sidebar</li>
-              <li>Click <strong>&quot;New query&quot;</strong></li>
-              <li>Copy the SQL script Cursor showed you</li>
-              <li>Paste into the SQL Editor</li>
+          <div className="my-6 p-4 border border-border bg-card rounded-lg">
+            <p className="font-semibold text-foreground mb-3">Step-by-Step Instructions:</p>
+            <ol className="list-decimal list-inside space-y-2 text-muted-foreground">
+              <li>Open your Supabase dashboard at <a href="https://supabase.com/dashboard" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">https://supabase.com/dashboard</a></li>
+              <li>Select your project (<code>devdapp-web3</code>)</li>
+              <li>Click <strong>&quot;SQL Editor&quot;</strong> in the left sidebar</li>
+              <li>Click <strong>&quot;New query&quot;</strong> button</li>
+              <li>Click the <strong>&quot;Copy SQL&quot;</strong> button below</li>
+              <li>Paste the SQL into the editor (Cmd/Ctrl + V)</li>
               <li>Click <strong>&quot;Run&quot;</strong> (or press Cmd/Ctrl + Enter)</li>
-              <li>Wait for success message</li>
+              <li>Wait 10-15 seconds for completion</li>
+              <li>Look for <strong>&quot;🎉 SETUP COMPLETE!&quot;</strong> in the results</li>
             </ol>
           </div>
 
-          <div className="my-6 p-4 border border-border bg-card rounded-lg">
+          <CursorPrompt 
+            prompt='Read the SQL setup script from docs/profile/SETUP-SCRIPT.sql in my project root, copy it to my clipboard, and confirm it was copied successfully.'
+            title="Get SQL Script via Cursor"
+          />
+
+          <div className="my-4 p-4 bg-primary/5 border border-primary/20 rounded-lg">
+            <p className="text-sm text-foreground mb-2">
+              <strong>💡 What This SQL Does:</strong>
+            </p>
+            <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
+              <li>Creates <code>profiles</code> table with all user fields</li>
+              <li>Sets up profile image storage bucket</li>
+              <li>Configures Row Level Security (RLS) policies</li>
+              <li>Adds automatic profile creation triggers</li>
+              <li>Creates performance indexes</li>
+              <li>Adds data validation constraints</li>
+            </ul>
+          </div>
+
+          <div className="my-6 p-4 border border-green-500/30 bg-green-500/5 rounded-lg">
             <p className="text-sm text-muted-foreground">
-              <strong>Look for:</strong> &quot;DATABASE SETUP COMPLETE!&quot; message in the results
+              <strong className="text-green-600 dark:text-green-400">✅ Success Indicators:</strong> You should see green checkmarks (✅) and the message <strong>&quot;🎉 PROFILE SYSTEM SETUP COMPLETE!&quot;</strong> at the end of the results. If you see any red errors (❌), copy the error message and ask Cursor to help troubleshoot.
             </p>
           </div>
 
