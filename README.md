@@ -14,6 +14,18 @@ A comprehensive Web3 development platform that enables you to build and deploy m
 
 **Simple 4-step process**: Setup repository → Configure database → Add Web3 integration → Deploy live
 
+---
+
+### 🏛️ **Multi-Chain Platform Architecture**
+
+<div align="center">
+  <img src="assets/06-system-architecture.svg" alt="Multi-Chain Platform Architecture" width="100%" />
+</div>
+
+**Enterprise-grade stack**: Next.js 15 + Supabase + 6 blockchains + AI-powered automation
+
+---
+
 ### 🔄 **Smart Code Quality System**
 
 <div align="center">
@@ -22,6 +34,18 @@ A comprehensive Web3 development platform that enables you to build and deploy m
 
 **Automated quality tracking**: Monitor contributions → Score quality → Distribute rewards → Improve framework
 
+---
+
+### 🧠 **AI-Powered Contribution Rewards**
+
+<div align="center">
+  <img src="assets/05-ai-assessment-system.svg" alt="AI-Powered Contribution Assessment" width="100%" />
+</div>
+
+**Intelligent assessment**: AI evaluates code quality, impact & innovation → Calculates fair blockchain rewards
+
+---
+
 ### 💰 **Earn Native Tokens for Code Contributions**
 
 <div align="center">
@@ -29,6 +53,8 @@ A comprehensive Web3 development platform that enables you to build and deploy m
 </div>
 
 **Contributors earn real cryptocurrency**: Submit code → Quality check → Token payout → Community growth
+
+---
 
 ### 🎯 **Why Choose This Web3 Starter Kit**
 
