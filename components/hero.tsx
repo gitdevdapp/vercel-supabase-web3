@@ -56,8 +56,8 @@ export function Hero() {
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
           <Button size="lg" className="px-8 py-3" asChild>
-            <a href="https://github.com/gitdevdapp/vercel-supabase-web3" target="_blank" rel="noreferrer">
-              Start Building
+            <a href="/guide">
+              Get the Guide
             </a>
           </Button>
           <Button size="lg" variant="outline" className="px-8 py-3" asChild>

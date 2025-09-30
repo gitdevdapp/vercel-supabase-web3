@@ -9,6 +9,8 @@ interface GlobalNavProps {
   showAuthButton?: boolean;
   showDeployButton?: boolean;
   showHomeButton?: boolean;
+  showGuideButton?: boolean;
+  showProfileButton?: boolean;
   customActions?: React.ReactNode;
   authButtonComponent?: React.ReactNode;
 }
@@ -17,6 +19,8 @@ export function GlobalNav({
   showAuthButton = true,
   showDeployButton = false,
   showHomeButton = false,
+  showGuideButton = false,
+  showProfileButton = false,
   customActions,
   authButtonComponent
 }: GlobalNavProps) {
@@ -29,8 +33,18 @@ export function GlobalNav({
           </Link>
           <div className="flex items-center gap-2">
             {showHomeButton && (
-              <Button size="sm" variant="outline">
+              <Button size="sm" variant="outline" asChild>
                 <Link href="/">Home</Link>
+              </Button>
+            )}
+            {showGuideButton && (
+              <Button size="sm" variant="outline" asChild>
+                <Link href="/guide">Guide</Link>
+              </Button>
+            )}
+            {showProfileButton && (
+              <Button size="sm" variant="outline" asChild>
+                <Link href="/protected/profile">Profile</Link>
               </Button>
             )}
             {showDeployButton && (

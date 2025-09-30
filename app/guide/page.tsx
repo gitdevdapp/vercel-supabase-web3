@@ -4,6 +4,9 @@ import { CursorPrompt } from '@/components/guide/CursorPrompt'
 import { GlobalNav } from '@/components/navigation/global-nav'
 import { GuideLockedView } from '@/components/guide/GuideLockedView'
 import { createClient } from '@/lib/supabase/server'
+import { AuthButton } from '@/components/auth-button'
+import { EnvVarWarning } from '@/components/env-var-warning'
+import { hasEnvVars } from '@/lib/utils'
 
 export const metadata = {
   title: 'Complete Setup Guide | DevDapp Web3 Starter',
@@ -19,7 +22,11 @@ export default async function GuidePage() {
   if (!isAuthenticated) {
     return (
       <>
-        <GlobalNav showHomeButton={true} showAuthButton={true} />
+        <GlobalNav 
+          showHomeButton={true} 
+          showAuthButton={true} 
+          authButtonComponent={!hasEnvVars ? <EnvVarWarning /> : <AuthButton />}
+        />
         <GuideLockedView />
       </>
     )
@@ -28,7 +35,7 @@ export default async function GuidePage() {
   // Show full guide for authenticated users
   return (
     <div className="min-h-screen bg-background">
-      <GlobalNav showHomeButton={true} showAuthButton={false} />
+      <GlobalNav showHomeButton={true} showProfileButton={true} showAuthButton={false} />
       <ProgressNav />
       
       <main className="lg:ml-80 pt-28 lg:pt-16">

@@ -2,7 +2,9 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getOrCreateProfile } from "@/lib/profile";
 import { SimpleProfileForm } from "@/components/simple-profile-form";
-import { InfoIcon } from "lucide-react";
+import { InfoIcon, Sparkles, BookOpen } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default async function ProfilePage() {
   const supabase = await createClient();
@@ -34,6 +36,31 @@ export default async function ProfilePage() {
 
   return (
     <div className="flex-1 w-full flex flex-col gap-12">
+      {/* Guide Access CTA Banner */}
+      <div className="w-full">
+        <div className="bg-gradient-to-br from-primary/10 to-primary/5 border-2 border-primary/30 rounded-2xl p-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div className="flex items-start gap-3 flex-1">
+              <Sparkles className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
+              <div>
+                <h2 className="text-xl font-bold text-foreground mb-1">
+                  🎉 You&apos;re in! Click here for exclusive access to the copy-paste setup guide
+                </h2>
+                <p className="text-sm text-muted-foreground">
+                  Follow our step-by-step guide to deploy your Web3 dApp in under 60 minutes
+                </p>
+              </div>
+            </div>
+            <Button asChild size="lg" className="whitespace-nowrap w-full sm:w-auto">
+              <Link href="/guide">
+                <BookOpen className="w-5 h-5 mr-2" />
+                Access Guide
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </div>
+
       <div className="w-full">
         <div className="bg-accent text-sm p-3 px-5 rounded-md text-foreground flex gap-3 items-center">
           <InfoIcon size="16" strokeWidth={2} />
