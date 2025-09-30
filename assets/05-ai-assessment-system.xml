@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2025-09-30T00:00:00.000Z" agent="DevDapp AI Contributor System" version="1.0.0">
+  <diagram id="ai-assessment-system" name="AI Assessment System">
+    <mxGraphModel dx="1200" dy="700" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="700">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        
+        <!-- Title -->
+        <mxCell id="title" value="🧠 AI-Powered Contribution Assessment System" style="text;fontSize=28;fontStyle=1;fillColor=none;strokeColor=none;fontColor=#210f75;" vertex="1" parent="1">
+          <mxGeometry x="300" y="30" width="600" height="40" as="geometry"/>
+        </mxCell>
+        
+        <!-- Code Submission -->
+        <mxCell id="step1" value="📝 Code Submission&#xa;• Pull request created&#xa;• Changes documented&#xa;• Tests included" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c6c2da;strokeColor=#848483;fontSize=14;fontColor=#444444;" vertex="1" parent="1">
+          <mxGeometry x="50" y="120" width="220" height="110" as="geometry"/>
+        </mxCell>
+        
+        <!-- AI Analysis -->
+        <mxCell id="step2" value="🤖 AI Analysis&#xa;• Code quality review&#xa;• Impact assessment&#xa;• Innovation scoring" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#401de1;strokeColor=#401de1;fontSize=14;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="320" y="120" width="220" height="110" as="geometry"/>
+        </mxCell>
+        
+        <!-- Quality Scoring -->
+        <mxCell id="step3" value="📊 Quality Scoring&#xa;• Impact: 1-100&#xa;• Quality: 1-100&#xa;• Innovation: 1-100" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#beb2f5;strokeColor=#401de1;fontSize=14;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="590" y="120" width="220" height="110" as="geometry"/>
+        </mxCell>
+        
+        <!-- Reward Calculation -->
+        <mxCell id="step4" value="💎 Reward Calculation&#xa;• Token amount&#xa;• Blockchain type&#xa;• Instant distribution" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#210f75;strokeColor=#210f75;fontSize=14;fontColor=#ffffff;" vertex="1" parent="1">
+          <mxGeometry x="860" y="120" width="220" height="110" as="geometry"/>
+        </mxCell>
+        
+        <!-- Arrows -->
+        <mxCell id="arrow1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#401de1;strokeWidth=3;endArrow=block;endFill=1;" edge="1" parent="1" source="step1" target="step2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="arrow2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#401de1;strokeWidth=3;endArrow=block;endFill=1;" edge="1" parent="1" source="step2" target="step3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="arrow3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#401de1;strokeWidth=3;endArrow=block;endFill=1;" edge="1" parent="1" source="step3" target="step4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <!-- Assessment Criteria -->
+        <mxCell id="criteria-title" value="📋 AI Assessment Criteria" style="text;fontSize=20;fontStyle=1;fillColor=none;strokeColor=none;fontColor=#210f75;" vertex="1" parent="1">
+          <mxGeometry x="400" y="270" width="400" height="30" as="geometry"/>
+        </mxCell>
+        
+        <!-- Blockchain Rewards -->
+        <mxCell id="rewards-title" value="⛓️ Blockchain-Specific Token Rewards" style="text;fontSize=20;fontStyle=1;fillColor=none;strokeColor=none;fontColor=#210f75;" vertex="1" parent="1">
+          <mxGeometry x="350" y="450" width="500" height="30" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
