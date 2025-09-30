@@ -104,7 +104,7 @@ export function ProgressNav() {
 
           {/* Steps */}
           <div className="space-y-1">
-            {steps.map((step, index) => {
+            {steps.map((step) => {
               const isActive = activeStep === step.id
               const isCompleted = completedSteps.has(step.id)
               
