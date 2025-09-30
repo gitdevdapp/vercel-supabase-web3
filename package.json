@@ -52,6 +52,7 @@
     "@types/react-syntax-highlighter": "^15.5.13",
     "@wagmi/core": "^2.15.2",
     "ai": "^5.0.45",
+    "browser-image-compression": "^2.0.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "eth-sig-util": "^3.0.1",

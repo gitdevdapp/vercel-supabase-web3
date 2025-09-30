@@ -9,6 +9,7 @@ import { Avatar } from "@/components/ui/avatar";
 import { type Profile } from "@/lib/profile";
 import { createClient } from "@/lib/supabase/client";
 import { Camera, Mail, User, FileText } from "lucide-react";
+import { ProfileImageUploader } from "@/components/profile-image-uploader";
 
 interface SimpleProfileFormProps {
   profile: Profile;
@@ -22,6 +23,7 @@ export function SimpleProfileForm({ profile, userEmail }: SimpleProfileFormProps
   const [profilePicture, setProfilePicture] = useState(profile.profile_picture || profile.avatar_url || '');
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const [showUploader, setShowUploader] = useState(false);
 
   const handleSave = async () => {
     setIsLoading(true);
@@ -79,6 +81,11 @@ export function SimpleProfileForm({ profile, userEmail }: SimpleProfileFormProps
     setSuccess(null);
   };
 
+  const handleImageUpload = (url: string) => {
+    setProfilePicture(url);
+    setShowUploader(false);
+  };
+
   return (
     <Card className="w-full max-w-3xl mx-auto shadow-lg">
       <CardHeader className="space-y-1 pb-6">
@@ -102,34 +109,55 @@ export function SimpleProfileForm({ profile, userEmail }: SimpleProfileFormProps
       </CardHeader>
 
       <CardContent className="space-y-6">
-        {/* Profile Picture Section */}
-        <div className="space-y-3 p-4 rounded-lg border bg-card">
-          <div className="flex items-center gap-2">
-            <Camera className="w-4 h-4 text-muted-foreground" />
-            <Label htmlFor="profile_picture" className="text-sm font-medium">
-              Profile Picture
-            </Label>
+        {/* Profile Picture Upload Section */}
+        {showUploader ? (
+          <div className="p-4 rounded-lg border bg-card">
+            <ProfileImageUploader
+              userId={profile.id}
+              currentImageUrl={profilePicture || profile.profile_picture || profile.avatar_url}
+              username={profile.username || userEmail}
+              onUploadComplete={handleImageUpload}
+            />
           </div>
-          {isEditing ? (
-            <div className="space-y-2">
-              <Input
-                id="profile_picture"
-                type="url"
-                value={profilePicture}
-                onChange={(e) => setProfilePicture(e.target.value)}
-                placeholder="https://example.com/your-photo.jpg"
-                className="w-full"
-              />
-              <p className="text-xs text-muted-foreground">
-                Enter a URL to your profile picture (supports HTTPS images)
-              </p>
+        ) : (
+          <div className="space-y-3 p-4 rounded-lg border bg-card">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Camera className="w-4 h-4 text-muted-foreground" />
+                <Label htmlFor="profile_picture" className="text-sm font-medium">
+                  Profile Picture
+                </Label>
+              </div>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowUploader(true)}
+                disabled={isLoading}
+              >
+                Upload Image
+              </Button>
             </div>
-          ) : (
-            <div className="p-3 rounded-md border bg-muted text-sm break-all">
-              {profilePicture || 'No profile picture set'}
-            </div>
-          )}
-        </div>
+            {isEditing ? (
+              <div className="space-y-2">
+                <Input
+                  id="profile_picture"
+                  type="url"
+                  value={profilePicture}
+                  onChange={(e) => setProfilePicture(e.target.value)}
+                  placeholder="https://example.com/your-photo.jpg"
+                  className="w-full"
+                />
+                <p className="text-xs text-muted-foreground">
+                  Enter a URL to your profile picture, or use &ldquo;Upload Image&rdquo; above
+                </p>
+              </div>
+            ) : (
+              <div className="p-3 rounded-md border bg-muted text-sm break-all">
+                {profilePicture || 'No profile picture set'}
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Email Section */}
         <div className="space-y-3">
