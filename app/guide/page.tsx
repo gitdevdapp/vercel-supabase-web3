@@ -2,7 +2,6 @@ import { ProgressNav } from '@/components/guide/ProgressNav'
 import { StepSection } from '@/components/guide/StepSection'
 import { CursorPrompt } from '@/components/guide/CursorPrompt'
 import { EncouragementBadge } from '@/components/guide/EncouragementBadge'
-import { CodeBlock } from '@/components/guide/CodeBlock'
 
 export const metadata = {
   title: 'Complete Setup Guide | DevDapp Web3 Starter',
@@ -20,16 +19,16 @@ export default function GuidePage() {
           <div className="space-y-6">
             <div className="text-lg">
               <p className="mb-4">
-                You're about to deploy a <strong>production-ready multi-chain Web3 dApp</strong> in under 60 minutes!
+                You&apos;re about to deploy a <strong>production-ready multi-chain Web3 dApp</strong> in under 60 minutes!
               </p>
               <p className="mb-4">
-                This guide uses <strong>Cursor AI</strong> to handle all the technical setup. You'll copy natural language prompts into Cursor, and it will execute all the platform-specific commands for you.
+                This guide uses <strong>Cursor AI</strong> to handle all the technical setup. You&apos;ll copy natural language prompts into Cursor, and it will execute all the platform-specific commands for you.
               </p>
             </div>
 
             {/* What You'll Build */}
             <div className="rounded-xl border-2 border-blue-200 bg-blue-50 dark:border-blue-800 dark:bg-blue-950/30 p-6">
-              <h3 className="text-xl font-bold text-blue-900 dark:text-blue-100 mb-3">What You'll Build 🏗️</h3>
+              <h3 className="text-xl font-bold text-blue-900 dark:text-blue-100 mb-3">What You&apos;ll Build 🏗️</h3>
               <ul className="space-y-2 text-blue-800 dark:text-blue-200">
                 <li>✅ Full-stack Web3 application with user authentication</li>
                 <li>✅ Support for 6+ blockchains (Avalanche, Flow, Tezos, ApeChain, Stacks, ROOT)</li>
@@ -49,7 +48,7 @@ export default function GuidePage() {
                 <li>☑️ <strong>Cursor AI installed</strong> - <a href="https://cursor.sh" target="_blank" rel="noopener noreferrer" className="underline hover:text-purple-600">Download here</a></li>
                 <li>☑️ Internet connection</li>
                 <li>☑️ Email address</li>
-                <li>☑️ That's it! Cursor handles everything else.</li>
+                <li>☑️ That&apos;s it! Cursor handles everything else.</li>
               </ul>
             </div>
 
@@ -58,7 +57,7 @@ export default function GuidePage() {
               <h3 className="text-xl font-bold text-green-900 dark:text-green-100 mb-3">How It Works 🔄</h3>
               <ol className="space-y-3 text-green-800 dark:text-green-200 list-decimal list-inside">
                 <li>Each step shows a <strong>Cursor AI Prompt</strong> in a blue box</li>
-                <li>Click <strong>"Copy"</strong> to copy the prompt</li>
+                <li>Click <strong>&quot;Copy&quot;</strong> to copy the prompt</li>
                 <li>Open Cursor AI chat (<kbd className="px-2 py-1 bg-white dark:bg-gray-800 rounded">Cmd+L</kbd> or <kbd className="px-2 py-1 bg-white dark:bg-gray-800 rounded">Ctrl+L</kbd>)</li>
                 <li>Paste the prompt and press <kbd className="px-2 py-1 bg-white dark:bg-gray-800 rounded">Enter</kbd></li>
                 <li>Cursor AI does the work - approve commands when asked</li>
@@ -76,16 +75,16 @@ export default function GuidePage() {
         {/* Step 1: Install Git */}
         <StepSection id="git" title="Install & Setup Git" emoji="📦" estimatedTime="5 min">
           <p className="mb-4">
-            Git is the version control system that powers modern software development. Let's get it installed and configured on your machine.
+            Git is the version control system that powers modern software development. Let&apos;s get it installed and configured on your machine.
           </p>
 
           <CursorPrompt 
-            prompt='Install Git for me and ensure my Git credentials have read write access on this machine. Set my Git username to "YourName" and email to "your.email@example.com". Then verify Git is working correctly.'
+            prompt='Install Git for me and ensure my Git credentials have read write access on this machine. Set my Git username to &quot;YourName&quot; and email to &quot;your.email@example.com&quot;. Then verify Git is working correctly.'
           />
 
           <div className="my-4 p-4 bg-yellow-50 dark:bg-yellow-950/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
             <p className="text-sm text-yellow-800 dark:text-yellow-200">
-              <strong>⚠️ Important:</strong> Replace <code>"YourName"</code> and <code>"your.email@example.com"</code> with your actual name and email before copying!
+              <strong>⚠️ Important:</strong> Replace <code>&quot;YourName&quot;</code> and <code>&quot;your.email@example.com&quot;</code> with your actual name and email before copying!
             </p>
           </div>
 
@@ -109,7 +108,7 @@ export default function GuidePage() {
         {/* Step 2: Setup GitHub */}
         <StepSection id="github" title="Setup GitHub Account & SSH" emoji="🐙" estimatedTime="7 min">
           <p className="mb-4">
-            GitHub is where we'll store your code and collaborate. Let's create an account and set up secure SSH authentication.
+            GitHub is where we&apos;ll store your code and collaborate. Let&apos;s create an account and set up secure SSH authentication.
           </p>
 
           <div className="my-6 p-4 bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-lg">
@@ -123,7 +122,7 @@ export default function GuidePage() {
           </div>
 
           <CursorPrompt 
-            prompt='Generate an SSH key for my GitHub account using my email "your.email@example.com", add it to the SSH agent, copy the public key to my clipboard, and give me instructions on how to add it to GitHub. Then test the SSH connection to GitHub.'
+            prompt='Generate an SSH key for my GitHub account using my email &quot;your.email@example.com&quot;, add it to the SSH agent, copy the public key to my clipboard, and give me instructions on how to add it to GitHub. Then test the SSH connection to GitHub.'
           />
 
           <div className="mt-6 space-y-2 text-gray-700 dark:text-gray-300">
@@ -131,9 +130,9 @@ export default function GuidePage() {
             <ol className="list-decimal list-inside space-y-1 ml-4">
               <li>Your SSH public key will be copied to clipboard</li>
               <li>Go to <a href="https://github.com/settings/keys" target="_blank" rel="noopener noreferrer" className="underline">https://github.com/settings/keys</a></li>
-              <li>Click "New SSH key"</li>
-              <li>Paste the key and click "Add SSH key"</li>
-              <li>Tell Cursor "done" to test the connection</li>
+              <li>Click &quot;New SSH key&quot;</li>
+              <li>Paste the key and click &quot;Add SSH key&quot;</li>
+              <li>Tell Cursor &quot;done&quot; to test the connection</li>
             </ol>
           </div>
 
@@ -180,15 +179,15 @@ export default function GuidePage() {
             <p className="font-semibold text-blue-900 dark:text-blue-100 mb-2">Manual Steps:</p>
             <ol className="list-decimal list-inside space-y-1 text-blue-800 dark:text-blue-200">
               <li>Visit <a href="https://github.com/YOUR-ORG/vercel-supabase-web3" target="_blank" rel="noopener noreferrer" className="underline">the repository</a></li>
-              <li>Click the <strong>"Fork"</strong> button (top right)</li>
+              <li>Click the <strong>&quot;Fork&quot;</strong> button (top right)</li>
               <li>Wait for fork to complete</li>
-              <li>Copy your fork's URL: <code className="bg-white dark:bg-gray-800 px-2 py-1 rounded">https://github.com/YOUR-USERNAME/vercel-supabase-web3</code></li>
+              <li>Copy your fork&apos;s URL: <code className="bg-white dark:bg-gray-800 px-2 py-1 rounded">https://github.com/YOUR-USERNAME/vercel-supabase-web3</code></li>
             </ol>
           </div>
 
           <div className="my-4 p-4 bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-800 rounded-lg">
             <p className="text-sm text-green-800 dark:text-green-200">
-              <strong>✓ Keep this URL handy</strong> - you'll need it in the next step!
+              <strong>✓ Keep this URL handy</strong> - you&apos;ll need it in the next step!
             </p>
           </div>
 
@@ -201,7 +200,7 @@ export default function GuidePage() {
         {/* Step 5: Clone Repository */}
         <StepSection id="clone" title="Clone & Setup Repository" emoji="📥" estimatedTime="5 min">
           <p className="mb-4">
-            Now let's download the code to your computer and install all the dependencies.
+            Now let&apos;s download the code to your computer and install all the dependencies.
           </p>
 
           <CursorPrompt 
@@ -233,7 +232,7 @@ export default function GuidePage() {
         {/* Step 6: Deploy to Vercel */}
         <StepSection id="vercel" title="Setup Vercel & Deploy" emoji="▲" estimatedTime="10 min">
           <p className="mb-4">
-            Vercel will host your app and make it accessible on the internet. Let's deploy!
+            Vercel will host your app and make it accessible on the internet. Let&apos;s deploy!
           </p>
 
           <div className="my-6 p-4 bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-lg">
@@ -261,7 +260,7 @@ export default function GuidePage() {
 
           <div className="my-4 p-4 bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-800 rounded-lg">
             <p className="text-sm text-green-800 dark:text-green-200">
-              <strong>✓ Save your deployment URL!</strong> You'll need it later.
+              <strong>✓ Save your deployment URL!</strong> You&apos;ll need it later.
             </p>
           </div>
 
@@ -281,10 +280,10 @@ export default function GuidePage() {
             <p className="font-semibold text-blue-900 dark:text-blue-100 mb-2">Manual Steps:</p>
             <ol className="list-decimal list-inside space-y-1 text-blue-800 dark:text-blue-200">
               <li>Visit <a href="https://supabase.com" target="_blank" rel="noopener noreferrer" className="underline">https://supabase.com</a></li>
-              <li>Click "Start your project"</li>
+              <li>Click &quot;Start your project&quot;</li>
               <li>Sign up with GitHub</li>
               <li>Create new organization (if needed)</li>
-              <li>Click "New project"</li>
+              <li>Click &quot;New project&quot;</li>
               <li>Fill in:
                 <ul className="list-disc list-inside ml-6 mt-1">
                   <li><strong>Project name:</strong> <code>devdapp-web3</code></li>
@@ -292,7 +291,7 @@ export default function GuidePage() {
                   <li><strong>Region:</strong> Choose closest to you</li>
                 </ul>
               </li>
-              <li>Click "Create new project"</li>
+              <li>Click &quot;Create new project&quot;</li>
               <li>Wait 2-3 minutes for initialization</li>
               <li>Go to <strong>Settings → API</strong></li>
               <li>Keep this tab open for next step</li>
@@ -308,7 +307,7 @@ export default function GuidePage() {
         {/* Step 8: Environment Variables */}
         <StepSection id="env" title="Configure Environment Variables" emoji="🔐" estimatedTime="5 min">
           <p className="mb-4">
-            Let's connect your Vercel frontend to your Supabase backend using environment variables.
+            Let&apos;s connect your Vercel frontend to your Supabase backend using environment variables.
           </p>
 
           <div className="my-6 p-4 bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-lg">
@@ -340,7 +339,7 @@ export default function GuidePage() {
         {/* Step 9: Setup Database */}
         <StepSection id="database" title="Setup Database with SQL" emoji="🗃️" estimatedTime="10 min">
           <p className="mb-4">
-            Now let's create the database schema for user authentication, profiles, and file storage.
+            Now let&apos;s create the database schema for user authentication, profiles, and file storage.
           </p>
 
           <CursorPrompt 
@@ -351,18 +350,18 @@ export default function GuidePage() {
             <p><strong>After Cursor provides the SQL:</strong></p>
             <ol className="list-decimal list-inside space-y-1 ml-4">
               <li>Open your Supabase dashboard</li>
-              <li>Click <strong>"SQL Editor"</strong> in sidebar</li>
-              <li>Click <strong>"New query"</strong></li>
+              <li>Click <strong>&quot;SQL Editor&quot;</strong> in sidebar</li>
+              <li>Click <strong>&quot;New query&quot;</strong></li>
               <li>Copy the SQL script Cursor showed you</li>
               <li>Paste into the SQL Editor</li>
-              <li>Click <strong>"Run"</strong> (or press Cmd/Ctrl + Enter)</li>
+              <li>Click <strong>&quot;Run&quot;</strong> (or press Cmd/Ctrl + Enter)</li>
               <li>Wait for success message</li>
             </ol>
           </div>
 
           <div className="my-6 p-4 bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-800 rounded-lg">
             <p className="text-sm text-green-800 dark:text-green-200">
-              <strong>✓ Look for:</strong> "🎉 DATABASE SETUP COMPLETE!" message in the results
+              <strong>✓ Look for:</strong> &quot;🎉 DATABASE SETUP COMPLETE!&quot; message in the results
             </p>
           </div>
 
@@ -379,7 +378,7 @@ export default function GuidePage() {
           </p>
 
           <CursorPrompt 
-            prompt='Give me step-by-step instructions to configure email authentication in Supabase. I need to set the Site URL to my Vercel deployment URL "YOUR_VERCEL_URL", add the necessary redirect URLs for auth callback and confirmation, and update the email confirmation template. Show me exactly what settings to change and what template HTML to use.'
+            prompt='Give me step-by-step instructions to configure email authentication in Supabase. I need to set the Site URL to my Vercel deployment URL &quot;YOUR_VERCEL_URL&quot;, add the necessary redirect URLs for auth callback and confirmation, and update the email confirmation template. Show me exactly what settings to change and what template HTML to use.'
           />
 
           <div className="my-4 p-4 bg-yellow-50 dark:bg-yellow-950/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
@@ -395,7 +394,7 @@ export default function GuidePage() {
               <li>Set <strong>Site URL</strong> to your Vercel URL</li>
               <li>Add <strong>Redirect URLs</strong> that Cursor provides</li>
               <li>Go to <strong>Authentication → Email Templates</strong></li>
-              <li>Click "Confirm signup"</li>
+              <li>Click &quot;Confirm signup&quot;</li>
               <li>Replace with the HTML template Cursor showed</li>
               <li>Save changes</li>
             </ol>
@@ -410,7 +409,7 @@ export default function GuidePage() {
         {/* Step 11: Test Everything */}
         <StepSection id="test" title="Test Everything" emoji="✅" estimatedTime="5 min">
           <p className="mb-4">
-            Let's verify your complete setup works end-to-end!
+            Let&apos;s verify your complete setup works end-to-end!
           </p>
 
           <CursorPrompt 
@@ -433,9 +432,9 @@ export default function GuidePage() {
           </div>
 
           <div className="my-6 p-4 bg-yellow-50 dark:bg-yellow-950/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
-            <p className="font-semibold text-yellow-900 dark:text-yellow-100 mb-2">If Something Doesn't Work:</p>
+            <p className="font-semibold text-yellow-900 dark:text-yellow-100 mb-2">If Something Doesn&apos;t Work:</p>
             <p className="text-sm text-yellow-800 dark:text-yellow-200">
-              Ask Cursor: <code>"The [specific feature] isn't working. Help me troubleshoot by checking the relevant configuration and logs."</code>
+              Ask Cursor: <code>&quot;The [specific feature] isn&apos;t working. Help me troubleshoot by checking the relevant configuration and logs.&quot;</code>
             </p>
           </div>
 
@@ -446,9 +445,9 @@ export default function GuidePage() {
         </StepSection>
 
         {/* Step 12: What's Next */}
-        <StepSection id="next" title="What's Next?" emoji="🚀" estimatedTime="Ongoing">
+        <StepSection id="next" title="What&apos;s Next?" emoji="🚀" estimatedTime="Ongoing">
           <p className="mb-6 text-lg">
-            You now have a production-ready multi-chain Web3 dApp! Here's how to continue your journey:
+            You now have a production-ready multi-chain Web3 dApp! Here&apos;s how to continue your journey:
           </p>
 
           <div className="space-y-6">
