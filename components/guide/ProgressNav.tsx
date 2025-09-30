@@ -69,10 +69,13 @@ export function ProgressNav() {
     }
   }
 
+  const currentIndex = steps.findIndex(s => s.id === activeStep)
+  const nextStep = currentIndex < steps.length - 1 ? steps[currentIndex + 1] : null
+
   return (
     <>
       {/* Desktop Sidebar */}
-      <nav className="hidden lg:block fixed left-0 top-16 h-[calc(100vh-4rem)] w-80 border-r border-border bg-background overflow-y-auto">
+      <nav className="hidden lg:block fixed left-0 top-16 h-[calc(100vh-4rem)] w-80 border-r border-border bg-background overflow-y-auto z-30">
         <div className="p-6">
           {/* Header */}
           <div className="mb-8">
@@ -101,6 +104,20 @@ export function ProgressNav() {
               />
             </div>
           </div>
+
+          {/* Current Step Preview */}
+          {activeStep && activeStep !== 'welcome' && (
+            <div className="mb-6 p-4 bg-primary/5 rounded-lg border border-primary/20">
+              <p className="text-xs font-semibold text-primary mb-2">CURRENT STEP</p>
+              <p className="text-sm font-medium text-foreground">{steps.find(s => s.id === activeStep)?.title}</p>
+              {nextStep && (
+                <div className="mt-3 pt-3 border-t border-primary/20">
+                  <p className="text-xs font-semibold text-muted-foreground mb-1">UP NEXT</p>
+                  <p className="text-sm text-muted-foreground">{nextStep.emoji} {nextStep.title}</p>
+                </div>
+              )}
+            </div>
+          )}
 
           {/* Steps */}
           <div className="space-y-1">
@@ -160,7 +177,7 @@ export function ProgressNav() {
       </nav>
 
       {/* Mobile Top Bar - Show on mobile when sidebar is hidden */}
-      <div className="lg:hidden fixed top-16 left-0 right-0 z-40 bg-background border-b border-border">
+      <div className="lg:hidden fixed top-16 left-0 right-0 z-30 bg-background/95 backdrop-blur-sm border-b border-border shadow-sm">
         <div className="px-4 py-3">
           <div className="flex items-center justify-between mb-2">
             <h2 className="text-lg font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
@@ -175,6 +192,13 @@ export function ProgressNav() {
               className="h-full bg-gradient-to-r from-primary to-primary/60 transition-all duration-500 ease-out"
               style={{ width: `${progress}%` }}
             />
+          </div>
+          {/* Current step info on mobile */}
+          <div className="mt-2 text-xs text-muted-foreground">
+            {steps.find(s => s.id === activeStep)?.emoji} {steps.find(s => s.id === activeStep)?.title}
+            {nextStep && (
+              <span className="ml-2">→ {nextStep.emoji} {nextStep.title}</span>
+            )}
           </div>
         </div>
       </div>

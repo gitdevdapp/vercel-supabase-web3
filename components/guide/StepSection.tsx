@@ -14,7 +14,7 @@ export function StepSection({ id, title, emoji, estimatedTime, children }: StepS
   return (
     <section 
       id={id}
-      className="min-h-screen pt-32 pb-20 lg:pt-24 scroll-mt-32"
+      className="pt-32 pb-12 lg:pt-24 lg:pb-16 scroll-mt-32"
     >
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
