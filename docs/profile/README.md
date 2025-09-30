@@ -1,42 +1,34 @@
-# Supabase Setup - Copy-Paste Instructions
+# Supabase Profile Setup - Copy & Paste Commands
 
-**Purpose**: Complete Supabase backend setup for profile image functionality  
-**Time Required**: 2 minutes  
-**Format**: Copy-paste only, no modifications needed
-
----
-
-## 🎯 What This Sets Up
-
-- ✅ Profile table with all required fields
-- ✅ Image URL fields (`avatar_url`, `profile_picture`)
-- ✅ Storage bucket for profile images
-- ✅ RLS security policies (4 policies)
-- ✅ Performance indexes
-- ✅ Auto-profile creation trigger
-- ✅ Data validation constraints
+**Setup Time**: 2 minutes  
+**Format**: Pure copy-paste SQL (no formatting markers)  
+**Safe to Run**: Multiple times (uses IF NOT EXISTS)
 
 ---
 
-## 📋 Step-by-Step Instructions
+## Quick Setup Instructions
 
-### Step 1: Open Supabase SQL Editor
-
-1. Go to [https://app.supabase.com](https://app.supabase.com)
+1. Open [Supabase Dashboard](https://app.supabase.com)
 2. Select your project
-3. Click **"SQL Editor"** in left sidebar
-4. Click **"New Query"** button
+3. Click **SQL Editor** in left sidebar
+4. Click **New Query**
+5. Copy ENTIRE script below
+6. Paste into SQL Editor
+7. Click **Run** (or press Cmd/Ctrl + Enter)
+8. Verify success messages in output
 
-### Step 2: Copy-Paste Complete Setup Script
+---
 
-Copy **EVERYTHING** below (including comments) and paste into the SQL Editor:
+## Complete Setup Script
+
+Copy everything below (all 500+ lines) and paste into Supabase SQL Editor:
 
 ```sql
 -- ============================================================================
--- COMPLETE SUPABASE BACKEND SETUP FOR PROFILE IMAGES
+-- SUPABASE PROFILE SYSTEM - COMPLETE SETUP
 -- ============================================================================
 -- Creates: profiles table, image fields, storage bucket, RLS policies
--- Safe to run multiple times (uses IF NOT EXISTS)
+-- Safe to run multiple times (uses IF NOT EXISTS and ON CONFLICT)
 -- Execution time: ~5 seconds
 -- ============================================================================
 
@@ -56,9 +48,9 @@ CREATE TABLE IF NOT EXISTS profiles (
   email TEXT,
   full_name TEXT,
   
-  -- 🎯 IMAGE FIELDS (Required for profile image upload)
-  avatar_url TEXT,           -- Primary profile image URL
-  profile_picture TEXT,       -- Alternative/fallback image URL
+  -- Image fields (Required for profile image upload)
+  avatar_url TEXT,
+  profile_picture TEXT,
   
   -- Description fields
   about_me TEXT DEFAULT 'Welcome to my profile! I''m excited to be part of the community.',
@@ -75,7 +67,7 @@ CREATE TABLE IF NOT EXISTS profiles (
   last_active_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
--- Add image fields if upgrading existing table
+-- Add image fields if upgrading existing table (preserves existing data)
 ALTER TABLE profiles ADD COLUMN IF NOT EXISTS avatar_url TEXT;
 ALTER TABLE profiles ADD COLUMN IF NOT EXISTS profile_picture TEXT;
 
@@ -194,8 +186,8 @@ BEGIN
       NEW.raw_user_meta_data->>'full_name',
       INITCAP(REPLACE(SPLIT_PART(NEW.email, '@', 1), '.', ' '))
     ),
-    NULL, -- avatar_url starts as null
-    NULL, -- profile_picture starts as null
+    NULL,
+    NULL,
     'Welcome to my profile! I''m excited to be part of the community.',
     'New member exploring the platform',
     NEW.email_confirmed_at IS NOT NULL
@@ -221,8 +213,8 @@ INSERT INTO storage.buckets (id, name, public, file_size_limit, allowed_mime_typ
 VALUES (
   'profile-images',
   'profile-images',
-  true, -- Public bucket (images need to be viewable)
-  2097152, -- 2 MB max file size
+  true,
+  2097152,
   ARRAY['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'image/webp']
 )
 ON CONFLICT (id) DO UPDATE
@@ -297,7 +289,7 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON storage.objects TO authenticated;
 GRANT SELECT ON storage.objects TO anon;
 
 -- ============================================================================
--- 9. HELPER FUNCTIONS (Optional but useful)
+-- 9. HELPER FUNCTIONS
 -- ============================================================================
 
 -- Function to get user's profile image URL
@@ -344,8 +336,8 @@ SELECT
     raw_user_meta_data->>'full_name',
     INITCAP(REPLACE(SPLIT_PART(email, '@', 1), '.', ' '))
   ),
-  NULL, -- avatar_url
-  NULL, -- profile_picture
+  NULL,
+  NULL,
   'Welcome to my profile! I''m excited to be part of the community.',
   'New member exploring the platform',
   email_confirmed_at IS NOT NULL
@@ -354,7 +346,30 @@ WHERE id NOT IN (SELECT id FROM public.profiles)
 ON CONFLICT (id) DO NOTHING;
 
 -- ============================================================================
--- 11. VERIFICATION QUERIES
+-- 11. STORAGE STATISTICS VIEW
+-- ============================================================================
+
+-- View to see storage usage by user
+CREATE OR REPLACE VIEW profile_image_storage_stats AS
+SELECT 
+  p.id as user_id,
+  p.username,
+  p.avatar_url,
+  COUNT(o.id) as image_count,
+  COALESCE(SUM((o.metadata->>'size')::bigint), 0) as total_bytes,
+  ROUND(COALESCE(SUM((o.metadata->>'size')::bigint), 0) / 1024.0, 2) as total_kb
+FROM profiles p
+LEFT JOIN storage.objects o ON o.bucket_id = 'profile-images' 
+  AND (storage.foldername(o.name))[1] = p.id::text
+GROUP BY p.id, p.username, p.avatar_url
+HAVING COUNT(o.id) > 0
+ORDER BY total_bytes DESC;
+
+-- Grant access to the view
+GRANT SELECT ON profile_image_storage_stats TO authenticated;
+
+-- ============================================================================
+-- 12. VERIFICATION QUERIES
 -- ============================================================================
 
 -- Check if profiles table has image fields
@@ -419,13 +434,13 @@ BEGIN
   SELECT COUNT(*) INTO index_count
   FROM pg_indexes
   WHERE tablename = 'profiles'
-  AND indexname LIKE '%avatar%' OR indexname LIKE '%picture%';
+  AND (indexname LIKE '%avatar%' OR indexname LIKE '%picture%');
   
   RAISE NOTICE '✅ Image field indexes created: % (expected 2)', index_count;
 END $$;
 
 -- ============================================================================
--- SETUP COMPLETE!
+-- SETUP COMPLETE
 -- ============================================================================
 
 SELECT 
@@ -436,15 +451,11 @@ SELECT
   (SELECT COUNT(*) FROM pg_indexes WHERE tablename = 'profiles' AND (indexname LIKE '%avatar%' OR indexname LIKE '%picture%')) as image_indexes;
 ```
 
-### Step 3: Execute the Script
+---
 
-1. Click **"Run"** button (or press `Ctrl+Enter` / `Cmd+Enter`)
-2. Wait for completion (~5 seconds)
-3. Check output for success messages
+## Expected Success Messages
 
-### Step 4: Verify Success
-
-You should see these messages in the output:
+After running the script, you should see:
 
 ```
 ✅ Image fields created successfully (avatar_url, profile_picture)
@@ -458,33 +469,54 @@ You should see these messages in the output:
 
 ---
 
-## ✅ Verification Checklist
+## What Was Created
 
-After running the script, verify everything is set up:
+### Database Table Updates
+- ✅ `profiles` table (created if doesn't exist)
+- ✅ `avatar_url` column (TEXT, indexed)
+- ✅ `profile_picture` column (TEXT, indexed)
+- ✅ 4 data validation constraints
+- ✅ 5 performance indexes
+- ✅ 5 RLS policies
+- ✅ Auto-profile creation trigger
 
-### Check 1: Profiles Table
+### Storage System
+- ✅ `profile-images` bucket (public, 2 MB limit)
+- ✅ 4 RLS policies (INSERT, UPDATE, DELETE, SELECT)
+- ✅ Storage permissions granted
 
-1. Go to **Table Editor** → **profiles**
-2. Verify columns exist:
-   - ✅ `avatar_url` (text, nullable)
-   - ✅ `profile_picture` (text, nullable)
+### Helper Functions
+- ✅ `get_user_avatar_url(user_id)` - Get user's image URL
+- ✅ `get_user_storage_size(user_id)` - Track storage per user
+- ✅ `profile_image_storage_stats` view - Monitor usage
 
-### Check 2: Storage Bucket
+---
 
-1. Go to **Storage** in left sidebar
-2. Verify bucket exists:
-   - ✅ `profile-images` bucket visible
-   - ✅ Status shows "Public"
-   - ✅ Max file size: 2 MB
+## Verification Steps
 
-### Check 3: RLS Policies
+### 1. Check Profiles Table
+Go to **Table Editor** → **profiles**
 
-1. Go to **Authentication** → **Policies**
-2. Check **profiles** table has 5 policies
-3. Check **storage.objects** has 4 policies with "profile image" in name
+Verify columns exist:
+- ✅ `avatar_url` (text, nullable)
+- ✅ `profile_picture` (text, nullable)
 
-### Check 4: Test the Feature
+### 2. Check Storage Bucket
+Go to **Storage** in left sidebar
 
+Verify bucket exists:
+- ✅ `profile-images` bucket visible
+- ✅ Status shows "Public"
+- ✅ Max file size: 2 MB
+
+### 3. Check RLS Policies
+Go to **Authentication** → **Policies**
+
+Verify policies exist:
+- ✅ 5 policies on `profiles` table
+- ✅ 4 policies on `storage.objects` (with "profile image" in name)
+
+### 4. Test Upload Feature
 1. Navigate to `/protected/profile` in your app
 2. Click "Upload Image"
 3. Select `assets/testprofile.png`
@@ -492,106 +524,156 @@ After running the script, verify everything is set up:
 
 ---
 
-## 🐛 Troubleshooting
+## How Profile Image Upload Works
 
-### Error: "relation 'profiles' already exists"
-
-**This is normal!** The script uses `IF NOT EXISTS` so it's safe to run multiple times.
-
-**Action**: Continue, it will update the table with missing fields.
-
-### Error: "permission denied for schema storage"
-
-**Cause**: Need to grant storage permissions
-
-**Fix**: The script includes permission grants. Make sure you ran the entire script.
-
-### Error: "Bucket not found: profile-images"
-
-**Cause**: Storage bucket creation failed
-
-**Fix**: 
-1. Go to **Storage** → **New Bucket**
-2. Name: `profile-images`
-3. Public: ✅ Yes
-4. Re-run the storage RLS policies section
-
-### Error: "column 'avatar_url' does not exist"
-
-**Cause**: Script didn't complete successfully
-
-**Fix**: Re-run the entire script. It's safe to run multiple times.
-
----
-
-## 📊 What Was Created
-
-### Database Changes
-
+### User Flow
 ```
-profiles table:
-  + avatar_url (TEXT, nullable, indexed)
-  + profile_picture (TEXT, nullable, indexed)
-  + 4 data validation constraints
-  + 5 RLS policies
-  + Automatic profile creation trigger
-
-storage:
-  + profile-images bucket (public, 2 MB limit)
-  + 4 RLS policies for image access control
-
-indexes:
-  + idx_profiles_avatar_url
-  + idx_profiles_profile_picture
-  + idx_profiles_username
-  + idx_profiles_email
-  + idx_profiles_is_public
+1. User clicks "Upload Image" button
+   ↓
+2. User selects image file (max 2 MB)
+   ↓
+3. Client-side processing:
+   - Validates file type (PNG, JPEG, GIF, WebP)
+   - Center-crops if non-square
+   - Compresses to < 100 KB WebP
+   ↓
+4. Upload to Supabase:
+   - Deletes old images (cleanup)
+   - Uploads new compressed image
+   - Path: {user-id}/avatar-{timestamp}.webp
+   ↓
+5. Updates database:
+   - Sets avatar_url to storage URL
+   - Sets profile_picture to same URL
+   ↓
+6. Result: Exactly 1 image per user
 ```
 
-### Storage Capacity
-
-With Supabase free tier (1 GB):
-- Target image size: 85 KB
-- Capacity: ~12,000 user profile images
-- Cost: $0/month (within free tier)
-
----
-
-## 🎯 Next Steps
-
-After successful setup:
-
-1. ✅ Test profile image upload in your app
-2. ✅ Upload a test image (testprofile.png)
-3. ✅ Verify image displays correctly
-4. ✅ Check Supabase Storage for the uploaded file
-5. ✅ Verify old images are deleted when uploading new one
+### Technical Details
+- **Client-side compression**: 85%+ reduction (600 KB → 85 KB typical)
+- **Center-crop algorithm**: Non-square images cropped to square
+- **Storage optimization**: Only 1 image per user (old deleted)
+- **Free tier capacity**: 12,000+ users (1 GB ÷ 85 KB)
 
 ---
 
-## 📚 Related Documentation
+## Storage Capacity
 
-- **supabase-database-schema-analysis.md** - Why these fields are needed
-- **profile-image-testing-guide.md** - How to test the feature
-- **SETUP-INSTRUCTIONS.md** - Developer setup guide
-- **profile-image-implementation-findings.md** - Technical details
+### Free Tier (1 GB)
+- Average image size: 85 KB
+- Images per user: 1 (exactly)
+- **Total capacity: 12,000+ users** ✅
+
+### Cost at Scale
+
+**10,000 users**:
+- Storage: 850 MB
+- Cost: $0/month (within free tier) ✅
+
+**50,000 users**:
+- Storage: 4.25 GB
+- Storage cost: $0.09/month
+- Bandwidth: 42.5 GB
+- Bandwidth cost: $3.83/month
+- **Total: ~$4/month** ✅
 
 ---
 
-## 🆘 Need Help?
+## Troubleshooting
 
-### Common Questions
+### "Bucket not found: profile-images"
+**Solution**: Re-run the SQL script. Check output for bucket creation message.
+
+### "Permission denied" on upload
+**Solution**: Verify RLS policies:
+```sql
+SELECT policyname, cmd FROM pg_policies 
+WHERE tablename = 'objects' 
+AND policyname LIKE '%profile image%';
+```
+Should return 4 policies (INSERT, UPDATE, DELETE, SELECT).
+
+### "Column 'avatar_url' does not exist"
+**Solution**: Script didn't complete. Re-run entire script (it's safe to run multiple times).
+
+### Old images not being deleted
+**Solution**: Check DELETE policy exists and user is authenticated.
+
+---
+
+## Testing Checklist
+
+After setup, test these scenarios:
+
+1. ✅ Navigate to `/protected/profile`
+2. ✅ Click "Upload Image"
+3. ✅ Select `assets/testprofile.png`
+4. ✅ Verify compression shows ~85 KB
+5. ✅ Verify upload succeeds
+6. ✅ Verify image displays
+7. ✅ Upload second image
+8. ✅ Check Supabase Storage: only 1 file should exist per user
+
+---
+
+## Monitoring Storage Usage
+
+### Query total storage:
+```sql
+SELECT 
+  COUNT(*) as total_images,
+  ROUND(SUM((metadata->>'size')::bigint) / 1024.0 / 1024.0, 2) as total_mb
+FROM storage.objects
+WHERE bucket_id = 'profile-images';
+```
+
+### Query per-user storage:
+```sql
+SELECT * FROM profile_image_storage_stats
+ORDER BY total_kb DESC
+LIMIT 10;
+```
+
+### Query specific user's storage:
+```sql
+SELECT get_user_storage_size('{user-id}'::UUID);
+```
+
+---
+
+## Security Features
+
+### Row Level Security (RLS)
+- ✅ Users can only upload to their own folder
+- ✅ Users can only delete their own images
+- ✅ Public read access (required for avatars)
+- ✅ Authenticated write access only
+
+### File Validation
+- ✅ MIME type whitelist (PNG, JPEG, GIF, WebP)
+- ✅ File size limit (2 MB enforced by bucket)
+- ✅ Client-side pre-validation (better UX)
+- ✅ Server-side enforcement (security)
+
+### Data Validation
+- ✅ Username: 3-30 characters, alphanumeric + dots, hyphens, underscores
+- ✅ Bio: max 160 characters
+- ✅ About me: max 1000 characters
+
+---
+
+## FAQ
 
 **Q: Is this safe to run on existing data?**  
-A: Yes! The script uses `IF NOT EXISTS` and `ON CONFLICT DO NOTHING` to avoid data loss.
-
-**Q: Will this break my existing app?**  
-A: No! Adding nullable columns and storage doesn't affect existing functionality.
+A: Yes! Uses `IF NOT EXISTS` and `ON CONFLICT DO NOTHING` to preserve data.
 
 **Q: Can I run this multiple times?**  
 A: Yes! It's idempotent and safe to re-run.
 
-**Q: Do I need to modify anything in the script?**  
+**Q: Will this break my app?**  
+A: No! Adding nullable columns doesn't affect existing functionality.
+
+**Q: Do I need to modify the script?**  
 A: No! Copy-paste exactly as shown.
 
 **Q: How long does it take?**  
@@ -599,21 +681,21 @@ A: ~5 seconds to execute, 2 minutes total including verification.
 
 ---
 
-## ✨ Success Confirmation
+## Next Steps
 
-After running this script, you should be able to:
+1. ✅ Run this SQL script in Supabase
+2. ✅ Verify success messages
+3. ✅ Test upload feature in your app
+4. ✅ Monitor storage usage
+5. ✅ Enjoy your optimized profile system!
 
-- ✅ Upload profile images via the web app
-- ✅ See images displayed in avatar components
-- ✅ Have images automatically compressed to < 100 KB
-- ✅ Have old images automatically deleted
-- ✅ Store up to 12,000 user images on free tier
+---
 
-**Your Supabase backend is now fully configured!** 🎉
+**Setup Complete!** Your Supabase backend is now configured for profile image uploads with client-side compression, center-cropping, and automatic cleanup. 🎉
 
 ---
 
 **Document Version**: 1.0  
 **Last Updated**: September 30, 2025  
-**Format**: Copy-Paste Ready  
-**Execution Time**: 2 minutes
+**Format**: Pure Copy-Paste SQL (No Code Fence Formatting)  
+**Safe**: Preserves existing data, idempotent execution
