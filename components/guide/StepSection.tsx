@@ -1,0 +1,45 @@
+'use client'
+
+import { ReactNode } from 'react'
+
+interface StepSectionProps {
+  id: string
+  title: string
+  emoji: string
+  estimatedTime: string
+  children: ReactNode
+}
+
+export function StepSection({ id, title, emoji, estimatedTime, children }: StepSectionProps) {
+  return (
+    <section 
+      id={id}
+      className="min-h-screen pt-24 pb-20 lg:pt-16 scroll-mt-20"
+    >
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <div className="mb-8">
+          <div className="flex items-center gap-4 mb-4">
+            <div className="flex-shrink-0 w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-3xl shadow-lg">
+              {emoji}
+            </div>
+            <div>
+              <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                {title}
+              </h2>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                ⏱️ Estimated time: {estimatedTime}
+              </p>
+            </div>
+          </div>
+          <div className="h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full" />
+        </div>
+
+        {/* Content */}
+        <div className="prose prose-lg dark:prose-invert max-w-none">
+          {children}
+        </div>
+      </div>
+    </section>
+  )
+}
