@@ -14,25 +14,25 @@ export function StepSection({ id, title, emoji, estimatedTime, children }: StepS
   return (
     <section 
       id={id}
-      className="min-h-screen pt-24 pb-20 lg:pt-16 scroll-mt-20"
+      className="min-h-screen pt-32 pb-20 lg:pt-24 scroll-mt-32"
     >
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center gap-4 mb-4">
-            <div className="flex-shrink-0 w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-3xl shadow-lg">
+            <div className="flex-shrink-0 w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center text-3xl shadow-lg">
               {emoji}
             </div>
             <div>
-              <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
                 {title}
               </h2>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                ⏱️ Estimated time: {estimatedTime}
+              <p className="text-sm text-muted-foreground mt-1">
+                Estimated time: {estimatedTime}
               </p>
             </div>
           </div>
-          <div className="h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full" />
+          <div className="h-1 bg-gradient-to-r from-primary to-primary/60 rounded-full" />
         </div>
 
         {/* Content */}
