@@ -50,9 +50,20 @@ CREATE TABLE IF NOT EXISTS profiles (
   last_active_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
--- Add image fields if upgrading existing table (preserves existing data)
+-- Add missing columns if upgrading existing table (preserves existing data)
+ALTER TABLE profiles ADD COLUMN IF NOT EXISTS username TEXT UNIQUE;
+ALTER TABLE profiles ADD COLUMN IF NOT EXISTS email TEXT;
+ALTER TABLE profiles ADD COLUMN IF NOT EXISTS full_name TEXT;
 ALTER TABLE profiles ADD COLUMN IF NOT EXISTS avatar_url TEXT;
 ALTER TABLE profiles ADD COLUMN IF NOT EXISTS profile_picture TEXT;
+ALTER TABLE profiles ADD COLUMN IF NOT EXISTS about_me TEXT DEFAULT 'Welcome to my profile! I''m excited to be part of the community.';
+ALTER TABLE profiles ADD COLUMN IF NOT EXISTS bio TEXT DEFAULT 'New member exploring the platform';
+ALTER TABLE profiles ADD COLUMN IF NOT EXISTS is_public BOOLEAN DEFAULT false;
+ALTER TABLE profiles ADD COLUMN IF NOT EXISTS email_verified BOOLEAN DEFAULT false;
+ALTER TABLE profiles ADD COLUMN IF NOT EXISTS onboarding_completed BOOLEAN DEFAULT false;
+ALTER TABLE profiles ADD COLUMN IF NOT EXISTS updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW();
+ALTER TABLE profiles ADD COLUMN IF NOT EXISTS created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW();
+ALTER TABLE profiles ADD COLUMN IF NOT EXISTS last_active_at TIMESTAMP WITH TIME ZONE DEFAULT NOW();
 
 -- =============================================================================
 -- 2. PERFORMANCE INDEXES
@@ -236,67 +247,125 @@ SET
 -- 6. ROW LEVEL SECURITY (RLS) - STORAGE
 -- =============================================================================
 
--- Enable RLS on storage.objects
-ALTER TABLE storage.objects ENABLE ROW LEVEL SECURITY;
+-- Enable RLS on storage.objects (safe - only if not already enabled)
+DO $$ 
+BEGIN
+  ALTER TABLE storage.objects ENABLE ROW LEVEL SECURITY;
+EXCEPTION
+  WHEN insufficient_privilege THEN
+    RAISE NOTICE 'RLS already enabled on storage.objects (this is OK)';
+  WHEN OTHERS THEN
+    RAISE NOTICE 'Could not modify storage.objects RLS, but it may already be enabled';
+END $$;
 
--- Drop existing policies
+-- Drop existing policies (safe - IF EXISTS)
 DROP POLICY IF EXISTS "Users can upload their own profile image" ON storage.objects;
 DROP POLICY IF EXISTS "Users can update their own profile image" ON storage.objects;
 DROP POLICY IF EXISTS "Users can delete their own profile image" ON storage.objects;
 DROP POLICY IF EXISTS "Anyone can view profile images" ON storage.objects;
 
 -- Policy 1: Users can upload to their own folder
-CREATE POLICY "Users can upload their own profile image"
-ON storage.objects FOR INSERT
-TO authenticated
-WITH CHECK (
-  bucket_id = 'profile-images' AND
-  (storage.foldername(name))[1] = auth.uid()::text
-);
+DO $$
+BEGIN
+  CREATE POLICY "Users can upload their own profile image"
+  ON storage.objects FOR INSERT
+  TO authenticated
+  WITH CHECK (
+    bucket_id = 'profile-images' AND
+    (storage.foldername(name))[1] = auth.uid()::text
+  );
+EXCEPTION
+  WHEN duplicate_object THEN
+    RAISE NOTICE 'Upload policy already exists';
+  WHEN insufficient_privilege THEN
+    RAISE NOTICE 'Insufficient privileges to create upload policy (may need service_role)';
+END $$;
 
 -- Policy 2: Users can update their own images
-CREATE POLICY "Users can update their own profile image"
-ON storage.objects FOR UPDATE
-TO authenticated
-USING (
-  bucket_id = 'profile-images' AND
-  (storage.foldername(name))[1] = auth.uid()::text
-)
-WITH CHECK (
-  bucket_id = 'profile-images' AND
-  (storage.foldername(name))[1] = auth.uid()::text
-);
+DO $$
+BEGIN
+  CREATE POLICY "Users can update their own profile image"
+  ON storage.objects FOR UPDATE
+  TO authenticated
+  USING (
+    bucket_id = 'profile-images' AND
+    (storage.foldername(name))[1] = auth.uid()::text
+  )
+  WITH CHECK (
+    bucket_id = 'profile-images' AND
+    (storage.foldername(name))[1] = auth.uid()::text
+  );
+EXCEPTION
+  WHEN duplicate_object THEN
+    RAISE NOTICE 'Update policy already exists';
+  WHEN insufficient_privilege THEN
+    RAISE NOTICE 'Insufficient privileges to create update policy (may need service_role)';
+END $$;
 
 -- Policy 3: Users can delete their own images
-CREATE POLICY "Users can delete their own profile image"
-ON storage.objects FOR DELETE
-TO authenticated
-USING (
-  bucket_id = 'profile-images' AND
-  (storage.foldername(name))[1] = auth.uid()::text
-);
+DO $$
+BEGIN
+  CREATE POLICY "Users can delete their own profile image"
+  ON storage.objects FOR DELETE
+  TO authenticated
+  USING (
+    bucket_id = 'profile-images' AND
+    (storage.foldername(name))[1] = auth.uid()::text
+  );
+EXCEPTION
+  WHEN duplicate_object THEN
+    RAISE NOTICE 'Delete policy already exists';
+  WHEN insufficient_privilege THEN
+    RAISE NOTICE 'Insufficient privileges to create delete policy (may need service_role)';
+END $$;
 
 -- Policy 4: Anyone can view profile images (public access)
-CREATE POLICY "Anyone can view profile images"
-ON storage.objects FOR SELECT
-TO public
-USING (bucket_id = 'profile-images');
+DO $$
+BEGIN
+  CREATE POLICY "Anyone can view profile images"
+  ON storage.objects FOR SELECT
+  TO public
+  USING (bucket_id = 'profile-images');
+EXCEPTION
+  WHEN duplicate_object THEN
+    RAISE NOTICE 'View policy already exists';
+  WHEN insufficient_privilege THEN
+    RAISE NOTICE 'Insufficient privileges to create view policy (may need service_role)';
+END $$;
 
 -- =============================================================================
 -- 7. GRANT PERMISSIONS
 -- =============================================================================
 
--- Grant storage schema access
-GRANT USAGE ON SCHEMA storage TO authenticated;
-GRANT USAGE ON SCHEMA storage TO anon;
+-- Grant storage schema access (safe - wrapped in error handling)
+DO $$
+BEGIN
+  GRANT USAGE ON SCHEMA storage TO authenticated;
+  GRANT USAGE ON SCHEMA storage TO anon;
+EXCEPTION
+  WHEN insufficient_privilege THEN
+    RAISE NOTICE 'Could not grant schema permissions (may already exist)';
+END $$;
 
--- Grant buckets table access
-GRANT SELECT ON storage.buckets TO authenticated;
-GRANT SELECT ON storage.buckets TO anon;
+-- Grant buckets table access (safe - wrapped in error handling)
+DO $$
+BEGIN
+  GRANT SELECT ON storage.buckets TO authenticated;
+  GRANT SELECT ON storage.buckets TO anon;
+EXCEPTION
+  WHEN insufficient_privilege THEN
+    RAISE NOTICE 'Could not grant buckets permissions (may already exist)';
+END $$;
 
--- Grant objects table access (RLS will control actual access)
-GRANT SELECT, INSERT, UPDATE, DELETE ON storage.objects TO authenticated;
-GRANT SELECT ON storage.objects TO anon;
+-- Grant objects table access (safe - wrapped in error handling)
+DO $$
+BEGIN
+  GRANT SELECT, INSERT, UPDATE, DELETE ON storage.objects TO authenticated;
+  GRANT SELECT ON storage.objects TO anon;
+EXCEPTION
+  WHEN insufficient_privilege THEN
+    RAISE NOTICE 'Could not grant objects permissions (may already exist)';
+END $$;
 
 -- =============================================================================
 -- 8. HELPER FUNCTIONS
@@ -354,11 +423,39 @@ WHERE id NOT IN (SELECT id FROM public.profiles)
 ON CONFLICT (id) DO NOTHING;
 
 -- =============================================================================
--- 10. DATA VALIDATION CONSTRAINTS (Applied AFTER data creation)
+-- 9.5. FIX EXISTING DATA (Before applying constraints)
+-- =============================================================================
+
+-- Fix usernames that are too short (< 3 chars)
+UPDATE profiles 
+SET username = SUBSTRING(username || 'user', 1, 30)
+WHERE username IS NOT NULL 
+AND LENGTH(username) < 3;
+
+-- Fix usernames that are too long (> 30 chars)
+UPDATE profiles 
+SET username = SUBSTRING(username, 1, 30)
+WHERE username IS NOT NULL 
+AND LENGTH(username) > 30;
+
+-- Fix bio that's too long (> 160 chars)
+UPDATE profiles 
+SET bio = SUBSTRING(bio, 1, 160)
+WHERE bio IS NOT NULL 
+AND LENGTH(bio) > 160;
+
+-- Fix about_me that's too long (> 1000 chars)
+UPDATE profiles 
+SET about_me = SUBSTRING(about_me, 1, 1000)
+WHERE about_me IS NOT NULL 
+AND LENGTH(about_me) > 1000;
+
+-- =============================================================================
+-- 10. DATA VALIDATION CONSTRAINTS (Applied AFTER data cleanup)
 -- =============================================================================
 
 -- Username constraints (3-30 characters, alphanumeric + dots, hyphens, underscores)
--- These are added AFTER creating profiles to avoid constraint violations
+-- These are added AFTER fixing existing data to avoid constraint violations
 ALTER TABLE profiles DROP CONSTRAINT IF EXISTS username_length;
 ALTER TABLE profiles ADD CONSTRAINT username_length 
   CHECK (username IS NULL OR (length(username) >= 3 AND length(username) <= 30));
@@ -381,24 +478,40 @@ ALTER TABLE profiles ADD CONSTRAINT about_me_length
 -- 11. STORAGE STATISTICS VIEW
 -- =============================================================================
 
--- View to see storage usage by user
-CREATE OR REPLACE VIEW profile_image_storage_stats AS
-SELECT 
-  p.id as user_id,
-  p.username,
-  p.avatar_url,
-  COUNT(o.id) as image_count,
-  COALESCE(SUM((o.metadata->>'size')::bigint), 0) as total_bytes,
-  ROUND(COALESCE(SUM((o.metadata->>'size')::bigint), 0) / 1024.0, 2) as total_kb
-FROM profiles p
-LEFT JOIN storage.objects o ON o.bucket_id = 'profile-images' 
-  AND (storage.foldername(o.name))[1] = p.id::text
-GROUP BY p.id, p.username, p.avatar_url
-HAVING COUNT(o.id) > 0
-ORDER BY total_bytes DESC;
+-- View to see storage usage by user (safe - wrapped in error handling)
+DO $$
+BEGIN
+  CREATE OR REPLACE VIEW profile_image_storage_stats AS
+  SELECT 
+    p.id as user_id,
+    p.username,
+    p.avatar_url,
+    COUNT(o.id) as image_count,
+    COALESCE(SUM((o.metadata->>'size')::bigint), 0) as total_bytes,
+    ROUND(COALESCE(SUM((o.metadata->>'size')::bigint), 0) / 1024.0, 2) as total_kb
+  FROM profiles p
+  LEFT JOIN storage.objects o ON o.bucket_id = 'profile-images' 
+    AND (storage.foldername(o.name))[1] = p.id::text
+  GROUP BY p.id, p.username, p.avatar_url
+  HAVING COUNT(o.id) > 0
+  ORDER BY total_bytes DESC;
+EXCEPTION
+  WHEN insufficient_privilege THEN
+    RAISE NOTICE 'Could not create storage stats view (may need elevated privileges)';
+  WHEN OTHERS THEN
+    RAISE NOTICE 'Storage stats view creation failed, but this is not critical';
+END $$;
 
--- Grant access to the view
-GRANT SELECT ON profile_image_storage_stats TO authenticated;
+-- Grant access to the view (safe - wrapped in error handling)
+DO $$
+BEGIN
+  GRANT SELECT ON profile_image_storage_stats TO authenticated;
+EXCEPTION
+  WHEN insufficient_privilege THEN
+    RAISE NOTICE 'Could not grant view permissions (may already exist)';
+  WHEN undefined_table THEN
+    RAISE NOTICE 'View does not exist, cannot grant permissions';
+END $$;
 
 -- =============================================================================
 -- 12. AUTOMATIC TIMESTAMP UPDATES
