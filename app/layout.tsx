@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
@@ -7,16 +7,17 @@ const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : "http://localhost:3000";
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+}
+
 export const metadata: Metadata = {
   metadataBase: new URL(defaultUrl),
   title: "DevDapp - Deploy Decentralized Applications Fast",
   description: "The fastest way to deploy decentralized applications with enterprise-grade security. Build, test, and launch Dapps with confidence using modern web technologies.",
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 5,
-    userScalable: true,
-  },
   keywords: ["Dapp", "decentralized applications", "web3", "blockchain", "ethereum", "deployment platform"],
   authors: [{ name: "DevDapp" }],
   creator: "DevDapp",
