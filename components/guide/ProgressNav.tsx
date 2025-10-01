@@ -144,7 +144,7 @@ export function ProgressNav() {
         </div>
 
         {/* Scrollable steps section - scrolls independently */}
-        <div className="flex-1 overflow-y-auto px-6 pb-6">
+        <div className="flex-1 overflow-y-auto px-6 pb-6 scrollbar-visible">
           <div ref={stepListRef} className="space-y-1 pb-32">
             {steps.map((step) => {
               const isActive = activeStep === step.id
