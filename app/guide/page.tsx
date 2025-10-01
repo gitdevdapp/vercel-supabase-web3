@@ -38,7 +38,7 @@ export default async function GuidePage() {
       <GlobalNav showHomeButton={true} showProfileButton={true} showAuthButton={false} />
       <ProgressNav />
       
-      <main className="nav:ml-80 pt-28 nav:pt-16">
+      <main className="md:ml-80 pt-28 md:pt-16">
         {/* Welcome Section */}
         <StepSection id="welcome" title="Welcome" emoji="👋" estimatedTime="2 min">
           <div className="space-y-6">
