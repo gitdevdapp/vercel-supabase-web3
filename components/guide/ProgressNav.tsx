@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { Check, ChevronRight } from 'lucide-react'
 
 interface Step {
@@ -29,6 +29,7 @@ const steps: Step[] = [
 export function ProgressNav() {
   const [activeStep, setActiveStep] = useState('welcome')
   const [completedSteps, setCompletedSteps] = useState<Set<string>>(new Set())
+  const stepListRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -59,6 +60,20 @@ export function ProgressNav() {
 
     return () => observer.disconnect()
   }, [])
+
+  // Auto-scroll sidebar to keep active step visible
+  useEffect(() => {
+    if (!stepListRef.current) return
+    
+    const activeButton = stepListRef.current.querySelector(`[data-step-id="${activeStep}"]`)
+    if (activeButton) {
+      activeButton.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'nearest'
+      })
+    }
+  }, [activeStep])
 
   const progress = ((completedSteps.size / steps.length) * 100).toFixed(0)
 
@@ -127,7 +142,7 @@ export function ProgressNav() {
           )}
 
           {/* Steps */}
-          <div className="space-y-1">
+          <div ref={stepListRef} className="space-y-1">
             {steps.map((step) => {
               const isActive = activeStep === step.id
               const isCompleted = completedSteps.has(step.id)
@@ -135,6 +150,7 @@ export function ProgressNav() {
               return (
                 <button
                   key={step.id}
+                  data-step-id={step.id}
                   onClick={() => scrollToStep(step.id)}
                   className={`w-full text-left rounded-lg p-3 transition-all ${
                     isActive 
