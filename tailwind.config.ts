@@ -10,9 +10,6 @@ export default {
   ],
   theme: {
     extend: {
-      screens: {
-        'nav': '900px',  // Custom breakpoint for navigation sidebar
-      },
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",

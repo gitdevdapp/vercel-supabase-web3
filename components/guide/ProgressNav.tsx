@@ -75,7 +75,7 @@ export function ProgressNav() {
   return (
     <>
       {/* Desktop Sidebar */}
-      <nav className="hidden nav:block fixed left-0 top-16 h-[calc(100vh-4rem)] w-80 border-r border-border bg-background overflow-y-auto z-30">
+      <nav className="hidden md:block fixed left-0 top-16 h-[calc(100vh-4rem)] w-80 border-r border-border bg-background overflow-y-auto z-30">
         <div className="p-6">
           {/* Header */}
           <div className="mb-8">
@@ -177,7 +177,7 @@ export function ProgressNav() {
       </nav>
 
       {/* Mobile Top Bar - Show on mobile when sidebar is hidden */}
-      <div className="nav:hidden fixed top-16 left-0 right-0 z-30 bg-background/95 backdrop-blur-sm border-b border-border shadow-sm">
+      <div className="md:hidden fixed top-16 left-0 right-0 z-30 bg-background/95 backdrop-blur-sm border-b border-border shadow-sm">
         <div className="px-4 py-3">
           <div className="flex items-center justify-between mb-2">
             <h2 className="text-lg font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
