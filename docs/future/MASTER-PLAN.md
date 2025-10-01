@@ -312,3 +312,4 @@ document.cookie.includes('sb-') // Should be true if logged in
 
 **Next Review:** After navigation fix is deployed and verified across browsers
 
+

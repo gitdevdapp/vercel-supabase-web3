@@ -74,8 +74,15 @@ export function ProgressNav() {
 
   return (
     <>
-      {/* Desktop Sidebar */}
-      <nav className="hidden md:block fixed left-0 top-16 h-[calc(100vh-4rem)] w-80 border-r border-border bg-background overflow-y-auto z-30">
+      {/* Desktop Sidebar - Always visible on screens 768px+ */}
+      <nav 
+        className="progress-nav-desktop hidden md:block fixed left-0 top-16 h-[calc(100vh-4rem)] w-80 border-r border-border bg-background overflow-y-auto z-30"
+        style={{
+          // Defensive CSS to ensure visibility above 768px
+          minHeight: '400px',
+          maxHeight: 'calc(100vh - 4rem)',
+        }}
+      >
         <div className="p-6">
           {/* Header */}
           <div className="mb-8">
@@ -176,8 +183,14 @@ export function ProgressNav() {
         </div>
       </nav>
 
-      {/* Mobile Top Bar - Show on mobile when sidebar is hidden */}
-      <div className="md:hidden fixed top-16 left-0 right-0 z-30 bg-background/95 backdrop-blur-sm border-b border-border shadow-sm">
+      {/* Mobile Top Bar - Only visible below 768px */}
+      <div 
+        className="progress-nav-mobile md:hidden fixed top-16 left-0 right-0 z-30 bg-background/95 backdrop-blur-sm border-b border-border shadow-sm"
+        style={{
+          // Ensure this is hidden above 768px
+          maxWidth: '100vw',
+        }}
+      >
         <div className="px-4 py-3">
           <div className="flex items-center justify-between mb-2">
             <h2 className="text-lg font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
