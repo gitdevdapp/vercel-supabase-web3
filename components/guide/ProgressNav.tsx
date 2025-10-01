@@ -91,14 +91,15 @@ export function ProgressNav() {
     <>
       {/* Desktop Sidebar - Always visible on screens 768px+ */}
       <nav 
-        className="progress-nav-desktop hidden md:block fixed left-0 top-16 h-[calc(100vh-4rem)] w-80 border-r border-border bg-background overflow-y-auto z-30"
+        className="progress-nav-desktop hidden md:block fixed left-0 top-16 h-[calc(100vh-4rem)] w-80 border-r border-border bg-background flex flex-col z-30"
         style={{
           // Defensive CSS to ensure visibility above 768px
           minHeight: '400px',
           maxHeight: 'calc(100vh - 4rem)',
         }}
       >
-        <div className="p-6">
+        {/* Sticky header section - stays at top */}
+        <div className="flex-shrink-0 p-6 pb-0 bg-background">
           {/* Header */}
           <div className="mb-8">
             <h2 className="text-2xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
@@ -140,8 +141,10 @@ export function ProgressNav() {
               )}
             </div>
           )}
+        </div>
 
-          {/* Steps */}
+        {/* Scrollable steps section - scrolls independently */}
+        <div className="flex-1 overflow-y-auto px-6 pb-6">
           <div ref={stepListRef} className="space-y-1">
             {steps.map((step) => {
               const isActive = activeStep === step.id
