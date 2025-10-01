@@ -61,7 +61,7 @@ export function ProgressNav() {
     return () => observer.disconnect()
   }, [])
 
-  // Auto-scroll sidebar to keep active step visible
+  // Auto-scroll sidebar to keep active step visible and hide completed steps above
   useEffect(() => {
     if (!stepListRef.current) return
     
@@ -69,7 +69,7 @@ export function ProgressNav() {
     if (activeButton) {
       activeButton.scrollIntoView({
         behavior: 'smooth',
-        block: 'nearest',
+        block: 'start', // Changed to 'start' to scroll completed steps out of view
         inline: 'nearest'
       })
     }
