@@ -3,6 +3,7 @@ import { CdpClient } from "@coinbase/cdp-sdk";
 import { createPublicClient, http } from "viem";
 import { getChainSafe } from "@/lib/accounts";
 import { isCDPConfigured, getNetworkSafe, FEATURE_ERRORS } from "@/lib/features";
+import { createClient } from "@/lib/supabase/server";
 
 function getCdpClient(): CdpClient {
   if (!isCDPConfigured()) {
@@ -27,6 +28,17 @@ function getPublicClient() {
 
 export async function GET() {
   try {
+    // 🔒 AUTHENTICATION CHECK
+    const supabase = await createClient();
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    
+    if (authError || !user) {
+      return NextResponse.json(
+        { error: 'Unauthorized - Please sign in' },
+        { status: 401 }
+      );
+    }
+
     // Check if CDP is configured
     if (!isCDPConfigured()) {
       return NextResponse.json({

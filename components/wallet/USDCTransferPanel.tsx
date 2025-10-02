@@ -27,6 +27,15 @@ export function USDCTransferPanel({ fromWallet, availableBalance, onTransferComp
   const [transferResult, setTransferResult] = useState<TransferResult | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  // 401 error handler
+  const handleApiError = (response: Response) => {
+    if (response.status === 401) {
+      window.location.href = '/sign-in?redirectTo=/wallet';
+      return true;
+    }
+    return false;
+  };
+
   const formatAddress = (address: string) => {
     return `${address.slice(0, 6)}...${address.slice(-4)}`;
   };
@@ -67,6 +76,10 @@ export function USDCTransferPanel({ fromWallet, availableBalance, onTransferComp
           token: 'usdc'
         })
       });
+
+      if (handleApiError(response)) {
+        return;
+      }
 
       if (!response.ok) {
         const errorData = await response.json();

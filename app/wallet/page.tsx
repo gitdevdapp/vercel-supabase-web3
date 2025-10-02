@@ -1,6 +1,8 @@
 import { ThemeSwitcher } from "@/components/theme-switcher";
 import { GlobalNav } from "@/components/navigation/global-nav";
 import { WalletManager } from "@/components/wallet/WalletManager";
+import { createClient } from "@/lib/supabase/server";
+import { redirect } from "next/navigation";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -20,7 +22,14 @@ const jsonLd = {
   }
 };
 
-export default function WalletPage() {
+export default async function WalletPage() {
+  // 🔒 AUTHENTICATION CHECK
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect("/sign-in?redirectTo=/wallet");
+  }
   return (
     <main className="min-h-screen flex flex-col items-center">
       <div className="flex-1 w-full flex flex-col gap-20 items-center">
