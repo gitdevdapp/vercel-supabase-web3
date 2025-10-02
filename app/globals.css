@@ -109,4 +109,25 @@
   .scrollbar-visible::-webkit-scrollbar-thumb:hover {
     background-color: hsl(var(--muted-foreground) / 0.5);
   }
+
+  /* Mobile-first responsive spacing utilities */
+  .section-gap {
+    @apply gap-6 md:gap-12 lg:gap-20;
+  }
+  
+  .content-gap {
+    @apply gap-4 md:gap-6 lg:gap-8;
+  }
+  
+  .section-padding {
+    @apply p-4 md:p-6 lg:p-8;
+  }
+  
+  .page-padding-top {
+    @apply pt-20 md:pt-16;
+  }
+  
+  .container-padding {
+    @apply p-3 md:p-5;
+  }
 }
