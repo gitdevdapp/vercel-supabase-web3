@@ -14,8 +14,8 @@ export async function createClient() {
     process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY!,
     {
       auth: {
-        // Using implicit flow for email-based authentication compatibility
-        flowType: 'implicit',
+        // Using PKCE flow for mobile-friendly cookie-based authentication
+        flowType: 'pkce',
         autoRefreshToken: true,
         persistSession: true,
       },
