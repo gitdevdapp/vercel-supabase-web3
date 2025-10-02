@@ -16,8 +16,9 @@ export const config = {
      * - api routes (API endpoints should not be blocked by auth middleware)
      * - root (public ROOT network page)
      * - guide (handles its own auth check to avoid mobile cookie timing issues)
+     * - protected (handles its own auth check to avoid mobile cookie timing issues)
      * Feel free to modify this pattern to include more paths.
      */
-    "/((?!_next/static|_next/image|favicon.ico|api/|auth/confirm|auth/callback|auth/error|wallet|root|tezos|apechain|avalanche|stacks|flow|guide|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)"
+    "/((?!_next/static|_next/image|favicon.ico|api/|auth/confirm|auth/callback|auth/error|wallet|root|tezos|apechain|avalanche|stacks|flow|guide|protected|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)"
   ],
 };
