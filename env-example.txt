@@ -8,8 +8,9 @@ NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY=your-anon-key-here
 
 # CDP (Coinbase Developer Platform) Configuration
 # Get these from your Coinbase Developer Platform dashboard
-CDP_API_KEY_NAME=your-cdp-api-key-name
-CDP_PRIVATE_KEY=your-cdp-private-key
+# Get credentials from: https://portal.cdp.coinbase.com/
+CDP_API_KEY_ID=your-cdp-api-key-id
+CDP_API_KEY_SECRET=your-cdp-api-key-secret
 NEXT_PUBLIC_WALLET_NETWORK=base-sepolia
 
 # AI Service Configuration

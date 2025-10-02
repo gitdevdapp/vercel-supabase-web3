@@ -63,6 +63,21 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // 🔒 Verify wallet ownership
+    const { data: wallet, error: walletError } = await supabase
+      .from('user_wallets')
+      .select('*')
+      .eq('wallet_address', fromAddress)
+      .eq('user_id', user.id)
+      .single();
+
+    if (walletError || !wallet) {
+      return NextResponse.json(
+        { error: 'Wallet not found or unauthorized' },
+        { status: 403 }
+      );
+    }
+
     const cdp = getCdpClient();
     
     // Get sender account from CDP
@@ -123,6 +138,19 @@ export async function POST(request: NextRequest) {
 
       const result = await transaction.submit();
       
+      // 📝 Log successful transfer
+      await supabase.rpc('log_wallet_operation', {
+        p_user_id: user.id,
+        p_wallet_id: wallet.id,
+        p_operation_type: 'send',
+        p_token_type: token,
+        p_amount: amount,
+        p_from_address: fromAddress,
+        p_to_address: toAddress,
+        p_tx_hash: result.transactionHash,
+        p_status: 'success'
+      });
+      
       return NextResponse.json({
         transactionHash: result.transactionHash,
         status: 'submitted',
@@ -152,6 +180,19 @@ export async function POST(request: NextRequest) {
         });
 
         const result = await transaction.submit();
+        
+        // 📝 Log successful transfer (alternative method)
+        await supabase.rpc('log_wallet_operation', {
+          p_user_id: user.id,
+          p_wallet_id: wallet.id,
+          p_operation_type: 'send',
+          p_token_type: token,
+          p_amount: amount,
+          p_from_address: fromAddress,
+          p_to_address: toAddress,
+          p_tx_hash: result.transactionHash,
+          p_status: 'success'
+        });
         
         return NextResponse.json({
           transactionHash: result.transactionHash,

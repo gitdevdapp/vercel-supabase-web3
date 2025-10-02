@@ -1,9 +1,17 @@
 -- ============================================================================
--- CDP WALLET INTEGRATION - PRODUCTION READY
+-- CDP WALLET INTEGRATION - PRODUCTION READY (v2.0)
 -- Safe to run multiple times (fully idempotent)
 -- Creates: user_wallets + wallet_transactions tables
--- Version: 1.0
--- Date: October 2, 2025
+-- 
+-- EXECUTION INSTRUCTIONS:
+-- 1. Open Supabase Dashboard > SQL Editor
+-- 2. Click "+ New query" (NOT saved snippets)
+-- 3. Delete any placeholder text
+-- 4. Copy this ENTIRE file (Cmd/Ctrl+A, Cmd/Ctrl+C)
+-- 5. Paste into the NEW query editor
+-- 6. Click "Run" or press Cmd/Ctrl+Enter
+-- 
+-- DO NOT save as snippet - run directly!
 -- ============================================================================
 
 -- Enable UUID extension (idempotent)

@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getOrCreateProfile } from "@/lib/profile";
 import { SimpleProfileForm } from "@/components/simple-profile-form";
+import { ProfileWalletCard } from "@/components/profile-wallet-card";
 import { InfoIcon, Sparkles, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -77,6 +78,9 @@ export default async function ProfilePage() {
         </div>
         
         <SimpleProfileForm profile={profile} userEmail={userEmail} />
+        
+        {/* Wallet Section */}
+        <ProfileWalletCard />
       </div>
     </div>
   );
