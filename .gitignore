@@ -52,6 +52,13 @@ yarn-error.log*
 secrets.json
 config/secrets.yml
 
+# CDP Credentials - NEVER commit these
+cdp_api_key.json
+cdp_wallet_secret.txt
+cdp_wallet_data.json
+*_wallet_seed.json
+vercel-env-variables.txt
+
 # Test coverage reports
 coverage/
 .nyc_output/
