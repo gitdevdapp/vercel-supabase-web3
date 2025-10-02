@@ -64,6 +64,22 @@
   }
   body {
     @apply bg-background text-foreground;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Ensure sticky positioning works on all mobile browsers */
+  nav[class*="sticky"] {
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    will-change: transform; /* GPU acceleration */
+  }
+  
+  /* Support for iOS safe areas */
+  @supports (padding: max(0px)) {
+    nav[class*="sticky"] {
+      padding-left: max(1.25rem, env(safe-area-inset-left));
+      padding-right: max(1.25rem, env(safe-area-inset-right));
+    }
   }
 }
 
