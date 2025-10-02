@@ -69,6 +69,21 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // 🔒 Verify wallet ownership
+    const { data: wallet, error: walletError } = await supabase
+      .from('user_wallets')
+      .select('*')
+      .eq('wallet_address', address)
+      .eq('user_id', user.id)
+      .single();
+
+    if (walletError || !wallet) {
+      return NextResponse.json(
+        { error: 'Wallet not found or unauthorized' },
+        { status: 404 }
+      );
+    }
+
     const cdp = getCdpClient();
     const publicClient = getPublicClient();
 
@@ -85,11 +100,35 @@ export async function POST(request: NextRequest) {
     });
 
     if (tx.status !== "success") {
+      // Log failed transaction
+      await supabase.rpc('log_wallet_operation', {
+        p_user_id: user.id,
+        p_wallet_id: wallet.id,
+        p_operation_type: 'fund',
+        p_token_type: token,
+        p_amount: token === 'eth' ? 0.001 : 1.0,
+        p_to_address: address,
+        p_tx_hash: transactionHash,
+        p_status: 'failed'
+      });
+
       return NextResponse.json(
         { error: "Funding transaction failed", transactionHash },
         { status: 500 }
       );
     }
+
+    // 📝 Log successful funding
+    await supabase.rpc('log_wallet_operation', {
+      p_user_id: user.id,
+      p_wallet_id: wallet.id,
+      p_operation_type: 'fund',
+      p_token_type: token,
+      p_amount: token === 'eth' ? 0.001 : 1.0,
+      p_to_address: address,
+      p_tx_hash: transactionHash,
+      p_status: 'success'
+    });
 
     return NextResponse.json({
       transactionHash,

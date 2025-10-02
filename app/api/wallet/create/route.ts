@@ -73,9 +73,40 @@ export async function POST(request: NextRequest) {
         );
     }
 
+    // 💾 NEW: Store wallet in database
+    const walletName = type === "custom" ? name : type.charAt(0).toUpperCase() + type.slice(1);
+    const { data: wallet, error: dbError } = await supabase
+      .from('user_wallets')
+      .insert({
+        user_id: user.id,
+        wallet_address: account.address,
+        wallet_name: walletName,
+        network: 'base-sepolia'
+      })
+      .select()
+      .single();
+
+    if (dbError) {
+      console.error('Database error:', dbError);
+      return NextResponse.json(
+        { error: 'Failed to save wallet to database' },
+        { status: 500 }
+      );
+    }
+
+    // 📝 Log wallet creation
+    await supabase.rpc('log_wallet_operation', {
+      p_user_id: user.id,
+      p_wallet_id: wallet.id,
+      p_operation_type: 'create',
+      p_token_type: 'eth',
+      p_status: 'success'
+    });
+
     return NextResponse.json({
-      address: account.address,
-      name: type === "custom" ? name : type.charAt(0).toUpperCase() + type.slice(1),
+      address: wallet.wallet_address,
+      name: wallet.wallet_name,
+      wallet_id: wallet.id,
       type
     }, { status: 201 });
 
