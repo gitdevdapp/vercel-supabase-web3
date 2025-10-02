@@ -3,6 +3,7 @@ import { getOrCreatePurchaserAccount, getOrCreateSellerAccount } from "@/lib/acc
 import { CdpClient } from "@coinbase/cdp-sdk";
 import { z } from "zod";
 import { isCDPConfigured, FEATURE_ERRORS } from "@/lib/features";
+import { createClient } from "@/lib/supabase/server";
 
 function getCdpClient(): CdpClient {
   if (!isCDPConfigured()) {
@@ -20,6 +21,17 @@ const createWalletSchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
+    // 🔒 AUTHENTICATION CHECK
+    const supabase = await createClient();
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    
+    if (authError || !user) {
+      return NextResponse.json(
+        { error: 'Unauthorized - Please sign in' },
+        { status: 401 }
+      );
+    }
+
     // Check if CDP is configured
     if (!isCDPConfigured()) {
       return NextResponse.json(

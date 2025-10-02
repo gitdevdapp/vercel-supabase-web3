@@ -29,6 +29,15 @@ export function FundingPanel({ walletAddress, onFunded }: FundingPanelProps) {
   const [loadingMessage, setLoadingMessage] = useState<string | null>(null);
   const [warningMessage, setWarningMessage] = useState<string | null>(null);
 
+  // 401 error handler
+  const handleApiError = (response: Response) => {
+    if (response.status === 401) {
+      window.location.href = '/sign-in?redirectTo=/wallet';
+      return true;
+    }
+    return false;
+  };
+
   const pollBalanceUpdate = async (expectedAmount: number): Promise<boolean> => {
     const maxAttempts = 12; // 60 seconds total
     let attempts = 0;
@@ -90,6 +99,10 @@ export function FundingPanel({ walletAddress, onFunded }: FundingPanelProps) {
           token: selectedToken,
         }),
       });
+
+      if (handleApiError(response)) {
+        return;
+      }
 
       if (!response.ok) {
         const errorData = await response.json();

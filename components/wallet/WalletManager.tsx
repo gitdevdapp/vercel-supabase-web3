@@ -45,6 +45,15 @@ export function WalletManager() {
   const [activeTab, setActiveTab] = useState<'fund' | 'transfer'>('fund');
   const [archiveStats, setArchiveStats] = useState({ totalArchived: 0, archivedThisWeek: 0, archivedThisMonth: 0 });
 
+  // 401 error handler
+  const handleApiError = (response: Response) => {
+    if (response.status === 401) {
+      window.location.href = '/sign-in?redirectTo=/wallet';
+      return true;
+    }
+    return false;
+  };
+
   // Load wallets on component mount
   useEffect(() => {
     loadWallets();
@@ -56,6 +65,11 @@ export function WalletManager() {
       setError(null);
       
       const response = await fetch("/api/wallet/list");
+      
+      if (handleApiError(response)) {
+        return;
+      }
+      
       if (!response.ok) {
         throw new Error(`Failed to load wallets: ${response.statusText}`);
       }
@@ -95,6 +109,10 @@ export function WalletManager() {
         body: JSON.stringify({ name, type }),
       });
 
+      if (handleApiError(response)) {
+        return;
+      }
+
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.error || "Failed to create wallet");
@@ -118,6 +136,11 @@ export function WalletManager() {
   const handleRefreshBalance = async (address: string) => {
     try {
       const response = await fetch(`/api/wallet/balance?address=${address}`);
+      
+      if (handleApiError(response)) {
+        return;
+      }
+      
       if (!response.ok) {
         throw new Error("Failed to refresh balance");
       }
