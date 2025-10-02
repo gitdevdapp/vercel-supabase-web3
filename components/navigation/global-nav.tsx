@@ -10,7 +10,6 @@ interface GlobalNavProps {
   showDeployButton?: boolean;
   showHomeButton?: boolean;
   showGuideButton?: boolean;
-  showProfileButton?: boolean;
   customActions?: React.ReactNode;
   authButtonComponent?: React.ReactNode;
 }
@@ -20,12 +19,17 @@ export function GlobalNav({
   showDeployButton = false,
   showHomeButton = false,
   showGuideButton = false,
-  showProfileButton = false,
   customActions,
   authButtonComponent
 }: GlobalNavProps) {
   return (
-    <nav className="sticky top-0 z-50 w-full flex justify-center border-b border-b-foreground/10 h-16 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <nav 
+      className="sticky top-0 z-50 w-full flex justify-center border-b border-b-foreground/10 h-16 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+      style={{
+        // iOS safe area support for notch/dynamic island
+        paddingTop: 'max(0px, env(safe-area-inset-top))',
+      }}
+    >
       <div className="w-full max-w-5xl flex justify-between items-center p-3 px-5 text-sm">
         <div className="flex gap-5 items-center font-semibold">
           <Link href={"/"} className="text-xl font-bold">
@@ -37,16 +41,13 @@ export function GlobalNav({
                 <Link href="/">Home</Link>
               </Button>
             )}
+            {/* Hide Guide button on mobile - it's in hamburger menu */}
             {showGuideButton && (
-              <Button size="sm" variant="outline" asChild>
+              <Button size="sm" variant="outline" asChild className="hidden md:inline-flex">
                 <Link href="/guide">Guide</Link>
               </Button>
             )}
-            {showProfileButton && (
-              <Button size="sm" variant="outline" asChild>
-                <Link href="/protected/profile">Profile</Link>
-              </Button>
-            )}
+            {/* Profile button not shown here - it's in AuthButton */}
             {showDeployButton && (
               <Button size="sm" variant="outline">Deploy</Button>
             )}

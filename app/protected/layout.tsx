@@ -14,8 +14,12 @@ export default async function ProtectedLayout({
       <div className="flex-1 w-full flex flex-col gap-8 md:gap-20 items-center">
         <GlobalNav 
           showAuthButton={true} 
-          showGuideButton={true} 
-          authButtonComponent={!hasEnvVars ? <EnvVarWarning /> : <AuthButton />}
+          showGuideButton={true}
+          authButtonComponent={
+            !hasEnvVars 
+              ? <EnvVarWarning /> 
+              : <AuthButton showGuideButton={true} />
+          }
         />
         <div className="flex-1 flex flex-col gap-8 md:gap-12 max-w-5xl p-3 md:p-5">
           {children}

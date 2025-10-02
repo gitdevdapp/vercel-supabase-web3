@@ -35,7 +35,11 @@ export default async function GuidePage() {
   // Show full guide for authenticated users
   return (
     <div className="min-h-screen bg-background">
-      <GlobalNav showHomeButton={true} showProfileButton={true} showAuthButton={false} />
+      <GlobalNav 
+        showHomeButton={true} 
+        showAuthButton={true} 
+        authButtonComponent={!hasEnvVars ? <EnvVarWarning /> : <AuthButton />} 
+      />
       <ProgressNav />
       
       <main className="md:ml-80 pt-20 md:pt-16">
