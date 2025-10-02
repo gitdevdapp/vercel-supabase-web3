@@ -35,10 +35,10 @@ export default async function ProfilePage() {
   }
 
   return (
-    <div className="flex-1 w-full flex flex-col gap-12">
+    <div className="flex-1 w-full flex flex-col gap-6 md:gap-12">
       {/* Guide Access CTA Banner */}
       <div className="w-full">
-        <div className="bg-gradient-to-br from-primary/10 to-primary/5 border-2 border-primary/30 rounded-2xl p-6">
+        <div className="bg-gradient-to-br from-primary/10 to-primary/5 border-2 border-primary/30 rounded-2xl p-4 md:p-6">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div className="flex items-start gap-3 flex-1">
               <Sparkles className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
