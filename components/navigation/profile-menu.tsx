@@ -1,6 +1,6 @@
 "use client";
 
-import { Menu } from "lucide-react";
+import { Menu, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -13,12 +13,12 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 
-interface MobileMenuProps {
+interface ProfileMenuProps {
   userEmail?: string;
   showGuideButton?: boolean;
 }
 
-export function MobileMenu({ userEmail, showGuideButton = false }: MobileMenuProps) {
+export function ProfileMenu({ userEmail, showGuideButton = false }: ProfileMenuProps) {
   const router = useRouter();
 
   const handleLogout = async () => {
@@ -33,19 +33,24 @@ export function MobileMenu({ userEmail, showGuideButton = false }: MobileMenuPro
         <Button 
           variant="ghost" 
           size="sm" 
-          className="md:hidden"
-          aria-label="Open menu"
+          className="gap-2"
+          aria-label="Open profile menu"
         >
-          <Menu className="h-5 w-5" />
+          {/* Show hamburger icon on mobile, user icon with text on desktop */}
+          <Menu className="h-5 w-5 md:hidden" />
+          <User className="h-4 w-4 hidden md:block" />
+          <span className="hidden md:inline text-xs lg:text-sm max-w-[120px] lg:max-w-[180px] truncate">
+            {userEmail}
+          </span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">
         {userEmail && (
           <>
-            <div className="px-2 py-1.5 text-sm text-muted-foreground">
+            <div className="px-2 py-1.5 text-sm text-muted-foreground md:hidden">
               {userEmail}
             </div>
-            <DropdownMenuSeparator />
+            <DropdownMenuSeparator className="md:hidden" />
           </>
         )}
         
@@ -76,3 +81,5 @@ export function MobileMenu({ userEmail, showGuideButton = false }: MobileMenuPro
   );
 }
 
+// Keep the old export name for backward compatibility
+export { ProfileMenu as MobileMenu };
