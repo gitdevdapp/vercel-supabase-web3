@@ -3,6 +3,7 @@ import { CdpClient } from "@coinbase/cdp-sdk";
 import { base, baseSepolia } from "viem/chains";
 import { createPublicClient, http } from "viem";
 import { isCDPConfigured, getNetworkSafe, FEATURE_ERRORS } from "./features";
+import { env } from "./env";
 
 const chainMap = {
   "base-sepolia": baseSepolia,
@@ -14,7 +15,12 @@ function getCdpClient(): CdpClient {
   if (!isCDPConfigured()) {
     throw new Error(FEATURE_ERRORS.CDP_NOT_CONFIGURED);
   }
-  return new CdpClient();
+  
+  return new CdpClient({
+    apiKeyId: env.CDP_API_KEY_ID!,
+    apiKeySecret: env.CDP_API_KEY_SECRET!,
+    walletSecret: env.CDP_WALLET_SECRET!,
+  });
 }
 
 function getChain() {

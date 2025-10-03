@@ -15,7 +15,7 @@ export function isSupabaseConfigured(): boolean {
 
 export function isCDPConfigured(): boolean {
   try {
-    return !!(env.CDP_API_KEY_ID && env.CDP_API_KEY_SECRET);
+    return !!(env.CDP_API_KEY_ID && env.CDP_API_KEY_SECRET && env.CDP_WALLET_SECRET);
   } catch {
     return false;
   }

@@ -3,12 +3,18 @@ import { CdpClient } from "@coinbase/cdp-sdk";
 import { z } from "zod";
 import { isCDPConfigured, getNetworkSafe, FEATURE_ERRORS } from "@/lib/features";
 import { createClient } from "@/lib/supabase/server";
+import { env } from "@/lib/env";
 
 function getCdpClient(): CdpClient {
   if (!isCDPConfigured()) {
     throw new Error(FEATURE_ERRORS.CDP_NOT_CONFIGURED);
   }
-  return new CdpClient();
+  
+  return new CdpClient({
+    apiKeyId: env.CDP_API_KEY_ID!,
+    apiKeySecret: env.CDP_API_KEY_SECRET!,
+    walletSecret: env.CDP_WALLET_SECRET!,
+  });
 }
 
 // USDC contract details for Base Sepolia
