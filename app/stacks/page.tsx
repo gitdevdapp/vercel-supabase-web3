@@ -54,7 +54,7 @@ export default async function StacksPage() {
         <GlobalNav 
           showAuthButton={true} 
           showDeployButton={true} 
-          authButtonComponent={!hasEnvVars ? <EnvVarWarning /> : <AuthButton />}
+          authButtonComponent={!hasEnvVars ? <EnvVarWarning /> : <AuthButton showGuideButton={true} />}
         />
         
         <div className="w-full">
