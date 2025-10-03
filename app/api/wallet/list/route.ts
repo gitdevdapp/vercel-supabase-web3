@@ -1,16 +1,8 @@
 import { NextResponse } from "next/server";
-import { CdpClient } from "@coinbase/cdp-sdk";
 import { createPublicClient, http } from "viem";
 import { getChainSafe } from "@/lib/accounts";
 import { isCDPConfigured, getNetworkSafe, FEATURE_ERRORS } from "@/lib/features";
 import { createClient } from "@/lib/supabase/server";
-
-function getCdpClient(): CdpClient {
-  if (!isCDPConfigured()) {
-    throw new Error(FEATURE_ERRORS.CDP_NOT_CONFIGURED);
-  }
-  return new CdpClient();
-}
 
 // USDC contract details for Base Sepolia
 const USDC_CONTRACT_ADDRESS = "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238";
@@ -49,19 +41,24 @@ export async function GET() {
       }, { status: 503 });
     }
 
-    const cdp = getCdpClient();
-    const publicClient = getPublicClient();
-    
-    // Get all accounts from CDP
-    const accountsResponse = await cdp.evm.listAccounts();
-    
-    // Handle both array and object responses
-    const accounts = Array.isArray(accountsResponse) 
-      ? accountsResponse 
-      : accountsResponse.accounts || [];
+    // 🎯 SUPABASE-FIRST: Query database for user's wallets
+    const { data: wallets, error: walletsError } = await supabase
+      .from('user_wallets')
+      .select('*')
+      .eq('user_id', user.id)
+      .eq('is_active', true)
+      .order('created_at', { ascending: false });
 
-    // If no accounts, return empty list
-    if (!accounts || accounts.length === 0) {
+    if (walletsError) {
+      console.error('Error fetching wallets from database:', walletsError);
+      return NextResponse.json(
+        { error: 'Failed to fetch wallets', details: walletsError.message },
+        { status: 500 }
+      );
+    }
+
+    // If no wallets, return empty list
+    if (!wallets || wallets.length === 0) {
       return NextResponse.json({
         wallets: [],
         count: 0,
@@ -69,15 +66,15 @@ export async function GET() {
       });
     }
 
-    // Get balances for each account using direct blockchain queries
-    const walletsWithBalances = await Promise.all(
-      accounts.map(async (account) => {
-        try {
-          // Fetching balances for account
+    const publicClient = getPublicClient();
+    const network = getNetworkSafe();
 
+    // Get balances for each wallet using direct blockchain queries
+    const walletsWithBalances = await Promise.all(
+      wallets.map(async (wallet) => {
+        try {
           let usdcAmount = 0;
           let ethAmount = 0;
-          const network = getNetworkSafe();
 
           if (network === "base-sepolia") {
             try {
@@ -86,44 +83,51 @@ export async function GET() {
                 address: USDC_CONTRACT_ADDRESS as `0x${string}`,
                 abi: USDC_ABI,
                 functionName: 'balanceOf',
-                args: [account.address as `0x${string}`]
+                args: [wallet.wallet_address as `0x${string}`]
               });
               
               usdcAmount = Number(contractBalance) / 1000000; // USDC has 6 decimals
             } catch {
-              // USDC balance fetch failed
+              // USDC balance fetch failed, default to 0
             }
 
             try {
               // Get ETH balance directly from blockchain
               const ethBalanceWei = await publicClient.getBalance({
-                address: account.address as `0x${string}`
+                address: wallet.wallet_address as `0x${string}`
               });
               
               ethAmount = Number(ethBalanceWei) / 1000000000000000000; // Convert wei to ETH
             } catch {
-              // ETH balance fetch failed
+              // ETH balance fetch failed, default to 0
             }
           }
 
           return {
-            name: account.name || "Unnamed Wallet",
-            address: account.address,
+            id: wallet.id,                          // ✅ Database UUID (critical for operations)
+            name: wallet.wallet_name,
+            address: wallet.wallet_address,
+            network: wallet.network,
             balances: {
               usdc: isNaN(usdcAmount) ? 0 : usdcAmount,
               eth: isNaN(ethAmount) ? 0 : ethAmount,
             },
+            created_at: wallet.created_at,
             lastUpdated: new Date().toISOString()
           };
-        } catch {
-          // Error getting balances for account
+        } catch (error) {
+          // Error getting balances for wallet
+          console.error(`Error loading balances for ${wallet.wallet_address}:`, error);
           return {
-            name: account.name || "Unnamed Wallet",
-            address: account.address,
+            id: wallet.id,
+            name: wallet.wallet_name,
+            address: wallet.wallet_address,
+            network: wallet.network,
             balances: {
               usdc: 0,
               eth: 0,
             },
+            created_at: wallet.created_at,
             lastUpdated: new Date().toISOString(),
             error: "Failed to load balances"
           };
@@ -138,7 +142,7 @@ export async function GET() {
     });
 
   } catch (error) {
-    // List wallets error
+    console.error('List wallets error:', error);
     return NextResponse.json(
       { error: "Failed to list wallets", details: error instanceof Error ? error.message : "Unknown error" },
       { status: 500 }

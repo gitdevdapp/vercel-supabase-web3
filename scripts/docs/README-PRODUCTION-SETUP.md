@@ -13,7 +13,7 @@ This directory contains scripts for setting up your Supabase production database
 
 ### 1. Interactive Setup (Recommended)
 ```bash
-node scripts/setup-production-database.js
+node scripts/production/setup-production-database.js
 ```
 - Prompts for service key securely
 - Handles errors gracefully
@@ -21,7 +21,7 @@ node scripts/setup-production-database.js
 
 ### 2. Direct Setup (Fastest)
 ```bash
-node scripts/setup-production-direct.js
+node scripts/production/setup-production-direct.js
 ```
 - Uses embedded service key
 - Immediate execution
@@ -29,7 +29,7 @@ node scripts/setup-production-direct.js
 
 ### 3. Verification
 ```bash
-node scripts/verify-production-setup.js
+node scripts/production/verify-production-setup.js
 ```
 - Verifies database setup
 - Tests RLS policies
@@ -57,17 +57,17 @@ The scripts will create:
 
 1. **Run the setup script**:
    ```bash
-   node scripts/setup-production-direct.js
+   node scripts/production/setup-production-direct.js
    ```
 
 2. **Verify the setup**:
    ```bash
-   node scripts/verify-production-setup.js
+   node scripts/production/verify-production-setup.js
    ```
 
 3. **Clean up security files**:
    ```bash
-   rm scripts/setup-production-direct.js
+   rm scripts/production/setup-production-direct.js
    ```
 
 4. **Deploy your application** - it will work immediately!
@@ -129,7 +129,7 @@ After setup, test the flow:
 If scripts fail, use Supabase Dashboard:
 
 1. Go to: [REDACTED - SUPABASE SQL EDITOR URL REMOVED]
-2. Copy contents of: `scripts/enhanced-database-setup.sql`
+2. Copy contents of: `scripts/database/enhanced-database-setup.sql`
 3. Paste into SQL Editor
 4. Click "Run"
 

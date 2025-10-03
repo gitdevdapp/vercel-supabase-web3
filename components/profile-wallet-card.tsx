@@ -48,7 +48,7 @@ export function ProfileWalletCard() {
     try {
       setIsLoading(true);
       
-      // First, try to get wallet from database
+      // Get wallet from Supabase database (with balances)
       const response = await fetch('/api/wallet/list');
       if (!response.ok) throw new Error('Failed to load wallet');
       
@@ -57,18 +57,14 @@ export function ProfileWalletCard() {
       if (data.wallets && data.wallets.length > 0) {
         const firstWallet = data.wallets[0];
         
-        // Get balances
-        const balanceResponse = await fetch(`/api/wallet/balance?address=${firstWallet.address}`);
-        const balanceData = await balanceResponse.json();
-        
         setWallet({
-          id: firstWallet.address, // Use address as temp ID
+          id: firstWallet.id,                      // ✅ Database UUID (not address!)
           wallet_address: firstWallet.address,
           wallet_name: firstWallet.name,
-          network: 'base-sepolia',
+          network: firstWallet.network || 'base-sepolia',
           balances: {
-            eth: balanceData.eth || 0,
-            usdc: balanceData.usdc || 0
+            eth: firstWallet.balances?.eth || 0,
+            usdc: firstWallet.balances?.usdc || 0
           }
         });
       }

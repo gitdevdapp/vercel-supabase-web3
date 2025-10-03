@@ -57,6 +57,14 @@ This setup creates:
 2. Click **"New query"** to create a blank editor
 
 ### 2.2 Execute Database Setup Script
+
+**RECOMMENDED**: Use the master setup script that includes everything:
+- Location: `scripts/database/MASTER-SUPABASE-SETUP.sql`
+- Includes: Profiles, Profile Images, CDP Wallets
+- Single script for complete database setup
+
+**Alternative**: Use the inline script below (profiles only):
+
 Copy and paste this **complete SQL script** into the editor:
 
 ```sql

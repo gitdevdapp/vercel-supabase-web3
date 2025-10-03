@@ -1,0 +1,77 @@
+{
+  "timestamp": "2025-10-03T15:37:10.362Z",
+  "tests": [
+    {
+      "name": "Profiles Table Exists",
+      "status": "PASS",
+      "details": "Table accessible",
+      "data": null,
+      "timestamp": "2025-10-03T15:37:11.504Z"
+    },
+    {
+      "name": "User Wallets Table Exists",
+      "status": "PASS",
+      "details": "Table accessible",
+      "data": null,
+      "timestamp": "2025-10-03T15:37:11.661Z"
+    },
+    {
+      "name": "Wallet Transactions Table Exists",
+      "status": "PASS",
+      "details": "Table accessible",
+      "data": null,
+      "timestamp": "2025-10-03T15:37:11.814Z"
+    },
+    {
+      "name": "Profile Images Bucket Exists",
+      "status": "PASS",
+      "details": "Bucket configured",
+      "data": {
+        "public": true,
+        "fileSizeLimit": 2097152
+      },
+      "timestamp": "2025-10-03T15:37:12.029Z"
+    },
+    {
+      "name": "User Signup",
+      "status": "FAIL",
+      "details": "Email address \"test.user.1759505832029@example.com\" is invalid",
+      "data": null,
+      "timestamp": "2025-10-03T15:37:12.537Z"
+    },
+    {
+      "name": "CDP Wallet Integration",
+      "status": "FAIL",
+      "details": "No user credentials available",
+      "data": null,
+      "timestamp": "2025-10-03T15:37:12.538Z"
+    },
+    {
+      "name": "Testnet Faucet Funding",
+      "status": "FAIL",
+      "details": "No wallet data available",
+      "data": null,
+      "timestamp": "2025-10-03T15:37:12.538Z"
+    },
+    {
+      "name": "Send Transaction",
+      "status": "FAIL",
+      "details": "No wallet data available",
+      "data": null,
+      "timestamp": "2025-10-03T15:37:12.538Z"
+    },
+    {
+      "name": "RLS Policy Verification",
+      "status": "FAIL",
+      "details": "No user credentials available",
+      "data": null,
+      "timestamp": "2025-10-03T15:37:12.538Z"
+    }
+  ],
+  "summary": {
+    "total": 9,
+    "passed": 4,
+    "failed": 5,
+    "warnings": 0
+  }
+}

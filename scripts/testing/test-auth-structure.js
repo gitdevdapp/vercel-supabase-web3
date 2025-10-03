@@ -30,7 +30,7 @@ const requiredFiles = [
   'app/auth/confirm/route.ts',
   'app/auth/callback/route.ts',
   'app/api/auth/web3/verify/route.ts',
-  'scripts/enhanced-database-setup.sql',
+  'scripts/database/enhanced-database-setup.sql',
   'components/auth/ImprovedUnifiedSignUpForm.tsx',
   'components/auth/ImprovedUnifiedLoginForm.tsx',
   'components/auth/GitHubLoginButton.tsx',
@@ -81,7 +81,7 @@ try {
 // Test 4: Database schema SQL
 console.log('\n4️⃣ Testing database schema...');
 try {
-  const schemaPath = join(projectRoot, 'scripts/enhanced-database-setup.sql');
+  const schemaPath = join(projectRoot, 'scripts/database/enhanced-database-setup.sql');
   const schemaContent = readFileSync(schemaPath, 'utf8');
   
   addTest('Schema creates profiles table', schemaContent.includes('CREATE TABLE IF NOT EXISTS profiles'));

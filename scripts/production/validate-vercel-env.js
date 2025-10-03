@@ -4,7 +4,7 @@
  * This script validates that your vercel-env-variables.txt file contains
  * all required variables with correct naming and format before uploading to Vercel.
  * 
- * Run with: node scripts/validate-vercel-env.js
+ * Run with: node scripts/production/validate-vercel-env.js
  */
 
 const fs = require('fs');

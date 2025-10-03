@@ -3,7 +3,7 @@
 ## The setup script has been moved and improved!
 
 ### ❌ OLD (Partial - Don't Use)
-`/scripts/setup-profile-image-storage.sql` - **DEPRECATED**
+`/scripts/database/setup-profile-image-storage.sql` - **DEPRECATED**
 - Only handles storage bucket
 - Missing profile table setup
 - Missing constraint validation
