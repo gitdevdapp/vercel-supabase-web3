@@ -3,6 +3,9 @@ import { GlobalNav } from "@/components/navigation/global-nav";
 import { WalletManager } from "@/components/wallet/WalletManager";
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
+import { AuthButton } from "@/components/auth-button";
+import { EnvVarWarning } from "@/components/env-var-warning";
+import { hasEnvVars } from "@/lib/utils";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -34,9 +37,9 @@ export default async function WalletPage() {
     <main className="min-h-screen flex flex-col items-center">
       <div className="flex-1 w-full flex flex-col gap-20 items-center">
         <GlobalNav 
-          showAuthButton={false} 
+          showAuthButton={true} 
           showHomeButton={true}
-          customActions={undefined}
+          authButtonComponent={!hasEnvVars ? <EnvVarWarning /> : <AuthButton showGuideButton={false} />}
         />
 
         {/* X402 Wallet Manager - REAL FUNCTIONALITY! */}
