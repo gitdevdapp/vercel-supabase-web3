@@ -1,376 +1,389 @@
-# 🏦 CDP Wallet Integration - Quick Reference
+# 🏦 CDP Wallet System Documentation
 
-**Status**: ✅ Production Ready  
-**Last Updated**: October 2, 2025  
-**Current Version**: 2.0
-
----
-
-## 📖 Overview
-
-The CDP wallet system integrates Coinbase Developer Platform wallets with Supabase authentication, providing secure blockchain wallet functionality for authenticated users.
-
-### Features
-- ✅ Wallet creation with custom naming
-- ✅ Testnet funding (ETH & USDC on Base Sepolia)
-- ✅ USDC transfers to any address
-- ✅ Database persistence with full audit trail
-- ✅ Row-level security (RLS)
-- ✅ Responsive UI on profile page
+**Version**: 1.0  
+**Last Updated**: October 3, 2025  
+**Status**: ✅ Production Ready
 
 ---
 
-## 📚 Documentation
+## 🚀 Quick Start
 
-### 📍 **Main Reference: [Current System State](/docs/current/WALLET-SYSTEM-STATE.md)**
+### New to the System?
 
-**Complete technical documentation including:**
-- Database schema (tables, policies, functions)
-- API endpoints and behavior
-- UI components and user flows
-- Security implementation
-- Testing procedures
+**👉 Start Here**: [MASTER-SETUP-GUIDE.md](./MASTER-SETUP-GUIDE.md)
+
+The Master Setup Guide contains everything you need:
+- Complete setup instructions (10 minutes)
+- Database schema and SQL setup
+- Environment variable configuration
+- API endpoint documentation
+- Testing and verification steps
 - Troubleshooting guide
-- Production deployment status
-
-### 📄 **Database Schema: [CDP-WALLET-SETUP.sql](./CDP-WALLET-SETUP.sql)**
-
-**Production-ready SQL script that creates:**
-- `user_wallets` table - wallet ownership tracking
-- `wallet_transactions` table - complete transaction history
-- Row-level security policies (6 total)
-- Helper functions (3 total)
-- Indexes and constraints
+- Security best practices
 
 ---
 
-## 🚀 Quick Setup
+## 📚 Documentation Structure
 
-### Prerequisites
-- Supabase project with authentication configured
-- Coinbase CDP API credentials
-- Environment variables configured in Vercel
+### 1. **MASTER-SETUP-GUIDE.md** ⭐ PRIMARY GUIDE
 
-### Database Setup (5 minutes)
+Complete end-to-end documentation covering:
+- Prerequisites and requirements
+- Step-by-step setup instructions
+- Database architecture overview
+- API reference
+- Testing procedures
+- Troubleshooting common issues
+- Security guidelines
 
-1. Open [Supabase Dashboard](https://supabase.com/dashboard) → SQL Editor
-2. Click **"+ New query"** (NOT saved snippets)
-3. Copy all contents of `CDP-WALLET-SETUP.sql`
-4. Paste and click **"Run"**
-5. Verify success:
-   ```sql
-   SELECT 
-     'Setup Complete' as status,
-     (SELECT COUNT(*) FROM information_schema.tables 
-      WHERE table_schema = 'public' 
-      AND table_name IN ('user_wallets', 'wallet_transactions')) as tables_created,
-     (SELECT COUNT(*) FROM pg_policies 
-      WHERE schemaname = 'public' 
-      AND tablename IN ('user_wallets', 'wallet_transactions')) as rls_policies;
-   ```
-   Expected: `tables_created: 2, rls_policies: 6`
+**→ Use this for all new deployments and reference**
 
-### System Already Deployed ✅
+### 2. **SUPABASE-FIRST-ARCHITECTURE.md**
 
-The wallet system is **already implemented** in the codebase:
+Deep technical documentation:
+- Architectural principles and design decisions
+- Data flow diagrams for all operations
+- Detailed database schema
+- RLS policy explanations
+- API implementation details
+- Advanced testing strategies
+- Future enhancement roadmap
 
-- **API Routes**: `/app/api/wallet/*` (create, fund, transfer, list)
-- **UI Component**: `/components/profile-wallet-card.tsx`
-- **Integration**: `/app/protected/profile/page.tsx`
-- **Database**: Schema deployed via `CDP-WALLET-SETUP.sql`
+**→ Use this to understand the system deeply**
+
+### 3. **Master SQL Script**
+
+Location: `scripts/database/MASTER-SUPABASE-SETUP.sql`
+
+Single SQL file that creates:
+- ✅ Profiles table with auto-creation
+- ✅ Profile image storage bucket
+- ✅ CDP wallet tables (`user_wallets`, `wallet_transactions`)
+- ✅ 14 RLS policies for security
+- ✅ 5 helper functions
+- ✅ All indexes and constraints
+
+**→ Run once in Supabase SQL Editor to set up database**
 
 ---
 
-## 🗄️ Database Schema Summary
+## ⚡ Quick Reference
 
-### Tables
+### For Setup
 
-**`user_wallets`** - Links users to their wallet addresses
-- Primary key: `id` (UUID)
-- Foreign key: `user_id` → `auth.users`
-- Unique: `wallet_address`
-- RLS: 4 policies (SELECT, INSERT, UPDATE, DELETE)
+```bash
+# 1. Run master SQL script in Supabase
+scripts/database/MASTER-SUPABASE-SETUP.sql
 
-**`wallet_transactions`** - Audit trail of all operations
-- Primary key: `id` (UUID)
-- Foreign keys: `user_id`, `wallet_id`
-- Operation types: `create`, `fund`, `send`, `receive`
-- Token types: `eth`, `usdc`
-- RLS: 2 policies (SELECT, INSERT)
+# 2. Set environment variables in Vercel
+NEXT_PUBLIC_SUPABASE_URL=...
+NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+SUPABASE_SERVICE_ROLE_KEY=...
+CDP_API_KEY_ID=...
+CDP_API_KEY_SECRET=...
+CDP_WALLET_SECRET=...
+NETWORK=base-sepolia
+NEXT_PUBLIC_ENABLE_CDP_WALLETS=true
 
-### Helper Functions
+# 3. Test the system
+node scripts/testing/test-cdp-wallet-operations.js
+```
+
+### For Testing
 
 ```sql
--- Get user's active wallet
-SELECT * FROM get_user_wallet(user_id);
-
--- Get wallet transaction history
-SELECT * FROM get_wallet_transactions(wallet_id, limit);
-
--- Log wallet operation (used by API routes)
-SELECT log_wallet_operation(
-  p_user_id, p_wallet_id, p_operation_type, 
-  p_token_type, p_amount, p_from_address, 
-  p_to_address, p_tx_hash, p_status, p_error_message
-);
-```
-
----
-
-## 🔌 API Endpoints
-
-### `POST /api/wallet/create`
-Creates wallet via CDP and stores in database.
-
-**Request:**
-```json
-{
-  "name": "My Wallet",
-  "type": "custom"
-}
-```
-
-**Response:**
-```json
-{
-  "address": "0x...",
-  "name": "My Wallet",
-  "wallet_id": "uuid",
-  "type": "custom"
-}
-```
-
-### `POST /api/wallet/fund`
-Requests testnet funds from CDP faucet.
-
-**Request:**
-```json
-{
-  "address": "0x...",
-  "token": "eth" // or "usdc"
-}
-```
-
-**Response:**
-```json
-{
-  "transactionHash": "0x...",
-  "status": "success",
-  "token": "ETH",
-  "explorerUrl": "https://sepolia.basescan.org/tx/..."
-}
-```
-
-### `POST /api/wallet/transfer`
-Transfers USDC to another address.
-
-**Request:**
-```json
-{
-  "fromAddress": "0x...",
-  "toAddress": "0x...",
-  "amount": 1.5,
-  "token": "usdc"
-}
-```
-
-**Response:**
-```json
-{
-  "transactionHash": "0x...",
-  "status": "submitted",
-  "explorerUrl": "https://sepolia.basescan.org/tx/..."
-}
-```
-
-### `GET /api/wallet/list`
-Lists user's wallets with live balances.
-
-**Response:**
-```json
-{
-  "wallets": [
-    {
-      "address": "0x...",
-      "name": "My Wallet",
-      "type": "custom",
-      "balances": {
-        "eth": 0.001,
-        "usdc": 10.5
-      },
-      "created_at": "2025-10-02T..."
-    }
-  ]
-}
-```
-
----
-
-## 🔒 Security Features
-
-### Authentication & Authorization
-- All API routes require Supabase authentication
-- Returns 401 if user not logged in
-- Database RLS enforces user-wallet ownership
-- Users can only access their own data
-
-### Data Validation
-- Ethereum address format: `^0x[a-fA-F0-9]{40}$`
-- Network whitelist: `base-sepolia`, `base`, `ethereum-sepolia`
-- Operation types: `create`, `fund`, `send`, `receive`
-- Token types: `eth`, `usdc`
-- Transaction hash format: `^0x[a-fA-F0-9]{64}$`
-
-### Audit Trail
-All operations logged to `wallet_transactions` with:
-- User ID, wallet ID, operation type
-- Token type, amount, addresses
-- Transaction hash, status, error messages
-- Timestamps
-
----
-
-## 🧪 Testing
-
-### Quick Verification
-
-```sql
--- Check tables exist
-SELECT table_name FROM information_schema.tables 
-WHERE table_schema = 'public' 
-AND table_name IN ('user_wallets', 'wallet_transactions');
-
--- Check RLS enabled
-SELECT tablename, rowsecurity FROM pg_tables 
-WHERE schemaname = 'public' 
-AND tablename IN ('user_wallets', 'wallet_transactions');
-
--- Check policies active
-SELECT tablename, COUNT(*) FROM pg_policies 
-WHERE schemaname = 'public' 
-GROUP BY tablename;
-
--- View user wallets
-SELECT * FROM user_wallets ORDER BY created_at DESC;
-
--- View transactions
-SELECT * FROM wallet_transactions ORDER BY created_at DESC LIMIT 10;
-```
-
-### User Flow Test
-
-1. Navigate to `/protected/profile`
-2. Create wallet with custom name
-3. Request testnet ETH
-4. Request testnet USDC
-5. Send USDC to another address
-6. Verify all operations logged in database
-
----
-
-## 🚨 Troubleshooting
-
-### Common Issues
-
-**"Wallet not found or unauthorized"**
-→ Wallet doesn't belong to logged-in user (RLS working correctly)
-
-**"Failed to fund wallet"**
-→ Check CDP rate limits, verify API keys, try again in 60 seconds
-
-**"Insufficient funds"**
-→ Request more testnet funds, ensure ETH balance for gas fees
-
-**Database errors**
-→ Verify SQL schema is deployed, check RLS policies are enabled
-
-### Debug Queries
-
-```sql
--- Check user's wallets
+-- Check wallet exists in database
 SELECT * FROM user_wallets WHERE user_id = auth.uid();
 
--- Check recent transactions
+-- Check transaction history
 SELECT * FROM wallet_transactions 
 WHERE user_id = auth.uid() 
 ORDER BY created_at DESC;
 
--- Verify RLS policies
-SELECT schemaname, tablename, policyname, cmd 
-FROM pg_policies 
-WHERE schemaname = 'public'
-ORDER BY tablename;
+-- System health check
+SELECT 
+  (SELECT COUNT(*) FROM user_wallets) as total_wallets,
+  (SELECT COUNT(*) FROM wallet_transactions) as total_transactions;
 ```
+
+### For Troubleshooting
+
+Common issues and solutions in [MASTER-SETUP-GUIDE.md](./MASTER-SETUP-GUIDE.md#troubleshooting)
+
+---
+
+## 🏗️ Architecture Overview
+
+### The Supabase-First Principle
+
+> **Supabase controls CDP, not the other way around.**
+
+### Data Flow
+
+```
+User Action → Authenticate → Verify Ownership → Execute CDP → Log Transaction → Return Result
+```
+
+### Key Components
+
+1. **Database (Supabase)**
+   - `user_wallets`: Wallet ownership records
+   - `wallet_transactions`: Complete audit trail
+   - RLS policies: User data isolation
+
+2. **Blockchain (CDP)**
+   - Wallet creation
+   - Fund requests (testnet)
+   - Token transfers
+   - Balance queries
+
+3. **API Routes** (`app/api/wallet/`)
+   - `create/`: Create new wallet
+   - `fund/`: Request testnet funds
+   - `transfer/`: Send USDC
+   - `list/`: Get wallets with balances
+
+4. **UI Component**
+   - `components/profile-wallet-card.tsx`
+   - Displays wallet info and balances
+   - Handles fund requests and transfers
+
+---
+
+## 🎯 Features
+
+### Implemented ✅
+
+- Create wallets with custom names
+- Request testnet ETH (Base Sepolia)
+- Request testnet USDC (Base Sepolia)
+- Transfer USDC to any address
+- View live balances (ETH + USDC)
+- Complete transaction history in database
+- Row-level security for all data
+- Automatic transaction logging
+- User-friendly error messages
+
+### Network Support
+
+- **base-sepolia** (testnet) - Recommended for development
+- **base** (mainnet) - Production use only
+- **ethereum-sepolia** (testnet) - Alternative testnet
+
+### Token Support
+
+- **ETH** - Native token for gas fees
+- **USDC** - Stablecoin for transfers
 
 ---
 
 ## 📂 File Structure
 
-### Implementation Files
+### Documentation
+```
+docs/wallet/
+├── README.md                         # This file - quick reference
+├── MASTER-SETUP-GUIDE.md            # Complete setup guide ⭐
+└── SUPABASE-FIRST-ARCHITECTURE.md   # Technical deep dive
+```
+
+### SQL Scripts
+```
+scripts/
+└── MASTER-SUPABASE-SETUP.sql        # All-in-one database setup
+```
+
+### Test Scripts
+```
+scripts/
+├── test-cdp-wallet-operations.js    # E2E wallet flow test
+└── test-supabase-first-flow.js      # Architecture compliance test
+```
+
+### Application Code
 ```
 app/api/wallet/
-├── create/route.ts      # Wallet creation + DB storage
-├── fund/route.ts         # Testnet funding + logging
-├── transfer/route.ts     # USDC transfers + logging
-└── list/route.ts         # List wallets + balances
+├── create/route.ts                  # POST: Create wallet
+├── fund/route.ts                    # POST: Request testnet funds
+├── transfer/route.ts                # POST: Transfer USDC
+└── list/route.ts                    # GET: List wallets + balances
 
-app/protected/profile/page.tsx  # Profile page integration
+components/
+└── profile-wallet-card.tsx          # Wallet UI component
 
-components/profile-wallet-card.tsx  # Wallet UI component
-
-docs/
-├── current/
-│   └── WALLET-SYSTEM-STATE.md  # Complete technical reference
-└── wallet/
-    ├── README.md               # This file
-    └── CDP-WALLET-SETUP.sql    # Database schema
+app/protected/profile/page.tsx       # Profile page with wallet
 ```
 
 ---
 
-## 🎯 Additional Resources
+## 🔐 Security
+
+### Row-Level Security (RLS)
+
+All tables protected:
+- ✅ Users can only see their own wallets
+- ✅ Users can only see their own transactions
+- ✅ All operations verified against auth.users
+
+### Authentication
+
+- ✅ All API routes require authentication
+- ✅ Wallet ownership verified before operations
+- ✅ Service role key never exposed to client
+
+### Best Practices
+
+- Never commit secrets to git
+- Rotate API keys regularly
+- Use testnet for development
+- Monitor transaction logs
+- Set up alerts for failed transactions
+
+---
+
+## 🧪 Testing
+
+### Database Verification
+
+```sql
+-- Verify setup complete
+SELECT 
+  (SELECT COUNT(*) FROM information_schema.tables 
+   WHERE table_name IN ('user_wallets', 'wallet_transactions')) as tables_created,
+  (SELECT COUNT(*) FROM pg_policies 
+   WHERE tablename IN ('user_wallets', 'wallet_transactions')) as rls_policies;
+-- Expected: tables_created = 2, rls_policies = 6
+```
+
+### End-to-End Test
+
+```bash
+# Run complete wallet flow test
+node scripts/testing/test-cdp-wallet-operations.js
+
+# Expected output:
+# ✅ User created
+# ✅ Profile auto-created
+# ✅ User authenticated
+# ✅ Wallet created
+# ✅ Wallet stored in database
+# ✅ Transactions logged
+# ✅ Wallet balances retrieved
+```
+
+### Manual Testing
+
+1. Sign up new user
+2. Navigate to `/protected/profile`
+3. Create wallet
+4. Request ETH → Verify balance updates
+5. Request USDC → Verify balance updates
+6. Check database for wallet and transactions
+
+---
+
+## 📞 Support
 
 ### Documentation
-- **Complete Reference**: [/docs/current/WALLET-SYSTEM-STATE.md](/docs/current/WALLET-SYSTEM-STATE.md)
-- **Database Schema**: [CDP-WALLET-SETUP.sql](./CDP-WALLET-SETUP.sql)
+- **Setup**: [MASTER-SETUP-GUIDE.md](./MASTER-SETUP-GUIDE.md)
+- **Architecture**: [SUPABASE-FIRST-ARCHITECTURE.md](./SUPABASE-FIRST-ARCHITECTURE.md)
+- **Deployment**: `docs/deployment/README.md`
 
-### External Links
-- [Coinbase CDP Docs](https://docs.cdp.coinbase.com/)
+### Debugging
+
+Check these in order:
+1. Environment variables in Vercel
+2. Database tables exist (`user_wallets`, `wallet_transactions`)
+3. RLS policies enabled
+4. CDP credentials valid
+5. Vercel function logs for errors
+6. Supabase database logs
+
+### Common Issues
+
+- **"CDP not configured"**: Check environment variables
+- **"Wallet not found"**: Verify wallet in database
+- **"Rate limit exceeded"**: Wait 60 seconds between faucet requests
+- **"Insufficient funds"**: Request more testnet tokens
+
+See full troubleshooting guide in [MASTER-SETUP-GUIDE.md](./MASTER-SETUP-GUIDE.md#troubleshooting)
+
+---
+
+## 🎯 Success Checklist
+
+- [ ] Master SQL script executed successfully
+- [ ] Environment variables configured in Vercel
+- [ ] Test user can create wallet
+- [ ] Wallet appears on profile page
+- [ ] ETH funding works
+- [ ] USDC funding works
+- [ ] Balances display correctly
+- [ ] Wallet exists in `user_wallets` table
+- [ ] Transactions logged in `wallet_transactions` table
+
+---
+
+## 📈 Monitoring
+
+### Health Check Queries
+
+```sql
+-- Wallets created today
+SELECT COUNT(*) FROM user_wallets 
+WHERE created_at > CURRENT_DATE;
+
+-- Transaction success rate
+SELECT 
+  status,
+  COUNT(*) as count,
+  ROUND(COUNT(*) * 100.0 / SUM(COUNT(*)) OVER (), 2) as percentage
+FROM wallet_transactions
+GROUP BY status;
+
+-- Most active users
+SELECT user_id, COUNT(*) as operations
+FROM wallet_transactions
+GROUP BY user_id
+ORDER BY operations DESC
+LIMIT 10;
+```
+
+---
+
+## 🔗 External Resources
+
+- [Coinbase CDP Documentation](https://docs.cdp.coinbase.com/)
 - [Supabase RLS Guide](https://supabase.com/docs/guides/auth/row-level-security)
-- [Base Sepolia Testnet](https://docs.base.org/docs/network-information#base-testnet-sepolia)
+- [Base Sepolia Testnet Info](https://docs.base.org/docs/network-information#base-testnet-sepolia)
 - [BaseScan Explorer](https://sepolia.basescan.org/)
 
 ---
 
-## ✅ System Status
+## 🚀 What's Next?
 
-**Current Deployment:**
-- ✅ Database schema deployed
-- ✅ RLS policies active
-- ✅ API routes implemented
-- ✅ UI component integrated
-- ✅ Authentication working
-- ✅ Transaction logging active
-- ✅ Production ready
+### For New Users
+1. Read [MASTER-SETUP-GUIDE.md](./MASTER-SETUP-GUIDE.md)
+2. Run master SQL script
+3. Configure environment variables
+4. Test with new user account
 
-**Capabilities:**
-- ✅ Wallet creation
-- ✅ Testnet funding (ETH/USDC)
-- ✅ USDC transfers
-- ✅ Balance queries
-- ✅ Transaction history
-- ✅ Mobile responsive
+### For Existing Deployments
+1. Verify current setup against master guide
+2. Run database verification queries
+3. Test wallet operations
+4. Monitor transaction logs
 
-**Limitations:**
-- Testnet only (Base Sepolia)
-- USDC transfers only (no ETH sends)
-- One wallet per user displayed
-- No transaction history UI (data exists in DB)
+### For Development
+1. Review [SUPABASE-FIRST-ARCHITECTURE.md](./SUPABASE-FIRST-ARCHITECTURE.md)
+2. Understand data flow
+3. Check API implementation in `app/api/wallet/`
+4. Run tests with `test-cdp-wallet-operations.js`
 
 ---
 
-**Version**: 2.0  
-**Status**: Production Ready ✅  
-**Last Updated**: October 2, 2025  
+**Version**: 1.0  
+**Status**: ✅ Production Ready  
+**Last Updated**: October 3, 2025
 
-For detailed technical documentation, see: [/docs/current/WALLET-SYSTEM-STATE.md](/docs/current/WALLET-SYSTEM-STATE.md)
+**Ready to get started?** → [MASTER-SETUP-GUIDE.md](./MASTER-SETUP-GUIDE.md) 🚀

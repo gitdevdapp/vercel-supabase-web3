@@ -379,7 +379,7 @@ runCompleteFlowVerification()
           console.log(`   Error: ${result.error}`);
           
           if (phase === 'schema') {
-            console.log('   Solution: Execute scripts/enhanced-database-setup.sql in Supabase');
+            console.log('   Solution: Execute scripts/database/enhanced-database-setup.sql in Supabase');
           } else if (phase === 'userCreation') {
             console.log('   Solution: Check database trigger and RLS policies');
           } else if (phase === 'profileOperations') {

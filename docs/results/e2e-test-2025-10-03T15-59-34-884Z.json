@@ -1,0 +1,110 @@
+{
+  "timestamp": "2025-10-03T15:59:30.659Z",
+  "tests": [
+    {
+      "name": "Profiles Table Exists",
+      "status": "PASS",
+      "details": "Table accessible",
+      "data": null,
+      "timestamp": "2025-10-03T15:59:30.906Z"
+    },
+    {
+      "name": "User Wallets Table Exists",
+      "status": "PASS",
+      "details": "Table accessible",
+      "data": null,
+      "timestamp": "2025-10-03T15:59:31.126Z"
+    },
+    {
+      "name": "Wallet Transactions Table Exists",
+      "status": "PASS",
+      "details": "Table accessible",
+      "data": null,
+      "timestamp": "2025-10-03T15:59:31.216Z"
+    },
+    {
+      "name": "Profile Images Bucket Exists",
+      "status": "PASS",
+      "details": "Bucket configured",
+      "data": {
+        "public": true,
+        "fileSizeLimit": 2097152
+      },
+      "timestamp": "2025-10-03T15:59:31.374Z"
+    },
+    {
+      "name": "User Signup",
+      "status": "PASS",
+      "details": "User created successfully",
+      "data": {
+        "email": "e2etest1759507171374@mailinator.com",
+        "userId": "5f5000bf-ba4a-43ee-9c9d-4bb4dbc8b336",
+        "confirmationSent": "Yes"
+      },
+      "timestamp": "2025-10-03T15:59:32.098Z"
+    },
+    {
+      "name": "Automatic Profile Creation",
+      "status": "PASS",
+      "details": "Profile created via trigger",
+      "data": {
+        "username": "testuser_1759507171374",
+        "email": "e2etest1759507171374@mailinator.com",
+        "fullName": "E2E Test User",
+        "emailVerified": false,
+        "onboardingCompleted": false
+      },
+      "timestamp": "2025-10-03T15:59:34.275Z"
+    },
+    {
+      "name": "Email Confirmation Flow",
+      "status": "INFO",
+      "details": "Email confirmation email should be sent",
+      "data": {
+        "confirmationSentAt": "2025-10-03T15:59:31.71538352Z"
+      },
+      "timestamp": "2025-10-03T15:59:34.276Z"
+    },
+    {
+      "name": "CDP SDK Initialization",
+      "status": "PASS",
+      "details": "CDP configured successfully",
+      "data": null,
+      "timestamp": "2025-10-03T15:59:34.277Z"
+    },
+    {
+      "name": "CDP Wallet Integration",
+      "status": "FAIL",
+      "details": "request body has an error: doesn't match schema: must be a valid name with alphanumeric characters and hyphens, between 2 and 36 characters long (e.g., my-account-name)",
+      "data": null,
+      "timestamp": "2025-10-03T15:59:34.720Z"
+    },
+    {
+      "name": "Testnet Faucet Funding",
+      "status": "FAIL",
+      "details": "No wallet data available",
+      "data": null,
+      "timestamp": "2025-10-03T15:59:34.721Z"
+    },
+    {
+      "name": "Send Transaction",
+      "status": "FAIL",
+      "details": "No wallet data available",
+      "data": null,
+      "timestamp": "2025-10-03T15:59:34.721Z"
+    },
+    {
+      "name": "User Authentication for RLS Test",
+      "status": "FAIL",
+      "details": "Email not confirmed",
+      "data": null,
+      "timestamp": "2025-10-03T15:59:34.883Z"
+    }
+  ],
+  "summary": {
+    "total": 12,
+    "passed": 7,
+    "failed": 4,
+    "warnings": 0
+  }
+}

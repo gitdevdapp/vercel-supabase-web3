@@ -7,7 +7,7 @@
  * It reads the SQL file and executes it against the production database.
  * 
  * Usage:
- *   node scripts/setup-production-database.js
+ *   node scripts/production/setup-production-database.js
  * 
  * Requirements:
  *   - Service role key (will be prompted securely)

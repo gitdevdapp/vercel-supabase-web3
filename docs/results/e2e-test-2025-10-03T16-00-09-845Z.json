@@ -1,0 +1,160 @@
+{
+  "timestamp": "2025-10-03T16:00:03.934Z",
+  "tests": [
+    {
+      "name": "Profiles Table Exists",
+      "status": "PASS",
+      "details": "Table accessible",
+      "data": null,
+      "timestamp": "2025-10-03T16:00:04.201Z"
+    },
+    {
+      "name": "User Wallets Table Exists",
+      "status": "PASS",
+      "details": "Table accessible",
+      "data": null,
+      "timestamp": "2025-10-03T16:00:04.287Z"
+    },
+    {
+      "name": "Wallet Transactions Table Exists",
+      "status": "PASS",
+      "details": "Table accessible",
+      "data": null,
+      "timestamp": "2025-10-03T16:00:04.400Z"
+    },
+    {
+      "name": "Profile Images Bucket Exists",
+      "status": "PASS",
+      "details": "Bucket configured",
+      "data": {
+        "public": true,
+        "fileSizeLimit": 2097152
+      },
+      "timestamp": "2025-10-03T16:00:05.133Z"
+    },
+    {
+      "name": "User Signup",
+      "status": "PASS",
+      "details": "User created successfully",
+      "data": {
+        "email": "e2etest1759507205133@mailinator.com",
+        "userId": "6059071b-cb22-4164-97c8-ac11ee2d1489",
+        "confirmationSent": "Yes"
+      },
+      "timestamp": "2025-10-03T16:00:05.807Z"
+    },
+    {
+      "name": "Automatic Profile Creation",
+      "status": "PASS",
+      "details": "Profile created via trigger",
+      "data": {
+        "username": "testuser_1759507205133",
+        "email": "e2etest1759507205133@mailinator.com",
+        "fullName": "E2E Test User",
+        "emailVerified": false,
+        "onboardingCompleted": false
+      },
+      "timestamp": "2025-10-03T16:00:07.891Z"
+    },
+    {
+      "name": "Email Confirmation Flow",
+      "status": "INFO",
+      "details": "Email confirmation email should be sent",
+      "data": {
+        "confirmationSentAt": "2025-10-03T16:00:05.449995973Z"
+      },
+      "timestamp": "2025-10-03T16:00:07.891Z"
+    },
+    {
+      "name": "CDP SDK Initialization",
+      "status": "PASS",
+      "details": "CDP configured successfully",
+      "data": null,
+      "timestamp": "2025-10-03T16:00:07.893Z"
+    },
+    {
+      "name": "CDP Wallet Creation",
+      "status": "PASS",
+      "details": "Wallet created on CDP",
+      "data": {
+        "address": "0xCa9F21875178Ba938D37d92Ab1c084566861871b",
+        "network": "base-sepolia"
+      },
+      "timestamp": "2025-10-03T16:00:08.470Z"
+    },
+    {
+      "name": "Wallet Storage in Supabase",
+      "status": "PASS",
+      "details": "Wallet stored successfully",
+      "data": {
+        "walletId": "cb281b75-8d47-4260-a5c7-db9f5540de54",
+        "address": "0xCa9F21875178Ba938D37d92Ab1c084566861871b",
+        "network": "base-sepolia"
+      },
+      "timestamp": "2025-10-03T16:00:08.587Z"
+    },
+    {
+      "name": "Transaction Logging",
+      "status": "PASS",
+      "details": "Wallet creation logged",
+      "data": {
+        "transactionId": "48a04bcf-afd4-451d-8efe-2a2111eee96c",
+        "operationType": "create",
+        "status": "success"
+      },
+      "timestamp": "2025-10-03T16:00:08.798Z"
+    },
+    {
+      "name": "Faucet Request",
+      "status": "PASS",
+      "details": "Faucet transaction initiated",
+      "data": {
+        "transactionHash": "0xcf5649a043b984e7ec073003bfaa0253c00076ff996ee3ad506d7b37bd9acacf"
+      },
+      "timestamp": "2025-10-03T16:00:09.075Z"
+    },
+    {
+      "name": "Faucet Transaction Completion",
+      "status": "PASS",
+      "details": "Transaction confirmed on blockchain",
+      "data": null,
+      "timestamp": "2025-10-03T16:00:09.075Z"
+    },
+    {
+      "name": "Wallet Balance After Funding",
+      "status": "WARN",
+      "details": "Balance not reflected yet (may need more time)",
+      "data": null,
+      "timestamp": "2025-10-03T16:00:09.322Z"
+    },
+    {
+      "name": "Faucet Transaction Logging",
+      "status": "PASS",
+      "details": "Funding logged in database",
+      "data": {
+        "transactionId": "9919ba44-c9fa-4dc8-8572-6fe145774448"
+      },
+      "timestamp": "2025-10-03T16:00:09.424Z"
+    },
+    {
+      "name": "Send Transaction",
+      "status": "WARN",
+      "details": "Insufficient balance to send transaction - skipping",
+      "data": null,
+      "timestamp": "2025-10-03T16:00:09.592Z"
+    },
+    {
+      "name": "User Authentication for RLS Test",
+      "status": "FAIL",
+      "details": "Email not confirmed",
+      "data": null,
+      "timestamp": "2025-10-03T16:00:09.844Z"
+    }
+  ],
+  "summary": {
+    "total": 17,
+    "passed": 13,
+    "failed": 1,
+    "warnings": 2
+  }
+}

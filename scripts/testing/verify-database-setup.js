@@ -8,7 +8,7 @@
  *
  * Usage:
  * 1. Set up your .env.local file with Supabase credentials
- * 2. Run: node scripts/verify-database-setup.js
+ * 2. Run: node scripts/testing/verify-database-setup.js
  */
 
 require('dotenv').config({ path: '.env.local' });
@@ -134,7 +134,7 @@ function showSetupInstructions() {
   console.log('3. Click "New query"');
   console.log('');
   console.log('4. Copy and paste the contents of:');
-  console.log('   scripts/enhanced-database-setup.sql');
+  console.log('   scripts/database/enhanced-database-setup.sql');
   console.log('');
   console.log('5. Click "Run" to execute the SQL');
   console.log('');

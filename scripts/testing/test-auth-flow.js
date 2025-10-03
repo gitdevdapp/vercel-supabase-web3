@@ -64,7 +64,7 @@ async function testAuthFlow() {
 
     if (schemaError) {
       console.error('❌ Database schema error:', schemaError.message);
-      console.log('💡 Run: Execute scripts/enhanced-database-setup.sql in Supabase');
+      console.log('💡 Run: Execute scripts/database/enhanced-database-setup.sql in Supabase');
       return false;
     }
     console.log('✅ Database schema is properly configured');

@@ -1,0 +1,191 @@
+{
+  "timestamp": "2025-10-03T15:40:07.262Z",
+  "database": "https://[REDACTED-PROJECT-ID].supabase.co",
+  "sections": [
+    {
+      "title": "Database Statistics",
+      "items": [
+        {
+          "name": "Total Profiles",
+          "value": 24
+        },
+        {
+          "name": "Total Wallets",
+          "value": 3
+        },
+        {
+          "name": "Total Transactions",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "title": "Table Schema",
+      "items": [
+        {
+          "name": "profiles",
+          "status": "PASS",
+          "columns": 14
+        },
+        {
+          "name": "user_wallets",
+          "status": "PASS"
+        },
+        {
+          "name": "wallet_transactions",
+          "status": "PASS"
+        }
+      ]
+    },
+    {
+      "title": "Storage Buckets",
+      "items": [
+        {
+          "name": "profile-images",
+          "status": "PASS",
+          "public": true,
+          "fileSizeLimit": 2097152,
+          "allowedMimeTypes": [
+            "image/png",
+            "image/jpeg",
+            "image/jpg",
+            "image/gif",
+            "image/webp"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "RLS Policies",
+      "items": [
+        {
+          "table": "profiles",
+          "status": "assumed_enabled",
+          "expectedPolicies": 4
+        },
+        {
+          "table": "user_wallets",
+          "status": "assumed_enabled",
+          "expectedPolicies": 4
+        },
+        {
+          "table": "wallet_transactions",
+          "status": "assumed_enabled",
+          "expectedPolicies": 2
+        },
+        {
+          "table": "storage.objects",
+          "status": "assumed_enabled",
+          "expectedPolicies": 4
+        }
+      ]
+    },
+    {
+      "title": "Database Functions",
+      "items": [
+        {
+          "name": "handle_new_user",
+          "status": "ASSUMED",
+          "reason": "Trigger function"
+        },
+        {
+          "name": "get_user_wallet",
+          "status": "PASS"
+        },
+        {
+          "name": "get_wallet_transactions",
+          "status": "PASS"
+        },
+        {
+          "name": "log_wallet_operation",
+          "status": "UNKNOWN",
+          "error": "Could not find the function public.log_wallet_operation(p_user_id) in the schema cache"
+        },
+        {
+          "name": "update_wallet_timestamp",
+          "status": "ASSUMED",
+          "reason": "Trigger function"
+        }
+      ]
+    },
+    {
+      "title": "Constraints and Indexes",
+      "items": [
+        {
+          "constraints": 11,
+          "details": [
+            {
+              "name": "username_length",
+              "table": "profiles",
+              "description": "Username 2-50 characters"
+            },
+            {
+              "name": "username_format",
+              "table": "profiles",
+              "description": "Alphanumeric with ._- allowed"
+            },
+            {
+              "name": "bio_length",
+              "table": "profiles",
+              "description": "Bio max 300 characters"
+            },
+            {
+              "name": "about_me_length",
+              "table": "profiles",
+              "description": "About me max 2000 characters"
+            },
+            {
+              "name": "email_format",
+              "table": "profiles",
+              "description": "Valid email format"
+            },
+            {
+              "name": "valid_ethereum_address",
+              "table": "user_wallets",
+              "description": "0x + 40 hex characters"
+            },
+            {
+              "name": "valid_network",
+              "table": "user_wallets",
+              "description": "base-sepolia, base, ethereum-sepolia, ethereum"
+            },
+            {
+              "name": "valid_operation",
+              "table": "wallet_transactions",
+              "description": "create, fund, send, receive"
+            },
+            {
+              "name": "valid_token",
+              "table": "wallet_transactions",
+              "description": "eth, usdc"
+            },
+            {
+              "name": "valid_status",
+              "table": "wallet_transactions",
+              "description": "pending, success, failed"
+            },
+            {
+              "name": "valid_tx_hash",
+              "table": "wallet_transactions",
+              "description": "0x + 64 hex characters"
+            }
+          ]
+        },
+        {
+          "indexes": 9,
+          "details": [
+            "idx_profiles_username",
+            "idx_profiles_email",
+            "idx_profiles_public",
+            "idx_user_wallets_user_id",
+            "idx_user_wallets_address",
+            "idx_user_wallets_active",
+            "idx_wallet_tx_user_id",
+            "idx_wallet_tx_wallet_id",
+            "idx_wallet_tx_status"
+          ]
+        }
+      ]
+    }
+  ]
+}

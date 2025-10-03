@@ -1,0 +1,103 @@
+{
+  "timestamp": "2025-10-03T15:46:36.616Z",
+  "tests": [
+    {
+      "name": "Profiles Table Exists",
+      "status": "PASS",
+      "details": "Table accessible",
+      "data": null,
+      "timestamp": "2025-10-03T15:46:36.892Z"
+    },
+    {
+      "name": "User Wallets Table Exists",
+      "status": "PASS",
+      "details": "Table accessible",
+      "data": null,
+      "timestamp": "2025-10-03T15:46:37.089Z"
+    },
+    {
+      "name": "Wallet Transactions Table Exists",
+      "status": "PASS",
+      "details": "Table accessible",
+      "data": null,
+      "timestamp": "2025-10-03T15:46:37.164Z"
+    },
+    {
+      "name": "Profile Images Bucket Exists",
+      "status": "PASS",
+      "details": "Bucket configured",
+      "data": {
+        "public": true,
+        "fileSizeLimit": 2097152
+      },
+      "timestamp": "2025-10-03T15:46:37.380Z"
+    },
+    {
+      "name": "User Signup",
+      "status": "PASS",
+      "details": "User created successfully",
+      "data": {
+        "email": "e2etest1759506397380@mailinator.com",
+        "userId": "698e201a-244d-4458-bdc3-88f603245194",
+        "confirmationSent": "Yes"
+      },
+      "timestamp": "2025-10-03T15:46:38.142Z"
+    },
+    {
+      "name": "Automatic Profile Creation",
+      "status": "PASS",
+      "details": "Profile created via trigger",
+      "data": {
+        "username": "testuser_1759506397380",
+        "email": "e2etest1759506397380@mailinator.com",
+        "fullName": "E2E Test User",
+        "emailVerified": false,
+        "onboardingCompleted": false
+      },
+      "timestamp": "2025-10-03T15:46:40.300Z"
+    },
+    {
+      "name": "Email Confirmation Flow",
+      "status": "INFO",
+      "details": "Email confirmation email should be sent",
+      "data": {
+        "confirmationSentAt": "2025-10-03T15:46:37.769151332Z"
+      },
+      "timestamp": "2025-10-03T15:46:40.301Z"
+    },
+    {
+      "name": "CDP Wallet Integration",
+      "status": "FAIL",
+      "details": "\n\nMissing required CDP Secret API Key configuration parameters.\n\nYou can set them as environment variables:\n\nCDP_API_KEY_ID=your-api-key-id\nCDP_API_KEY_SECRET=your-api-key-secret\n\nYou can also pass them as options to the constructor:\n\nconst cdp = new CdpClient({\n  apiKeyId: \"your-api-key-id\",\n  apiKeySecret: \"your-api-key-secret\",\n});\n\nIf you're performing write operations, make sure to also set your wallet secret:\n\nCDP_WALLET_SECRET=your-wallet-secret\n\nThis is also available as an option to the constructor:\n\nconst cdp = new CdpClient({\n  apiKeyId: \"your-api-key-id\",\n  apiKeySecret: \"your-api-key-secret\",\n  walletSecret: \"your-wallet-secret\",\n});\n\nFor more information, see: https://github.com/coinbase/cdp-sdk/blob/main/typescript/README.md#api-keys.\n",
+      "data": null,
+      "timestamp": "2025-10-03T15:46:40.301Z"
+    },
+    {
+      "name": "Testnet Faucet Funding",
+      "status": "FAIL",
+      "details": "No wallet data available",
+      "data": null,
+      "timestamp": "2025-10-03T15:46:40.301Z"
+    },
+    {
+      "name": "Send Transaction",
+      "status": "FAIL",
+      "details": "No wallet data available",
+      "data": null,
+      "timestamp": "2025-10-03T15:46:40.301Z"
+    },
+    {
+      "name": "User Authentication for RLS Test",
+      "status": "FAIL",
+      "details": "Email not confirmed",
+      "data": null,
+      "timestamp": "2025-10-03T15:46:40.538Z"
+    }
+  ],
+  "summary": {
+    "total": 11,
+    "passed": 6,
+    "failed": 4,
+    "warnings": 0
+  }
+}
