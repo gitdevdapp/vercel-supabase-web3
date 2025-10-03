@@ -39,7 +39,7 @@ export default async function Home() {
         <GlobalNav 
           showAuthButton={true} 
           showGuideButton={true} 
-          authButtonComponent={!hasEnvVars ? <EnvVarWarning /> : <AuthButton />}
+          authButtonComponent={!hasEnvVars ? <EnvVarWarning /> : <AuthButton showGuideButton={true} />}
         />
         {/* Homepage Content */}
         <div className="w-full">

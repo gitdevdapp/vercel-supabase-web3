@@ -25,7 +25,7 @@ export default async function GuidePage() {
         <GlobalNav 
           showHomeButton={true} 
           showAuthButton={true} 
-          authButtonComponent={!hasEnvVars ? <EnvVarWarning /> : <AuthButton />}
+          authButtonComponent={!hasEnvVars ? <EnvVarWarning /> : <AuthButton showGuideButton={true} />}
         />
         <GuideLockedView />
       </>
@@ -38,7 +38,7 @@ export default async function GuidePage() {
       <GlobalNav 
         showHomeButton={true} 
         showAuthButton={true} 
-        authButtonComponent={!hasEnvVars ? <EnvVarWarning /> : <AuthButton />} 
+        authButtonComponent={!hasEnvVars ? <EnvVarWarning /> : <AuthButton showGuideButton={true} />} 
       />
       <ProgressNav />
       
