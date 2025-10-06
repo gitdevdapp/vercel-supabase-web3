@@ -22,7 +22,7 @@ interface ThemeSwitcherProps {
 const ThemeSwitcher = ({ 
   size = "sm", 
   variant = "ghost", 
-  align = "start",
+  align = "end",
   className = ""
 }: ThemeSwitcherProps) => {
   const [mounted, setMounted] = useState(false);
@@ -40,7 +40,7 @@ const ThemeSwitcher = ({
   const ICON_SIZE = 16;
 
   return (
-    <DropdownMenu>
+    <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
         <Button variant={variant} size={size} className={className}>
           {theme === "light" ? (
@@ -58,7 +58,7 @@ const ThemeSwitcher = ({
           )}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-content" align={align}>
+      <DropdownMenuContent className="w-content min-w-[140px]" align={align} sideOffset={8}>
         <DropdownMenuRadioGroup
           value={theme}
           onValueChange={(e) => setTheme(e)}

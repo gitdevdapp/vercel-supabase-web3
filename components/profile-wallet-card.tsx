@@ -456,15 +456,15 @@ export function ProfileWalletCard() {
         {/* Error and Success Messages */}
         {error && (
           <div className="p-4 text-sm text-destructive-foreground bg-destructive/10 border border-destructive/20 rounded-md flex items-start gap-2">
-            <span className="text-lg">⚠️</span>
-            <span>{error}</span>
+            <span className="text-lg flex-shrink-0">⚠️</span>
+            <span className="wrap-anywhere break-words">{error}</span>
           </div>
         )}
         
         {success && (
           <div className="p-4 text-sm text-green-700 bg-green-50 border border-green-200 rounded-md dark:text-green-400 dark:bg-green-950 dark:border-green-800 flex items-start gap-2">
-            <span className="text-lg">✓</span>
-            <span>{success}</span>
+            <span className="text-lg flex-shrink-0">✓</span>
+            <span className="wrap-anywhere break-words">{success}</span>
           </div>
         )}
       </CardContent>

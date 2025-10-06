@@ -62,9 +62,23 @@
   * {
     @apply border-border;
   }
+  
+  html {
+    /* Prevent horizontal overflow on all pages */
+    overflow-x: hidden;
+    /* Smooth scrolling for better UX */
+    scroll-behavior: smooth;
+  }
+  
   body {
     @apply bg-background text-foreground;
     -webkit-overflow-scrolling: touch;
+    /* Prevent horizontal overflow */
+    overflow-x: hidden;
+    /* Prevent viewport zoom on double-tap (mobile) */
+    touch-action: manipulation;
+    /* Minimum width to prevent layout collapse */
+    min-width: 320px;
   }
   
   /* Ensure sticky positioning works on all mobile browsers */
@@ -145,5 +159,48 @@
   
   .container-padding {
     @apply p-3 md:p-5;
+  }
+
+  /* URL and Long Text Wrapping Utilities */
+  .wrap-anywhere {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    hyphens: auto;
+  }
+  
+  .wrap-url {
+    /* For long URLs and addresses - break at any point if needed */
+    overflow-wrap: break-word;
+    word-break: break-all;
+    /* Preserve font for code/addresses */
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+  
+  .wrap-address {
+    /* Specifically for wallet addresses and hashes */
+    overflow-wrap: break-word;
+    word-break: break-all;
+    max-width: 100%;
+    display: inline-block;
+  }
+
+  /* Mobile Dropdown Fix - Prevent viewport shifts */
+  @media (max-width: 768px) {
+    /* Ensure dropdowns don't cause horizontal scroll */
+    [data-radix-popper-content-wrapper] {
+      max-width: calc(100vw - 2rem) !important;
+    }
+    
+    /* Fix for Radix UI Portal elements on mobile */
+    [data-radix-portal] {
+      position: fixed;
+      z-index: 9999;
+    }
+  }
+  
+  /* Ensure main content doesn't overflow on mobile */
+  main {
+    overflow-x: hidden;
+    width: 100%;
   }
 }
