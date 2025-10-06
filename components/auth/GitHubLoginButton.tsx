@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { GitHubIcon } from './icons/ChainIcons';
 import { createClient } from '@/lib/supabase/client';
+import { getRedirectURL } from '@/lib/auth-helpers';
 
 interface GitHubLoginButtonProps {
   className?: string;
@@ -27,10 +28,19 @@ export function GitHubLoginButton({
     setError(null);
 
     try {
+      // Use getRedirectURL for consistency across environments
+      const callbackUrl = getRedirectURL(`/auth/callback?next=${encodeURIComponent(redirectTo)}`);
+      
+      console.log('GitHub OAuth initiated:', {
+        callbackUrl,
+        finalDestination: redirectTo,
+        timestamp: new Date().toISOString()
+      });
+
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'github',
         options: {
-          redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(redirectTo)}`
+          redirectTo: callbackUrl
         }
       });
 
