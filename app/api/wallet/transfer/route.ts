@@ -17,9 +17,6 @@ function getCdpClient(): CdpClient {
   });
 }
 
-// USDC contract details for Base Sepolia
-const USDC_CONTRACT_ADDRESS = "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238";
-
 const transferSchema = z.object({
   fromAddress: z.string().regex(/^0x[a-fA-F0-9]{40}$/, "Invalid from address format"),
   toAddress: z.string().regex(/^0x[a-fA-F0-9]{40}$/, "Invalid to address format"),
@@ -88,21 +85,24 @@ export async function POST(request: NextRequest) {
     
     // Get sender account from CDP using the wallet name
     // This ensures we retrieve the correct account that was created with getOrCreateAccount
-    const senderAccount = await cdp.evm.getOrCreateAccount({ 
+    const account = await cdp.evm.getOrCreateAccount({ 
       name: wallet.wallet_name 
     });
     
     // Verify the retrieved account matches the expected address
-    if (senderAccount.address.toLowerCase() !== fromAddress.toLowerCase()) {
+    if (account.address.toLowerCase() !== fromAddress.toLowerCase()) {
       return NextResponse.json(
         { 
           error: "Wallet address mismatch", 
           expected: fromAddress,
-          retrieved: senderAccount.address 
+          retrieved: account.address 
         },
         { status: 500 }
       );
     }
+
+    // Scope the account to the network to get transfer capabilities
+    const senderAccount = await account.useNetwork(network);
 
     // ============================================================================
     // HANDLE ETH TRANSFERS (Native Currency)
@@ -110,9 +110,9 @@ export async function POST(request: NextRequest) {
     if (token === 'eth') {
       try {
         // Check ETH balance first
-        const balances = await senderAccount.listTokenBalances({ network });
+        const balances = await senderAccount.listTokenBalances({});
         const ethBalance = balances?.balances?.find(
-          (balance: { token?: { symbol?: string }; amount?: string }) => 
+          (balance) => 
             balance?.token?.symbol === "ETH"
         );
         
@@ -135,17 +135,12 @@ export async function POST(request: NextRequest) {
           );
         }
         
-        // Create native ETH transfer transaction
-        // Convert ETH to wei (18 decimals)
-        const weiAmount = BigInt(Math.floor(amount * 1e18));
-        
-        const transaction = await senderAccount.createTransaction({
-          to: toAddress,
-          value: weiAmount.toString(),
-          network
+        // Use CDP's built-in transfer method
+        const result = await senderAccount.transfer({
+          token: 'eth',
+          amount: BigInt(Math.floor(amount * 1e18)), // Convert ETH to wei
+          to: toAddress as `0x${string}`
         });
-        
-        const result = await transaction.submit();
         
         // 📝 Log successful transfer
         await supabase.rpc('log_wallet_operation', {
@@ -207,12 +202,10 @@ export async function POST(request: NextRequest) {
     // ============================================================================
     // Check sender balance first
     try {
-      const balances = await senderAccount.listTokenBalances({
-        network,
-      });
+      const balances = await senderAccount.listTokenBalances({});
 
       const usdcBalance = balances?.balances?.find(
-        (balance: { token?: { symbol?: string }; amount?: string }) => balance?.token?.symbol === "USDC"
+        (balance) => balance?.token?.symbol === "USDC"
       );
 
       const currentBalance = usdcBalance?.amount ? Number(usdcBalance.amount) / 1000000 : 0;
@@ -234,19 +227,13 @@ export async function POST(request: NextRequest) {
 
     // Execute USDC transfer using CDP's native transfer method
     try {
-      // Convert amount to microUSDC (6 decimals)
-      const transferAmountMicro = Math.floor(amount * 1000000).toString();
-      
-      // Use CDP's built-in token transfer
-      const transaction = await senderAccount.createTransaction({
-        to: toAddress,
-        value: "0", // No ETH value
-        data: `0xa9059cbb${toAddress.slice(2).padStart(64, '0')}${BigInt(transferAmountMicro).toString(16).padStart(64, '0')}`,
-        contractAddress: USDC_CONTRACT_ADDRESS,
-        network
+      // Use CDP's built-in transfer method
+      // USDC has 6 decimals, so convert amount to atomic units
+      const result = await senderAccount.transfer({
+        token: 'usdc',
+        amount: BigInt(Math.floor(amount * 1000000)), // Convert USDC to microUSDC
+        to: toAddress as `0x${string}`
       });
-
-      const result = await transaction.submit();
       
       // 📝 Log successful transfer
       await supabase.rpc('log_wallet_operation', {
@@ -274,52 +261,7 @@ export async function POST(request: NextRequest) {
 
     } catch (transferError) {
       console.error("Transfer execution failed:", transferError);
-      
-      // Try alternative method using raw transaction
-      try {
-        const transferAmountMicro = Math.floor(amount * 1000000);
-        
-        // ERC20 transfer function signature: transfer(address,uint256)
-        const transferData = `0xa9059cbb${toAddress.slice(2).padStart(64, '0')}${transferAmountMicro.toString(16).padStart(64, '0')}`;
-        
-        const transaction = await senderAccount.createTransaction({
-          to: USDC_CONTRACT_ADDRESS,
-          value: "0",
-          data: transferData,
-          network
-        });
-
-        const result = await transaction.submit();
-        
-        // 📝 Log successful transfer (alternative method)
-        await supabase.rpc('log_wallet_operation', {
-          p_user_id: user.id,
-          p_wallet_id: wallet.id,
-          p_operation_type: 'send',
-          p_token_type: token,
-          p_amount: amount,
-          p_from_address: fromAddress,
-          p_to_address: toAddress,
-          p_tx_hash: result.transactionHash,
-          p_status: 'success'
-        });
-        
-        return NextResponse.json({
-          transactionHash: result.transactionHash,
-          status: 'submitted',
-          fromAddress,
-          toAddress,
-          amount,
-          token: token.toUpperCase(),
-          explorerUrl: `https://sepolia.basescan.org/tx/${result.transactionHash}`,
-          timestamp: new Date().toISOString(),
-          method: 'raw_transaction'
-        });
-
-      } catch (alternativeError) {
-        console.error("Alternative transfer method also failed:", alternativeError);
-        throw transferError; // Throw original error
-      }
+      throw transferError;
     }
 
   } catch (error) {
