@@ -185,3 +185,4 @@ To prevent this from happening again:
 
 The header navigation is now FIXED and consistent across all pages. ✅
 
+

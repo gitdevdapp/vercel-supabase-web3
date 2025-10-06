@@ -69,3 +69,4 @@ See `/docs/styling/WALLET-PAGE-HEADER-BUG-FIX.md` for:
 
 The header now works correctly on the wallet page. All navigation patterns are consistent across the entire app.
 
+
