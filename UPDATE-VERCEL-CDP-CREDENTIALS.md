@@ -2,7 +2,7 @@
 
 ## 🔍 The Problem
 
-Vercel production has OLD CDP credentials (`[REDACTED-OLD-CDP-KEY]...`) instead of the NEW working ones (`69aac710...`).
+Vercel production has OLD CDP credentials (`b8e00d85...`) instead of the NEW working ones (`69aac710...`).
 
 ## Possible Causes
 
@@ -32,14 +32,14 @@ https://vercel.com/[your-team]/[your-project]/settings/environment-variables
 **Find and UPDATE these variables for PRODUCTION:**
 
 1. **CDP_API_KEY_ID**
-   - Current (OLD): `[REDACTED-OLD-CDP-KEY]-xxxx-xxxx-xxxx-xxxxxxxxxxxx`
-   - Update to (NEW): `[REDACTED-CDP-API-KEY-ID]`
+   - Current (OLD): `b8e00d85-xxxx-xxxx-xxxx-xxxxxxxxxxxx`
+   - Update to (NEW): `69aac710-e242-4844-aa2b-d4056e61606b`
 
 2. **CDP_API_KEY_SECRET**
-   - Update to: `[REDACTED-CDP-API-SECRET]`
+   - Update to: `HH0FhrZ5CdAoFpWRLdZQPR9kqsUYTbp4hVcqhb6FZErZ973X4ldxKxKJ4wN2hAM8jXxNmARty44+DMnMdFQQqA==`
 
 3. **CDP_WALLET_SECRET**
-   - Update to: `[REDACTED-CDP-WALLET-SECRET]`
+   - Update to: `MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgXVAKZtzzIhOF3PobWNswbBPROzWKBfmj7jCglV2I58ehRANCAASYGh3+MAdVpgIRt+ZzT1b75mpkwHg+dHmPa3j8oC45uT+eSqgHgXL5rhkSUykpAQkRzdXQsms7pc98D7msqS2y`
 
 **IMPORTANT:** Make sure you're editing the **Production** environment, not Preview/Development!
 
@@ -106,11 +106,11 @@ Keep `vercel-env-variables.txt` as the source of truth:
 ## Quick Reference: Working Credentials
 
 ```
-CDP_API_KEY_ID=[REDACTED-CDP-API-KEY-ID]
-CDP_API_KEY_SECRET=[REDACTED-CDP-API-SECRET]
-CDP_WALLET_SECRET=[REDACTED-CDP-WALLET-SECRET]
+CDP_API_KEY_ID=69aac710-e242-4844-aa2b-d4056e61606b
+CDP_API_KEY_SECRET=HH0FhrZ5CdAoFpWRLdZQPR9kqsUYTbp4hVcqhb6FZErZ973X4ldxKxKJ4wN2hAM8jXxNmARty44+DMnMdFQQqA==
+CDP_WALLET_SECRET=MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgXVAKZtzzIhOF3PobWNswbBPROzWKBfmj7jCglV2I58ehRANCAASYGh3+MAdVpgIRt+ZzT1b75mpkwHg+dHmPa3j8oC45uT+eSqgHgXL5rhkSUykpAQkRzdXQsms7pc98D7msqS2y
 ```
 
-These credentials were tested and successfully created wallet: `[REDACTED-WALLET-ADDRESS]`
+These credentials were tested and successfully created wallet: `0x84d998c9e08855e61003C57B1aaE528E63cd704d`
 
 

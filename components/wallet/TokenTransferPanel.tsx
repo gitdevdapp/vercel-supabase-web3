@@ -1,0 +1,338 @@
+"use client";
+
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { ExternalLink, CheckCircle, XCircle, AlertCircle, Send } from "lucide-react";
+
+interface TokenTransferPanelProps {
+  fromWallet: string;
+  availableBalances: {
+    usdc: number;
+    eth: number;
+  };
+  onTransferComplete: () => void;
+}
+
+interface TransferResult {
+  transactionHash: string;
+  status: string;
+  explorerUrl?: string;
+  fromAddress: string;
+  toAddress: string;
+  amount: number;
+  token: string;
+}
+
+export function TokenTransferPanel({ fromWallet, availableBalances, onTransferComplete }: TokenTransferPanelProps) {
+  const [selectedToken, setSelectedToken] = useState<'usdc' | 'eth'>('usdc');
+  const [toAddress, setToAddress] = useState('');
+  const [amount, setAmount] = useState('');
+  const [isTransferring, setIsTransferring] = useState(false);
+  const [transferResult, setTransferResult] = useState<TransferResult | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  // 401 error handler
+  const handleApiError = (response: Response) => {
+    if (response.status === 401) {
+      window.location.href = '/sign-in?redirectTo=/wallet';
+      return true;
+    }
+    return false;
+  };
+
+  const formatAddress = (address: string) => {
+    return `${address.slice(0, 6)}...${address.slice(-4)}`;
+  };
+
+  const isValidAddress = (address: string) => {
+    return /^0x[a-fA-F0-9]{40}$/.test(address);
+  };
+
+  const getCurrentBalance = () => {
+    return selectedToken === 'usdc' ? availableBalances.usdc : availableBalances.eth;
+  };
+
+  const isValidAmount = (amountStr: string) => {
+    const num = parseFloat(amountStr);
+    const currentBalance = getCurrentBalance();
+    return !isNaN(num) && num > 0 && num <= currentBalance;
+  };
+
+  const canTransfer = () => {
+    return (
+      isValidAddress(toAddress) &&
+      isValidAmount(amount) &&
+      toAddress.toLowerCase() !== fromWallet.toLowerCase() &&
+      !isTransferring
+    );
+  };
+
+  const handleTransfer = async () => {
+    if (!canTransfer()) return;
+
+    try {
+      setIsTransferring(true);
+      setError(null);
+      setTransferResult(null);
+
+      const response = await fetch('/api/wallet/transfer', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fromAddress: fromWallet,
+          toAddress,
+          amount: parseFloat(amount),
+          token: selectedToken
+        })
+      });
+
+      if (handleApiError(response)) {
+        return;
+      }
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Transfer failed');
+      }
+      
+      const result = await response.json();
+      setTransferResult(result);
+      
+      // Clear form
+      setToAddress('');
+      setAmount('');
+      
+      // Refresh balances
+      setTimeout(() => {
+        onTransferComplete();
+      }, 2000);
+      
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Transfer failed';
+      setError(errorMessage);
+    } finally {
+      setIsTransferring(false);
+    }
+  };
+
+  const handleMaxAmount = () => {
+    const currentBalance = getCurrentBalance();
+    
+    if (selectedToken === 'eth') {
+      // Reserve 0.0001 ETH for gas fees
+      const maxTransfer = Math.max(0, currentBalance - 0.0001);
+      setAmount(maxTransfer.toFixed(6));
+    } else {
+      // For USDC, leave small buffer
+      const maxTransfer = Math.max(0, currentBalance - 0.01);
+      setAmount(maxTransfer.toFixed(2));
+    }
+  };
+
+  const currentBalance = getCurrentBalance();
+  const decimals = selectedToken === 'eth' ? 6 : 4;
+
+  return (
+    <div className="p-6 bg-card text-card-foreground rounded-lg border">
+      <div className="flex items-center gap-2 mb-4">
+        <Send className="h-5 w-5 text-primary" />
+        <h3 className="text-lg font-semibold">Send Tokens</h3>
+      </div>
+      
+      <div className="space-y-4">
+        {/* Token Selection */}
+        <div>
+          <label className="block text-sm font-medium text-foreground mb-2">
+            Select Token
+          </label>
+          <Select value={selectedToken} onValueChange={(value: 'usdc' | 'eth') => {
+            setSelectedToken(value);
+            setAmount(''); // Clear amount when switching tokens
+          }}>
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="usdc">
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center text-xs font-bold text-blue-600">
+                    $
+                  </div>
+                  <div>
+                    <div className="font-medium">USDC</div>
+                    <div className="text-xs text-muted-foreground">
+                      {availableBalances.usdc.toFixed(4)} available
+                    </div>
+                  </div>
+                </div>
+              </SelectItem>
+              <SelectItem value="eth">
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 rounded-full bg-purple-100 flex items-center justify-center text-xs font-bold text-purple-600">
+                    Ξ
+                  </div>
+                  <div>
+                    <div className="font-medium">ETH</div>
+                    <div className="text-xs text-muted-foreground">
+                      {availableBalances.eth.toFixed(6)} available
+                    </div>
+                  </div>
+                </div>
+              </SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        {/* From Wallet Info */}
+        <div>
+          <label className="block text-sm font-medium text-foreground mb-2">From Wallet</label>
+          <div className="flex items-center justify-between p-3 bg-muted rounded-lg border">
+            <code className="text-sm font-mono text-foreground">
+              {formatAddress(fromWallet)}
+            </code>
+            <div className="text-sm text-muted-foreground">
+              <strong>{currentBalance.toFixed(decimals)} {selectedToken.toUpperCase()}</strong> available
+            </div>
+          </div>
+        </div>
+
+        {/* To Address Input */}
+        <div>
+          <label className="block text-sm font-medium text-foreground mb-2">
+            Recipient Address
+          </label>
+          <Input
+            type="text"
+            placeholder="0x..."
+            value={toAddress}
+            onChange={(e) => setToAddress(e.target.value)}
+            className={`font-mono ${
+              toAddress && !isValidAddress(toAddress) 
+                ? 'border-red-300 focus:border-red-500 focus:ring-red-500' 
+                : ''
+            }`}
+          />
+          {toAddress && !isValidAddress(toAddress) && (
+            <p className="text-sm text-red-600 mt-1">Please enter a valid Ethereum address</p>
+          )}
+          {toAddress.toLowerCase() === fromWallet.toLowerCase() && (
+            <p className="text-sm text-yellow-600 mt-1">Cannot send to the same wallet</p>
+          )}
+        </div>
+
+        {/* Amount Input */}
+        <div>
+          <div className="flex items-center justify-between mb-2">
+            <label className="block text-sm font-medium text-foreground">
+              Amount ({selectedToken.toUpperCase()})
+            </label>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={handleMaxAmount}
+              className="text-xs h-auto p-1 text-primary hover:text-primary/80"
+            >
+              Max
+            </Button>
+          </div>
+          <Input
+            type="number"
+            step={selectedToken === 'eth' ? '0.000001' : '0.01'}
+            min="0"
+            max={currentBalance}
+            placeholder="0.00"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            className={`${
+              amount && !isValidAmount(amount)
+                ? 'border-red-300 focus:border-red-500 focus:ring-red-500'
+                : ''
+            }`}
+          />
+          {amount && parseFloat(amount) > currentBalance && (
+            <p className="text-sm text-red-600 mt-1">
+              Insufficient balance. Available: {currentBalance.toFixed(decimals)} {selectedToken.toUpperCase()}
+            </p>
+          )}
+          {amount && parseFloat(amount) <= 0 && (
+            <p className="text-sm text-red-600 mt-1">Amount must be greater than 0</p>
+          )}
+        </div>
+
+        {/* Error Display */}
+        {error && (
+          <div className="flex items-center gap-2 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700">
+            <XCircle className="h-4 w-4 flex-shrink-0" />
+            <span className="text-sm">{error}</span>
+          </div>
+        )}
+
+        {/* Success Display */}
+        {transferResult && (
+          <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
+            <div className="flex items-center gap-2 mb-2">
+              <CheckCircle className="h-5 w-5 text-green-600" />
+              <span className="font-medium text-green-800">Transfer Submitted!</span>
+            </div>
+            <div className="text-sm text-green-700 space-y-1">
+              <p>Sent <strong>{transferResult.amount} {transferResult.token}</strong> to {formatAddress(transferResult.toAddress)}</p>
+              <p className="font-mono text-xs">TX: {transferResult.transactionHash.slice(0, 16)}...</p>
+            </div>
+            {transferResult.explorerUrl && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => window.open(transferResult.explorerUrl, '_blank')}
+                className="mt-3 w-full text-green-700 hover:text-green-800 hover:bg-green-100"
+              >
+                <ExternalLink className="mr-2 h-4 w-4" />
+                View Transaction on Base Sepolia Explorer
+              </Button>
+            )}
+          </div>
+        )}
+
+        {/* Transfer Button */}
+        <Button
+          onClick={handleTransfer}
+          disabled={!canTransfer()}
+          className="w-full"
+          size="lg"
+        >
+          {isTransferring ? (
+            <>
+              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+              Sending...
+            </>
+          ) : (
+            <>
+              <Send className="mr-2 h-4 w-4" />
+              Send {amount || '0'} {selectedToken.toUpperCase()}
+            </>
+          )}
+        </Button>
+
+        {/* Info */}
+        <div className="text-xs text-muted-foreground space-y-1 bg-muted p-3 rounded-lg">
+          <div className="flex items-center gap-1">
+            <AlertCircle className="h-3 w-3" />
+            <span>
+              <strong>Gas Fees:</strong> {selectedToken === 'eth' 
+                ? 'Deducted from transfer amount (0.0001 ETH reserved)' 
+                : 'Small ETH amount required for transaction'}
+            </span>
+          </div>
+          <p><strong>Network:</strong> Base Sepolia Testnet</p>
+          <p><strong>Confirmation:</strong> Usually takes 10-30 seconds</p>
+          <p><strong>Irreversible:</strong> Double-check recipient address</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Export USDCTransferPanel as an alias for backwards compatibility
+export { TokenTransferPanel as USDCTransferPanel };
+

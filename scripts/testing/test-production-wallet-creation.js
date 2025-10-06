@@ -13,8 +13,8 @@ const { createClient } = require('@supabase/supabase-js');
 const fetch = require('node-fetch');
 
 const PRODUCTION_URL = 'https://vercel-supabase-web3.vercel.app';
-const SUPABASE_URL = 'https://[REDACTED-PROJECT-ID].supabase.co';
-const SUPABASE_ANON_KEY = '[REDACTED-SUPABASE-ANON-KEY]';
+const SUPABASE_URL = 'https://mjrnzgunexmopvnamggw.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1qcm56Z3VuZXhtb3B2bmFtZ2d3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc2ODg4MjcsImV4cCI6MjA3MzI2NDgyN30.7Hwn5kaExgI7HJKc7HmaTqJSybcGwX1izB1EdkNbcu8';
 
 function generateTestEmail() {
   const timestamp = Date.now();

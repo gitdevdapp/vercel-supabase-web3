@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/button";
 import { CreateWalletForm } from "./CreateWalletForm";
 import { WalletCard } from "./WalletCard";
 import { FundingPanel } from "./FundingPanel";
-import { USDCTransferPanel } from "./USDCTransferPanel";
+import { TokenTransferPanel } from "./TokenTransferPanel";
+import { TransactionHistory } from "./TransactionHistory";
 import { Loader2 } from "lucide-react";
 import { 
   filterActiveWallets, 
@@ -18,6 +19,7 @@ import { Archive } from "lucide-react";
 import Link from "next/link";
 
 interface Wallet {
+  id?: string;
   name: string;
   address: string;
   balances?: {
@@ -42,7 +44,7 @@ export function WalletManager() {
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [selectedWallet, setSelectedWallet] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<'fund' | 'transfer'>('fund');
+  const [activeTab, setActiveTab] = useState<'fund' | 'transfer' | 'history'>('fund');
   const [archiveStats, setArchiveStats] = useState({ totalArchived: 0, archivedThisWeek: 0, archivedThisMonth: 0 });
 
   // 401 error handler
@@ -307,7 +309,17 @@ export function WalletManager() {
                     : 'text-muted-foreground hover:text-foreground hover:bg-muted'
                 }`}
               >
-                Send USDC
+                Transfer
+              </button>
+              <button
+                onClick={() => setActiveTab('history')}
+                className={`px-6 py-3 text-sm font-medium transition-colors ${
+                  activeTab === 'history'
+                    ? 'border-b-2 border-primary text-primary bg-primary/10'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                }`}
+              >
+                History
               </button>
             </div>
           </div>
@@ -320,15 +332,35 @@ export function WalletManager() {
             />
           )}
           
-          {activeTab === 'transfer' && (
-            <USDCTransferPanel
-              fromWallet={selectedWallet}
-              availableBalance={
-                wallets.find(w => w.address === selectedWallet)?.balances?.usdc || 0
-              }
-              onTransferComplete={handleWalletFunded}
-            />
-          )}
+          {activeTab === 'transfer' && (() => {
+            const selectedWalletData = wallets.find(w => w.address === selectedWallet);
+            return (
+              <TokenTransferPanel
+                fromWallet={selectedWallet}
+                availableBalances={{
+                  usdc: selectedWalletData?.balances?.usdc || 0,
+                  eth: selectedWalletData?.balances?.eth || 0
+                }}
+                onTransferComplete={handleWalletFunded}
+              />
+            );
+          })()}
+          
+          {activeTab === 'history' && (() => {
+            const selectedWalletData = wallets.find(w => w.address === selectedWallet);
+            if (!selectedWalletData?.id) {
+              return (
+                <div className="p-6 bg-card text-card-foreground rounded-lg border">
+                  <p className="text-muted-foreground">Unable to load transaction history. Wallet ID not found.</p>
+                </div>
+              );
+            }
+            return (
+              <TransactionHistory
+                walletId={selectedWalletData.id}
+              />
+            );
+          })()}
         </div>
       )}
     </div>

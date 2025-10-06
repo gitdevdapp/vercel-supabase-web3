@@ -6,9 +6,9 @@
 const { CdpClient } = require('@coinbase/cdp-sdk');
 
 // Use credentials from vercel-env-variables.txt
-const CDP_API_KEY_ID = '[REDACTED-CDP-API-KEY-ID]';
-const CDP_API_KEY_SECRET = '[REDACTED-CDP-API-SECRET]';
-const CDP_WALLET_SECRET = '[REDACTED-CDP-WALLET-SECRET]';
+const CDP_API_KEY_ID = '69aac710-e242-4844-aa2b-d4056e61606b';
+const CDP_API_KEY_SECRET = 'HH0FhrZ5CdAoFpWRLdZQPR9kqsUYTbp4hVcqhb6FZErZ973X4ldxKxKJ4wN2hAM8jXxNmARty44+DMnMdFQQqA==';
+const CDP_WALLET_SECRET = 'MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgXVAKZtzzIhOF3PobWNswbBPROzWKBfmj7jCglV2I58ehRANCAASYGh3+MAdVpgIRt+ZzT1b75mpkwHg+dHmPa3j8oC45uT+eSqgHgXL5rhkSUykpAQkRzdXQsms7pc98D7msqS2y';
 
 async function testCdpCredentials() {
   console.log('🔍 Testing CDP Credentials...\n');

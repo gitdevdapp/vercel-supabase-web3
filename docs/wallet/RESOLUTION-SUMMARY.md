@@ -44,7 +44,7 @@ $ node test-cdp-credentials.js
 ✅ Wallet created successfully!
 
 📋 Wallet Details:
-   Address: [REDACTED-WALLET-ADDRESS]
+   Address: 0x84d998c9e08855e61003C57B1aaE528E63cd704d
    Name: TestWallet-1759510067027
 ```
 
@@ -87,9 +87,9 @@ Make sure these environment variables are set in Vercel Dashboard:
 
 ```bash
 # Required CDP Variables
-CDP_API_KEY_ID=[REDACTED-CDP-API-KEY-ID]
-CDP_API_KEY_SECRET=[REDACTED-CDP-API-SECRET]
-CDP_WALLET_SECRET=[REDACTED-CDP-WALLET-SECRET]
+CDP_API_KEY_ID=69aac710-e242-4844-aa2b-d4056e61606b
+CDP_API_KEY_SECRET=HH0FhrZ5CdAoFpWRLdZQPR9kqsUYTbp4hVcqhb6FZErZ973X4ldxKxKJ4wN2hAM8jXxNmARty44+DMnMdFQQqA==
+CDP_WALLET_SECRET=MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgXVAKZtzzIhOF3PobWNswbBPROzWKBfmj7jCglV2I58ehRANCAASYGh3+MAdVpgIRt+ZzT1b75mpkwHg+dHmPa3j8oC45uT+eSqgHgXL5rhkSUykpAQkRzdXQsms7pc98D7msqS2y
 
 # Network Configuration
 NETWORK=base-sepolia

@@ -13,7 +13,7 @@
  * 5. Transaction sending
  * 
  * Uses credentials from: vercel-env-variables.txt
- * Database: [REDACTED-PROJECT-ID].supabase.co
+ * Database: mjrnzgunexmopvnamggw.supabase.co
  */
 
 const { createClient } = require('@supabase/supabase-js');
@@ -28,7 +28,7 @@ const { CdpClient } = require('@coinbase/cdp-sdk');
 
 require('dotenv').config({ path: '.env.local' });
 
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://[REDACTED-PROJECT-ID].supabase.co';
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://mjrnzgunexmopvnamggw.supabase.co';
 const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY;
 const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 

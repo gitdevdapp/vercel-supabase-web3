@@ -93,7 +93,7 @@ Test suite structure validated:
 
 1. **Go to Supabase Dashboard**:
    - Navigate to: https://supabase.com/dashboard
-   - Select your project: `[REDACTED-PROJECT-ID]`
+   - Select your project: `mjrnzgunexmopvnamggw`
 
 2. **Reset Service Role Key**:
    - Go to Settings → API
@@ -147,7 +147,7 @@ After rotating the key:
 1. **Test Old Key is Disabled**:
    ```bash
    # Try to connect with old key - should fail
-   curl -X POST https://[REDACTED-PROJECT-ID].supabase.co/rest/v1/profiles \
+   curl -X POST https://mjrnzgunexmopvnamggw.supabase.co/rest/v1/profiles \
      -H "apikey: OLD_SERVICE_ROLE_KEY" \
      -H "Authorization: Bearer OLD_SERVICE_ROLE_KEY"
    ```

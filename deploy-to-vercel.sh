@@ -32,19 +32,19 @@ set_env_var() {
     echo "  ⚠️  $key might already be set (that's OK)"
 }
 
-# Supabase Production ([REDACTED-PROJECT-ID])
+# Supabase Production (mjrnzgunexmopvnamggw)
 echo ""
 echo "📦 Supabase Configuration..."
-set_env_var "NEXT_PUBLIC_SUPABASE_URL" "https://[REDACTED-PROJECT-ID].supabase.co"
-set_env_var "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY" "[REDACTED-SUPABASE-ANON-KEY]"
-set_env_var "SUPABASE_SERVICE_ROLE_KEY" "[REDACTED-SUPABASE-SERVICE-KEY]"
+set_env_var "NEXT_PUBLIC_SUPABASE_URL" "https://mjrnzgunexmopvnamggw.supabase.co"
+set_env_var "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY" "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1qcm56Z3VuZXhtb3B2bmFtZ2d3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc2ODg4MjcsImV4cCI6MjA3MzI2NDgyN30.7Hwn5kaExgI7HJKc7HmaTqJSybcGwX1izB1EdkNbcu8"
+set_env_var "SUPABASE_SERVICE_ROLE_KEY" "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1qcm56Z3VuZXhtb3B2bmFtZ2d3Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1NzY4ODgyNywiZXhwIjoyMDczMjY0ODI3fQ.jYseGYwWnhXwEf_Yqs3O8AdTTNWVBMH94LE2qVi1DrA"
 
 # CDP Credentials (TESTED AND WORKING ✅)
 echo ""
 echo "🔐 CDP Configuration..."
-set_env_var "CDP_API_KEY_ID" "[REDACTED-CDP-API-KEY-ID]"
-set_env_var "CDP_API_KEY_SECRET" "[REDACTED-CDP-API-SECRET]"
-set_env_var "CDP_WALLET_SECRET" "[REDACTED-CDP-WALLET-SECRET]"
+set_env_var "CDP_API_KEY_ID" "69aac710-e242-4844-aa2b-d4056e61606b"
+set_env_var "CDP_API_KEY_SECRET" "HH0FhrZ5CdAoFpWRLdZQPR9kqsUYTbp4hVcqhb6FZErZ973X4ldxKxKJ4wN2hAM8jXxNmARty44+DMnMdFQQqA=="
+set_env_var "CDP_WALLET_SECRET" "MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgXVAKZtzzIhOF3PobWNswbBPROzWKBfmj7jCglV2I58ehRANCAASYGh3+MAdVpgIRt+ZzT1b75mpkwHg+dHmPa3j8oC45uT+eSqgHgXL5rhkSUykpAQkRzdXQsms7pc98D7msqS2y"
 
 # Network & Feature Flags
 echo ""

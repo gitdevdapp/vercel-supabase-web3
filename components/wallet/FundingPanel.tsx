@@ -38,47 +38,55 @@ export function FundingPanel({ walletAddress, onFunded }: FundingPanelProps) {
     return false;
   };
 
-  const pollBalanceUpdate = async (expectedAmount: number): Promise<boolean> => {
-    const maxAttempts = 12; // 60 seconds total
-    let attempts = 0;
+  const pollBalanceUpdate = async (
+    previousBalance: number,
+    expectedIncrease: number,
+    tokenType: 'usdc' | 'eth'
+  ): Promise<boolean> => {
+    const maxAttempts = 18; // 90 seconds total
+    const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
     
-    const poll = async (): Promise<boolean> => {
-      attempts++;
-      setLoadingMessage(`⏳ Checking for balance update... (${attempts}/${maxAttempts})`);
+    for (let attempts = 0; attempts < maxAttempts; attempts++) {
+      setLoadingMessage(`⏳ Checking for balance update... (${attempts + 1}/${maxAttempts})`);
       
       try {
-        const response = await fetch(`/api/wallet/balance?address=${walletAddress}`);
+        const response = await fetch(`/api/wallet/balance?address=${walletAddress}&t=${Date.now()}`);
         const data = await response.json();
         
-        if (data.usdc >= expectedAmount) {
+        // Get current balance for the specific token
+        const currentBalance = tokenType === 'usdc' ? data.usdc : data.eth;
+        
+        // Check if balance increased by at least 95% of expected (tolerance for rounding)
+        const minimumExpectedBalance = previousBalance + (expectedIncrease * 0.95);
+        const actualIncrease = currentBalance - previousBalance;
+        
+        if (currentBalance >= minimumExpectedBalance) {
           setLoadingMessage(null);
-          setSuccessMessage(`✅ Balance updated! Received ${data.usdc.toFixed(4)} USDC`);
+          setSuccessMessage(
+            `✅ Balance updated! Received ${actualIncrease.toFixed(tokenType === 'eth' ? 6 : 4)} ${tokenType.toUpperCase()}`
+          );
           onFunded();
           return true;
         }
         
-        if (attempts < maxAttempts) {
-          setTimeout(() => poll(), 5000); // Check every 5 seconds
-          return false;
-        } else {
-          setLoadingMessage(null);
-          setWarningMessage(`⚠️ Transaction successful but balance not updated yet. This can take up to 5 minutes on testnet.`);
-          return false;
+        // Wait before next attempt (except on last attempt)
+        if (attempts < maxAttempts - 1) {
+          await delay(5000);
         }
       } catch (error) {
         console.warn("Balance polling failed:", error);
-        if (attempts < maxAttempts) {
-          setTimeout(() => poll(), 5000);
-          return false;
-        } else {
-          setLoadingMessage(null);
-          setWarningMessage(`⚠️ Could not verify balance update. Please refresh manually.`);
-          return false;
+        if (attempts < maxAttempts - 1) {
+          await delay(5000);
         }
       }
-    };
+    }
     
-    return poll();
+    // All attempts exhausted
+    setLoadingMessage(null);
+    setWarningMessage(
+      `⚠️ Transaction successful but balance not updated yet. This can take up to 5 minutes on testnet.`
+    );
+    return false;
   };
 
   const handleFundWallet = async () => {
@@ -88,6 +96,13 @@ export function FundingPanel({ walletAddress, onFunded }: FundingPanelProps) {
       setSuccessMessage(null);
       setLoadingMessage("🔄 Requesting funds from faucet...");
       setWarningMessage(null);
+
+      // Get current balance BEFORE funding
+      const preBalanceResponse = await fetch(`/api/wallet/balance?address=${walletAddress}&t=${Date.now()}`);
+      const preBalanceData = await preBalanceResponse.json();
+      const previousBalance = selectedToken === "usdc" 
+        ? (preBalanceData.usdc || 0)
+        : (preBalanceData.eth || 0);
 
       const response = await fetch("/api/wallet/fund", {
         method: "POST",
@@ -113,7 +128,7 @@ export function FundingPanel({ walletAddress, onFunded }: FundingPanelProps) {
       
       // Determine amount based on token type
       const amount = selectedToken === "usdc" ? "1.0 USDC" : "0.001 ETH";
-      const expectedBalance = selectedToken === "usdc" ? 1.0 : 0.001;
+      const expectedIncrease = selectedToken === "usdc" ? 1.0 : 0.001;
       
       // Add transaction to recent transactions
       const newTransaction: FundingTransaction = {
@@ -132,10 +147,10 @@ export function FundingPanel({ walletAddress, onFunded }: FundingPanelProps) {
       if (result.status === "success") {
         setLoadingMessage("✅ Transaction confirmed! Checking balance update...");
         
-        // Start polling for balance update
+        // Start polling for balance update (wait 5 seconds for blockchain propagation)
         setTimeout(() => {
-          pollBalanceUpdate(expectedBalance);
-        }, 2000); // Wait 2 seconds before starting to poll
+          pollBalanceUpdate(previousBalance, expectedIncrease, selectedToken);
+        }, 5000);
       }
       
     } catch (err) {

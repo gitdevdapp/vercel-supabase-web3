@@ -6,8 +6,8 @@
 
 const { createClient } = require('@supabase/supabase-js');
 
-const SUPABASE_URL = 'https://[REDACTED-PROJECT-ID].supabase.co';
-const SERVICE_ROLE_KEY = '[REDACTED-SUPABASE-SERVICE-KEY]';
+const SUPABASE_URL = 'https://mjrnzgunexmopvnamggw.supabase.co';
+const SERVICE_ROLE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1qcm56Z3VuZXhtb3B2bmFtZ2d3Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1NzY4ODgyNywiZXhwIjoyMDczMjY0ODI3fQ.jYseGYwWnhXwEf_Yqs3O8AdTTNWVBMH94LE2qVi1DrA';
 
 async function verifySupabase() {
   console.log('🔍 Verifying Supabase Configuration...\n');

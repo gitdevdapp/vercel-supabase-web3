@@ -24,7 +24,7 @@ const transferSchema = z.object({
   fromAddress: z.string().regex(/^0x[a-fA-F0-9]{40}$/, "Invalid from address format"),
   toAddress: z.string().regex(/^0x[a-fA-F0-9]{40}$/, "Invalid to address format"),
   amount: z.number().positive("Amount must be positive"),
-  token: z.enum(["usdc"], { errorMap: () => ({ message: "Only USDC transfers supported" }) })
+  token: z.enum(["usdc", "eth"], { errorMap: () => ({ message: "Token must be 'usdc' or 'eth'" }) })
 });
 
 export async function POST(request: NextRequest) {
@@ -101,6 +101,107 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // ============================================================================
+    // HANDLE ETH TRANSFERS (Native Currency)
+    // ============================================================================
+    if (token === 'eth') {
+      try {
+        // Check ETH balance first
+        const balances = await senderAccount.listTokenBalances({ network });
+        const ethBalance = balances?.balances?.find(
+          (balance: { token?: { symbol?: string }; amount?: string }) => 
+            balance?.token?.symbol === "ETH"
+        );
+        
+        const currentBalance = ethBalance?.amount ? Number(ethBalance.amount) : 0;
+        
+        // Reserve ETH for gas fees (0.0001 ETH minimum)
+        const minReservedForGas = 0.0001;
+        const maxTransferable = currentBalance - minReservedForGas;
+        
+        if (currentBalance < amount + minReservedForGas) {
+          return NextResponse.json(
+            { 
+              error: "Insufficient ETH balance (including gas reserve)", 
+              available: Math.max(0, maxTransferable),
+              requested: amount,
+              gasReserve: minReservedForGas,
+              currentBalance
+            },
+            { status: 400 }
+          );
+        }
+        
+        // Create native ETH transfer transaction
+        // Convert ETH to wei (18 decimals)
+        const weiAmount = BigInt(Math.floor(amount * 1e18));
+        
+        const transaction = await senderAccount.createTransaction({
+          to: toAddress,
+          value: weiAmount.toString(),
+          network
+        });
+        
+        const result = await transaction.submit();
+        
+        // 📝 Log successful transfer
+        await supabase.rpc('log_wallet_operation', {
+          p_user_id: user.id,
+          p_wallet_id: wallet.id,
+          p_operation_type: 'send',
+          p_token_type: 'eth',
+          p_amount: amount,
+          p_from_address: fromAddress,
+          p_to_address: toAddress,
+          p_tx_hash: result.transactionHash,
+          p_status: 'success'
+        });
+        
+        return NextResponse.json({
+          transactionHash: result.transactionHash,
+          status: 'submitted',
+          fromAddress,
+          toAddress,
+          amount,
+          token: 'ETH',
+          explorerUrl: `https://sepolia.basescan.org/tx/${result.transactionHash}`,
+          timestamp: new Date().toISOString()
+        });
+        
+      } catch (transferError) {
+        console.error("ETH transfer failed:", transferError);
+        
+        // Log failed transfer
+        try {
+          await supabase.rpc('log_wallet_operation', {
+            p_user_id: user.id,
+            p_wallet_id: wallet.id,
+            p_operation_type: 'send',
+            p_token_type: 'eth',
+            p_amount: amount,
+            p_from_address: fromAddress,
+            p_to_address: toAddress,
+            p_tx_hash: null,
+            p_status: 'failed',
+            p_error_message: transferError instanceof Error ? transferError.message : 'Unknown error'
+          });
+        } catch (logError) {
+          console.error("Failed to log error:", logError);
+        }
+        
+        return NextResponse.json(
+          { 
+            error: "ETH transfer failed", 
+            details: transferError instanceof Error ? transferError.message : "Unknown error"
+          },
+          { status: 500 }
+        );
+      }
+    }
+
+    // ============================================================================
+    // HANDLE USDC TRANSFERS (ERC-20 Token)
+    // ============================================================================
     // Check sender balance first
     try {
       const balances = await senderAccount.listTokenBalances({

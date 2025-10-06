@@ -1,7 +1,7 @@
 # 🔬 Complete Production Verification Summary - MJR Supabase Instance
 
 **Date Range:** October 3, 2025
-**Database:** [REDACTED-PROJECT-ID].supabase.co
+**Database:** mjrnzgunexmopvnamggw.supabase.co
 **Status:** ✅ **PRODUCTION READY** | 🎯 **76.5% E2E TEST SUCCESS**
 
 ---
@@ -325,7 +325,7 @@ This document summarizes the comprehensive production verification performed on 
 
 ### Test Environment
 
-- **Supabase Instance:** [REDACTED-PROJECT-ID].supabase.co
+- **Supabase Instance:** mjrnzgunexmopvnamggw.supabase.co
 - **Network:** base-sepolia (testnet)
 - **Email Provider:** Mailinator (disposable testing emails)
 - **CDP Credentials:** ✅ Valid and functional

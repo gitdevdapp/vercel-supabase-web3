@@ -19,7 +19,7 @@ const { createClient } = require('@supabase/supabase-js');
 // Load from .env.local or set manually before running
 require('dotenv').config({ path: '.env.local' });
 
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://[REDACTED-PROJECT-ID].supabase.co';
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://mjrnzgunexmopvnamggw.supabase.co';
 const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 if (!SUPABASE_SERVICE_KEY) {

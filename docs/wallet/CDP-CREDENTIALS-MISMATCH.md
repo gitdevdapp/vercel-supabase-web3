@@ -11,16 +11,16 @@
 ```
 CDP_API_KEY_ID starts with: 69aac710...
 ```
-Successfully created wallet: `[REDACTED-WALLET-ADDRESS]`
+Successfully created wallet: `0x84d998c9e08855e61003C57B1aaE528E63cd704d`
 
 ### Vercel Production Credentials (Current ❌)
 ```json
 {
-  "api_key_id_preview": "[REDACTED-OLD-CDP-KEY]",
+  "api_key_id_preview": "b8e00d85",
   "cdp_configured": true
 }
 ```
-API Key ID starts with: `[REDACTED-OLD-CDP-KEY]...` (DIFFERENT!)
+API Key ID starts with: `b8e00d85...` (DIFFERENT!)
 
 ---
 
@@ -69,8 +69,8 @@ Make sure you're looking at **Production** environment variables, not Preview/De
 **Find and EDIT (don't delete and re-add):**
 
 1. `CDP_API_KEY_ID`
-   - Change from: `[REDACTED-OLD-CDP-KEY]-...` (old)
-   - Change to: `[REDACTED-CDP-API-KEY-ID]` (new)
+   - Change from: `b8e00d85-...` (old)
+   - Change to: `69aac710-e242-4844-aa2b-d4056e61606b` (new)
 
 2. `CDP_API_KEY_SECRET`
    - Update to working value from `vercel-env-variables.txt`
@@ -147,7 +147,7 @@ This creates an audit trail and is repeatable.
 
 ## 📊 Credential History
 
-### Old Credentials ([REDACTED-OLD-CDP-KEY]...)
+### Old Credentials (b8e00d85...)
 - Status: ❌ Not working (401 errors)
 - Last seen: October 3, 2025 in Vercel production
 - Origin: Unknown (possibly from 2 weeks ago)
@@ -171,6 +171,6 @@ This creates an audit trail and is repeatable.
 
 ---
 
-**Summary**: The working credentials (69aac710...) need to be set in Vercel production. The old credentials ([REDACTED-OLD-CDP-KEY]...) somehow got restored and need to be replaced.
+**Summary**: The working credentials (69aac710...) need to be set in Vercel production. The old credentials (b8e00d85...) somehow got restored and need to be replaced.
 
 
