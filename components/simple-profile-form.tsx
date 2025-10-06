@@ -4,11 +4,11 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Avatar } from "@/components/ui/avatar";
 import { type Profile } from "@/lib/profile";
 import { createClient } from "@/lib/supabase/client";
-import { Camera, Mail, User, FileText } from "lucide-react";
+import { Camera, FileText, ChevronDown, ChevronUp } from "lucide-react";
 import { ProfileImageUploader } from "@/components/profile-image-uploader";
 
 interface SimpleProfileFormProps {
@@ -88,27 +88,46 @@ export function SimpleProfileForm({ profile, userEmail }: SimpleProfileFormProps
 
   return (
     <Card className="w-full max-w-3xl mx-auto shadow-lg">
-      <CardHeader className="space-y-1 pb-6">
-        <div className="flex flex-col md:flex-row md:items-center gap-6">
-          <div className="flex justify-center md:justify-start">
-            <Avatar 
-              src={profilePicture || profile.profile_picture || profile.avatar_url}
-              alt={profile.username || userEmail}
-              fallbackText={profile.username || userEmail}
-              size="lg"
-              className="ring-4 ring-background shadow-xl"
-            />
-          </div>
-          <div className="text-center md:text-left flex-1">
-            <CardTitle className="text-2xl md:text-3xl">My Profile</CardTitle>
-            <CardDescription className="text-base mt-1">
-              Welcome! Tell us about yourself.
-            </CardDescription>
+      <CardContent className="pt-6 space-y-4">
+        {/* Compact Header - Always Visible */}
+        <div className="flex items-center gap-4">
+          <Avatar 
+            src={profilePicture || profile.profile_picture || profile.avatar_url}
+            alt={profile.username || userEmail}
+            fallbackText={profile.username || userEmail}
+            size="md"
+            className="ring-2 ring-background shadow-lg flex-shrink-0"
+          />
+          <div className="flex-1 min-w-0">
+            <h2 className="font-semibold text-lg truncate">
+              {profile.username || 'User'}
+            </h2>
+            <p className="text-sm text-muted-foreground truncate">
+              {userEmail}
+            </p>
           </div>
         </div>
-      </CardHeader>
 
-      <CardContent className="space-y-6">
+        {/* Edit Profile Button - Toggles Expansion */}
+        <Button 
+          onClick={() => setIsEditing(!isEditing)}
+          className="w-full"
+          variant={isEditing ? "outline" : "default"}
+        >
+          {isEditing ? (
+            <>
+              Collapse <ChevronUp className="ml-2 w-4 h-4" />
+            </>
+          ) : (
+            <>
+              Edit Profile <ChevronDown className="ml-2 w-4 h-4" />
+            </>
+          )}
+        </Button>
+
+        {/* Expandable Content - Only shows when editing */}
+        {isEditing && (
+          <div className="space-y-6 pt-2 border-t">
         {/* Profile Picture Upload Section */}
         {showUploader ? (
           <div className="p-4 rounded-lg border bg-card">
@@ -159,32 +178,6 @@ export function SimpleProfileForm({ profile, userEmail }: SimpleProfileFormProps
           </div>
         )}
 
-        {/* Email Section */}
-        <div className="space-y-3">
-          <div className="flex items-center gap-2">
-            <Mail className="w-4 h-4 text-muted-foreground" />
-            <Label htmlFor="email" className="text-sm font-medium">
-              Email
-            </Label>
-          </div>
-          <div className="p-3 rounded-md border bg-muted text-sm">
-            {userEmail}
-          </div>
-        </div>
-
-        {/* Username Section */}
-        <div className="space-y-3">
-          <div className="flex items-center gap-2">
-            <User className="w-4 h-4 text-muted-foreground" />
-            <Label htmlFor="username" className="text-sm font-medium">
-              Username
-            </Label>
-          </div>
-          <div className="p-3 rounded-md border bg-muted text-sm">
-            {profile.username || 'Not set'}
-          </div>
-        </div>
-
         {/* About Me Section */}
         <div className="space-y-3">
           <div className="flex items-center gap-2">
@@ -193,33 +186,27 @@ export function SimpleProfileForm({ profile, userEmail }: SimpleProfileFormProps
               About Me
             </Label>
           </div>
-          {isEditing ? (
-            <div className="space-y-2">
-              <textarea
-                id="about_me"
-                value={aboutMe}
-                onChange={(e) => setAboutMe(e.target.value)}
-                placeholder="Tell us about yourself..."
-                maxLength={1000}
-                rows={6}
-                className="flex w-full rounded-md border border-input bg-background px-3 py-2 text-base shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm resize-none"
-              />
-              <div className="flex justify-between items-center">
-                <p className="text-xs text-muted-foreground">
-                  {aboutMe.length}/1000 characters
+          <div className="space-y-2">
+            <textarea
+              id="about_me"
+              value={aboutMe}
+              onChange={(e) => setAboutMe(e.target.value)}
+              placeholder="Tell us about yourself..."
+              maxLength={1000}
+              rows={6}
+              className="flex w-full rounded-md border border-input bg-background px-3 py-2 text-base shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm resize-none"
+            />
+            <div className="flex justify-between items-center">
+              <p className="text-xs text-muted-foreground">
+                {aboutMe.length}/1000 characters
+              </p>
+              {aboutMe.length > 900 && (
+                <p className="text-xs text-amber-600 dark:text-amber-400">
+                  {1000 - aboutMe.length} characters remaining
                 </p>
-                {aboutMe.length > 900 && (
-                  <p className="text-xs text-amber-600 dark:text-amber-400">
-                    {1000 - aboutMe.length} characters remaining
-                  </p>
-                )}
-              </div>
+              )}
             </div>
-          ) : (
-            <div className="min-h-[120px] p-4 rounded-md border bg-muted text-sm whitespace-pre-wrap">
-              {profile.about_me || 'No description added yet. Click "Edit Profile" to add your story!'}
-            </div>
-          )}
+          </div>
         </div>
 
         {/* Error and Success Messages */}
@@ -238,41 +225,34 @@ export function SimpleProfileForm({ profile, userEmail }: SimpleProfileFormProps
         )}
 
         {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t">
-          {isEditing ? (
-            <>
-              <Button 
-                onClick={handleSave} 
-                disabled={isLoading}
-                className="flex-1 sm:flex-none sm:min-w-[140px] h-11"
-              >
-                {isLoading ? (
-                  <>
-                    <span className="animate-spin mr-2">⏳</span>
-                    Saving...
-                  </>
-                ) : (
-                  'Save Changes'
-                )}
-              </Button>
-              <Button 
-                variant="outline" 
-                onClick={handleCancel}
-                disabled={isLoading}
-                className="flex-1 sm:flex-none sm:min-w-[140px] h-11"
-              >
-                Cancel
-              </Button>
-            </>
-          ) : (
-            <Button 
-              onClick={() => setIsEditing(true)}
-              className="flex-1 sm:flex-none sm:min-w-[140px] h-11"
-            >
-              Edit Profile
-            </Button>
-          )}
+        <div className="flex gap-2 pt-2">
+          <Button 
+            onClick={handleSave} 
+            disabled={isLoading}
+            className="flex-1"
+          >
+            {isLoading ? 'Saving...' : 'Save Changes'}
+          </Button>
+          <Button 
+            variant="outline" 
+            onClick={handleCancel}
+            disabled={isLoading}
+            className="flex-1"
+          >
+            Cancel
+          </Button>
         </div>
+          </div>
+        )}
+
+        {/* Read-only "About Me" preview when not editing */}
+        {!isEditing && profile.about_me && (
+          <div className="pt-2 border-t">
+            <div className="text-sm text-muted-foreground line-clamp-2">
+              {profile.about_me}
+            </div>
+          </div>
+        )}
       </CardContent>
     </Card>
   );

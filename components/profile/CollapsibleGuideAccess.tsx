@@ -2,68 +2,65 @@
 
 import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
-import { Sparkles, BookOpen, ChevronDown, ChevronRight } from "lucide-react";
+import { Sparkles, BookOpen, X } from "lucide-react";
 import Link from "next/link";
 
 export function CollapsibleGuideAccess() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
   
-  // Load saved preference from localStorage
+  // Load hidden state from localStorage
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('guideAccessOpen');
-      if (saved === 'true') {
-        setIsOpen(true);
-      }
+      const hidden = localStorage.getItem('guideAccessHidden');
+      setIsHidden(hidden === 'true');
     }
   }, []);
   
-  // Save preference when changed
-  const toggleOpen = () => {
-    const newState = !isOpen;
-    setIsOpen(newState);
+  // Hide banner
+  const handleHide = () => {
+    setIsHidden(true);
     if (typeof window !== 'undefined') {
-      localStorage.setItem('guideAccessOpen', newState.toString());
+      localStorage.setItem('guideAccessHidden', 'true');
     }
   };
   
+  if (isHidden) return null;
+  
   return (
-    <div className="w-full bg-gradient-to-br from-primary/10 to-primary/5 border-2 border-primary/30 rounded-2xl overflow-hidden">
-      {/* Header - Always visible */}
-      <button
-        onClick={toggleOpen}
-        className="w-full px-4 py-3 md:px-6 md:py-4 flex items-center justify-between gap-3 hover:bg-primary/5 transition-colors"
-        aria-expanded={isOpen}
-      >
-        <div className="flex items-center gap-3">
-          <Sparkles className="w-5 h-5 md:w-6 md:h-6 text-primary flex-shrink-0" />
-          <span className="font-semibold text-sm md:text-base text-left">
-            🎉 You&apos;re in! Click here for exclusive guide access
-          </span>
-        </div>
-        {isOpen ? (
-          <ChevronDown className="w-5 h-5 text-primary flex-shrink-0" />
-        ) : (
-          <ChevronRight className="w-5 h-5 text-primary flex-shrink-0" />
-        )}
-      </button>
-      
-      {/* Content - Expandable */}
-      {isOpen && (
-        <div className="px-4 pb-4 md:px-6 md:pb-6 pt-2 border-t border-primary/20">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
-            <p className="text-sm text-muted-foreground flex-1">
+    <div className="w-full bg-gradient-to-br from-primary/10 to-primary/5 border-2 border-primary/30 rounded-2xl p-4 md:p-6">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+        {/* Content */}
+        <div className="flex items-center gap-3 flex-1">
+          <Sparkles className="w-6 h-6 text-primary flex-shrink-0" />
+          <div className="flex-1">
+            <h3 className="font-semibold text-base md:text-lg">
+              🎉 Guide Access Available
+            </h3>
+            <p className="text-sm text-muted-foreground mt-1">
               Follow our step-by-step guide to deploy your Web3 dApp in under 60 minutes
             </p>
-            <Button asChild size="lg" className="whitespace-nowrap w-full sm:w-auto">
-              <Link href="/guide">
-                <BookOpen className="w-5 h-5 mr-2" />
-                Access Guide
-              </Link>
-            </Button>
           </div>
         </div>
-      )}
+        
+        {/* Actions */}
+        <div className="flex gap-2 w-full sm:w-auto">
+          <Button asChild size="lg" className="flex-1 sm:flex-none">
+            <Link href="/guide">
+              <BookOpen className="w-5 h-5 mr-2" />
+              Access Guide
+            </Link>
+          </Button>
+          <Button 
+            variant="ghost" 
+            size="icon"
+            onClick={handleHide}
+            className="flex-shrink-0"
+            aria-label="Hide guide access banner"
+          >
+            <X className="w-5 h-5" />
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }
