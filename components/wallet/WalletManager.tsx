@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { CreateWalletForm } from "./CreateWalletForm";
 import { WalletCard } from "./WalletCard";
@@ -54,12 +54,7 @@ export function WalletManager() {
     return false;
   };
 
-  // Load wallets on component mount
-  useEffect(() => {
-    loadWallets();
-  }, []);
-
-  const loadWallets = async () => {
+  const loadWallets = useCallback(async () => {
     try {
       setIsLoading(true);
       setError(null);
@@ -94,7 +89,12 @@ export function WalletManager() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
+
+  // Load wallets on component mount
+  useEffect(() => {
+    loadWallets();
+  }, [loadWallets]);
 
   const handleCreateWallet = async (name: string, type: "purchaser" | "seller" | "custom") => {
     try {

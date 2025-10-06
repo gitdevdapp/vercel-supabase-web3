@@ -2,12 +2,41 @@ import { NextResponse } from "next/server";
 import { CdpClient } from "@coinbase/cdp-sdk";
 import { env } from "@/lib/env";
 
+interface TestResult {
+  test: string;
+  status: string;
+  method: string;
+  address?: string;
+  accountName?: string;
+  error?: string;
+  statusCode?: number;
+  errorType?: string;
+  correlationId?: string;
+}
+
+interface Results {
+  timestamp: string;
+  environment: {
+    hasApiKeyId: boolean;
+    hasApiKeySecret: boolean;
+    hasWalletSecret: boolean;
+    apiKeyIdLength: number | undefined;
+    apiKeyIdPreview: string | undefined;
+  };
+  tests: TestResult[];
+  summary?: {
+    total: number;
+    passed: number;
+    failed: number;
+  };
+}
+
 /**
  * DIAGNOSTIC ENDPOINT - Testing CDP client initialization strategies
  * This endpoint tests different ways to initialize the CDP client
  */
 export async function GET() {
-  const results: any = {
+  const results: Results = {
     timestamp: new Date().toISOString(),
     environment: {
       hasApiKeyId: !!env.CDP_API_KEY_ID,
@@ -40,12 +69,13 @@ export async function GET() {
     results.tests[results.tests.length - 1].address = account1.address;
     results.tests[results.tests.length - 1].accountName = accountName1;
 
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const err = error as Error & { statusCode?: number; errorType?: string; correlationId?: string };
     results.tests[results.tests.length - 1].status = "failed";
-    results.tests[results.tests.length - 1].error = error.message;
-    results.tests[results.tests.length - 1].statusCode = error.statusCode;
-    results.tests[results.tests.length - 1].errorType = error.errorType;
-    results.tests[results.tests.length - 1].correlationId = error.correlationId;
+    results.tests[results.tests.length - 1].error = err.message;
+    results.tests[results.tests.length - 1].statusCode = err.statusCode;
+    results.tests[results.tests.length - 1].errorType = err.errorType;
+    results.tests[results.tests.length - 1].correlationId = err.correlationId;
   }
 
   // Test 2: Constructor with no parameters (rely on env vars)
@@ -71,19 +101,20 @@ export async function GET() {
     results.tests[results.tests.length - 1].address = account2.address;
     results.tests[results.tests.length - 1].accountName = accountName2;
 
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const err = error as Error & { statusCode?: number; errorType?: string; correlationId?: string };
     results.tests[results.tests.length - 1].status = "failed";
-    results.tests[results.tests.length - 1].error = error.message;
-    results.tests[results.tests.length - 1].statusCode = error.statusCode;
-    results.tests[results.tests.length - 1].errorType = error.errorType;
-    results.tests[results.tests.length - 1].correlationId = error.correlationId;
+    results.tests[results.tests.length - 1].error = err.message;
+    results.tests[results.tests.length - 1].statusCode = err.statusCode;
+    results.tests[results.tests.length - 1].errorType = err.errorType;
+    results.tests[results.tests.length - 1].correlationId = err.correlationId;
   }
 
   // Summary
   results.summary = {
     total: results.tests.length,
-    passed: results.tests.filter((t: any) => t.status === "success").length,
-    failed: results.tests.filter((t: any) => t.status === "failed").length,
+    passed: results.tests.filter((t: TestResult) => t.status === "success").length,
+    failed: results.tests.filter((t: TestResult) => t.status === "failed").length,
   };
 
   return NextResponse.json(results, { 
