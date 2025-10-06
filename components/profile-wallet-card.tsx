@@ -5,7 +5,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Wallet, Plus, Send, Droplet, Copy, Loader2 } from "lucide-react";
+import { Wallet, Plus, Send, Droplet, Copy, Loader2, History } from "lucide-react";
+import { TransactionHistory } from "@/components/wallet/TransactionHistory";
 
 interface WalletData {
   id: string;
@@ -26,6 +27,7 @@ export function ProfileWalletCard() {
   const [isSending, setIsSending] = useState(false);
   const [showFund, setShowFund] = useState(false);
   const [showSend, setShowSend] = useState(false);
+  const [showHistory, setShowHistory] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
@@ -136,7 +138,10 @@ export function ProfileWalletCard() {
       }
 
       const data = await response.json();
-      setSuccess(`Successfully funded with ${data.token}! TX: ${data.transactionHash.slice(0, 10)}...`);
+      const explorerUrl = `https://sepolia.basescan.org/tx/${data.transactionHash}`;
+      setSuccess(
+        `✅ Successfully funded with ${data.token}! TX: ${data.transactionHash.slice(0, 10)}... - View on Explorer: ${explorerUrl}`
+      );
       setShowFund(false);
       
       // Reload wallet to refresh balances
@@ -176,7 +181,10 @@ export function ProfileWalletCard() {
       }
 
       const data = await response.json();
-      setSuccess(`Successfully sent ${sendAmount} ${sendToken.toUpperCase()}! TX: ${data.transactionHash.slice(0, 10)}...`);
+      const explorerUrl = data.explorerUrl || `https://sepolia.basescan.org/tx/${data.transactionHash}`;
+      setSuccess(
+        `✅ Successfully sent ${sendAmount} ${sendToken.toUpperCase()}! TX: ${data.transactionHash.slice(0, 10)}... - View on Explorer: ${explorerUrl}`
+      );
       setSendToAddress("");
       setSendAmount("");
       setShowSend(false);
@@ -309,7 +317,7 @@ export function ProfileWalletCard() {
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-3">
               <Button
-                onClick={() => { setShowFund(!showFund); setShowSend(false); }}
+                onClick={() => { setShowFund(!showFund); setShowSend(false); setShowHistory(false); }}
                 variant="outline"
                 className="flex-1 h-11"
               >
@@ -317,12 +325,20 @@ export function ProfileWalletCard() {
                 Request Testnet Funds
               </Button>
               <Button
-                onClick={() => { setShowSend(!showSend); setShowFund(false); }}
+                onClick={() => { setShowSend(!showSend); setShowFund(false); setShowHistory(false); }}
                 variant="outline"
                 className="flex-1 h-11"
               >
                 <Send className="w-4 h-4 mr-2" />
                 Send Funds
+              </Button>
+              <Button
+                onClick={() => { setShowHistory(!showHistory); setShowFund(false); setShowSend(false); }}
+                variant="outline"
+                className="flex-1 h-11"
+              >
+                <History className="w-4 h-4 mr-2" />
+                Transaction History
               </Button>
             </div>
 
@@ -425,6 +441,13 @@ export function ProfileWalletCard() {
                     `Send ${sendToken.toUpperCase()}`
                   )}
                 </Button>
+              </div>
+            )}
+
+            {/* Transaction History Section */}
+            {showHistory && wallet && (
+              <div className="space-y-4">
+                <TransactionHistory walletId={wallet.id} />
               </div>
             )}
           </>
