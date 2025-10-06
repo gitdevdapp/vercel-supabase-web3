@@ -86,18 +86,21 @@ export async function POST(request: NextRequest) {
 
     const cdp = getCdpClient();
     
-    // Get sender account from CDP
-    const accounts = await cdp.evm.listAccounts();
-    const accountsArray = Array.isArray(accounts) ? accounts : accounts.accounts || [];
+    // Get sender account from CDP using the wallet name
+    // This ensures we retrieve the correct account that was created with getOrCreateAccount
+    const senderAccount = await cdp.evm.getOrCreateAccount({ 
+      name: wallet.wallet_name 
+    });
     
-    const senderAccount = accountsArray.find(acc => 
-      acc.address.toLowerCase() === fromAddress.toLowerCase()
-    );
-    
-    if (!senderAccount) {
+    // Verify the retrieved account matches the expected address
+    if (senderAccount.address.toLowerCase() !== fromAddress.toLowerCase()) {
       return NextResponse.json(
-        { error: "Sender wallet not found in your account list" },
-        { status: 404 }
+        { 
+          error: "Wallet address mismatch", 
+          expected: fromAddress,
+          retrieved: senderAccount.address 
+        },
+        { status: 500 }
       );
     }
 
