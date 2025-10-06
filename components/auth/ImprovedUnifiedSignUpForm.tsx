@@ -80,30 +80,48 @@ export function ImprovedUnifiedSignUpForm({
     }
   };
 
+  // Separate GitHub from Web3 options - GitHub is production-ready, Web3 is experimental
+  const GitHubSection = () => {
+    if (!isClientMounted) return null;
+    
+    return (
+      <div className="space-y-3">
+        <div className="relative">
+          <div className="absolute inset-0 flex items-center">
+            <span className="w-full border-t" />
+          </div>
+          <div className="relative flex justify-center text-xs uppercase">
+            <span className="bg-background px-2 text-muted-foreground">
+              Or continue with
+            </span>
+          </div>
+        </div>
+        <GitHubLoginButton
+          size="default"
+          redirectTo={redirectTo}
+          className="w-full"
+        />
+      </div>
+    );
+  };
+
   const Web3OptionsSection = () => {
     if (!isClientMounted) return null;
-
     const web3Enabled = isWeb3AuthEnabled();
+    
+    if (!web3Enabled) return null;
 
     return (
       <div className="space-y-3">
         <div className="text-sm font-medium text-muted-foreground">
-          Alternative Sign Up Methods
+          Web3 Sign Up Methods
         </div>
-        <div className="space-y-2">
-          <GitHubLoginButton
-            size="default"
-            redirectTo={redirectTo}
-            className="w-full"
-          />
-          {web3Enabled && (
-            <Web3LoginButtons 
-              layout="stack" 
-              className="w-full"
-              redirectTo={redirectTo}
-            />
-          )}
-        </div>
+        <Web3LoginButtons 
+          layout="stack" 
+          className="w-full"
+          redirectTo={redirectTo}
+          showGitHub={false}
+        />
       </div>
     );
   };
@@ -161,27 +179,33 @@ export function ImprovedUnifiedSignUpForm({
             </div>
           </form>
 
-          {/* Progressive Disclosure for Advanced Options */}
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center">
-              <span className="w-full border-t" />
-            </div>
-            <div className="relative flex justify-center text-xs uppercase">
-              <button
-                type="button"
-                onClick={() => setShowAdvanced(!showAdvanced)}
-                className="bg-background px-2 text-muted-foreground hover:text-foreground transition-colors"
-              >
-                {showAdvanced ? 'Show fewer options' : 'More sign up options'}
-              </button>
-            </div>
-          </div>
+          {/* GitHub Sign Up - Always Visible */}
+          <GitHubSection />
 
-          {/* Advanced Authentication Options (Progressive Disclosure) */}
-          {showAdvanced && (
-            <div className="space-y-4 animate-in slide-in-from-top-2">
-              <Web3OptionsSection />
-            </div>
+          {/* Web3 Options - Progressive Disclosure (Experimental Features) */}
+          {isClientMounted && isWeb3AuthEnabled() && (
+            <>
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <span className="w-full border-t" />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                  <button
+                    type="button"
+                    onClick={() => setShowAdvanced(!showAdvanced)}
+                    className="bg-background px-2 text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {showAdvanced ? 'Show fewer options' : 'More Web3 options'}
+                  </button>
+                </div>
+              </div>
+
+              {showAdvanced && (
+                <div className="space-y-4 animate-in slide-in-from-top-2">
+                  <Web3OptionsSection />
+                </div>
+              )}
+            </>
           )}
 
           <div className="text-center text-sm">
