@@ -9,7 +9,9 @@ import { ThemeSwitcher } from "@/components/theme-switcher";
 import { GlobalNav } from "@/components/navigation/global-nav";
 import { AuthButton } from "@/components/auth-button";
 import { EnvVarWarning } from "@/components/env-var-warning";
+import { OAuthCodeHandler } from "@/components/OAuthCodeHandler";
 import { hasEnvVars } from "@/lib/utils";
+import { Suspense } from "react";
 // Tutorial components - currently unused but preserved for future development
 // import { ConnectSupabaseSteps } from "@/components/tutorial/connect-supabase-steps";
 // import { SignUpUserSteps } from "@/components/tutorial/sign-up-user-steps";
@@ -35,6 +37,9 @@ const jsonLd = {
 export default async function Home() {
   return (
     <main className="min-h-screen flex flex-col items-center">
+      <Suspense fallback={null}>
+        <OAuthCodeHandler />
+      </Suspense>
       <div className="flex-1 w-full flex flex-col gap-20 items-center">
         <GlobalNav 
           showAuthButton={true} 

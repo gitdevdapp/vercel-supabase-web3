@@ -61,8 +61,8 @@ export function Hero() {
             </a>
           </Button>
           <Button size="lg" variant="outline" className="px-8 py-3" asChild>
-            <a href="https://devdapp.com/wallet" target="_blank" rel="noreferrer">
-              View Demo
+            <a href="https://github.com/gitdevdapp/vercel-supabase-web3" target="_blank" rel="noreferrer">
+              Source Code
             </a>
           </Button>
         </div>
