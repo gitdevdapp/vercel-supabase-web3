@@ -42,7 +42,7 @@ export default async function GuidePage() {
       />
       <ProgressNav />
       
-      <main className="md:ml-80 pt-20 md:pt-16">
+      <main className="w-full md:ml-80 pt-20 md:pt-16 px-0 overflow-hidden">
         {/* Welcome Section */}
         <StepSection id="welcome" title="Welcome" emoji="👋" estimatedTime="2 min">
           <div className="space-y-6">
@@ -271,7 +271,365 @@ export default async function GuidePage() {
 
         </StepSection>
 
-        {/* Step 7: Setup Supabase */}
+        {/* Step 7: Custom Domain Setup (Optional) */}
+        <StepSection id="domain" title="Setup Custom Domain (Optional)" emoji="🌐" estimatedTime="20 min">
+          <p className="mb-4">
+            Give your application a professional custom domain instead of the default <code>.vercel.app</code> URL. This step works for any Vercel project and any domain provider.
+          </p>
+
+          <div className="my-6 p-4 border border-yellow-500/30 bg-yellow-500/5 rounded-lg">
+            <p className="font-semibold text-foreground mb-2">⏭️ Optional Step</p>
+            <p className="text-sm text-muted-foreground">
+              You can skip this step and use your <code>.vercel.app</code> domain for now. Come back to add a custom domain later when you&apos;re ready to launch publicly.
+            </p>
+          </div>
+
+          <div className="my-6 p-4 border border-border bg-card rounded-lg">
+            <p className="font-semibold text-foreground mb-3">📋 Prerequisites</p>
+            <div className="space-y-2 text-sm">
+              <div className="p-2 bg-muted rounded">
+                <p className="font-semibold text-foreground">Option A: I already own a domain</p>
+                <p className="text-xs text-muted-foreground mt-1">→ Skip to Step 2 (Connect to Vercel)</p>
+              </div>
+              <div className="p-2 bg-muted rounded">
+                <p className="font-semibold text-foreground">Option B: I need to buy a domain</p>
+                <p className="text-xs text-muted-foreground mt-1">→ Start with Step 1 (Purchase Domain)</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="my-6 p-4 border border-blue-500/30 bg-blue-500/5 rounded-lg">
+            <p className="font-semibold text-foreground mb-3">🛒 Step 1: Purchase Domain (Namecheap Example)</p>
+            <p className="text-sm text-muted-foreground mb-3">
+              This guide uses Namecheap, but the process is similar for GoDaddy, Google Domains, Cloudflare, or any provider.
+            </p>
+            
+            <ol className="list-decimal list-inside space-y-2 text-muted-foreground text-sm">
+              <li><strong>Search for Domain</strong>
+                <ul className="list-disc list-inside ml-6 mt-1 space-y-1 text-xs">
+                  <li>Go to <a href="https://www.namecheap.com" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">namecheap.com</a></li>
+                  <li>Enter your desired domain name (e.g., &quot;myawesomeapp&quot;)</li>
+                  <li>Check availability (try different extensions: .com, .io, .app, etc.)</li>
+                  <li>Typical cost: $10-15/year for .com domains</li>
+                </ul>
+              </li>
+
+              <li><strong>Add to Cart & Checkout</strong>
+                <ul className="list-disc list-inside ml-6 mt-1 space-y-1 text-xs">
+                  <li>Click &quot;Add to Cart&quot; on your chosen domain</li>
+                  <li>Review cart (you don&apos;t need extras like hosting, privacy protection is optional)</li>
+                  <li>Click &quot;Confirm Order&quot;</li>
+                  <li>Create Namecheap account if you don&apos;t have one</li>
+                  <li>Enter payment details and complete purchase</li>
+                </ul>
+              </li>
+
+              <li><strong>Access Domain Management</strong>
+                <ul className="list-disc list-inside ml-6 mt-1 space-y-1 text-xs">
+                  <li>After purchase, go to <a href="https://ap.www.namecheap.com/domains/list/" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">Namecheap Domain List</a></li>
+                  <li>Find your new domain in the list</li>
+                  <li>Click <strong>&quot;Manage&quot;</strong> button next to it</li>
+                  <li>You&apos;ll be on the Domain Details page - keep this tab open</li>
+                </ul>
+              </li>
+            </ol>
+          </div>
+
+          <div className="my-6 p-4 border border-green-500/30 bg-green-500/5 rounded-lg">
+            <p className="font-semibold text-foreground mb-3">🔗 Step 2: Connect Domain to Vercel</p>
+            
+            <ol className="list-decimal list-inside space-y-3 text-muted-foreground text-sm">
+              <li><strong>Add Domain in Vercel Dashboard</strong>
+                <ul className="list-disc list-inside ml-6 mt-1 space-y-1 text-xs">
+                  <li>Open new tab → <a href="https://vercel.com/dashboard" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">vercel.com/dashboard</a></li>
+                  <li>Click on your project</li>
+                  <li>Go to <strong>Settings</strong> tab (top navigation)</li>
+                  <li>Click <strong>Domains</strong> in left sidebar</li>
+                  <li>You&apos;ll see &quot;Add Domain&quot; section at top</li>
+                </ul>
+              </li>
+
+              <li><strong>Enter Your Domain</strong>
+                <ul className="list-disc list-inside ml-6 mt-1 space-y-1 text-xs">
+                  <li>In the input field, type your domain exactly as purchased</li>
+                  <li>Examples:
+                    <ul className="list-disc list-inside ml-6 mt-1">
+                      <li>Root domain: <code className="bg-muted px-1 py-0.5 rounded">myawesomeapp.com</code></li>
+                      <li>With www: <code className="bg-muted px-1 py-0.5 rounded">www.myawesomeapp.com</code></li>
+                      <li>Subdomain: <code className="bg-muted px-1 py-0.5 rounded">app.myawesomeapp.com</code></li>
+                    </ul>
+                  </li>
+                  <li>Click <strong>&quot;Add&quot;</strong> button</li>
+                </ul>
+              </li>
+
+              <li><strong>Note the DNS Records</strong>
+                <ul className="list-disc list-inside ml-6 mt-1 space-y-1 text-xs">
+                  <li>Vercel will show &quot;Invalid Configuration&quot; - this is normal!</li>
+                  <li>You&apos;ll see instructions for DNS records to add</li>
+                  <li><strong>IMPORTANT:</strong> Keep this page open - you&apos;ll need these values!</li>
+                  <li>Typical records shown:
+                    <ul className="list-disc list-inside ml-6 mt-1">
+                      <li><strong>A Record:</strong> Type=A, Name=@, Value=76.76.21.21</li>
+                      <li><strong>CNAME Record:</strong> Type=CNAME, Name=www, Value=cname.vercel-dns.com</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ol>
+
+            <div className="mt-3 p-3 bg-background border border-border rounded text-xs">
+              <strong className="text-foreground">💡 Tip:</strong> <span className="text-muted-foreground">Add both root domain (<code>myawesomeapp.com</code>) and www subdomain (<code>www.myawesomeapp.com</code>) separately. Vercel will automatically redirect one to the other.</span>
+            </div>
+          </div>
+
+          <div className="my-6 p-4 border border-primary/30 bg-primary/5 rounded-lg">
+            <p className="font-semibold text-foreground mb-3">⚙️ Step 3: Configure DNS Records (Namecheap)</p>
+            <p className="text-sm text-muted-foreground mb-3">
+              Now we&apos;ll add the DNS records from Vercel to your domain provider. These instructions are for Namecheap, but the concept is the same for all providers.
+            </p>
+            
+            <ol className="list-decimal list-inside space-y-3 text-muted-foreground text-sm">
+              <li><strong>Navigate to Advanced DNS</strong>
+                <ul className="list-disc list-inside ml-6 mt-1 space-y-1 text-xs">
+                  <li>In your Namecheap domain management page (kept open from Step 1)</li>
+                  <li>Click <strong>&quot;Advanced DNS&quot;</strong> tab at the top</li>
+                  <li>You&apos;ll see &quot;HOST RECORDS&quot; section</li>
+                  <li>This is where we add DNS records</li>
+                </ul>
+              </li>
+
+              <li><strong>Remove Conflicting Records (if any)</strong>
+                <ul className="list-disc list-inside ml-6 mt-1 space-y-1 text-xs">
+                  <li>Look for existing A or CNAME records with Host &quot;@&quot; or &quot;www&quot;</li>
+                  <li>Common defaults: Namecheap Parking Page, URL Redirect records</li>
+                  <li>Click the trash icon (🗑️) next to each to delete</li>
+                  <li>If unsure, you can keep them and add new ones (newer records take precedence)</li>
+                </ul>
+              </li>
+
+              <li><strong>Add A Record (for root domain)</strong>
+                <ul className="list-disc list-inside ml-6 mt-1 space-y-1 text-xs">
+                  <li>Click <strong>&quot;Add New Record&quot;</strong> button</li>
+                  <li>Fill in the form:
+                    <div className="mt-2 ml-6 p-2 bg-background border border-border rounded">
+                      <div className="space-y-1">
+                        <div><strong>Type:</strong> <code className="bg-muted px-1 py-0.5 rounded ml-1">A Record</code></div>
+                        <div><strong>Host:</strong> <code className="bg-muted px-1 py-0.5 rounded ml-1">@</code> <span className="text-muted-foreground text-xs ml-2">(@ means root domain)</span></div>
+                        <div><strong>Value:</strong> <code className="bg-muted px-1 py-0.5 rounded ml-1">76.76.21.21</code> <span className="text-muted-foreground text-xs ml-2">(Vercel&apos;s IP)</span></div>
+                        <div><strong>TTL:</strong> <code className="bg-muted px-1 py-0.5 rounded ml-1">Automatic</code> <span className="text-muted-foreground text-xs ml-2">(or 1 min/5 min/30 min)</span></div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>Click <strong>&quot;Save Changes&quot;</strong> or checkmark icon (✓)</li>
+                </ul>
+              </li>
+
+              <li><strong>Add CNAME Record (for www subdomain)</strong>
+                <ul className="list-disc list-inside ml-6 mt-1 space-y-1 text-xs">
+                  <li>Click <strong>&quot;Add New Record&quot;</strong> button again</li>
+                  <li>Fill in the form:
+                    <div className="mt-2 ml-6 p-2 bg-background border border-border rounded">
+                      <div className="space-y-1">
+                        <div><strong>Type:</strong> <code className="bg-muted px-1 py-0.5 rounded ml-1">CNAME Record</code></div>
+                        <div><strong>Host:</strong> <code className="bg-muted px-1 py-0.5 rounded ml-1">www</code></div>
+                        <div><strong>Value/Target:</strong> <code className="bg-muted px-1 py-0.5 rounded ml-1">cname.vercel-dns.com</code> <span className="text-muted-foreground text-xs ml-2">(or your Vercel URL)</span></div>
+                        <div><strong>TTL:</strong> <code className="bg-muted px-1 py-0.5 rounded ml-1">Automatic</code></div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>Click <strong>&quot;Save Changes&quot;</strong> or checkmark icon (✓)</li>
+                </ul>
+              </li>
+
+              <li><strong>Save All Changes</strong>
+                <ul className="list-disc list-inside ml-6 mt-1 space-y-1 text-xs">
+                  <li>Some providers have a &quot;Save All Changes&quot; button at the bottom - click it</li>
+                  <li>Namecheap auto-saves when you click checkmark on each record</li>
+                  <li>Verify both records appear in the &quot;HOST RECORDS&quot; list</li>
+                </ul>
+              </li>
+            </ol>
+
+            <div className="mt-3 p-3 bg-red-500/10 border border-red-500/30 rounded text-xs">
+              <strong className="text-red-600 dark:text-red-400">⚠️ Common DNS Mistakes:</strong>
+              <ul className="list-disc list-inside ml-4 mt-1 space-y-1 text-muted-foreground">
+                <li><strong>Wrong IP:</strong> Must be <code>76.76.21.21</code> exactly (not 76.76.21.98 or others)</li>
+                <li><strong>Wrong CNAME:</strong> Use <code>cname.vercel-dns.com</code> (not your-project.vercel.app)</li>
+                <li><strong>Trailing dot:</strong> Don&apos;t add a dot at end of CNAME value</li>
+                <li><strong>Host field:</strong> Use <code>@</code> for root, <code>www</code> for www (not blank or &quot;root&quot;)</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="my-6 p-4 border border-border bg-card rounded-lg">
+            <p className="font-semibold text-foreground mb-3">🕐 Step 4: Wait for DNS Propagation</p>
+            
+            <ol className="list-decimal list-inside space-y-2 text-muted-foreground text-sm">
+              <li><strong>Go Back to Vercel Dashboard</strong>
+                <ul className="list-disc list-inside ml-6 mt-1 space-y-1 text-xs">
+                  <li>Return to Vercel → Settings → Domains page</li>
+                  <li>Vercel automatically checks DNS every few seconds</li>
+                  <li>You&apos;ll see one of these statuses next to your domain</li>
+                </ul>
+              </li>
+
+              <li><strong>Understand Status Indicators</strong>
+                <ul className="list-disc list-inside ml-6 mt-1 space-y-1 text-xs">
+                  <li><strong className="text-yellow-600 dark:text-yellow-400">🟡 Pending/Invalid Configuration:</strong> DNS not propagated yet
+                    <ul className="list-disc list-inside ml-6 mt-1">
+                      <li>Normal for first 5-30 minutes</li>
+                      <li>Vercel is waiting to detect your DNS changes</li>
+                      <li>Be patient - don&apos;t add duplicate records!</li>
+                    </ul>
+                  </li>
+                  <li><strong className="text-green-600 dark:text-green-400">🟢 Valid:</strong> Domain is connected! ✅
+                    <ul className="list-disc list-inside ml-6 mt-1">
+                      <li>DNS successfully propagated</li>
+                      <li>SSL certificate auto-provisioned</li>
+                      <li>Domain is live and working</li>
+                    </ul>
+                  </li>
+                  <li><strong className="text-red-600 dark:text-red-400">🔴 Error:</strong> Configuration problem
+                    <ul className="list-disc list-inside ml-6 mt-1">
+                      <li>Check DNS records for typos</li>
+                      <li>Verify A record = 76.76.21.21</li>
+                      <li>Verify CNAME = cname.vercel-dns.com</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+
+              <li><strong>Propagation Time Expectations</strong>
+                <ul className="list-disc list-inside ml-6 mt-1 space-y-1 text-xs">
+                  <li><strong>Best case:</strong> 5-10 minutes (most common with Namecheap, Cloudflare)</li>
+                  <li><strong>Average:</strong> 15-30 minutes</li>
+                  <li><strong>Worst case:</strong> Up to 48 hours (rare, usually with some providers)</li>
+                  <li>Refresh Vercel page every 5 minutes to check status</li>
+                </ul>
+              </li>
+
+              <li><strong>Test Your Domain</strong>
+                <ul className="list-disc list-inside ml-6 mt-1 space-y-1 text-xs">
+                  <li>Once status shows &quot;Valid&quot;, open new tab</li>
+                  <li>Visit <code>https://yourdomain.com</code> (your actual domain)</li>
+                  <li>Should load your app with HTTPS (🔒 padlock in browser)</li>
+                  <li>Try <code>https://www.yourdomain.com</code> too - should redirect</li>
+                </ul>
+              </li>
+            </ol>
+
+            <div className="mt-3 p-3 bg-green-500/10 border border-green-500/30 rounded text-xs">
+              <strong className="text-green-600 dark:text-green-400">✅ Success Indicators:</strong>
+              <ul className="list-disc list-inside ml-4 mt-1 space-y-1 text-muted-foreground">
+                <li>Vercel shows &quot;Valid&quot; status with green checkmark</li>
+                <li>Domain loads your app (not parking page or errors)</li>
+                <li>HTTPS works automatically (see padlock in browser)</li>
+                <li>SSL certificate shows as valid (click padlock to verify)</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="my-6 p-4 border border-purple-500/30 bg-purple-500/5 rounded-lg">
+            <p className="font-semibold text-foreground mb-3">🔧 Troubleshooting Common Issues</p>
+            
+            <div className="space-y-3 text-sm">
+              <div className="p-3 bg-background border border-border rounded">
+                <p className="font-semibold text-foreground mb-1">❌ &quot;Invalid Configuration&quot; After 1+ Hours</p>
+                <ul className="text-xs text-muted-foreground list-disc list-inside ml-4 space-y-1">
+                  <li>Double-check A record: Host=@, Value=76.76.21.21</li>
+                  <li>Double-check CNAME: Host=www, Value=cname.vercel-dns.com</li>
+                  <li>Remove any duplicate or conflicting records</li>
+                  <li>Some providers need 24-48 hours - check provider documentation</li>
+                  <li>Try using <a href="https://dnschecker.org" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">dnschecker.org</a> to verify DNS propagation globally</li>
+                </ul>
+              </div>
+
+              <div className="p-3 bg-background border border-border rounded">
+                <p className="font-semibold text-foreground mb-1">❌ Domain Shows Parking Page or Old Content</p>
+                <ul className="text-xs text-muted-foreground list-disc list-inside ml-4 space-y-1">
+                  <li>Delete Namecheap parking page redirect (in Advanced DNS)</li>
+                  <li>Clear browser cache (Cmd+Shift+R or Ctrl+Shift+R)</li>
+                  <li>Try incognito/private browsing mode</li>
+                  <li>Wait 5-10 more minutes for DNS to update</li>
+                </ul>
+              </div>
+
+              <div className="p-3 bg-background border border-border rounded">
+                <p className="font-semibold text-foreground mb-1">❌ SSL Certificate Error</p>
+                <ul className="text-xs text-muted-foreground list-disc list-inside ml-4 space-y-1">
+                  <li>Vercel auto-provisions SSL when DNS is valid</li>
+                  <li>Can take 5-15 minutes after domain connects</li>
+                  <li>Visit domain via HTTPS (not HTTP)</li>
+                  <li>If persists, go to Vercel Settings → Domains → Click domain → Refresh SSL</li>
+                </ul>
+              </div>
+
+              <div className="p-3 bg-background border border-border rounded">
+                <p className="font-semibold text-foreground mb-1">💬 Still Stuck? Use Cursor AI</p>
+                <CursorPrompt 
+                  prompt='My custom domain is showing &quot;Invalid Configuration&quot; in Vercel after adding DNS records. Help me troubleshoot:
+
+1. Verify my DNS records are correct for Namecheap
+2. Check common configuration issues
+3. Use dig or nslookup to test DNS propagation
+4. Provide next steps to resolve this
+
+My domain: [YOUR_DOMAIN]
+Provider: Namecheap
+Records added: A record (@, 76.76.21.21) and CNAME (www, cname.vercel-dns.com)'
+                  title="Cursor Prompt: Domain Troubleshooting"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="my-6 p-4 border border-border bg-card rounded-lg">
+            <p className="font-semibold text-foreground mb-3">🌍 Other Domain Providers (Quick Reference)</p>
+            <p className="text-sm text-muted-foreground mb-3">
+              The DNS configuration process is similar for all providers. Here&apos;s where to find DNS settings:
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
+              <div className="p-2 bg-muted rounded">
+                <p className="font-semibold text-foreground">GoDaddy</p>
+                <p className="text-muted-foreground">My Products → Domain → DNS → Manage DNS → Records</p>
+              </div>
+              <div className="p-2 bg-muted rounded">
+                <p className="font-semibold text-foreground">Google Domains</p>
+                <p className="text-muted-foreground">My Domains → [Domain] → DNS → Custom records</p>
+              </div>
+              <div className="p-2 bg-muted rounded">
+                <p className="font-semibold text-foreground">Cloudflare</p>
+                <p className="text-muted-foreground">Dashboard → [Domain] → DNS → Records</p>
+              </div>
+              <div className="p-2 bg-muted rounded">
+                <p className="font-semibold text-foreground">Hover</p>
+                <p className="text-muted-foreground">Domain → DNS → Add New</p>
+              </div>
+            </div>
+
+            <div className="mt-3 text-xs text-muted-foreground">
+              <strong>Universal Steps:</strong> Find DNS settings → Add A record (@ → 76.76.21.21) → Add CNAME (www → cname.vercel-dns.com) → Save → Wait 5-30 min → Verify in Vercel
+            </div>
+          </div>
+
+          <div className="my-6 p-4 border border-green-500/30 bg-green-500/5 rounded-lg">
+            <p className="font-semibold text-foreground mb-2">✅ Success! What&apos;s Next?</p>
+            <p className="text-sm text-muted-foreground mb-3">
+              Once your domain is connected and shows &quot;Valid&quot; in Vercel:
+            </p>
+            <ul className="text-xs text-muted-foreground list-disc list-inside ml-4 space-y-1">
+              <li>Update your Supabase Site URL to use the custom domain (in Step 11: Configure Email)</li>
+              <li>Update any API callbacks or webhooks to use the new domain</li>
+              <li>Share your professional domain with users! 🎉</li>
+              <li>Consider adding email forwarding in your domain provider (e.g., hello@yourdomain.com)</li>
+            </ul>
+          </div>
+
+        </StepSection>
+
+        {/* Step 8: Setup Supabase */}
         <StepSection id="supabase" title="Setup Supabase Account" emoji="🗄️" estimatedTime="5 min">
           <p className="mb-4">
             Supabase provides your database, authentication, and file storage - all in one platform.
@@ -302,42 +660,184 @@ export default async function GuidePage() {
         </StepSection>
 
         {/* Step 8: Environment Variables */}
-        <StepSection id="env" title="Configure Environment Variables" emoji="🔐" estimatedTime="5 min">
+        <StepSection id="env" title="Configure Environment Variables" emoji="🔐" estimatedTime="10 min">
           <p className="mb-4">
-            Let&apos;s connect your Vercel frontend to your Supabase backend using environment variables.
+            Let&apos;s connect your application frontend to your backend services using environment variables. This step works for any project using Vercel and any backend service (Supabase, Firebase, custom APIs, etc.).
           </p>
 
           <div className="my-6 p-4 border border-border bg-card rounded-lg">
-            <p className="font-semibold text-foreground mb-2">Get Supabase Credentials:</p>
-            <ol className="list-decimal list-inside space-y-1 text-muted-foreground">
-              <li>In Supabase dashboard, go to <strong>Settings → API</strong></li>
-              <li>Copy <strong>Project URL</strong> (starts with <code>https://</code>)</li>
-              <li>Copy <strong>anon public key</strong> (starts with <code>eyJ...</code>)</li>
-              <li>Keep these handy</li>
+            <p className="font-semibold text-foreground mb-2">📋 Step 1: Gather Your Credentials</p>
+            <p className="text-sm text-muted-foreground mb-3">
+              For this starter project, you need Supabase credentials. For your own project, gather API keys from your backend service.
+            </p>
+            <ol className="list-decimal list-inside space-y-2 text-muted-foreground text-sm">
+              <li>Open <a href="https://supabase.com/dashboard" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">Supabase Dashboard</a></li>
+              <li>Select your project (<code>devdapp-web3</code> or your project name)</li>
+              <li>Click <strong>⚙️ Settings</strong> in the left sidebar</li>
+              <li>Click <strong>API</strong> in the Settings submenu</li>
+              <li>You&apos;ll see two important values:
+                <ul className="list-disc list-inside ml-6 mt-1 space-y-1">
+                  <li><strong>Project URL</strong> - Copy this (starts with <code>https://xxxxx.supabase.co</code>)</li>
+                  <li><strong>anon public key</strong> - Copy this (long string starting with <code>eyJ...</code>)</li>
+                </ul>
+              </li>
+              <li>Keep these values in a safe place (you&apos;ll need them in the next step)</li>
             </ol>
           </div>
 
           <div className="my-6 p-4 border border-primary/30 bg-primary/5 rounded-lg">
-            <p className="font-semibold text-foreground mb-2">💡 Pro Tip: Create Local .env File</p>
+            <p className="font-semibold text-foreground mb-2">🎯 Choose Your Approach</p>
+            <p className="text-sm text-muted-foreground mb-3">
+              There are two ways to set environment variables in Vercel. Choose one:
+            </p>
+            <div className="space-y-2 text-sm">
+              <div className="p-3 bg-background border border-border rounded">
+                <p className="font-semibold text-foreground">Option A: CLI (Recommended - Faster)</p>
+                <p className="text-muted-foreground text-xs mt-1">Use Cursor AI to create local file and upload via CLI</p>
+              </div>
+              <div className="p-3 bg-background border border-border rounded">
+                <p className="font-semibold text-foreground">Option B: Vercel Dashboard (Manual)</p>
+                <p className="text-muted-foreground text-xs mt-1">Add variables one-by-one through Vercel&apos;s web interface</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="my-6 p-4 border border-green-500/30 bg-green-500/5 rounded-lg">
+            <p className="font-semibold text-foreground mb-3">✅ Option A: Using CLI (Recommended)</p>
+            
+            <CursorPrompt 
+              prompt='Help me set up environment variables for my backend service. First, create a .env.local file in my project root with these variables:
+
+NEXT_PUBLIC_SUPABASE_URL="YOUR_SUPABASE_URL"
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY="YOUR_ANON_KEY"
+
+Then, guide me through uploading this .env.local file to Vercel using the Vercel CLI with these steps:
+1. Install/verify Vercel CLI is ready
+2. Navigate to my project directory
+3. Use vercel env pull to sync existing env vars (if any)
+4. Use vercel env add to add each variable from .env.local to all environments (production, preview, development)
+5. Confirm variables were added successfully
+6. Trigger a new production deployment to apply the changes
+
+Walk me through each command with explanations.'
+              title="Cursor Prompt: CLI Method"
+            />
+
+            <div className="mt-3 p-3 bg-background border border-border rounded text-xs text-muted-foreground">
+              <strong>⚠️ Important:</strong> Replace <code>YOUR_SUPABASE_URL</code> and <code>YOUR_ANON_KEY</code> with the actual values you copied from Supabase in Step 1!
+            </div>
+          </div>
+
+          <div className="my-6 p-4 border border-blue-500/30 bg-blue-500/5 rounded-lg">
+            <p className="font-semibold text-foreground mb-3">🖱️ Option B: Using Vercel Dashboard (Manual)</p>
+            <p className="text-sm text-muted-foreground mb-3">
+              Follow these detailed steps to add environment variables through Vercel&apos;s web interface:
+            </p>
+            
+            <ol className="list-decimal list-inside space-y-3 text-muted-foreground text-sm">
+              <li><strong>Navigate to Project Settings</strong>
+                <ul className="list-disc list-inside ml-6 mt-1 space-y-1 text-xs">
+                  <li>Go to <a href="https://vercel.com/dashboard" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">vercel.com/dashboard</a></li>
+                  <li>Find your project in the list</li>
+                  <li>Click on your project name to open it</li>
+                  <li>Click <strong>&quot;Settings&quot;</strong> tab in the top navigation</li>
+                  <li>In the left sidebar, click <strong>&quot;Environment Variables&quot;</strong></li>
+                </ul>
+              </li>
+
+              <li><strong>Add First Variable (Project URL)</strong>
+                <ul className="list-disc list-inside ml-6 mt-1 space-y-1 text-xs">
+                  <li>You&apos;ll see a form with three fields: &quot;Name&quot;, &quot;Value&quot;, and environment checkboxes</li>
+                  <li>In <strong>Name</strong> field, type: <code className="bg-muted px-1 py-0.5 rounded">NEXT_PUBLIC_SUPABASE_URL</code></li>
+                  <li>In <strong>Value</strong> field, paste your Supabase Project URL (from Step 1)</li>
+                  <li>Under <strong>&quot;Environments&quot;</strong>, check all three boxes:
+                    <ul className="list-disc list-inside ml-6 mt-1">
+                      <li>☑️ Production</li>
+                      <li>☑️ Preview</li>
+                      <li>☑️ Development</li>
+                    </ul>
+                  </li>
+                  <li>Click <strong>&quot;Save&quot;</strong> button</li>
+                  <li>Wait for confirmation message (green checkmark)</li>
+                </ul>
+              </li>
+
+              <li><strong>Add Second Variable (Anon Key)</strong>
+                <ul className="list-disc list-inside ml-6 mt-1 space-y-1 text-xs">
+                  <li>The form resets after saving the first variable</li>
+                  <li>In <strong>Name</strong> field, type: <code className="bg-muted px-1 py-0.5 rounded">NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY</code></li>
+                  <li>In <strong>Value</strong> field, paste your Supabase anon public key (from Step 1)</li>
+                  <li>Check all three environment boxes again (Production, Preview, Development)</li>
+                  <li>Click <strong>&quot;Save&quot;</strong></li>
+                  <li>Wait for confirmation</li>
+                </ul>
+              </li>
+
+              <li><strong>Verify Variables Were Added</strong>
+                <ul className="list-disc list-inside ml-6 mt-1 space-y-1 text-xs">
+                  <li>Scroll down on the Environment Variables page</li>
+                  <li>You should see both variables listed in a table</li>
+                  <li>Each should show &quot;Production, Preview, Development&quot; in the Environments column</li>
+                  <li>Values are hidden (shown as <code>•••••</code>) for security</li>
+                  <li>If you need to edit, click the &quot;•••&quot; menu → Edit</li>
+                </ul>
+              </li>
+
+              <li><strong>Redeploy to Apply Changes</strong>
+                <ul className="list-disc list-inside ml-6 mt-1 space-y-1 text-xs">
+                  <li>Environment variables only apply to NEW deployments</li>
+                  <li>Go back to <strong>&quot;Deployments&quot;</strong> tab (top navigation)</li>
+                  <li>Find the latest Production deployment (has 🌐 icon)</li>
+                  <li>Click the &quot;•••&quot; menu next to it</li>
+                  <li>Select <strong>&quot;Redeploy&quot;</strong></li>
+                  <li>In the modal, keep &quot;Use existing Build Cache&quot; unchecked</li>
+                  <li>Click <strong>&quot;Redeploy&quot;</strong> button</li>
+                  <li>Wait 2-3 minutes for deployment to complete</li>
+                  <li>Look for &quot;Ready&quot; status with green checkmark</li>
+                </ul>
+              </li>
+            </ol>
+
+            <div className="mt-3 p-3 bg-yellow-500/10 border border-yellow-500/30 rounded text-xs text-muted-foreground">
+              <strong className="text-yellow-600 dark:text-yellow-400">⚠️ Common Mistakes:</strong>
+              <ul className="list-disc list-inside ml-4 mt-1 space-y-1">
+                <li>Forgetting to check all three environment boxes (variables won&apos;t work in all contexts)</li>
+                <li>Typos in variable names (must match exactly, case-sensitive)</li>
+                <li>Not redeploying after adding variables (old deployment still active)</li>
+                <li>Adding spaces before/after values (copy-paste carefully)</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="my-6 p-4 border border-border bg-card rounded-lg">
+            <p className="font-semibold text-foreground mb-2">🔍 Verify Setup</p>
             <p className="text-sm text-muted-foreground mb-2">
-              Instead of manually entering each variable in Vercel, create a local <code>.env.local</code> file first, then upload it to Vercel. This ensures you don&apos;t miss anything when copy-pasting and makes it easier to update later.
+              After deployment completes, verify your environment variables are working:
             </p>
+            <ol className="list-decimal list-inside space-y-1 text-muted-foreground text-xs ml-4">
+              <li>Visit your production URL (from Step 6)</li>
+              <li>Open browser DevTools (F12 or Cmd+Option+I)</li>
+              <li>Go to Console tab</li>
+              <li>Type: <code className="bg-muted px-1 py-0.5 rounded">console.log(process.env.NEXT_PUBLIC_SUPABASE_URL)</code></li>
+              <li>Press Enter - you should see your Supabase URL (not <code>undefined</code>)</li>
+              <li>If you see <code>undefined</code>, double-check variable names and redeploy</li>
+            </ol>
           </div>
 
-          <CursorPrompt 
-            prompt='Help me set up environment variables for Supabase. First, create a .env.local file in my project root with NEXT_PUBLIC_SUPABASE_URL="YOUR_SUPABASE_URL" and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY="YOUR_ANON_KEY". Then, guide me through uploading this .env.local file to Vercel using the Vercel CLI, applying it to all environments (production, preview, development). Finally, redeploy the app to production.'
-          />
-
-          <div className="my-4 p-4 bg-muted border border-border rounded-lg">
+          <div className="my-6 p-4 border border-primary/30 bg-primary/5 rounded-lg">
+            <p className="font-semibold text-foreground mb-2">💡 Generic Project Tip</p>
             <p className="text-sm text-muted-foreground">
-              <strong>Important:</strong> Replace the placeholder values with your actual Supabase URL and anon key before copying!
+              For <strong>any project</strong>, the process is the same - just use different variable names and values. Common examples:
             </p>
-          </div>
-
-          <div className="mt-4 p-4 border border-border bg-card rounded-lg">
-            <p className="text-sm text-muted-foreground">
-              <strong>Alternative:</strong> You can also manually add environment variables in the Vercel dashboard under <strong>Project Settings → Environment Variables</strong>, but using the CLI with a local file is faster and less error-prone.
-            </p>
+            <ul className="text-xs text-muted-foreground list-disc list-inside ml-4 mt-2 space-y-1">
+              <li><code>NEXT_PUBLIC_API_URL</code> - Your backend API endpoint</li>
+              <li><code>NEXT_PUBLIC_FIREBASE_CONFIG</code> - Firebase configuration</li>
+              <li><code>DATABASE_URL</code> - Database connection string (not public, no NEXT_PUBLIC prefix)</li>
+              <li><code>API_SECRET_KEY</code> - Secret keys (never use NEXT_PUBLIC prefix for secrets!)</li>
+            </ul>
+            <div className="mt-2 p-2 bg-red-500/10 border border-red-500/30 rounded text-xs">
+              <strong className="text-red-600 dark:text-red-400">🔒 Security Note:</strong> Only use <code>NEXT_PUBLIC_</code> prefix for values that are safe to expose in the browser. Secret keys, API tokens, database passwords should NEVER have this prefix!
+            </div>
           </div>
 
         </StepSection>

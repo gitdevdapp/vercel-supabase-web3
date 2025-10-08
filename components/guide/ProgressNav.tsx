@@ -18,8 +18,9 @@ const steps: Step[] = [
   { id: 'fork', title: 'Fork Repository', emoji: '🍴', estimatedTime: '2 min' },
   { id: 'clone', title: 'Clone Repository', emoji: '📥', estimatedTime: '2 min' },
   { id: 'vercel', title: 'Deploy to Vercel', emoji: '▲', estimatedTime: '10 min' },
+  { id: 'domain', title: 'Custom Domain (Optional)', emoji: '🌐', estimatedTime: '20 min' },
   { id: 'supabase', title: 'Setup Supabase', emoji: '🗄️', estimatedTime: '5 min' },
-  { id: 'env', title: 'Environment Variables', emoji: '🔐', estimatedTime: '5 min' },
+  { id: 'env', title: 'Environment Variables', emoji: '🔐', estimatedTime: '10 min' },
   { id: 'database', title: 'Setup Database', emoji: '🗃️', estimatedTime: '10 min' },
   { id: 'email', title: 'Configure Email', emoji: '📧', estimatedTime: '5 min' },
   { id: 'test', title: 'Test Everything', emoji: '✅', estimatedTime: '5 min' },
@@ -32,24 +33,41 @@ export function ProgressNav() {
   const stepListRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    // Track which sections are currently intersecting
+    const intersectingSteps = new Set<string>()
+    
     const observer = new IntersectionObserver(
       (entries) => {
+        // Update intersecting set based on all entries
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const stepId = entry.target.id
-            setActiveStep(stepId)
+            intersectingSteps.add(entry.target.id)
+          } else {
+            intersectingSteps.delete(entry.target.id)
+          }
+        })
+
+        // If any sections are intersecting, pick the topmost one
+        if (intersectingSteps.size > 0) {
+          // Find the first intersecting step in our steps array order
+          const topMostStep = steps.find(step => intersectingSteps.has(step.id))
+          
+          if (topMostStep) {
+            setActiveStep(topMostStep.id)
             
             // Mark previous steps as completed
-            const currentIndex = steps.findIndex(s => s.id === stepId)
+            const currentIndex = steps.findIndex(s => s.id === topMostStep.id)
             const completed = new Set<string>()
             steps.slice(0, currentIndex).forEach(s => completed.add(s.id))
             setCompletedSteps(completed)
           }
-        })
+        }
       },
       {
-        rootMargin: '-20% 0px -60% 0px',
-        threshold: 0
+        // More forgiving rootMargin - 30% top/bottom buffer
+        rootMargin: '-30% 0px -30% 0px',
+        // Multiple thresholds for better detection of partial visibility
+        threshold: [0, 0.1, 0.25, 0.5, 0.75, 0.9, 1.0]
       }
     )
 
@@ -58,7 +76,11 @@ export function ProgressNav() {
       if (element) observer.observe(element)
     })
 
-    return () => observer.disconnect()
+    // Cleanup
+    return () => {
+      observer.disconnect()
+      intersectingSteps.clear()
+    }
   }, [])
 
   // Auto-scroll sidebar to keep active step visible

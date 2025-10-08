@@ -26,8 +26,8 @@ export function CursorPrompt({ prompt, title = 'Cursor AI Prompt' }: CursorPromp
       </div>
 
       {/* Prompt */}
-      <div className="p-4">
-        <div className="rounded-lg bg-muted/50 p-4 font-mono text-sm leading-relaxed text-foreground">
+      <div className="p-4 w-full overflow-hidden">
+        <div className="rounded-lg bg-muted/50 p-4 font-mono text-xs sm:text-sm leading-relaxed text-foreground break-words whitespace-pre-wrap overflow-wrap-anywhere max-w-full">
           {prompt}
         </div>
       </div>
