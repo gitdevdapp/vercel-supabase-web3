@@ -59,6 +59,12 @@ export function ProgressNav() {
             const currentIndex = steps.findIndex(s => s.id === topMostStep.id)
             const completed = new Set<string>()
             steps.slice(0, currentIndex).forEach(s => completed.add(s.id))
+            
+            // If we're at the last step, mark it as complete too (for 100% progress)
+            if (currentIndex === steps.length - 1) {
+              completed.add(topMostStep.id)
+            }
+            
             setCompletedSteps(completed)
           }
         }
