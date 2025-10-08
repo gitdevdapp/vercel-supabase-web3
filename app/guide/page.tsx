@@ -42,7 +42,7 @@ export default async function GuidePage() {
       />
       <ProgressNav />
       
-      <main className="w-full md:ml-80 pt-20 md:pt-16 px-0 overflow-hidden">
+      <main className="w-full md:w-auto md:ml-80 pt-20 md:pt-16 px-0 overflow-hidden">
         {/* Welcome Section */}
         <StepSection id="welcome" title="Welcome" emoji="👋" estimatedTime="2 min">
           <div className="space-y-6">
