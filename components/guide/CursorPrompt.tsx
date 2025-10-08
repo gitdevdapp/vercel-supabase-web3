@@ -10,16 +10,16 @@ interface CursorPromptProps {
 
 export function CursorPrompt({ prompt, title = 'Cursor AI Prompt' }: CursorPromptProps) {
   return (
-    <div className="group relative my-6 overflow-hidden rounded-xl border-2 border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10 shadow-lg">
+    <div className="group relative my-6 w-full max-w-full overflow-hidden rounded-xl border-2 border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10 shadow-lg">
       {/* Header */}
-      <div className="flex items-center justify-between border-b-2 border-primary/20 bg-background/80 backdrop-blur px-4 py-3">
-        <div className="flex items-center gap-2">
-          <Sparkles className="h-5 w-5 text-primary animate-pulse" />
-          <span className="text-sm font-bold text-foreground">
+      <div className="flex items-center justify-between gap-2 border-b-2 border-primary/20 bg-background/80 backdrop-blur px-3 sm:px-4 py-3 min-w-0">
+        <div className="flex items-center gap-2 min-w-0 flex-1">
+          <Sparkles className="h-5 w-5 text-primary animate-pulse flex-shrink-0" />
+          <span className="text-sm font-bold text-foreground whitespace-nowrap hidden sm:inline">
             {title}
           </span>
-          <span className="ml-2 rounded bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
-            Copy → Paste in Cursor (Cmd/Ctrl+L)
+          <span className="rounded bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary whitespace-nowrap overflow-hidden text-ellipsis">
+            Copy → Paste
           </span>
         </div>
         <CopyButton text={prompt} />
@@ -33,10 +33,10 @@ export function CursorPrompt({ prompt, title = 'Cursor AI Prompt' }: CursorPromp
       </div>
 
       {/* Hint */}
-      <div className="border-t border-primary/20 bg-primary/5 px-4 py-2">
-        <p className="text-xs text-muted-foreground flex items-center gap-2">
-          <Sparkles className="h-3 w-3 text-primary" />
-          Cursor AI will handle all platform-specific commands automatically
+      <div className="border-t border-primary/20 bg-primary/5 px-3 sm:px-4 py-2 w-full overflow-hidden">
+        <p className="text-xs text-muted-foreground flex items-center gap-2 break-words">
+          <Sparkles className="h-3 w-3 text-primary flex-shrink-0" />
+          <span className="break-words">Cursor AI will handle all platform-specific commands automatically</span>
         </p>
       </div>
     </div>
