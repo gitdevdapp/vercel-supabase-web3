@@ -41,7 +41,7 @@ Before starting, ensure you have:
 ### Step 1.1: Clone and Install
 ```bash
 # Clone your template repository
-git clone https://github.com/your-username/vercel-supabase-web3.git
+git clone https://github.com/gitdevdapp/vercel-supabase-web3.git
 cd vercel-supabase-web3
 
 # Install all dependencies including database tools

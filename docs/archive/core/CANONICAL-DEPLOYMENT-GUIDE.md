@@ -37,7 +37,7 @@ This is the definitive guide for deploying a clone of this public template repos
 # 3. Clone your fork
 
 # Option B: Clone directly
-git clone https://github.com/your-username/vercel-supabase-web3.git
+git clone https://github.com/gitdevdapp/vercel-supabase-web3.git
 cd vercel-supabase-web3
 
 # Install dependencies
